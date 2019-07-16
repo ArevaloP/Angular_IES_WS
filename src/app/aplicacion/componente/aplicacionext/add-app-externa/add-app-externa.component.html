@@ -1,0 +1,81 @@
+<div class="animated fadeIn">
+    <div class="row">
+
+        <!--/.col-->
+        <div class="col-sm-6">
+            <form method="POST"  [formGroup]="fGeneral">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Aplicación Externa</strong>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="form-group">
+                        <label for="codigo">Codigo</label>
+                        <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el codigo de la aplicación"
+                        [(ngModel)]="aplicacionExterna.codigo" formControlName="codigo"
+                        >
+                    </div>
+                    <!--
+                        <div class="form-group">
+                        <label for="vat">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre de la aplicacion"
+                        [(ngModel)]="aplicacionExterna.nombre" formControlName="nombre"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="url">Url Aplicación</label>
+                        <input type="text" class="form-control" id="url" placeholder="Ingrese la direccion web de la aplicacion"
+                        [(ngModel)]="aplicacionExterna.urlAplicacion" formControlName="urlAplicacion"
+                        >
+                    </div>
+                        
+                    <div class="form-group">
+                        <label for="tipo">Tipo</label>
+                        <select class="form-control" id="tipo"
+                        [(ngModel)]="aplicacionExterna.tipo" formControlName="tipo"
+                        >
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <select class="form-control" id="estado"
+                        [(ngModel)]="aplicacionExterna.estado" formControlName="estado"
+                        >
+                            <option value="WEB">WEB</option>
+                            <option value="MOVIL">MOVIL</option>
+                            <option value="ESCRITORIO">ESCRITORIO</option>
+                            <option value="OTRA">OTRA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="3" class="form-control" placeholder="Content.."></textarea>
+                    </div>   
+                -->
+                </div>
+
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary pull-right"  (click)="registarAplicacionExterna()">Registar Cambios</button>
+                </div>
+
+            </div>
+            </form>
+        </div>
+        <!--/.col-->
+        <div class="col-sm-6">
+
+
+
+        </div>
+    </div>
+    <!--/.row-->
+
+
+
+
+</div>
