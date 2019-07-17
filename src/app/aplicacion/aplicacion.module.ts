@@ -7,7 +7,7 @@ import { ServiciowebComponent } from './componente/servicioweb/servicioweb.compo
 import { LisAppExternaComponent } from './componente/aplicacionext/lis-app-externa/lis-app-externa.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AddAppExternaComponent } from './componente/aplicacionext/add-app-externa/add-app-externa.component';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 
 @NgModule({
@@ -22,7 +22,9 @@ import { AddAppExternaComponent } from './componente/aplicacionext/add-app-exter
   imports: [
     CommonModule,
     AplicacionRoutingModule,
-    BsDropdownModule
+    BsDropdownModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AplicacionModule { }
