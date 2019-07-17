@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AplicacionExterna } from '../../../modelo/aplicacion-externa';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RestAplicacionService } from '../../../servicio/rest-aplicacion.service';
+import { Router } from '@angular/router';
+import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
+import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 
 @Component({
   selector: 'app-add-app-externa',
@@ -17,8 +20,10 @@ export class AddAppExternaComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private restAplicacion: RestAplicacionService
-
+    private restAplicacion: RestAplicacionService,
+    private restServicio:RestServicioWebService,
+    private restUsuario:RestUserWebService,
+    private router: Router
   ) {
 
   }
@@ -36,13 +41,14 @@ export class AddAppExternaComponent implements OnInit {
       this.isModificar = false;
     }
 
+    this.cargarListaServiciosWeb();
+    this.cargarListaUsuarioAplicacion();
 
   }
 
 
   public inicializarValidacion() {
 
-    //console.log(this.fb);
     this.fGeneral = this.fb.group({
       //codigo: [this.aplicacionExterna.codigo, [Validators.required]]
       codigo: [this.aplicacionExterna.codigo, Validators.required],
@@ -58,39 +64,65 @@ export class AddAppExternaComponent implements OnInit {
 
 
   public registarAplicacionExterna() {
-    // alert(JSON.stringify(this.aplicacionExterna));
+    
+    console.log(this.aplicacionExterna);
 
-    //this.aplicacionExterna.registradoPor = this.usuarioVO.id;
-    //this.aplicacionExterna.usuarioRealiza = this.usuarioVO.nombre;
-    //this.aplicacionExterna.aplxFechaCambio = new Date().toLocaleString();
+    this.aplicacionExterna.registradoPor = "usua_";
+    this.aplicacionExterna.usuarioRealiza = "nombre";
     //this.aplicacionExterna.listaServicio = this.procesarListaServicioAdd();
     //this.aplicacionExterna.listaUsuario = this.procesarListaUsuarioAdd();
-
     if (this.isModificar) {
       console.log(this.aplicacionExterna.id);
       this.restAplicacion.actualizarAplicacionExterna(this.aplicacionExterna).subscribe(
         data => {
           console.log("actualizacion realizada correctamente !!!")
-          //this.router.navigate(['principal/aplicacion']);
+          this.router.navigate(['aplicacion/lis-appexterna']);
         },
         error => { console.log("falla la actualizacion del registro !!!") }
       )
     } else {
-      //this.aplicacionExterna.aplxColor = "gray";
-      //this.aplicacionExterna.aplxIcono = "ion ion-person-add";
-      ///this.aplicacionExterna.aplxFechaCreacion = new Date().toLocaleString();
 
       this.restAplicacion.insertarAplicacionExterna(this.aplicacionExterna).subscribe(
         data => {
           console.log("insercion realizada correctamente !!!")
-          //this.router.navigate(['principal/aplicacion']);
+          this.router.navigate(['aplicacion/lis-appexterna']);
         },
         error => { console.log("falla la insercion del registro !!!") }
       )
     }
 
-
   }
+
+
+
+
+  public cargarListaServiciosWeb() {
+    this.restServicio.listarServicioWebAplicacion(this.aplicacionExterna.id).subscribe(
+      data => {
+        console.log(data);
+        this.aplicacionExterna.listaServicioWeb=data;
+      },
+      error => { console.log("falla la consulta de servicios web") }
+    );
+  }
+
+
+  public cargarListaUsuarioAplicacion() {
+    this.restUsuario.listarUsuarioServicioWebAplicacion(this.aplicacionExterna.id).subscribe(
+      data => {
+        //alert(JSON.stringify(data));
+        this.aplicacionExterna.listaUsuarioAplicacion=data;
+      },
+      error => { console.log("falla la consulta de servicios web") }
+    );
+  }
+
+  
+
+
+
+
+
 
 
 }

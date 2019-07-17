@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { AplicacionExterna } from '../modelo/aplicacion-externa';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -41,9 +41,13 @@ export class RestAplicacionService {
 
 
     eliminarAplicacionExterna(appExterna: AplicacionExterna) {
-      return this.http.delete(`${this.baseUrl}/eliminar/${appExterna.id}`, {
-        headers: { "Content-Type": "application/json" }
-      })
+      const options = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        body:appExterna
+      }
+      return this.http.delete(`${this.baseUrl}/eliminar/${appExterna.id}`, options)
     }
 
 

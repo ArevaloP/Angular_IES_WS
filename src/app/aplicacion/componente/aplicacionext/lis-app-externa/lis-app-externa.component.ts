@@ -3,6 +3,7 @@ import { RestAplicacionService } from '../../../servicio/rest-aplicacion.service
 import { AplicacionExterna } from '../../../modelo/aplicacion-externa';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,10 @@ export class LisAppExternaComponent implements OnInit {
 
 
   private listadoAplicacionExterna:AplicacionExterna[];
-  constructor(private restAplicacion:RestAplicacionService) {
+  constructor(
+    private restAplicacion:RestAplicacionService,
+    private router: Router
+    ) {
 
   }
 
@@ -34,6 +38,25 @@ export class LisAppExternaComponent implements OnInit {
 
   }
 
+
+
+  public modificar(index) {
+    //console.log("verModificar !!!! " + index);
+    this.restAplicacion.setAplicacionExterna(this.listadoAplicacionExterna[index]);
+    this.router.navigate(['aplicacion/add-appexterna']);
+  }
+
+
+  public eliminar(index) {
+    return this.restAplicacion.eliminarAplicacionExterna(this.listadoAplicacionExterna[index]).subscribe(
+      data => {
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+        this.router.navigate(['aplicacion/lis-appexterna']));
+      },
+      error => { }
+    );
+  }
+  
 
 
 

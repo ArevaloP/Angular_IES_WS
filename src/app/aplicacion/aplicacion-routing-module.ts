@@ -10,10 +10,12 @@ import { AddAppExternaComponent } from './componente/aplicacionext/add-app-exter
 
 const routes: Routes = [
   {
+    
     path: '',
     data: {
       title: 'Aplicacion'
     },
+    
     children: [
       {
         path: 'status',

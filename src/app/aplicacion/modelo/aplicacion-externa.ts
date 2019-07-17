@@ -1,3 +1,6 @@
+import { ServicioWeb } from './servicio-web';
+import { UserWebService } from './user-web-service';
+
 export class AplicacionExterna {
 
     public id:String;
@@ -10,5 +13,8 @@ export class AplicacionExterna {
     public ip:String;
     public usuarioRealiza:String;
     public registradoPor:String;
+    public listaServicioWeb:ServicioWeb[];
+    public listaUsuarioAplicacion:UserWebService[];
+    
 
 }

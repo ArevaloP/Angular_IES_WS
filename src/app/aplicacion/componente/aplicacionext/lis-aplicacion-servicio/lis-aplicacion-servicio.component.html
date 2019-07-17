@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i> Simple Table
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Metodo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let wese of listaServicio; let i=index">
+                    <td>{{wese.codigo}}</td>
+                    <td>{{wese.nombre}}</td>
+                    <td>{{wese.metodo}}</td>
+                    <td>
+                        <label class="switch switch-3d switch-success">
+                                <input type="checkbox" class="switch-input" name="idServicio" 
+                                    [(ngModel)]="wese.checkeado"
+                                    (ngModelChange)="actualizarEstadoServicio(i,$event)"
+                                >
+                            <span class="switch-slider"></span>
+                        </label>
+
+                    </td>
+
+                    <!--   
+                    <td>
+                        <span class="badge badge-success">Active</span>
+                    </td>
+                -->
+                </tr>
+
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
+</div>

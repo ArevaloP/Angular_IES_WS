@@ -107,35 +107,17 @@
         <!--/.col-->
         <div class="col-sm-6">
 
-            
-            <div class="card">
-                <div class="card-header">
-                  <strong>Validation </strong> <code>was-validated</code>
-                </div>
-                <div class="card-body">
-                  <form class="was-validated">
-                    <div class="form-group">
-                      <label class="form-col-form-label" for="inputSuccess2">Input is valid</label>
-                      <input type="text" class="form-control is-valid" id="inputSuccess2">
-                      <div class="valid-feedback">
-                        Looks good!
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-col-form-label" for="inputError2">Input required</label>
-                      <input type="text" class="form-control" id="inputError2" required>
-                      <div class="valid-feedback">
-                        Input is valid.
-                      </div>
-                      <div class="invalid-feedback">
-                        Please provide a valid information.
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              
+            <tabset>
+                <tab heading="Servicios Web">
+                        <app-lis-aplicacion-servicio [listaServicio]="aplicacionExterna.listaServicioWeb"></app-lis-aplicacion-servicio>
+                </tab>
+                <tab heading="Usuario Aplicación">
+                        <app-lis-aplicacion-usuario  [listaUsuarioWs]="aplicacionExterna.listaUsuarioAplicacion"></app-lis-aplicacion-usuario>
+                </tab>
+            </tabset>
 
+
+                
         </div>
     </div>
     <!--/.row-->
