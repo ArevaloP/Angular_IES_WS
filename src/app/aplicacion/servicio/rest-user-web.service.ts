@@ -16,6 +16,13 @@ export class RestUserWebService {
     }
 
 
+    usuarios() {
+      return this.http.get<any[]>("https://jsonplaceholder.typicode.com/albums", {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+
     listarUsuarioServicioWeb() {
       return this.http.get<UserWebService[]>(`${this.baseUrl}/listar`, {
         headers: { "Content-Type": "application/json" }

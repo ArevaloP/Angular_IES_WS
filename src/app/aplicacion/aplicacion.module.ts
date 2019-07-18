@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LisAplicacionUsuarioComponent } from './componente/aplicacionext/lis-aplicacion-usuario/lis-aplicacion-usuario.component';
 import { LisAplicacionServicioComponent } from './componente/aplicacionext/lis-aplicacion-servicio/lis-aplicacion-servicio.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -32,7 +33,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    TabsModule
+    TabsModule,
+    DataTablesModule
   ]
 })
 export class AplicacionModule { }
