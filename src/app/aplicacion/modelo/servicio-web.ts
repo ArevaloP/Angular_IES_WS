@@ -20,6 +20,7 @@ export class ServicioWeb {
     public contexto:String;
     public checkeado:boolean;
     public idServicioAplicacion:String;
+    public protocolo:String;
 
 
 

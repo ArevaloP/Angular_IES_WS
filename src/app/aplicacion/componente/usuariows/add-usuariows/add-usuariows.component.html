@@ -1,0 +1,84 @@
+<form method="POST" [formGroup]="fGeneral">
+        <div class="animated fadeIn">
+            <div class="row">
+    
+                <!--/.col-->
+                <div class="col-sm-6">
+    
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Servicio Web</strong>
+                        </div>
+                        <div class="card-body">
+    
+                         <!---->
+                            <div class="form-group">
+                                <label for="usuario">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario"
+                                    placeholder="Ingrese el codigo de la aplicación" formControlName="usuario"
+                                    [(ngModel)]="userWebService.usuario"
+                                    [ngClass]="{'is-invalid': fGeneral.get('usuario').errors && fGeneral.get('usuario').dirty ,'is-valid': !fGeneral.get('usuario').errors}"
+                                    required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('usuario').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                            </div>
+                           
+    
+    
+                            
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="text" class="form-control" id="password" name="password"
+                                    placeholder="Ingrese el nombre de la aplicación" formControlName="password"
+                                    [(ngModel)]="userWebService.password"
+                                    [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
+                                    required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('password').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                            </div>
+    
+                            
+                            <div class="form-group">
+                                <label for="estado">Estado</label>
+                                <select class="form-control" id="estado" formControlName="estado"
+                                    [(ngModel)]="userWebService.estado" required>
+                                    <option value="ACTIVO">ACTIVO</option>
+                                    <option value="INACTIVO">INACTIVO</option>
+                                </select>
+                            </div>
+    
+    
+    
+                    </div>
+    
+                </div>
+               </div>
+                <div class="col-sm-6">
+    
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Servicio Web</strong>
+                        </div>
+                        <div class="card-body">
+    
+                                
+                  
+                      
+                        </div>
+    
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
+                                (click)="registarUsuarioServicio()">
+                                Registar Cambios
+                            </button>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+            <!--/.row-->
+    
+    
+        </div>
+    </form>

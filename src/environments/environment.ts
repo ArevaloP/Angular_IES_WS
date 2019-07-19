@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/contexto/'  
+  //baseUrl: 'http://localhost:8080/contexto/'  
+  baseUrl: 'https://development.ciadti.co:8090/contexto/'  
 };

@@ -1,0 +1,172 @@
+<form method="POST" [formGroup]="fGeneral">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <!--/.col-->
+            <div class="col-sm-6">
+
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Servicio Web</strong>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                <label for="codigo">Codigo</label>
+                                <input type="text" class="form-control" id="codigo" name="codigo"
+                                    placeholder="Ingrese el codigo de la aplicación" formControlName="codigo"
+                                    [(ngModel)]="servicioWeb.codigo"
+                                    [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
+                                    required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('codigo').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label for="protocolo">Protocolo</label>
+                                <select class="form-control" id="protocolo" formControlName="protocolo"
+                                    [(ngModel)]="servicioWeb.protocolo" required>
+                                    <option value="REST">REST</option>
+                                    <option value="SOAP">SOAP</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                placeholder="Ingrese el nombre de la aplicación" formControlName="nombre"
+                                [(ngModel)]="servicioWeb.nombre"
+                                [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
+                                required autofocus>
+                            <div class="invalid-feedback" *ngIf="fGeneral.get('nombre').hasError('required')">
+                                <small>Campo requerido</small></div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="tipo">Tipo</label>
+                            <select class="form-control" id="tipo" formControlName="tipo" 
+                                [(ngModel)]="servicioWeb.tipo"
+                                required>
+                                <option value="CONSULTA">CONSULTA</option>
+                                <option value="TABLA">TABLA</option>
+                                <option value="CLASE">CLASE</option>
+                                <option value="MULTITABLAS">MULTITABLAS</option>
+                            </select>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select class="form-control" id="estado" formControlName="estado"
+                                [(ngModel)]="servicioWeb.estado" required>
+                                <option value="ACTIVO">ACTIVO</option>
+                                <option value="INACTIVO">INACTIVO</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
+                                placeholder="Contenido" formControlName="descripcion"
+                                [(ngModel)]="servicioWeb.descripcion"
+                                [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
+                                required></textarea>
+                            <div class="invalid-feedback" *ngIf="fGeneral.get('descripcion').hasError('required')">
+                                <small>Campo requerido</small>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <!--/.col-->
+            <div class="col-sm-6">
+
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Servicio Web</strong>
+                    </div>
+                    <div class="card-body">
+
+                            
+                        <div class="form-group">
+                            <label for="url">Url</label>
+                            <input type="text" class="form-control" id="url" name="url"
+                                placeholder="Ingrese dirección de la aplicación" formControlName="url"
+                                [(ngModel)]="servicioWeb.url"
+                                [ngClass]="{'is-invalid': fGeneral.get('url').errors && fGeneral.get('url').dirty ,'is-valid': !fGeneral.get('url').errors}"
+                                required autofocus>
+                            <div class="invalid-feedback" *ngIf="fGeneral.get('url').hasError('required')">
+                                <small>Campo requerido</small></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="metodo">Metodo</label>
+                            <select class="form-control" id="metodo" formControlName="metodo"
+                                [(ngModel)]="servicioWeb.metodo" required>
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="query">Query</label>
+                            <textarea id="query" name="query" rows="3" class="form-control" placeholder="Contenido"
+                                formControlName="query" 
+                                [(ngModel)]="servicioWeb.query"
+                            >
+                            </textarea>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="identificadorPadre">Identificador</label>
+                            <input type="text" class="form-control" id="identificadorPadre" name="identificadorPadre"
+                                placeholder="Ingrese el codigo de la aplicación" 
+                                formControlName="identificadorPadre"
+                                [(ngModel)]="servicioWeb.identificadorPadre"
+                                autofocus
+                            >
+                        </div>
+                    
+
+                        <div class="form-group">
+                            <label for="parametros">Parametros</label>
+                            <input type="text" class="form-control" id="parametros" name="parametros"
+                                placeholder="Ingrese el parametros de la aplicación" formControlName="parametros"
+                                [(ngModel)]="servicioWeb.parametros"
+                                 autofocus>
+
+                        </div>
+                  
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
+                            (click)="registarServicioWeb()">
+                            Registar Cambios
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--/.row-->
+
+
+    </div>
+</form>
