@@ -1,3 +1,8 @@
+
+
+
+
+
 <div class="card">
     <div class="card-header">
         <i class="fa fa-align-justify"></i> Simple Table
@@ -6,18 +11,15 @@
         <table class="table table-sm">
             <thead>
                 <tr>
+                    <th>Estado</th>
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Metodo</th>
-                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
 
-                <tr *ngFor="let wese of listaServicio; let i=index">
-                    <td>{{wese.codigo}}</td>
-                    <td>{{wese.nombre}}</td>
-                    <td>{{wese.metodo}}</td>
+                <tr *ngFor="let wese of listaServicio | paginate:  { itemsPerPage: 7, currentPage: p1 ,  id: 'app-servicio'} ; let i=index;">
                     <td>
                         <label class="switch switch-3d switch-success">
                                 <input type="checkbox" class="switch-input" name="idServicio" 
@@ -26,18 +28,34 @@
                                 >
                             <span class="switch-slider"></span>
                         </label>
-
                     </td>
+                    <td>{{wese.codigo}}</td>
+                    <td>{{wese.nombre}}</td>
+                    <td>{{wese.metodo}}</td>
 
-                    <!--   
-                    <td>
-                        <span class="badge badge-success">Active</span>
-                    </td>
-                -->
                 </tr>
-
             </tbody>
         </table>
+    </div>
+
+    <div class="card-footer">
+
+        <pagination-controls 
+            id="app-servicio"
+            (pageChange)="p1 = $event" 
+            maxSize="7" 
+            directionLinks="true" 
+            autoHide="true" 
+            responsive="true"
+            previousLabel="" 
+            nextLabel=" " 
+            screenReaderPaginationLabel="Pagination" 
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page"
+        >
+        </pagination-controls>
+
+       <!--
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#">Prev</a></li>
             <li class="page-item active">
@@ -48,5 +66,7 @@
             <li class="page-item"><a class="page-link" href="#">4</a></li>
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
+    -->
+
     </div>
 </div>

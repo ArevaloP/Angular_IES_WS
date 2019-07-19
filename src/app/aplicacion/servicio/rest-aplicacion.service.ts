@@ -47,7 +47,7 @@ export class RestAplicacionService {
         }),
         body:appExterna
       }
-      return this.http.delete(`${this.baseUrl}/eliminar/${appExterna.id}`, options)
+      return this.http.delete(`${this.baseUrl}/eliminar`, options)
     }
 
 

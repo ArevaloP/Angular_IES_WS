@@ -45,6 +45,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { ChartsModule } from 'ng2-charts';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule
+    DataTablesModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -77,8 +79,9 @@ import { ChartsModule } from 'ng2-charts';
   providers: [
     {
     provide: LocationStrategy,
-    useClass: HashLocationStrategy
-    }
+    useClass: HashLocationStrategy,
+    },
+    BsModalRef
 
 ],
   bootstrap: [ AppComponent ]

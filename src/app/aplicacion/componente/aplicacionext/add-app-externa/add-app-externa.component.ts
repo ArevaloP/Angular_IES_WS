@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AplicacionExterna } from '../../../modelo/aplicacion-externa';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RestAplicacionService } from '../../../servicio/rest-aplicacion.service';
 import { Router } from '@angular/router';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { RestUserWebService } from '../../../servicio/rest-user-web.service';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 
 @Component({
   selector: 'app-add-app-externa',
@@ -17,12 +18,13 @@ export class AddAppExternaComponent implements OnInit {
   public aplicacionExterna: AplicacionExterna = new AplicacionExterna();
   private fGeneral: FormGroup;
   private isModificar: boolean = false;
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   constructor(
     private fb: FormBuilder,
     private restAplicacion: RestAplicacionService,
-    private restServicio:RestServicioWebService,
-    private restUsuario:RestUserWebService,
+    private restServicio: RestServicioWebService,
+    private restUsuario: RestUserWebService,
     private router: Router
   ) {
 
@@ -63,35 +65,59 @@ export class AddAppExternaComponent implements OnInit {
   }
 
 
-  public registarAplicacionExterna() {
-    
-    console.log(this.aplicacionExterna);
+  public irRegistar() {
 
-    this.aplicacionExterna.registradoPor = "usua_";
-    this.aplicacionExterna.usuarioRealiza = "nombre";
-    //this.aplicacionExterna.listaServicio = this.procesarListaServicioAdd();
-    //this.aplicacionExterna.listaUsuario = this.procesarListaUsuarioAdd();
     if (this.isModificar) {
-      console.log(this.aplicacionExterna.id);
-      this.restAplicacion.actualizarAplicacionExterna(this.aplicacionExterna).subscribe(
-        data => {
-          console.log("actualizacion realizada correctamente !!!")
-          this.router.navigate(['aplicacion/lis-appexterna']);
-        },
-        error => { console.log("falla la actualizacion del registro !!!") }
-      )
-    } else {
+      this.alerta.confirmarEliminar(
+        ("¿ Esta seguro de eliminar el servicio [" + this.aplicacionExterna.nombre + "]  ?"),
+        () => this.registarAplicacionExterna(this.aplicacionExterna,this.isModificar)
+      );
+     } else {  
 
-      this.restAplicacion.insertarAplicacionExterna(this.aplicacionExterna).subscribe(
-        data => {
-          console.log("insercion realizada correctamente !!!")
-          this.router.navigate(['aplicacion/lis-appexterna']);
-        },
-        error => { console.log("falla la insercion del registro !!!") }
-      )
-    }
+
+     }
+  }
+
+
+
+  
+  public insertarAplicacion(){
+
 
   }
+
+
+
+  public registarAplicacionExterna(appExterna, modificar) {
+    /*
+    //console.log(this.aplicacionExterna);
+    appExterna.registradoPor = "usua_";
+    appExterna.usuarioRealiza = "nombre";
+    
+      this.restAplicacion.actualizarAplicacionExterna(appExterna).subscribe(
+        data => {
+          this.router.navigate(['aplicacion/lis-appexterna']);
+        },
+        error => {
+          this.alerta.mostrarError(error.error);
+        }
+      )
+    
+
+      this.restAplicacion.insertarAplicacionExterna(appExterna).subscribe(
+        data => {
+          //console.log("insercion realizada correctamente !!!")
+          this.router.navigate(['aplicacion/lis-appexterna']);
+        },
+        error => {
+          this.alerta.mostrarError(error.error);
+        }
+      )
+  }*/
+
+  }
+
+
 
 
 
@@ -100,7 +126,8 @@ export class AddAppExternaComponent implements OnInit {
     this.restServicio.listarServicioWebAplicacion(this.aplicacionExterna.id).subscribe(
       data => {
         console.log(data);
-        this.aplicacionExterna.listaServicioWeb=data;
+        this.aplicacionExterna.listaServicioWeb = data;
+        this.restServicio.setListaServicio(data);
       },
       error => { console.log("falla la consulta de servicios web") }
     );
@@ -111,13 +138,13 @@ export class AddAppExternaComponent implements OnInit {
     this.restUsuario.listarUsuarioServicioWebAplicacion(this.aplicacionExterna.id).subscribe(
       data => {
         //alert(JSON.stringify(data));
-        this.aplicacionExterna.listaUsuarioAplicacion=data;
+        this.aplicacionExterna.listaUsuarioAplicacion = data;
       },
       error => { console.log("falla la consulta de servicios web") }
     );
   }
 
-  
+
 
 
 

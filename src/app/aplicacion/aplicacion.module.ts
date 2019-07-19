@@ -15,6 +15,9 @@ import { AddServicioWebComponent } from './componente/servicioweb/add-servicio-w
 import { AddUsuariowsComponent } from './componente/usuariows/add-usuariows/add-usuariows.component';
 import { LisUsuariowsComponent } from './componente/usuariows/lis-usuariows/lis-usuariows.component';
 import { JdbcConexionComponent } from './componente/servicioweb/jdbc-conexion/jdbc-conexion.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
+import { VentanaModalComponent } from './componente/utilidad/ventana-modal/ventana-modal.component';
 
 
 
@@ -29,7 +32,8 @@ import { JdbcConexionComponent } from './componente/servicioweb/jdbc-conexion/jd
     LisServicioWebComponent,
     AddUsuariowsComponent,
     LisUsuariowsComponent,
-    JdbcConexionComponent
+    JdbcConexionComponent,
+    VentanaModalComponent
     
   ],
   imports: [
@@ -39,7 +43,12 @@ import { JdbcConexionComponent } from './componente/servicioweb/jdbc-conexion/jd
     FormsModule,
     ReactiveFormsModule,
     TabsModule,
-    DataTablesModule
+    DataTablesModule,
+    NgxPaginationModule,
+    ModalModule.forRoot()
+  ],providers: [
+    BsModalRef
+
   ]
 })
 export class AplicacionModule { }

@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserWebService } from '../../../modelo/user-web-service';
 import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 import { Router } from '@angular/router';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+
+
 declare var $;
 @Component({
   selector: 'app-lis-usuariows',
@@ -11,29 +14,32 @@ declare var $;
 export class LisUsuariowsComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
-  dataTable: any;
-  dtOptions: DataTables.Settings = {};
-  listaUsuarioServicio:UserWebService[];
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+
+  private dataTable: any;
+  private dtOptions: DataTables.Settings = {};
+  private listaUsuarioServicio: UserWebService[];
+
+
 
   constructor(
-      private restUsuario: RestUserWebService,
-      private router: Router
+    private restUsuario: RestUserWebService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.restUsuario.setUserWebService(null);
     this.listadoUsuarioServicioWed();
-
   }
 
 
 
 
-  public  listadoUsuarioServicioWed() {
+  public listadoUsuarioServicioWed() {
     this.restUsuario.listarUsuarioServicioWeb().subscribe(
       data => {
         console.log(data);
-        this.listaUsuarioServicio=data;
+        this.listaUsuarioServicio = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
@@ -53,12 +59,16 @@ export class LisUsuariowsComponent implements OnInit {
     this.dtOptions = {
       data: data,
       columns: [
-        { title: '<i class="fas fa-plus"></i>', defaultContent: '<a class="update"><i class="fa fa-chevron-right"></a>' },
+
+        { title: '', defaultContent: '<a class="update"><i class="fa fa-circle-o" aria-hidden="true"></i></a>', orderable: false, className: "centerm" },
         { title: 'Id', data: 'id' },
         { title: 'Nombre', data: 'usuario' },
         { title: 'Correo', data: 'usuario' },
         { title: 'Usuario', data: 'usuario' },
-        { title: '', data: null, defaultContent: '<a class="eliminar"><i class="fa fa-chevron-right"></a>' }
+        { title: '', defaultContent: '<a class="update"><i class="fa fa-pencil-square-o" style="color:blue" aria-hidden="true"></i></a>', orderable: false, className: "centerm" },
+        { title: '', data: null, defaultContent: '<a class="eliminar"><i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i></a>', orderable: false, className: "centerm" }
+
+
 
       ],
       "paging": true,
@@ -72,12 +82,18 @@ export class LisUsuariowsComponent implements OnInit {
         $('td:eq(0)', row).bind('click', () => {
           self.modificar(index);
         });
+
         $('td:eq(5)', row).unbind('click');
         $('td:eq(5)', row).bind('click', () => {
-          self.eliminar(index);
+          self.modificar(index);
         });
-        //alert("index"+JSON.stringify(dataRow));
-        //$('td:eq(1)', row).html("<img src='"+dataRow.uswsImagen+"' class='img-circle' width='40' height='40' >");
+
+
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
+          self.irEliminar(this.listaUsuarioServicio[index]);
+        });
+
         return row;
       }
     }
@@ -87,26 +103,34 @@ export class LisUsuariowsComponent implements OnInit {
 
 
   public modificar(index) {
-    alert("modificar" + index);
     this.restUsuario.setUserWebService(this.listaUsuarioServicio[index]);
     this.router.navigate(['aplicacion/add-usuariows']);
-
-
   }
 
-  public eliminar(index) {
-    alert("eliminar:" + index);
-    this.listaUsuarioServicio[index].registradoPor = "usua_";
-    this.restUsuario.eliminarUserWebService(this.listaUsuarioServicio[index]).subscribe(
-      data => {
-        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-        this.router.navigate(['aplicacion/usuarioWs']));
-      },
-      error => {
-        alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
-      }
+
+
+  public irEliminar(usuarioServicio) {
+    this.alerta.confirmarEliminar(
+      ("¿ Esta seguro de eliminar el usuario ["+usuarioServicio.usuario+"]  ?"),
+      () => this.eliminar( usuarioServicio)
     );
   }
 
+
+
+
+
+  public eliminar(usuarioServicio) {
+    usuarioServicio.registradoPor = "usua_";
+    this.restUsuario.eliminarUserWebService(usuarioServicio).subscribe(
+      data => {
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['aplicacion/usuarioWs']));
+      },
+      error => {
+        this.alerta.mostrarError(error.error);
+      }
+    );
+  }
 
 }

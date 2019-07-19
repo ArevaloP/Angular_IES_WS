@@ -4,6 +4,7 @@
         </div>
         <div class="card-body">
              <table class="table table-sm">
+                
                 <thead>
                     <tr>
                         <th></th>
@@ -13,11 +14,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-                    <tr *ngFor="let uswe of listaUsuarioWs;let i=index;">
-                        <td><img alt="admin@bootstrapmaster.com" class="img-avatar" src="assets/img/avatars/6.jpg"></td>
-                        <td>{{uswe.usuario}}</td>
-                        <td>{{uswe}}</td>
+
+                    <tr *ngFor="let uswe of listaUsuarioWs | paginate:  { itemsPerPage: 7, currentPage: p2 ,  id: 'app-usuario'}  ; let i=index;">
+                        
                         <td>
                             <label class="switch switch-3d switch-success">
                                 <input type="checkbox" class="switch-input " name="idServicio" 
@@ -27,6 +26,10 @@
                                 <span class="switch-slider"></span>
                             </label>
                         </td>
+                        <td><img alt="admin@bootstrapmaster.com" class="img-avatar" src="assets/img/avatars/6.jpg"></td>
+                        <td>{{uswe.usuario}}</td>
+                        <td>{{uswe}}</td>
+                        
                     <!--   
                         <td>
                             <span class="badge badge-success">Active</span>
@@ -36,15 +39,25 @@
                     
                 </tbody>
             </table>
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+
         </div>
+
+            <div class="card-footer">
+           
+            <pagination-controls 
+                id="app-usuario"
+                (pageChange)="p2 = $event" 
+                maxSize="9" 
+                directionLinks="true" 
+                autoHide="true" 
+                responsive="true"
+                previousLabel="" 
+                nextLabel=" " 
+                screenReaderPaginationLabel="Pagination" 
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page"
+            >
+            </pagination-controls>
+        
+
     </div>

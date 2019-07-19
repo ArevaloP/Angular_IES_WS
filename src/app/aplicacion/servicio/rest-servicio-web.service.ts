@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class RestServicioWebService {
 
   servicioWeb: ServicioWeb;
+  listaServicio: ServicioWeb[];
 
   baseUrl = environment.baseUrl + "ws_webservice";
   constructor(private http: HttpClient) {
@@ -84,5 +85,15 @@ export class RestServicioWebService {
   public getServicioWeb() {
     return this.servicioWeb;
   }
+
+
+  public setListaServicio(listaServicio: ServicioWeb[]) {
+    this.listaServicio = listaServicio;
+  }
+
+  public getListaServicio() {
+    return this.listaServicio;
+  }
+
 
 }

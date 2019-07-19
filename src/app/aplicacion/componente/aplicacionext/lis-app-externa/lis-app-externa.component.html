@@ -32,7 +32,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
                             <a class="dropdown-item" (click)="modificar(i)">Modificar</a>
-                            <a class="dropdown-item" (click)="eliminar (i)">Eliminar</a>
+                            <a class="dropdown-item" (click)="irEliminar (i)">Eliminar</a>
                         </div>
                     </div>
                     <div class="text-value">{{appVO.codigo}}</div>
@@ -46,3 +46,4 @@
         </div>
     </div>
 </div>
+<app-ventana-modal #alerta></app-ventana-modal>
