@@ -49,7 +49,8 @@ export class LisServicioWebComponent implements OnInit {
         this.dataTable.DataTable(this.dtOptions);
       },
       error => {
-        alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
+        //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
+        this.alerta.mostrarError(error);
       }
     );
 
@@ -127,7 +128,7 @@ export class LisServicioWebComponent implements OnInit {
           this.router.navigate(['aplicacion/servicioWeb']));
       },
       error => {
-        this.alerta.mostrarError(error.error);
+        this.alerta.mostrarError(error);
       }
     );
   }

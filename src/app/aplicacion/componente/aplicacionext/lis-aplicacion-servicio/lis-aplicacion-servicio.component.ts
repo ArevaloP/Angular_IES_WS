@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ServicioWeb } from '../../../modelo/servicio-web';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 
 declare var $;
 
@@ -15,7 +16,7 @@ export class LisAplicacionServicioComponent implements OnInit {
   @Input() listaServicio: ServicioWeb[];
   //@ HostBinding ( 'class' ) className ="box box-primary";
   @Input() searchText: String;
-
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   //@ViewChild("dataTable", null) table;
   //private dataTable: any;
@@ -94,6 +95,7 @@ export class LisAplicacionServicioComponent implements OnInit {
           },
           error => {
             this.listaServicio[index].checkeado = !eve;
+            this.alerta.mostrarError(error);
           }
         );
       } else if (!eve) {
@@ -104,6 +106,7 @@ export class LisAplicacionServicioComponent implements OnInit {
           },
           error => {
             this.listaServicio[index].checkeado = !eve;
+            this.alerta.mostrarError(error);
           }
         );
       }

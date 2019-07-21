@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 import { Router } from '@angular/router';
 import { UserWebService } from '../../../modelo/user-web-service';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 
 @Component({
   selector: 'app-add-usuariows',
@@ -15,7 +16,7 @@ export class AddUsuariowsComponent implements OnInit {
   private fGeneral: FormGroup;
   private isModificar: boolean = false;
   private userWebService: UserWebService = new UserWebService();
-
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,6 @@ export class AddUsuariowsComponent implements OnInit {
       this.isModificar = true;
     } else {
       this.userWebService.estado = "ACTIVO";
-      //this.servicioWeb.tipo = "WEB";
       this.isModificar = false;
     }
     this.inicializarValidacion();
@@ -46,44 +46,66 @@ export class AddUsuariowsComponent implements OnInit {
     this.userWebService.usuarioRealiza = "nombre";
 
     this.fGeneral = this.fb.group({
-      //codigo: [this.aplicacionExterna.codigo, [Validators.required]]
       usuario: [this.userWebService.usuario, Validators.required],
       password: [this.userWebService.password, Validators.required],
       estado: [this.userWebService.estado, Validators.required]
-
     });
 
   }
 
 
-  public registarUsuarioServicio() {
 
-    console.log(this.userWebService);
-    if (!this.isModificar) {
-      this.restUsuario.insertarUserWebService(this.userWebService).subscribe(
-        data => {
-          alert("insercion exitosa ");
-          this.router.navigate(['aplicacion/usuarioWs']);
-        },
-        error => {
-          alert(JSON.stringify(error));
-        }
+
+  public irRegistar() {
+
+    if (this.isModificar) {
+      this.alerta.confirmarActualizar(
+        ("¿ Esta seguro de eliminar el servicio [" + this.userWebService.nombre + "]  ?"),
+        () => this.actualizarUsuarioWs(this.userWebService)
       );
     } else {
-      this.restUsuario.actualizarUserWebService(this.userWebService).subscribe(
-        data => {
-          alert("actualizacion exitosa ");
-          this.router.navigate(['aplicacion/usuarioWs']);
-        },
-        error => {
-          alert(JSON.stringify(error));
-        }
+      this.alerta.confirmarInsertar(
+        ("¿ Esta seguro de eliminar el servicio [" + this.userWebService.nombre + "]  ?"),
+        () => this.insertarUsuarioWs(this.userWebService)
       );
 
     }
 
+  }
+
+
+
+  public insertarUsuarioWs(userWebService) {
+    this.restUsuario.insertarUserWebService(userWebService).subscribe(
+      data => {
+        alert("insercion exitosa ");
+        this.router.navigate(['aplicacion/usuarioWs']);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
 
   }
+
+
+
+  public actualizarUsuarioWs(userWebService) {
+    this.restUsuario.actualizarUserWebService(userWebService).subscribe(
+      data => {
+        alert("actualizacion exitosa ");
+        this.router.navigate(['aplicacion/usuarioWs']);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+
+  }
+
+
+
+
 
 
 

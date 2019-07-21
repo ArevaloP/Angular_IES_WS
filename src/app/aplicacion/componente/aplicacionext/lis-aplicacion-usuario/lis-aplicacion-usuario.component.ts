@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UserWebService } from '../../../modelo/user-web-service';
 import { RestUserWebService } from '../../../servicio/rest-user-web.service';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 
 @Component({
   selector: 'app-lis-aplicacion-usuario',
@@ -11,8 +12,8 @@ export class LisAplicacionUsuarioComponent implements OnInit {
 
 
   @Input() listaUsuarioWs: UserWebService[];
-  //@ HostBinding ( 'class' ) className ="box box-primary";
   @Input() searchText: String;
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   constructor(
     private restUsuario: RestUserWebService,
@@ -38,6 +39,7 @@ export class LisAplicacionUsuarioComponent implements OnInit {
           },
           error => {
             this.listaUsuarioWs[index].checkeado = !eve;
+            this.alerta.mostrarError(error);
           }
         );
       } else if (!eve) {
@@ -48,6 +50,7 @@ export class LisAplicacionUsuarioComponent implements OnInit {
           },
           error => {
             this.listaUsuarioWs[index].checkeado = !eve;
+            this.alerta.mostrarError(error);
           }
         );
       }

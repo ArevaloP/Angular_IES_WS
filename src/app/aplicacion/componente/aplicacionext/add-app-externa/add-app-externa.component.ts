@@ -32,8 +32,6 @@ export class AddAppExternaComponent implements OnInit {
 
   ngOnInit() {
     this.inicializarValidacion();
-
-
     if (this.restAplicacion.getAplicacionExterna() != null) {
       this.aplicacionExterna = this.restAplicacion.getAplicacionExterna();
       this.isModificar = true;
@@ -42,7 +40,6 @@ export class AddAppExternaComponent implements OnInit {
       this.aplicacionExterna.tipo = "WEB";
       this.isModificar = false;
     }
-
     this.cargarListaServiciosWeb();
     this.cargarListaUsuarioAplicacion();
 
@@ -67,53 +64,48 @@ export class AddAppExternaComponent implements OnInit {
 
   public irRegistar() {
 
+    this.aplicacionExterna.registradoPor = "usua_";
+    this.aplicacionExterna.usuarioRealiza = "nombre";
     if (this.isModificar) {
-      this.alerta.confirmarEliminar(
+      this.alerta.confirmarActualizar(
         ("¿ Esta seguro de eliminar el servicio [" + this.aplicacionExterna.nombre + "]  ?"),
-        () => this.registarAplicacionExterna(this.aplicacionExterna,this.isModificar)
+        () => this.actualizarAplicacion(this.aplicacionExterna)
       );
-     } else {  
+    } else {
 
-
-     }
+      this.alerta.confirmarInsertar(
+        ("¿ Esta seguro de eliminar el servicio [" + this.aplicacionExterna.nombre + "]  ?"),
+        () => this.insertarAplicacion(this.aplicacionExterna)
+      );
+    }
   }
 
 
 
-  
-  public insertarAplicacion(){
 
-
+  public insertarAplicacion(appExterna) {
+    this.restAplicacion.insertarAplicacionExterna(appExterna).subscribe(
+      data => {
+        this.router.navigate(['aplicacion/lis-appexterna']);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    )
   }
 
 
 
-  public registarAplicacionExterna(appExterna, modificar) {
-    /*
-    //console.log(this.aplicacionExterna);
-    appExterna.registradoPor = "usua_";
-    appExterna.usuarioRealiza = "nombre";
-    
-      this.restAplicacion.actualizarAplicacionExterna(appExterna).subscribe(
-        data => {
-          this.router.navigate(['aplicacion/lis-appexterna']);
-        },
-        error => {
-          this.alerta.mostrarError(error.error);
-        }
-      )
-    
+  public actualizarAplicacion(appExterna) {
 
-      this.restAplicacion.insertarAplicacionExterna(appExterna).subscribe(
-        data => {
-          //console.log("insercion realizada correctamente !!!")
-          this.router.navigate(['aplicacion/lis-appexterna']);
-        },
-        error => {
-          this.alerta.mostrarError(error.error);
-        }
-      )
-  }*/
+    this.restAplicacion.actualizarAplicacionExterna(appExterna).subscribe(
+      data => {
+        this.router.navigate(['aplicacion/lis-appexterna']);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
 
   }
 
@@ -129,7 +121,9 @@ export class AddAppExternaComponent implements OnInit {
         this.aplicacionExterna.listaServicioWeb = data;
         this.restServicio.setListaServicio(data);
       },
-      error => { console.log("falla la consulta de servicios web") }
+      error => {
+         this.alerta.mostrarError(error);
+     }
     );
   }
 

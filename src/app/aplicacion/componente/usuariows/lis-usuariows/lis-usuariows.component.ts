@@ -45,7 +45,7 @@ export class LisUsuariowsComponent implements OnInit {
         this.dataTable.DataTable(this.dtOptions);
       },
       error => {
-        alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
+        this.alerta.mostrarError(error);
       }
     );
 
@@ -111,8 +111,8 @@ export class LisUsuariowsComponent implements OnInit {
 
   public irEliminar(usuarioServicio) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el usuario ["+usuarioServicio.usuario+"]  ?"),
-      () => this.eliminar( usuarioServicio)
+      ("¿ Esta seguro de eliminar el usuario [" + usuarioServicio.usuario + "]  ?"),
+      () => this.eliminar(usuarioServicio)
     );
   }
 
@@ -128,7 +128,7 @@ export class LisUsuariowsComponent implements OnInit {
           this.router.navigate(['aplicacion/usuarioWs']));
       },
       error => {
-        this.alerta.mostrarError(error.error);
+        this.alerta.mostrarError(error);
       }
     );
   }

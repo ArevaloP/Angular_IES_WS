@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServicioWeb } from '../../../modelo/servicio-web';
 import { Router } from '@angular/router';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 
 @Component({
   selector: 'app-add-servicio-web',
@@ -16,6 +16,7 @@ export class AddServicioWebComponent implements OnInit {
   private fGeneral: FormGroup;
   private servicioWeb: ServicioWeb = new ServicioWeb();
   private isModificar: boolean = false;
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -25,8 +26,6 @@ export class AddServicioWebComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
     if (this.restServicio.getServicioWeb() != null) {
       this.servicioWeb = this.restServicio.getServicioWeb();
       this.isModificar = true;
@@ -35,10 +34,11 @@ export class AddServicioWebComponent implements OnInit {
       //this.servicioWeb.tipo = "WEB";
       this.isModificar = false;
     }
-    console.log("SERVICIO:("+this.isModificar+")", this.servicioWeb);
+    console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
     this.inicializarValidacion();
-
   }
+
+
 
 
 
@@ -66,32 +66,53 @@ export class AddServicioWebComponent implements OnInit {
   }
 
 
-  public registarServicioWeb() {
 
-    console.log(this.servicioWeb);
-    if (!this.isModificar) {
-      this.restServicio.insertarServicioWeb(this.servicioWeb).subscribe(
-        data => {
-          alert("insercion exitosa ");
-          this.router.navigate(['aplicacion/servicioWeb']);
-        },
-        error => {
-          alert(JSON.stringify(error));
-        }
+  public irRegistar() {
+
+    this.servicioWeb.registradoPor = "usua_";
+    this.servicioWeb.usuarioRealiza = "nombre";
+    //alert(""+this.isModificar);
+    if (this.isModificar) {
+      this.alerta.confirmarActualizar(
+        ("¿ Esta seguro de eliminar el servicio [" + this.servicioWeb.nombre + "]  ?"),
+        () => this.actualizarServicio(this.servicioWeb)
       );
-    }else{
-      this.restServicio.actualizarServicioWeb(this.servicioWeb).subscribe(
-        data => {
-          alert("actualizacion exitosa ");
-          this.router.navigate(['aplicacion/servicioWeb']);
-        },
-        error => {
-          alert(JSON.stringify(error));
-        }
+    } else {
+      this.alerta.confirmarInsertar(
+        ("¿ Esta seguro de eliminar el servicio [" + this.servicioWeb.nombre + "]  ?"),
+        () => this.insertarServicio(this.servicioWeb)
       );
 
     }
 
+  }
+
+
+  public insertarServicio(servicioWeb) {
+    this.restServicio.insertarServicioWeb(servicioWeb).subscribe(
+      data => {
+        this.router.navigate(['aplicacion/servicioWeb']);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+
+  }
+
+
+
+
+  public actualizarServicio(servicioWeb) {
+
+    this.restServicio.actualizarServicioWeb(servicioWeb).subscribe(
+      data => {
+        this.router.navigate(['aplicacion/servicioWeb']);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
 
   }
 

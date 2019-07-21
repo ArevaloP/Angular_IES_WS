@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { VentanaAlerta } from '../../../modelo/ventana-alerta';
 
 
@@ -11,13 +11,19 @@ import { VentanaAlerta } from '../../../modelo/ventana-alerta';
 export class VentanaModalComponent implements OnInit {
 
 
-  
-  @ViewChild('myModal', {static: false}) public myModal: ModalDirective;
-  
-  callback:any;
-  ventana:VentanaAlerta=new VentanaAlerta();
 
-  constructor() { 
+  @ViewChild('dangerModal', { static: false }) public  dangerModal: ModalDirective;
+  @ViewChild('successModal', { static: false }) public successModal: ModalDirective;
+  @ViewChild('primaryModal', { static: false }) public primaryModal: ModalDirective;
+
+  
+
+
+
+  callback: any;
+  ventana: VentanaAlerta = new VentanaAlerta();
+
+  constructor() {
   }
 
 
@@ -27,11 +33,11 @@ export class VentanaModalComponent implements OnInit {
 
   public confirmarEliminar(mensaje, callback) {
     this.ventana.titulo = "Eliminar Registro";
-    this.ventana.msgBotonCancelar="Cancelar";
-    this.ventana.msgBotonRegistar="Registar";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registar";
     this.ventana.botonDelete = true;
     this.ventana.mensaje = mensaje;
-    this.myModal.show();
+    this.dangerModal.show();
     this.callback = callback;
   }
 
@@ -39,19 +45,51 @@ export class VentanaModalComponent implements OnInit {
 
   public mostrarError(error) {
     this.ventana.titulo = "Ocurrio un error";
-    this.ventana.msgBotonCancelar="Cerrar";
+    this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonDelete = false;
-    this.ventana.mensaje = error.mensaje;
-    this.myModal.show();
+    this.ventana.mensaje = error.error.mensaje||error.message;
+    this.dangerModal.show();
     //this.callback = callback;
   }
 
 
 
 
-  public accion(){
-     this.callback();
-     this.myModal.hide();
+  public confirmarInsertar(mensaje, callback) {
+    this.ventana.titulo = "Agregar Registro ";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registar";
+    this.ventana.botonDelete = true;
+    this.ventana.mensaje = mensaje;
+    this.successModal.show();
+    this.callback = callback;
+  }
+
+  public confirmarActualizar(mensaje, callback) {
+    this.ventana.titulo = "Modificar Registro";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registar";
+    this.ventana.botonDelete = true;
+    this.ventana.mensaje = mensaje;
+    this.primaryModal.show();
+    this.callback = callback;
+  }
+
+
+  public accionSuccess() {
+    this.callback();
+    this.successModal.hide();
+  }
+
+  public accionPrimary() {
+    this.callback();
+    this.primaryModal.hide();
+  }
+  
+
+  public accionDanger() {
+    this.callback();
+    this.dangerModal.hide();
   }
 
 

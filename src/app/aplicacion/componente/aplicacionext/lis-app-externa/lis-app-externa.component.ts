@@ -31,9 +31,11 @@ export class LisAppExternaComponent implements OnInit {
       data => {
         this.listadoAplicacionExterna = data;
         console.log("trae datos de listado !!!", this.listadoAplicacionExterna);
+        
       },
       error => {
-        alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
+        this.alerta.mostrarError(error);
+        //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
       }
     )
 
