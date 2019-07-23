@@ -4,6 +4,8 @@ import { ServicioWeb } from '../../../modelo/servicio-web';
 import { Router } from '@angular/router';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.service';
+import { JdbcServicioComponent } from '../jdbc-servicio/jdbc-servicio.component';
 
 @Component({
   selector: 'app-add-servicio-web',
@@ -17,10 +19,12 @@ export class AddServicioWebComponent implements OnInit {
   private servicioWeb: ServicioWeb = new ServicioWeb();
   private isModificar: boolean = false;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+  @ViewChild ('jdbcConexion', { static: false })  public jdbcComponente: JdbcServicioComponent;
 
   constructor(
     private fb: FormBuilder,
     private restServicio: RestServicioWebService,
+    private restConexionJdbc: RestJdbcConexionService,
     private router: Router
 
   ) { }
@@ -28,10 +32,10 @@ export class AddServicioWebComponent implements OnInit {
   ngOnInit() {
     if (this.restServicio.getServicioWeb() != null) {
       this.servicioWeb = this.restServicio.getServicioWeb();
+      this.consultarConexionJdbc();
       this.isModificar = true;
     } else {
       this.servicioWeb.estado = "ACTIVO";
-      //this.servicioWeb.tipo = "WEB";
       this.isModificar = false;
     }
     console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
@@ -71,7 +75,9 @@ export class AddServicioWebComponent implements OnInit {
 
     this.servicioWeb.registradoPor = "usua_";
     this.servicioWeb.usuarioRealiza = "nombre";
-    //alert(""+this.isModificar);
+    this.servicioWeb.conexionJdbc= this.jdbcComponente.getObjetoConexion();
+    //console.log(this.servicioWeb);
+
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
         ("¿ Esta seguro de eliminar el servicio [" + this.servicioWeb.nombre + "]  ?"),
@@ -102,7 +108,6 @@ export class AddServicioWebComponent implements OnInit {
 
 
 
-
   public actualizarServicio(servicioWeb) {
 
     this.restServicio.actualizarServicioWeb(servicioWeb).subscribe(
@@ -116,6 +121,19 @@ export class AddServicioWebComponent implements OnInit {
 
   }
 
+
+
+  public consultarConexionJdbc() {
+
+    this.restConexionJdbc.consultarJdbcConexion(this.servicioWeb.idConexionJdbc).subscribe(
+      data => {
+        this.jdbcComponente.setObjetoConexion(data);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
 
 
 

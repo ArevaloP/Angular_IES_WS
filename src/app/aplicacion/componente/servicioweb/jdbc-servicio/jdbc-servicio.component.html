@@ -1,0 +1,174 @@
+<form method="POST" [formGroup]="fGeneral">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <!--/.col-->
+            <div class="col-sm-12">
+
+                <div class="card">
+                    <div class="card-header" *ngIf="mostarHeader">
+                        <strong>Servicio Web</strong>
+                    </div>
+                    <div class="card-body">
+
+
+
+                        <div class="form-group">
+                            <label for="otraconexion">Cargar Conexion Existente </label>
+                            <select class="form-control" id="otraconexion" name="otraconexion"
+                                formControlName="otraconexion" 
+                                [(ngModel)]="indexConexion"
+                                (ngModelChange)="actualizarCampos($event)">
+                                <option disabled>&nbsp;</option>
+                                <option *ngFor="let conexion of listaConexionesExistente; let i=index;" [value]="i"
+                                   
+                                        >
+                                    {{conexion.nombre}}</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="form-check form-check-inline mr-1">
+                                <label class="form-check-label" for="inline-checkbox3">Crear Nueva Conexion </label>
+                                <input class="form-check-input" type="checkbox" id="nuevaconexion" name="nuevaconexion"
+                                    formControlName="nuevaconexion" [(ngModel)]="isNuevaConexion"
+                                    (change)="crearConexionNueva($event)">
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="form-group col-sm-5">
+                                    <label for="codigo">Codigo</label>
+                                    <input type="text" class="form-control" id="codigo" name="codigo"
+                                        placeholder="Ingrese el codigo de la aplicación" formControlName="codigo"
+                                        [(ngModel)]="jdbcConexion.codigo"
+                                        [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('codigo').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
+
+
+                                <div class="form-group col-sm-7">
+                                    <label for="nombre">nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre"
+                                        placeholder="Ingrese el nombre de la aplicación" formControlName="nombre"
+                                        [(ngModel)]="jdbcConexion.nombre"
+                                        [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('nombre').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-8">
+                                    <label for="serverUrl">serverUrl</label>
+                                    <input type="text" class="form-control" id="serverUrl" name="serverUrl"
+                                        placeholder="Ingrese el nombre de la aplicación" formControlName="serverUrl"
+                                        [(ngModel)]="jdbcConexion.serverUrl"
+                                        [ngClass]="{'is-invalid': fGeneral.get('serverUrl').errors && fGeneral.get('serverUrl').dirty ,'is-valid': !fGeneral.get('serverUrl').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback"
+                                        *ngIf="fGeneral.get('serverUrl').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
+
+
+                                <div class="form-group col-sm-3">
+                                    <label for="puerto">puerto</label>
+                                    <input type="text" class="form-control" id="puerto" name="puerto"
+                                        placeholder="Ingrese el nombre de la aplicación" formControlName="puerto"
+                                        [(ngModel)]="jdbcConexion.puerto"
+                                        [ngClass]="{'is-invalid': fGeneral.get('puerto').errors && fGeneral.get('puerto').dirty ,'is-valid': !fGeneral.get('puerto').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('puerto').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="form-group col-sm-5">
+                                    <label for="tipoBaseDatos">tipoBaseDatos</label>
+                                    <select class="form-control" id="tipoBaseDatos" formControlName="tipoBaseDatos"
+                                        [(ngModel)]="jdbcConexion.tipoBaseDatos"
+                                        [ngClass]="{'is-invalid': fGeneral.get('tipoBaseDatos').errors && fGeneral.get('tipoBaseDatos').dirty ,'is-valid': !fGeneral.get('tipoBaseDatos').errors}"
+                                        required [disabled]="isReadOnly">
+                                        <option value="oraclethin">ORACLE THIN</option>
+                                        <option value="oracle">ORACLE</option>
+                                        <option value="postgresql">POSTGRESQL</option>
+                                    </select>
+
+                                    <div class="invalid-feedback"
+                                        *ngIf="fGeneral.get('tipoBaseDatos').hasError('required')">
+                                        <small>Campo requerido</small>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group col-sm-7">
+                                    <label for="serviciosIdAlias">serviciosIdAlias</label>
+                                    <input type="text" class="form-control" id="serviciosIdAlias"
+                                        name="serviciosIdAlias" placeholder="Ingrese el nombre de la aplicación"
+                                        formControlName="serviciosIdAlias" [(ngModel)]="jdbcConexion.serviciosIdAlias"
+                                        [ngClass]="{'is-invalid': fGeneral.get('serviciosIdAlias').errors && fGeneral.get('serviciosIdAlias').dirty ,'is-valid': !fGeneral.get('serviciosIdAlias').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback"
+                                        *ngIf="fGeneral.get('serviciosIdAlias').hasError('required')">
+                                        <small>Campo requerido</small>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="form-group col-sm-6">
+                                    <label for="userId">userId</label>
+                                    <input type="text" class="form-control" id="userId" name="userId"
+                                        placeholder="Ingrese el nombre de la aplicación" formControlName="userId"
+                                        [(ngModel)]="jdbcConexion.userId"
+                                        [ngClass]="{'is-invalid': fGeneral.get('userId').errors && fGeneral.get('userId').dirty ,'is-valid': !fGeneral.get('userId').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('userId').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
+
+
+                                <div class="form-group col-sm-6">
+                                    <label for="password">password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Ingrese el nombre de la aplicación" formControlName="password"
+                                        [(ngModel)]="jdbcConexion.password"
+                                        [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
+                                        [readonly]="isReadOnly" required autofocus>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('password').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer" >
+                        <button type="button" class="btn btn-primary pull-right"
+                            (click)="testearJdbcConexion()">
+                            Test Conexión
+                        </button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--/.row-->
+    </div>
+</form>
+<app-ventana-modal #alerta></app-ventana-modal>

@@ -1,3 +1,5 @@
+import { JdbcConexion } from './jdbc-conexion';
+
 export class ServicioWeb {
 
     public id:String;
@@ -21,6 +23,8 @@ export class ServicioWeb {
     public checkeado:boolean;
     public idServicioAplicacion:String;
     public protocolo:String;
+    public idConexionJdbc:String;
+    public conexionJdbc:JdbcConexion;
 
 
 

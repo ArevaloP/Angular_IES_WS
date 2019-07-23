@@ -32,6 +32,8 @@ export class AddAppExternaComponent implements OnInit {
 
   ngOnInit() {
     this.inicializarValidacion();
+
+
     if (this.restAplicacion.getAplicacionExterna() != null) {
       this.aplicacionExterna = this.restAplicacion.getAplicacionExterna();
       this.isModificar = true;
@@ -40,6 +42,7 @@ export class AddAppExternaComponent implements OnInit {
       this.aplicacionExterna.tipo = "WEB";
       this.isModificar = false;
     }
+
     this.cargarListaServiciosWeb();
     this.cargarListaUsuarioAplicacion();
 
@@ -107,8 +110,8 @@ export class AddAppExternaComponent implements OnInit {
       }
     );
 
-  }
 
+  }
 
 
 
@@ -121,9 +124,9 @@ export class AddAppExternaComponent implements OnInit {
         this.aplicacionExterna.listaServicioWeb = data;
         this.restServicio.setListaServicio(data);
       },
-      error => {
-         this.alerta.mostrarError(error);
-     }
+      error => { 
+        this.alerta.mostrarError(error);
+      }
     );
   }
 

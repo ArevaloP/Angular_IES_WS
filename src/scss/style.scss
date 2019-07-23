@@ -6,3 +6,33 @@
 
 // If you want to add something do it here
 @import "custom";
+
+
+.fa-1_7x{
+    font-size: 1.7em !important;
+}
+
+.dt-button {
+	&.green {
+		color: green;
+	}
+}
+
+
+.dt-button {
+	&.blue {
+		color:darkblue
+	}
+}
+
+
+.dt-button {
+	&.excel {
+		color:forestgreen
+	}
+}
+
+.td-center{
+	text-align: center;
+	width: 4%;
+}

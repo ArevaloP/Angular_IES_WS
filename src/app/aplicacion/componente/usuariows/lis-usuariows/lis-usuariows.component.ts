@@ -3,6 +3,7 @@ import { UserWebService } from '../../../modelo/user-web-service';
 import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 import { Router } from '@angular/router';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import {  UtilConstante } from '../../../modelo/util-contante';
 
 
 declare var $;
@@ -17,9 +18,9 @@ export class LisUsuariowsComponent implements OnInit {
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   private dataTable: any;
-  private dtOptions: DataTables.Settings = {};
+  private dtOptions: any ={}//DataTables.Settings = {};
   private listaUsuarioServicio: UserWebService[];
-
+  private const: UtilConstante = new UtilConstante();
 
 
   constructor(
@@ -60,21 +61,31 @@ export class LisUsuariowsComponent implements OnInit {
       data: data,
       columns: [
 
-        { title: '', defaultContent: '<a class="update"><i class="fa fa-circle-o" aria-hidden="true"></i></a>', orderable: false, className: "centerm" },
+        { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Id', data: 'id' },
         { title: 'Nombre', data: 'usuario' },
         { title: 'Correo', data: 'usuario' },
         { title: 'Usuario', data: 'usuario' },
-        { title: '', defaultContent: '<a class="update"><i class="fa fa-pencil-square-o" style="color:blue" aria-hidden="true"></i></a>', orderable: false, className: "centerm" },
-        { title: '', data: null, defaultContent: '<a class="eliminar"><i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i></a>', orderable: false, className: "centerm" }
-
+        { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
 
 
       ],
-      "paging": true,
-      "ordering": true,
-      "info": true,
-
+      paging: true,
+      ordering: true,
+      info: true,
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          text: `${this.const.ICONO_AGREGAR}`,
+          className: `${this.const.CLASE_AGREGAR}`,
+          action: () => {
+            this.router.navigate(['aplicacion/add-conexionjdbc']);
+          },
+        },
+        { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
+        { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
+      ],
       rowCallback: (row: Node, dataRow: UserWebService, index: number) => {
         const self = this;
 
@@ -93,7 +104,7 @@ export class LisUsuariowsComponent implements OnInit {
         $('td:eq(6)', row).bind('click', () => {
           self.irEliminar(this.listaUsuarioServicio[index]);
         });
-
+        this.cambiarEstiloBotones();
         return row;
       }
     }
@@ -132,5 +143,13 @@ export class LisUsuariowsComponent implements OnInit {
       }
     );
   }
+
+
+  public cambiarEstiloBotones() {
+    $(":button.buttons-copy").html(`${this.const.ICONO_COPIAR}`);
+    $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
+    $(".dt-buttons").css("float", "left");
+  }
+
 
 }

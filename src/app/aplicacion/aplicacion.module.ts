@@ -14,10 +14,12 @@ import { LisServicioWebComponent } from './componente/servicioweb/lis-servicio-w
 import { AddServicioWebComponent } from './componente/servicioweb/add-servicio-web/add-servicio-web.component';
 import { AddUsuariowsComponent } from './componente/usuariows/add-usuariows/add-usuariows.component';
 import { LisUsuariowsComponent } from './componente/usuariows/lis-usuariows/lis-usuariows.component';
-import { JdbcConexionComponent } from './componente/servicioweb/jdbc-conexion/jdbc-conexion.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
 import { VentanaModalComponent } from './componente/utilidad/ventana-modal/ventana-modal.component';
+import { JdbcServicioComponent } from './componente/servicioweb/jdbc-servicio/jdbc-servicio.component';
+import { LisJdbcConexionComponent } from './componente/jdbcconexion/lis-jdbc-conexion/lis-jdbc-conexion.component';
+import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-conexion/add-jdbc-conexion.component';
 
 
 
@@ -32,8 +34,12 @@ import { VentanaModalComponent } from './componente/utilidad/ventana-modal/venta
     LisServicioWebComponent,
     AddUsuariowsComponent,
     LisUsuariowsComponent,
-    JdbcConexionComponent,
-    VentanaModalComponent
+    VentanaModalComponent,
+    JdbcServicioComponent,
+    LisJdbcConexionComponent,
+    LisJdbcConexionComponent,
+    AddJdbcConexionComponent,
+    
     
   ],
   imports: [

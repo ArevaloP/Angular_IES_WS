@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>{{ventana.mensaje}}</p>
+                <p [innerHTML]="ventana.mensaje"></p>
             </div>
             <div class="modal-footer" style="padding: 0.5rem">
                 <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">{{ventana.msgBotonCancelar}}</button>
@@ -32,11 +32,11 @@
           </button>
         </div>
         <div class="modal-body">
-            <p>{{ventana.mensaje}}</p>
+            <p [innerHTML]="ventana.mensaje"></p>
         </div>
         <div class="modal-footer" style="padding: 0.5rem">
           <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
-          <button type="button" class="btn btn-success" (click)="accionSuccess()">{{ventana.msgBotonRegistar}}</button>
+          <button type="button" class="btn btn-success"  *ngIf="ventana.botonRegistar" (click)="accionSuccess()">{{ventana.msgBotonRegistar}}</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -54,11 +54,11 @@
           </button>
         </div>
         <div class="modal-body">
-            <p>{{ventana.mensaje}}</p>
+            <p [innerHTML]="ventana.mensaje"></p>
         </div>
         <div class="modal-footer" style="padding: 0.5rem">
           <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>
-          <button type="button" class="btn btn-primary" (click)="accionPrimary()">{{ventana.msgBotonRegistar}}</button>
+          <button type="button" class="btn btn-primary"  *ngIf="ventana.botonRegistar" (click)="accionPrimary()">{{ventana.msgBotonRegistar}}</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

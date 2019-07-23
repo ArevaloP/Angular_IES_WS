@@ -8,16 +8,19 @@ import { LisServicioWebComponent } from './componente/servicioweb/lis-servicio-w
 import { LisUsuariowsComponent } from './componente/usuariows/lis-usuariows/lis-usuariows.component';
 import { AddUsuariowsComponent } from './componente/usuariows/add-usuariows/add-usuariows.component';
 import { AddServicioWebComponent } from './componente/servicioweb/add-servicio-web/add-servicio-web.component';
+import { LisJdbcConexionComponent } from './componente/jdbcconexion/lis-jdbc-conexion/lis-jdbc-conexion.component';
+import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-conexion/add-jdbc-conexion.component';
+
 
 
 const routes: Routes = [
   {
-    
+
     path: '',
     data: {
       title: 'Aplicacion'
     },
-    
+
     children: [
       {
         path: 'status',
@@ -60,7 +63,21 @@ const routes: Routes = [
           title: 'Servicio Web'
         }
       },
-     
+
+      {
+        path: 'jdbc-conexion',
+        component: LisJdbcConexionComponent,
+        data: {
+          title: 'Servicio Web'
+        }
+      },
+      {
+        path: 'add-conexionjdbc',
+        component: AddJdbcConexionComponent,
+        data: {
+          title: 'Servicio Web'
+        }
+      },
 
       {
         path: 'usuarioWs',
@@ -87,4 +104,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AplicacionRoutingModule {}
+export class AplicacionRoutingModule { }

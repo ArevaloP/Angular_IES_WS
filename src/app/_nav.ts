@@ -72,6 +72,12 @@ export const navItems: NavData[] = [
     icon: 'icon-pencil'
   },
 
+  {
+    name: 'Conexion JDBC',
+    url: '/aplicacion/jdbc-conexion',
+    icon: 'icon-pencil'
+  },
+
 
  /*
   {

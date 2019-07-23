@@ -1,51 +1,50 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ServicioWeb } from '../../../modelo/servicio-web';
-import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { JdbcConexion } from '../../../modelo/jdbc-conexion';
+import { Router } from '@angular/router';
 import { UtilConstante } from '../../../modelo/util-contante';
-
 declare var $;
 
 
 @Component({
-  selector: 'app-lis-servicio-web',
-  templateUrl: './lis-servicio-web.component.html',
-  styleUrls: ['./lis-servicio-web.component.scss']
+  selector: 'app-lis-jdbc-conexion',
+  templateUrl: './lis-jdbc-conexion.component.html',
+  styleUrls: ['./lis-jdbc-conexion.component.scss']
 })
-
-
-//https://jsonplaceholder.typicode.com/users
-export class LisServicioWebComponent implements OnInit {
+export class LisJdbcConexionComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-
-
   private dataTable: any;
-  private dtOptions: any={}// DataTables.Settings = {};
-  private listadoServicioWeb: ServicioWeb[];
+  private dtOptions: any= {};
+  private listadoConexionesJdbc: JdbcConexion[];
   private const: UtilConstante = new UtilConstante();
 
-  constructor(
-    private restServicio: RestServicioWebService,
-    private router: Router
-  ) {
-  }
 
+  constructor(
+    private restJdbcConexion: RestJdbcConexionService,
+    private router: Router,
+
+
+  ) { }
 
   ngOnInit() {
-    this.restServicio.setServicioWeb(null);
-    this.listadoServiciosWeb();
-
+    this.restJdbcConexion.setJdbcConexion(null);
+    this.listadoCodnexiones();
   }
 
 
-  public listadoServiciosWeb() {
-    this.restServicio.listarServicioWeb().subscribe(
+
+
+
+
+  public listadoCodnexiones() {
+
+    this.restJdbcConexion.listarJdbcConexion().subscribe(
       data => {
         console.log(data);
-        this.listadoServicioWeb = data;
+        this.listadoConexionesJdbc = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
@@ -69,10 +68,11 @@ export class LisServicioWebComponent implements OnInit {
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Codigo', data: 'codigo', width: "20%" },
         { title: 'Nombre', data: 'nombre', width: "20%" },
-        { title: 'Tipo', data: 'tipo', width: "20%" },
-        { title: 'Metodo', data: 'metodo', width: "20%" },
+        { title: 'Tipo', data: 'tipoBaseDatos', width: "20%" },
+        { title: 'Host', data: 'serverUrl', width: "20%" },
+        { title: 'Puerto', data: 'puerto', width: "20%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-centerm" }
 
       ],
       paging: true,
@@ -87,12 +87,11 @@ export class LisServicioWebComponent implements OnInit {
             this.router.navigate(['aplicacion/add-conexionjdbc']);
           },
         },
-        { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
-        { extend: 'excel', "text": 'Export', className: `${this.const.CLASE_EXCEL}` }
+        { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
+        { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],
 
-
-      rowCallback: (row: Node, dataRow: ServicioWeb, index: number) => {
+      rowCallback: (row: Node, dataRow: JdbcConexion, index: number) => {
         const self = this;
 
         $('td:eq(0)', row).unbind('click');
@@ -100,16 +99,18 @@ export class LisServicioWebComponent implements OnInit {
           self.modificar(index);
         });
 
-        $('td:eq(5)', row).unbind('click');
-        $('td:eq(5)', row).bind('click', () => {
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
           self.modificar(index);
         });
 
-        $('td:eq(6)', row).unbind('click');
-        $('td:eq(6)', row).bind('click', () => {
-          self.irEliminar(this.listadoServicioWeb[index]);
+        $('td:eq(7)', row).unbind('click');
+        $('td:eq(7)', row).bind('click', () => {
+          self.irEliminar(this.listadoConexionesJdbc[index]);
         });
+
         this.cambiarEstiloBotones();
+
         return row;
       }
 
@@ -121,9 +122,11 @@ export class LisServicioWebComponent implements OnInit {
 
 
 
+
+
   public modificar(index) {
-    this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
-    this.router.navigate(['aplicacion/add-servicioweb']);
+    this.restJdbcConexion.setJdbcConexion(this.listadoConexionesJdbc[index]);
+    this.router.navigate(['aplicacion/add-conexionjdbc']);
   }
 
   public irEliminar(servicioWeb) {
@@ -137,10 +140,10 @@ export class LisServicioWebComponent implements OnInit {
 
   public eliminar(servicioWeb) {
     servicioWeb.registradoPor = "usua_";
-    this.restServicio.eliminarServicioWeb(servicioWeb).subscribe(
+    this.restJdbcConexion.eliminarJdbcConexion(servicioWeb).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/servicioWeb']));
+          this.router.navigate(['aplicacion/jdbc-conexion']));
       },
       error => {
         this.alerta.mostrarError(error);
@@ -155,6 +158,10 @@ export class LisServicioWebComponent implements OnInit {
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
   }
+
+
+
+
 
 
 

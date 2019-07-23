@@ -69,7 +69,7 @@ export class LisAppExternaComponent implements OnInit {
           this.router.navigate(['aplicacion/lis-appexterna']));
       },
       error => {
-        this.alerta.mostrarError(error.error);
+        this.alerta.mostrarError(error);
       }
     );
   }

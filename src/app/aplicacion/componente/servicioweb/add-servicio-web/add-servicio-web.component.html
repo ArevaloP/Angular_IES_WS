@@ -33,8 +33,17 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                                <label for="url">Url</label>
+                                <input type="text" class="form-control" id="url" name="url"
+                                    placeholder="Ingrese dirección de la aplicación" formControlName="url"
+                                    [(ngModel)]="servicioWeb.url"
+                                    [ngClass]="{'is-invalid': fGeneral.get('url').errors && fGeneral.get('url').dirty ,'is-valid': !fGeneral.get('url').errors}"
+                                    required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('url').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                        </div>
 
-                        
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
@@ -45,11 +54,10 @@
                             <div class="invalid-feedback" *ngIf="fGeneral.get('nombre').hasError('required')">
                                 <small>Campo requerido</small></div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="tipo">Tipo</label>
-                            <select class="form-control" id="tipo" formControlName="tipo" 
-                                [(ngModel)]="servicioWeb.tipo"
+                            <select class="form-control" id="tipo" formControlName="tipo" [(ngModel)]="servicioWeb.tipo"
                                 required>
                                 <option value="CONSULTA">CONSULTA</option>
                                 <option value="TABLA">TABLA</option>
@@ -58,7 +66,7 @@
                             </select>
                         </div>
 
-                        
+
                         <div class="form-group">
                             <label for="estado">Estado</label>
                             <select class="form-control" id="estado" formControlName="estado"
@@ -79,7 +87,7 @@
                                 <small>Campo requerido</small>
                             </div>
                         </div>
-                       
+
                     </div>
 
 
@@ -90,78 +98,77 @@
             <!--/.col-->
             <div class="col-sm-6">
 
-                <div class="card">
-                    <div class="card-header">
-                        <strong>Servicio Web</strong>
-                    </div>
-                    <div class="card-body">
 
-                            
-                        <div class="form-group">
-                            <label for="url">Url</label>
-                            <input type="text" class="form-control" id="url" name="url"
-                                placeholder="Ingrese dirección de la aplicación" formControlName="url"
-                                [(ngModel)]="servicioWeb.url"
-                                [ngClass]="{'is-invalid': fGeneral.get('url').errors && fGeneral.get('url').dirty ,'is-valid': !fGeneral.get('url').errors}"
-                                required autofocus>
-                            <div class="invalid-feedback" *ngIf="fGeneral.get('url').hasError('required')">
-                                <small>Campo requerido</small></div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="metodo">Metodo</label>
-                            <select class="form-control" id="metodo" formControlName="metodo"
-                                [(ngModel)]="servicioWeb.metodo" required>
-                                <option value="GET">GET</option>
-                                <option value="POST">POST</option>
-                                <option value="PUT">PUT</option>
-                                <option value="DELETE">DELETE</option>
-                            </select>
-                        </div>
+                <tabset>
+                    <tab heading="Servicios Web">
 
 
 
-                        <div class="form-group">
-                            <label for="query">Query</label>
-                            <textarea id="query" name="query" rows="3" class="form-control" placeholder="Contenido"
-                                formControlName="query" 
-                                [(ngModel)]="servicioWeb.query"
-                            >
+                        <div class="card">
+                         <!--
+                            <div class="card-header">
+                                <strong>Servicio Web</strong>
+                            </div>
+                        -->
+                            <div class="card-body">
+
+
+                                <div class="form-group">
+                                    <label for="metodo">Metodo</label>
+                                    <select class="form-control" id="metodo" formControlName="metodo"
+                                        [(ngModel)]="servicioWeb.metodo" required>
+                                        <option value="GET">GET</option>
+                                        <option value="POST">POST</option>
+                                        <option value="PUT">PUT</option>
+                                        <option value="DELETE">DELETE</option>
+                                    </select>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label for="query">Query</label>
+                                    <textarea id="query" name="query" rows="3" class="form-control"
+                                        placeholder="Contenido" formControlName="query" [(ngModel)]="servicioWeb.query">
                             </textarea>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="identificadorPadre">Identificador</label>
+                                    <input type="text" class="form-control" id="identificadorPadre"
+                                        name="identificadorPadre" placeholder="Ingrese el codigo de la aplicación"
+                                        formControlName="identificadorPadre"
+                                        [(ngModel)]="servicioWeb.identificadorPadre" autofocus>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="parametros">Parametros</label>
+                                    <input type="text" class="form-control" id="parametros" name="parametros"
+                                        placeholder="Ingrese el parametros de la aplicación"
+                                        formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
+                                    (click)="irRegistar()()">
+                                    Registar Cambios
+                                </button>
+                            </div>
+
                         </div>
 
+                    </tab>
+                    <tab heading="Conexion JDBC">
+                        <app-jdbc-servicio #jdbcConexion ></app-jdbc-servicio>     
+                    </tab>
+                </tabset>
 
-                        <div class="form-group">
-                            <label for="identificadorPadre">Identificador</label>
-                            <input type="text" class="form-control" id="identificadorPadre" name="identificadorPadre"
-                                placeholder="Ingrese el codigo de la aplicación" 
-                                formControlName="identificadorPadre"
-                                [(ngModel)]="servicioWeb.identificadorPadre"
-                                autofocus
-                            >
-                        </div>
-                    
 
-                        <div class="form-group">
-                            <label for="parametros">Parametros</label>
-                            <input type="text" class="form-control" id="parametros" name="parametros"
-                                placeholder="Ingrese el parametros de la aplicación" formControlName="parametros"
-                                [(ngModel)]="servicioWeb.parametros"
-                                 autofocus>
-
-                        </div>
-                  
-                    </div>
-
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
-                            (click)="irRegistar()()">
-                            Registar Cambios
-                        </button>
-                    </div>
-
-                </div>
 
             </div>
         </div>
