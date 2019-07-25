@@ -67,9 +67,9 @@ export class LisServicioWebComponent implements OnInit {
       data: data,
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Codigo', data: 'codigo', width: "20%" },
-        { title: 'Nombre', data: 'nombre', width: "20%" },
-        { title: 'Tipo', data: 'tipo', width: "20%" },
+        { title: 'Codigo', data: 'codigo', width: "20%", className: "text-left" },
+        { title: 'Nombre', data: 'nombre', width: "20%" ,className: "text-left" },
+        { title: 'Tipo', data: 'tipo', width: "20%" ,className: "text-left" },
         { title: 'Metodo', data: 'metodo', width: "20%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
@@ -84,7 +84,7 @@ export class LisServicioWebComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-conexionjdbc']);
+            this.router.navigate(['aplicacion/add-servicioweb']);
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },

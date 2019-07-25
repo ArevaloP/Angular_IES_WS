@@ -42,6 +42,7 @@ export class LisUsuariowsComponent implements OnInit {
         console.log(data);
         this.listaUsuarioServicio = data;
         this.establecerOpcionesDataTable(data);
+        this.cambiarEstiloBotones();
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
       },
@@ -62,10 +63,10 @@ export class LisUsuariowsComponent implements OnInit {
       columns: [
 
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Id', data: 'id' },
-        { title: 'Nombre', data: 'usuario' },
-        { title: 'Correo', data: 'usuario' },
-        { title: 'Usuario', data: 'usuario' },
+        { title: 'Avatar', defaultContent: "",  width: "7%"},
+        { title: 'Nombre', data: 'nombre' ,  width: "20%"},
+        { title: 'Correo', data: 'email',  width: "20%" },
+        { title: 'Usuario', data: 'usuario' ,  width: "20%"},
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
 
@@ -80,7 +81,7 @@ export class LisUsuariowsComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-conexionjdbc']);
+            this.router.navigate(['aplicacion/add-usuariows']);
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
@@ -93,6 +94,15 @@ export class LisUsuariowsComponent implements OnInit {
         $('td:eq(0)', row).bind('click', () => {
           self.modificar(index);
         });
+
+
+        //$('td:eq(1)', row).html("<img src='"+dataRow.imagen+"' class='img-circle' >");
+        $('td:eq(1)', row).unbind('click');
+        $('td:eq(1)', row).html("<div class='column'><img class='img-circle-40' src='"+(dataRow.imagen||'/assets/img/avatars/no-disponible.png')+"' /></div>");
+        $('td:eq(1)', row).bind('click', () => {
+          self.modificar(index);
+        });
+
 
         $('td:eq(5)', row).unbind('click');
         $('td:eq(5)', row).bind('click', () => {

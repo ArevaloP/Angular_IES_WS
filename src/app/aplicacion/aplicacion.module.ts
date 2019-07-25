@@ -20,6 +20,9 @@ import { VentanaModalComponent } from './componente/utilidad/ventana-modal/venta
 import { JdbcServicioComponent } from './componente/servicioweb/jdbc-servicio/jdbc-servicio.component';
 import { LisJdbcConexionComponent } from './componente/jdbcconexion/lis-jdbc-conexion/lis-jdbc-conexion.component';
 import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-conexion/add-jdbc-conexion.component';
+import { UploadFileComponent } from './componente/utilidad/upload-file/upload-file.component';
+import { ApexUsuariowsComponent } from './componente/usuariows/apex-usuariows/apex-usuariows.component';
+import { PerfilUsuariowsComponent } from './componente/usuariows/perfil-usuariows/perfil-usuariows.component';
 
 
 
@@ -39,6 +42,9 @@ import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-con
     LisJdbcConexionComponent,
     LisJdbcConexionComponent,
     AddJdbcConexionComponent,
+    UploadFileComponent,
+    ApexUsuariowsComponent,
+    PerfilUsuariowsComponent,
     
     
   ],

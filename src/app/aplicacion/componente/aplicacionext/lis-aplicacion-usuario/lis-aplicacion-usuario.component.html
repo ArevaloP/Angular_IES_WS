@@ -1,63 +1,48 @@
 <div class="card">
-        <div class="card-header">
-            <i class="fa fa-align-justify"></i> Simple Table
-        </div>
-        <div class="card-body">
-             <table class="table table-sm">
-                
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Usuario</th>
-                        <th>Correo</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i> Simple Table
+    </div>
+    <div class="card-body">
+        <table class="table table-sm">
 
-                    <tr *ngFor="let uswe of listaUsuarioWs | paginate:  { itemsPerPage: 7, currentPage: p2 ,  id: 'app-usuario'}  ; let i=index;">
-                        
-                        <td>
-                            <label class="switch switch-3d switch-success">
-                                <input type="checkbox" class="switch-input " name="idServicio" 
-                                    [(ngModel)]="uswe.checkeado"
-                                    (ngModelChange)="actualizarEstadoUsuario(i,$event)"
-                                >
-                                <span class="switch-slider"></span>
-                            </label>
-                        </td>
-                        <td><img alt="admin@bootstrapmaster.com" class="img-avatar" src="assets/img/avatars/6.jpg"></td>
-                        <td>{{uswe.usuario}}</td>
-                        <td>{{uswe}}</td>
-                        
-                    <!--   
-                        <td>
-                            <span class="badge badge-success">Active</span>
-                        </td>
-                    -->
-                    </tr>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let uswe of listaUsuarioWs | paginate:  { itemsPerPage: 7, currentPage: p2 ,  id: 'app-usuario'}  ; let i=index;">
                     
-                </tbody>
-            </table>
+                    <td>
+                        <label class="switch switch-3d switch-success">
+                            <input type="checkbox" class="switch-input " name="idServicio" [(ngModel)]="uswe.checkeado"
+                                (ngModelChange)="actualizarEstadoUsuario(i,$event)">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <img class="img-circle-40" [src]="uswe.imagen||'/assets/img/avatars/no-disponible.png'">
+                    </td>
+                    <td>{{uswe.nombre}}</td>
+                    <td>{{uswe.usuario}}</td>
 
-        </div>
+                </tr>
 
-            <div class="card-footer">
-           
-            <pagination-controls 
-                id="app-usuario"
-                (pageChange)="p2 = $event" 
-                maxSize="9" 
-                directionLinks="true" 
-                autoHide="true" 
-                responsive="true"
-                previousLabel="" 
-                nextLabel=" " 
-                screenReaderPaginationLabel="Pagination" 
-                screenReaderPageLabel="page"
-                screenReaderCurrentLabel="You're on page"
-            >
-            </pagination-controls>
-        
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="card-footer">
+
+        <pagination-controls id="app-usuario" (pageChange)="p2 = $event" maxSize="9" directionLinks="true"
+            autoHide="true" responsive="true" previousLabel="" nextLabel=" " screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+
 
     </div>

@@ -13,6 +13,7 @@ export class AplicacionExterna {
     public ip:String;
     public usuarioRealiza:String;
     public registradoPor:String;
+    public checkeado:boolean;
     public listaServicioWeb:ServicioWeb[];
     public listaUsuarioAplicacion:UserWebService[];
     

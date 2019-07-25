@@ -11,6 +11,9 @@ export class UserWebService {
     public checkeado:boolean;
     public idUsuarioAplicacion:String;
     public idAplicacion:String;
+    public email:String;
+    public imagen:String;
+    
 
 
 

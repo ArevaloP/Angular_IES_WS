@@ -1,0 +1,36 @@
+<div class="card border-0">
+
+    <div class="card-body p-1" >
+        <table class="table table-sm">
+
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Codigo</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let apex of listaAplicacion | paginate:  { itemsPerPage: 5, currentPage: p ,  id: 'app-apex'}  ; let i=index;">
+                    <td class="text-center">
+                        <i *ngIf="apex.checkeado"  class="fa fa-check-square-o fa-1_7x" aria-hidden="true"></i>
+                        <i *ngIf="!apex.checkeado"  class="fa fa-square-o fa-1_7x" aria-hidden="true"></i>
+                    </td>
+                    <td>{{apex.codigo}}</td>
+                    <td>{{apex.nombre}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="card-footer p-1 text-right">
+        <pagination-controls id="app-apex" (pageChange)="p = $event" maxSize="5" directionLinks="true"
+            autoHide="true" responsive="true" previousLabel="" nextLabel=" " screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+    </div>
+
+
+
+<app-ventana-modal #alerta></app-ventana-modal>

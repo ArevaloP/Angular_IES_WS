@@ -4,6 +4,8 @@ import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 import { Router } from '@angular/router';
 import { UserWebService } from '../../../modelo/user-web-service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { UploadFileComponent } from '../../utilidad/upload-file/upload-file.component';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-add-usuariows',
@@ -17,6 +19,7 @@ export class AddUsuariowsComponent implements OnInit {
   private isModificar: boolean = false;
   private userWebService: UserWebService = new UserWebService();
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+  @ViewChild('fileAvatar', { static: false }) public fileAvatar: UploadFileComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +29,7 @@ export class AddUsuariowsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
 
 
     if (this.restUsuario.getUserWebService() != null) {
@@ -48,7 +52,10 @@ export class AddUsuariowsComponent implements OnInit {
     this.fGeneral = this.fb.group({
       usuario: [this.userWebService.usuario, Validators.required],
       password: [this.userWebService.password, Validators.required],
-      estado: [this.userWebService.estado, Validators.required]
+      estado: [this.userWebService.estado, Validators.required],
+      nombre: [this.userWebService.nombre, Validators.required],
+      email: [this.userWebService.email, Validators.required],
+
     });
 
   }
@@ -57,6 +64,12 @@ export class AddUsuariowsComponent implements OnInit {
 
 
   public irRegistar() {
+
+    //console.log("this.uploadResponse", this.fileAvatar.uploadResponse);
+    if (this.fileAvatar.cambioImagen) {
+      let imagen: any = this.fileAvatar.uploadResponse;
+      this.userWebService.imagen = "data:image/png;base64," + imagen.data;
+    }
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
@@ -68,7 +81,6 @@ export class AddUsuariowsComponent implements OnInit {
         ("¿ Esta seguro de eliminar el servicio [" + this.userWebService.nombre + "]  ?"),
         () => this.insertarUsuarioWs(this.userWebService)
       );
-
     }
 
   }
@@ -76,15 +88,16 @@ export class AddUsuariowsComponent implements OnInit {
 
 
   public insertarUsuarioWs(userWebService) {
+
     this.restUsuario.insertarUserWebService(userWebService).subscribe(
       data => {
-        alert("insercion exitosa ");
         this.router.navigate(['aplicacion/usuarioWs']);
       },
       error => {
         this.alerta.mostrarError(error);
       }
     );
+
 
   }
 
@@ -93,7 +106,6 @@ export class AddUsuariowsComponent implements OnInit {
   public actualizarUsuarioWs(userWebService) {
     this.restUsuario.actualizarUserWebService(userWebService).subscribe(
       data => {
-        alert("actualizacion exitosa ");
         this.router.navigate(['aplicacion/usuarioWs']);
       },
       error => {
@@ -102,6 +114,18 @@ export class AddUsuariowsComponent implements OnInit {
     );
 
   }
+
+
+
+  /*
+    public getImagen() {
+      //this.fileAvatar.subirArchivoAlServidor( (data)=>{this.ejecutarCallback(data)});
+     }
+  
+    public ejecutarCallback(data) {
+        //alert("---"+JSON.stringify(data));
+    }
+  */
 
 
 
