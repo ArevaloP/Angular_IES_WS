@@ -63,9 +63,9 @@ export class LisUsuariowsComponent implements OnInit {
       columns: [
 
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Avatar', defaultContent: "",  width: "7%"},
-        { title: 'Nombre', data: 'nombre' ,  width: "20%"},
-        { title: 'Correo', data: 'email',  width: "20%" },
+        { title: 'Avatar', defaultContent: "",  width: "10%"},
+        { title: 'Nombre', data: 'nombre' ,  width: "30%"},
+        { title: 'Correo', data: 'email',  width: "30%" },
         { title: 'Usuario', data: 'usuario' ,  width: "20%"},
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }

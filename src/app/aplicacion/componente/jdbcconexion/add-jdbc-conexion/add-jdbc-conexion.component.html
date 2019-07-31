@@ -130,15 +130,15 @@
 
                     <div class="card-footer">
                         
-                        <button type="button" class="btn btn-primary pull-right" 
+                        <button type="button" class="btn btn-primary pull-right mr-1" [disabled]="fGeneral.invalid"
+                            (click)="irRegistar()">
+                            Registar Cambios
+                        </button>&nbsp;   
+                        <button type="button" class="btn btn-ghost-success pull-right" 
                             (click)="testearJdbcConexion()">
                             Testear Conexion
                         </button>
-
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
-                            (click)="irRegistar()">
-                            Registar Cambios
-                        </button>
+                         
                     </div>
 
 

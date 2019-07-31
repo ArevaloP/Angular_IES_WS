@@ -68,13 +68,14 @@ export class LisServicioWebComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Codigo', data: 'codigo', width: "20%", className: "text-left" },
-        { title: 'Nombre', data: 'nombre', width: "20%" ,className: "text-left" },
+        { title: 'Nombre', data: 'nombre', width: "40%" ,className: "text-left" },
         { title: 'Tipo', data: 'tipo', width: "20%" ,className: "text-left" },
         { title: 'Metodo', data: 'metodo', width: "20%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
 
       ],
+     
       paging: true,
       ordering: true,
       info: true,
