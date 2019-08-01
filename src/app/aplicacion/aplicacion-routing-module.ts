@@ -18,16 +18,15 @@ const routes: Routes = [
   {
 
     path: '',
+    canActivate : [MsalGuard],
     data: {
       title: 'Aplicacion'
-    },canActivate : [MsalGuard],
-    component:StatusComponent,
+    },
 
     children: [
       {
         path: 'status',
         component: StatusComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'status'
         }
@@ -36,7 +35,6 @@ const routes: Routes = [
       {
         path: 'lis-appexterna',
         component: LisAppExternaComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Aplicacion Externa'
         }
@@ -45,7 +43,6 @@ const routes: Routes = [
       {
         path: 'add-appexterna',
         component: AddAppExternaComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Aplicacion Externa'
         }
@@ -56,7 +53,6 @@ const routes: Routes = [
       {
         path: 'servicioWeb',
         component: LisServicioWebComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -65,7 +61,6 @@ const routes: Routes = [
       {
         path: 'add-servicioweb',
         component: AddServicioWebComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -74,7 +69,6 @@ const routes: Routes = [
       {
         path: 'jdbc-conexion',
         component: LisJdbcConexionComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -82,7 +76,6 @@ const routes: Routes = [
       {
         path: 'add-conexionjdbc',
         component: AddJdbcConexionComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -91,7 +84,6 @@ const routes: Routes = [
       {
         path: 'usuarioWs',
         component: LisUsuariowsComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Usuario Ws'
         }
@@ -100,7 +92,6 @@ const routes: Routes = [
       {
         path: 'add-usuariows',
         component: AddUsuariowsComponent,
-        canActivate : [MsalGuard],
         data: {
           title: 'Usuario Ws'
         }

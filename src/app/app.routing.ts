@@ -47,13 +47,13 @@ export const routes: Routes = [
 
       {
         path: 'dashboard',
+        canActivate : [MsalGuard],
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'aplicacion',
         canActivate : [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
-        
       }/*,
       {
         path: 'buttons',

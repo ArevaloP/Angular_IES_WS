@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BroadcastService, MsalService } from '@azure/msal-angular';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { RestUserAuthService } from '../servicio/rest-user-auth.service';
 
 @Component({
   selector: 'app-status',
@@ -10,48 +8,27 @@ import { Router } from '@angular/router';
 })
 export class StatusComponent implements OnInit {
 
-
-  private subscription: Subscription;
-  private loggedIn: boolean;
-
-
-  constructor(
-    private broadcastService: BroadcastService, 
-    private authService: MsalService,
-    private router:Router
-  ) {
-    if (this.authService.getUser()) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
-
-    
-  }
+  constructor(private restUserAuthService:RestUserAuthService) { }
 
   ngOnInit() {
-    alert("x");
-    this.subscription = this.broadcastService.subscribe("msal:acquireTokenSuccess", (payload) => {
-      console.log("TOKEN CREADO CORRECTAMENTE " + JSON.stringify(payload));
-      localStorage.setItem("payload_token", payload._token);
-    });
-
-
   }
 
   getToken(){
 
-    console.log("",localStorage.getItem("payload_token"));
+    console.log("b2c.access:",sessionStorage.getItem("b2c.access.token"));
+    console.log("adal.idtoken:",localStorage.getItem("adal.idtoken"));
+    console.log("msal.idtoken: **** ",localStorage.getItem("msal.idtoken"));
+    
+   
+
   }
 
+  getUser(){
+      //console.log("getUser",this.restUserAuthService.getUserEmail());
+      console.log("getUser",this.restUserAuthService.getUser());
+  }
 
-
-
-
-
-  
-
- 
-
-  
+  logout(){
+    this.restUserAuthService.logout();
+}
 }

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MsalService, BroadcastService } from '@azure/msal-angular';
-import { environment } from '../../../environments/environment';
-import { Subscription } from 'rxjs';
+import { RestUserAuthService } from '../../aplicacion/servicio/rest-user-auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,66 +8,42 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent {
 
-  private subscription: Subscription;
-  private loggedIn: boolean;
-  //constructor(private router:Router) { }
-  //this.router.navigate(['aplicacion']);
 
   constructor(
-    private broadcastService: BroadcastService, 
-    private authService: MsalService,
-    private router:Router
-  ) {
-    if (this.authService.getUser()) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
-
-    
-  }
+    private router:Router,
+    private authRest:RestUserAuthService
+    ) { }
 
 
-  login() {
-    this.authService.loginRedirect(environment.optiosMsal);
-  }
-
-  logout() {
-    localStorage.removeItem("payload_token");
-    this.authService.logout();
-  }
-
-  ngOnInit() {
-
-    this.login() ;
-
-
-    this.broadcastService.subscribe("msal:loginFailure", (payload) => {
-      console.log("login failure " + JSON.stringify(payload));
-    });
-
-    this.broadcastService.subscribe("msal:loginSuccess", (payload) => {
-    
-
+    ngOnInit() {
+      
+      //this.iniciarSession();
+      if (this.authRest.isLoggedIn()) {
         this.router.navigate(['aplicacion/status']);
-        localStorage.removeItem("payload_token");
-        this.subscription = this.broadcastService.subscribe("msal:acquireTokenSuccess", (payload) => {
-          console.log("TOKEN CREADO CORRECTAMENTE " + JSON.stringify(payload));
-          localStorage.setItem("payload_token", payload._token);
-        });
-
-    });
-
-  }
-
-
-  ngOnDestroy() {
-    this.broadcastService.getMSALSubject().next(1);
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+      } else {
+        this.iniciarSession();
+      }
     }
+  
+
+  public iniciarSession(){
+     this.authRest.login(
+        (resul)=>this.validacion(resul)
+     );
+  }
+
+
+  public validacion(resul){
+
+    /*if(resul){
+      this.router.navigate(['aplicacion/status']);
+    }else{
+      this.router.navigate(['error']);
+    }*/
+
   }
 
 
 
-}
+
+ }

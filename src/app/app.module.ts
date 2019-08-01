@@ -46,13 +46,14 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
-import { environment } from '../environments/environment';
 
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MsalModule } from "@azure/msal-angular";
 import { MsalInterceptor } from "@azure/msal-angular";
 import { LogLevel } from "msal";
+import { environment } from '../environments/environment';
+import { RestUserAuthService } from './aplicacion/servicio/rest-user-auth.service';
 
 export function loggerCallback(logLevel, message, piiEnabled) {
   //console.log("client logging" + message);
@@ -116,9 +117,10 @@ export const protectedResourceMap: [string, string[]][] =
     //RegisterComponent
   ],
   providers: [
-    //{    provide: LocationStrategy,    useClass: HashLocationStrategy,  },
+    //{    provide: LocationStrategy,    useClass: HashLocationStrategy,    },
     BsModalRef,
-    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true },
+    RestUserAuthService
 
 ],
   bootstrap: [ AppComponent ]

@@ -23,7 +23,6 @@ import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-con
 import { UploadFileComponent } from './componente/utilidad/upload-file/upload-file.component';
 import { ApexUsuariowsComponent } from './componente/usuariows/apex-usuariows/apex-usuariows.component';
 import { PerfilUsuariowsComponent } from './componente/usuariows/perfil-usuariows/perfil-usuariows.component';
-import { LoaderComponent } from './componente/utilidad/loader/loader.component';
 
 
 
@@ -46,7 +45,6 @@ import { LoaderComponent } from './componente/utilidad/loader/loader.component';
     UploadFileComponent,
     ApexUsuariowsComponent,
     PerfilUsuariowsComponent,
-    LoaderComponent,
     
     
   ],
