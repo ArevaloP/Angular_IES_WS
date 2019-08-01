@@ -10,6 +10,7 @@ import { AddUsuariowsComponent } from './componente/usuariows/add-usuariows/add-
 import { AddServicioWebComponent } from './componente/servicioweb/add-servicio-web/add-servicio-web.component';
 import { LisJdbcConexionComponent } from './componente/jdbcconexion/lis-jdbc-conexion/lis-jdbc-conexion.component';
 import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-conexion/add-jdbc-conexion.component';
+import { MsalGuard } from '@azure/msal-angular';
 
 
 
@@ -19,12 +20,14 @@ const routes: Routes = [
     path: '',
     data: {
       title: 'Aplicacion'
-    },
+    },canActivate : [MsalGuard],
+    component:StatusComponent,
 
     children: [
       {
         path: 'status',
         component: StatusComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'status'
         }
@@ -33,6 +36,7 @@ const routes: Routes = [
       {
         path: 'lis-appexterna',
         component: LisAppExternaComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Aplicacion Externa'
         }
@@ -41,6 +45,7 @@ const routes: Routes = [
       {
         path: 'add-appexterna',
         component: AddAppExternaComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Aplicacion Externa'
         }
@@ -51,6 +56,7 @@ const routes: Routes = [
       {
         path: 'servicioWeb',
         component: LisServicioWebComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -59,6 +65,7 @@ const routes: Routes = [
       {
         path: 'add-servicioweb',
         component: AddServicioWebComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -67,6 +74,7 @@ const routes: Routes = [
       {
         path: 'jdbc-conexion',
         component: LisJdbcConexionComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -74,6 +82,7 @@ const routes: Routes = [
       {
         path: 'add-conexionjdbc',
         component: AddJdbcConexionComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Servicio Web'
         }
@@ -82,6 +91,7 @@ const routes: Routes = [
       {
         path: 'usuarioWs',
         component: LisUsuariowsComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Usuario Ws'
         }
@@ -90,6 +100,7 @@ const routes: Routes = [
       {
         path: 'add-usuariows',
         component: AddUsuariowsComponent,
+        canActivate : [MsalGuard],
         data: {
           title: 'Usuario Ws'
         }

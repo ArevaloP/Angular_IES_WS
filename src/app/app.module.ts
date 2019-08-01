@@ -46,6 +46,25 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
+import { environment } from '../environments/environment';
+
+
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { MsalModule } from "@azure/msal-angular";
+import { MsalInterceptor } from "@azure/msal-angular";
+import { LogLevel } from "msal";
+
+export function loggerCallback(logLevel, message, piiEnabled) {
+  //console.log("client logging" + message);
+}
+
+export const protectedResourceMap: [string, string[]][] =
+  [
+    ['https://graph.microsoft.com/v1.0/me', ['user.read']],
+    ['https://graph.microsoft.com/v1.0/me/photo', ['User.ReadBasic.All']],
+    ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']]
+  ];
+
 
 
 @NgModule({
@@ -66,7 +85,27 @@ import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+
+    MsalModule.forRoot({
+      clientID: environment.configuracionMsal.clientID,
+      authority: environment.configuracionMsal.authority,
+      validateAuthority: environment.configuracionMsal.validateAuthority,
+      redirectUri: environment.configuracionMsal.redirectUri,
+      cacheLocation: environment.configuracionMsal.cacheLocation,
+      postLogoutRedirectUri: environment.configuracionMsal.postLogoutRedirectUri,
+      navigateToLoginRequestUrl: environment.configuracionMsal.navigateToLoginRequestUrl,
+      popUp: environment.configuracionMsal.popUp,
+      consentScopes: environment.configuracionMsal.consentScopes,
+      correlationId: environment.configuracionMsal.correlationId,
+      piiLoggingEnabled: environment.configuracionMsal.piiLoggingEnabled,
+      unprotectedResources: environment.configuracionMsal.unprotectedResources,
+      protectedResourceMap: protectedResourceMap,
+      logger: loggerCallback,
+      level: LogLevel.Info
+    })
+
+
   ],
   declarations: [
     AppComponent,
@@ -77,11 +116,9 @@ import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
     //RegisterComponent
   ],
   providers: [
-    {
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy,
-    },
-    BsModalRef
+    //{    provide: LocationStrategy,    useClass: HashLocationStrategy,  },
+    BsModalRef,
+    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true }
 
 ],
   bootstrap: [ AppComponent ]
