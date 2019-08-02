@@ -19,29 +19,41 @@ export class RestServicioWebService {
 
   listarServicioWeb() {
     return this.http.get<ServicioWeb[]>(`${this.baseUrl}/listar`, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     });
   }
 
 
   listarServicioWebAplicacion(idAplicacion) {
-    console.log(`${this.baseUrl}/listarXaplicacion/${idAplicacion||-1}`);
-    return this.http.get<ServicioWeb[]>(`${this.baseUrl}/listarXaplicacion/${idAplicacion||-1}`, {
-      headers: { "Content-Type": "application/json" }
+    //console.log(`${this.baseUrl}/listarXaplicacion/${idAplicacion||-1}`);
+    return this.http.get<ServicioWeb[]>(`${this.baseUrl}/listarXaplicacion/${idAplicacion || -1}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     });
   }
 
 
   insertarServicioWeb(servicioWeb: ServicioWeb) {
     return this.http.post(`${this.baseUrl}/insertar`, servicioWeb, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     })
   }
 
 
   actualizarServicioWeb(servicioWeb: ServicioWeb) {
     return this.http.put(`${this.baseUrl}/actualizar`, servicioWeb, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     })
   }
 
@@ -49,7 +61,10 @@ export class RestServicioWebService {
 
   actualizarEstadoServicioAplicacion(servicioWeb: ServicioWeb) {
     return this.http.put(`${this.baseUrl}/actualizarXaplicacion`, servicioWeb, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     })
   }
 
@@ -58,7 +73,8 @@ export class RestServicioWebService {
   eliminarServicioWeb(servicioWeb: ServicioWeb) {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }),
       body: servicioWeb
     }
@@ -69,7 +85,8 @@ export class RestServicioWebService {
   eliminarServicioWebXaplicacion(servicioWeb: ServicioWeb) {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }),
       body: servicioWeb
     }

@@ -4,7 +4,8 @@ import { RestUserAuthService } from '../../aplicacion/servicio/rest-user-auth.se
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['./login.scss']
 })
 export class LoginComponent {
 
@@ -15,33 +16,25 @@ export class LoginComponent {
     ) { }
 
 
-    ngOnInit() {
-      
-      //this.iniciarSession();
-      if (this.authRest.isLoggedIn()) {
-        this.router.navigate(['aplicacion/status']);
-      } else {
-        this.iniciarSession();
-      }
+  ngOnInit() {
+
+    if (this.authRest.isLoggedIn()) {
+      this.router.navigate(['load']);
+    } else {
+      this.iniciarSession();
     }
+  }
   
 
-  public iniciarSession(){
-     this.authRest.login(
-        (resul)=>this.validacion(resul)
-     );
-  }
+    public iniciarSession(){
+      this.authRest.login(
+          (resul)=>this.validacion(resul)
+      );
+    }
 
 
-  public validacion(resul){
-
-    /*if(resul){
-      this.router.navigate(['aplicacion/status']);
-    }else{
-      this.router.navigate(['error']);
-    }*/
-
-  }
+    public validacion(resul){
+    }
 
 
 

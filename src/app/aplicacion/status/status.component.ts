@@ -16,8 +16,8 @@ export class StatusComponent implements OnInit {
   getToken(){
 
     console.log("b2c.access:",sessionStorage.getItem("b2c.access.token"));
-    console.log("adal.idtoken:",localStorage.getItem("adal.idtoken"));
-    console.log("msal.idtoken: **** ",localStorage.getItem("msal.idtoken"));
+    console.log("adal.idtoken:",sessionStorage.getItem("adal.idtoken"));
+    console.log("msal.idtoken: **** ",sessionStorage.getItem("msal.idtoken"));
     
    
 

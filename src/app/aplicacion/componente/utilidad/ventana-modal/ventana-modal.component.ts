@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { VentanaAlerta } from '../../../modelo/ventana-alerta';
 import { JdbcConexion } from '../../../modelo/jdbc-conexion';
+import { Router } from '@angular/router';
+import { RestErrorService } from '../../../servicio/rest-error.service';
 
 
 @Component({
@@ -24,7 +26,10 @@ export class VentanaModalComponent implements OnInit {
   callback: any;
   ventana: VentanaAlerta = new VentanaAlerta();
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private restError:RestErrorService
+    ) {
   }
 
 
@@ -45,12 +50,26 @@ export class VentanaModalComponent implements OnInit {
 
 
   public mostrarError(error) {
+
     this.ventana.titulo = "Ocurrio un error";
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonDelete = false;
     this.ventana.mensaje = error.error.mensaje || error.message;
-    this.dangerModal.show();
+
+    if (error.status == 403) {
+        error.error="El acceso al recurso especificado ha sido prohibido."
+        this.restError.setError(error);
+        this.router.navigate(['500']);
+    } else {
+      this.dangerModal.show();
+    }
     //this.callback = callback;
+  }
+
+
+  public errorCerrar(error) {
+    this.restError.setError(error);
+    this.router.navigate(['500']);
   }
 
 
@@ -97,13 +116,13 @@ export class VentanaModalComponent implements OnInit {
 
 
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  public statusConexion(jdbc:any) {
-    
+  public statusConexion(jdbc: any) {
+
     this.ventana.titulo = "Status Conexión";
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonRegistar = false;
     this.successModal.show();
-    this.ventana.mensaje = ""+jdbc.data.productName + " Conexion Ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
+    this.ventana.mensaje = "" + jdbc.data.productName + " Conexion Ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
   }
 
 

@@ -11,6 +11,7 @@ import { AddServicioWebComponent } from './componente/servicioweb/add-servicio-w
 import { LisJdbcConexionComponent } from './componente/jdbcconexion/lis-jdbc-conexion/lis-jdbc-conexion.component';
 import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-conexion/add-jdbc-conexion.component';
 import { MsalGuard } from '@azure/msal-angular';
+import { LoaderComponent } from './componente/utilidad/loader/loader.component';
 
 
 
@@ -24,6 +25,8 @@ const routes: Routes = [
     },
 
     children: [
+  
+
       {
         path: 'status',
         component: StatusComponent,

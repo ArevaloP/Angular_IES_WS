@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 })
 export class RestJdbcConexionService {
 
-  jdbcConexion:JdbcConexion;
+  jdbcConexion: JdbcConexion;
   baseUrl = environment.baseUrl + "ws_jdbcconexion";
   constructor(private http: HttpClient) {
 
@@ -17,34 +17,49 @@ export class RestJdbcConexionService {
 
   listarJdbcConexion() {
     return this.http.get<JdbcConexion[]>(`${this.baseUrl}/listar`, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     });
   }
 
   consultarJdbcConexion(id) {
-    return this.http.get<JdbcConexion>(`${this.baseUrl}/consultar/${id||-1}`, {
-      headers: { "Content-Type": "application/json" }
+    return this.http.get<JdbcConexion>(`${this.baseUrl}/consultar/${id || -1}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     });
   }
 
 
   testearJdbcConexion(jdbcConexion: JdbcConexion) {
     return this.http.post<JdbcConexion[]>(`${this.baseUrl}/test`, jdbcConexion, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     })
   }
 
 
   insertarJdbcConexion(jdbcConexion: JdbcConexion) {
     return this.http.post(`${this.baseUrl}/insertar`, jdbcConexion, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     })
   }
 
 
   actualizarJdbcConexion(jdbcConexion: JdbcConexion) {
     return this.http.put(`${this.baseUrl}/actualizar`, jdbcConexion, {
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
     })
   }
 
@@ -53,9 +68,10 @@ export class RestJdbcConexionService {
   eliminarJdbcConexion(jdbcConexion: JdbcConexion) {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }),
-      body:jdbcConexion
+      body: jdbcConexion
     }
     return this.http.delete(`${this.baseUrl}/eliminar`, options)
   }

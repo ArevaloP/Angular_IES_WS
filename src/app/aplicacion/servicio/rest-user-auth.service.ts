@@ -6,20 +6,26 @@ import { BroadcastService, MsalService } from '@azure/msal-angular';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 
 
 @Injectable()
 export class RestUserAuthService {
+
+
   private subscription: Subscription;
   private loggedIn: boolean;
+  baseUrl = environment.baseUrl + "admin-acceso";
+
   //constructor(private router:Router) { }
   //this.router.navigate(['aplicacion']);
 
   constructor(
     private broadcastService: BroadcastService,
     private authService: MsalService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     if (this.authService.getUser()) {
       this.loggedIn = true;
@@ -47,7 +53,6 @@ export class RestUserAuthService {
       }
 
     );*/
-
   }
 
   public authenticateRedirect(callback): void {
@@ -71,12 +76,12 @@ export class RestUserAuthService {
   cargar(callback) {
 
     this.broadcastService.subscribe("msal:loginFailure", (payload) => {
-      console.log("login failure " + JSON.stringify(payload));
+      //console.log("login failure " + JSON.stringify(payload));
       callback(false);
     });
 
     this.broadcastService.subscribe("msal:loginSuccess", (payload) => {
-      console.log("Token generado ok " + JSON.stringify(payload));
+      //console.log("Token generado ok " + JSON.stringify(payload));
       this.saveAccessTokenToCache(payload._token);
       callback(true);
     });
@@ -107,6 +112,50 @@ export class RestUserAuthService {
   };
 
 
+
+  public obtenerInformacionGrupo() {
+    let url = "https://graph.microsoft.com/v1.0/me/memberOf";
+    return this.http.get(url, {
+      headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),
+        "Content-Type": "application/json"
+      }
+    })
+
+  }
+
+
+
+  public cargarInformacionAdministracion(userData:any, grupo):any {
+    
+    let dataPost:any={};
+    dataPost.id=userData.userIdentifier;
+    dataPost.usuario=userData.idToken.preferred_username;
+    dataPost.oid=userData.idToken.oid ;
+    dataPost.nombre=userData.idToken.name;
+    dataPost.grupos=this.getListaGrupo(grupo.value);
+
+    return this.http.post(`${this.baseUrl}/acceso`,dataPost, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+  }
+
+
+
+  getListaGrupo(lista:any[]){
+      //console.log(lista);
+      let respuesta:any=[];
+      if(lista){
+        lista.forEach(element => {
+          respuesta.push(element.id);
+        });
+      }
+      //console.log("respuesta",respuesta);
+      return respuesta;
+  }
 
 
 

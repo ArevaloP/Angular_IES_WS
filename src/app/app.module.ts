@@ -54,6 +54,8 @@ import { MsalInterceptor } from "@azure/msal-angular";
 import { LogLevel } from "msal";
 import { environment } from '../environments/environment';
 import { RestUserAuthService } from './aplicacion/servicio/rest-user-auth.service';
+import { LoaderComponent } from './aplicacion/componente/utilidad/loader/loader.component';
+import { VentanaModalComponent } from './aplicacion/componente/utilidad/ventana-modal/ventana-modal.component';
 
 export function loggerCallback(logLevel, message, piiEnabled) {
   //console.log("client logging" + message);
@@ -113,13 +115,18 @@ export const protectedResourceMap: [string, string[]][] =
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent,
+    //VentanaModalComponent
     //RegisterComponent
   ],
   providers: [
     //{    provide: LocationStrategy,    useClass: HashLocationStrategy,    },
     BsModalRef,
-    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true },
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: MsalInterceptor, multi: true 
+    },
     RestUserAuthService
 
 ],

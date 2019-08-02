@@ -37,7 +37,6 @@ import { PerfilUsuariowsComponent } from './componente/usuariows/perfil-usuariow
     LisServicioWebComponent,
     AddUsuariowsComponent,
     LisUsuariowsComponent,
-    VentanaModalComponent,
     JdbcServicioComponent,
     LisJdbcConexionComponent,
     LisJdbcConexionComponent,
@@ -45,10 +44,11 @@ import { PerfilUsuariowsComponent } from './componente/usuariows/perfil-usuariow
     UploadFileComponent,
     ApexUsuariowsComponent,
     PerfilUsuariowsComponent,
-    
+    VentanaModalComponent
     
   ],
   imports: [
+    
     CommonModule,
     AplicacionRoutingModule,
     BsDropdownModule,

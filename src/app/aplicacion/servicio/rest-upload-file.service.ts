@@ -16,8 +16,12 @@ export class RestUploadFileService {
 
   public uploadAvatar(data, userId) {
     return this.httpClient.post<any>(`${this.baseUrl}/avatar/${userId}`, data, {
+      headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      },
       reportProgress: true,
       observe: 'events'
+
     }).pipe(map((event) => {
 
       switch (event.type) {

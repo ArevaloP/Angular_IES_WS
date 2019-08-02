@@ -1,6 +1,7 @@
 import { Component, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { navItems } from '../../_nav';
+import { RestUserAuthService } from '../../aplicacion/servicio/rest-user-auth.service';
 
 
 @Component({
@@ -12,7 +13,13 @@ export class DefaultLayoutComponent implements OnDestroy {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement;
-  constructor(@Inject(DOCUMENT) _document?: any) {
+  private userData:any;
+ 
+ 
+  constructor(
+    private authRest:RestUserAuthService,
+    @Inject(DOCUMENT) _document?: any,
+  ) {
 
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = _document.body.classList.contains('sidebar-minimized');
@@ -22,9 +29,23 @@ export class DefaultLayoutComponent implements OnDestroy {
       attributes: true,
       attributeFilter: ['class']
     });
+
+    this.userData=authRest.getUser();
+
   }
+
+
+
+  logout(){
+      this.authRest.logout();
+  }
+
+
 
   ngOnDestroy(): void {
     this.changes.disconnect();
   }
+
+
+
 }

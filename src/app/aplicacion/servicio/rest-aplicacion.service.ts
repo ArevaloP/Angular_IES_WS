@@ -10,54 +10,64 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class RestAplicacionService {
 
 
-    aplicacionExterna: AplicacionExterna;
+  aplicacionExterna: AplicacionExterna;
 
-    baseUrl = environment.baseUrl + "ws_appexterna";
-    constructor(private http: HttpClient) {
+  baseUrl = environment.baseUrl + "ws_appexterna";
+  constructor(private http: HttpClient) {
 
-    }
-
-
-    listarAplicacionesExterna() {
-      return this.http.get<AplicacionExterna[]>(`${this.baseUrl}/listar`, {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+  }
 
 
-    insertarAplicacionExterna(appExterna: AplicacionExterna) {
-      return this.http.post(`${this.baseUrl}/insertar`, appExterna, {
-        headers: { "Content-Type": "application/json" }
-      })
-    }
-
-
-    actualizarAplicacionExterna(appExterna: AplicacionExterna) {
-      return this.http.put(`${this.baseUrl}/actualizar`, appExterna, {
-        headers: { "Content-Type": "application/json" }
-      })
-    }
-
-
-
-    eliminarAplicacionExterna(appExterna: AplicacionExterna) {
-      const options = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        }),
-        body:appExterna
+  listarAplicacionesExterna() {
+    return this.http.get<AplicacionExterna[]>(`${this.baseUrl}/listar`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }
-      return this.http.delete(`${this.baseUrl}/eliminar`, options)
-    }
+    });
+  }
 
 
-    public setAplicacionExterna(appExterna: AplicacionExterna) {
-      this.aplicacionExterna = appExterna;
-    }
+  insertarAplicacionExterna(appExterna: AplicacionExterna) {
+    return this.http.post(`${this.baseUrl}/insertar`, appExterna, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
 
-    public getAplicacionExterna() {
-      return this.aplicacionExterna;
+
+  actualizarAplicacionExterna(appExterna: AplicacionExterna) {
+    return this.http.put(`${this.baseUrl}/actualizar`, appExterna, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
+
+
+
+  eliminarAplicacionExterna(appExterna: AplicacionExterna) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }),
+      body: appExterna
     }
+    return this.http.delete(`${this.baseUrl}/eliminar`, options)
+  }
+
+
+  public setAplicacionExterna(appExterna: AplicacionExterna) {
+    this.aplicacionExterna = appExterna;
+  }
+
+  public getAplicacionExterna() {
+    return this.aplicacionExterna;
+  }
 
 
 
