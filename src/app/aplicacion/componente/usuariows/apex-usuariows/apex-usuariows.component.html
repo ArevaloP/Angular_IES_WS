@@ -1,27 +1,41 @@
-<div class="card border-0">
+<div class="card">
 
-    <div class="card-body p-1" >
-        <table class="table table-sm">
+    <div class="card-body b-0" >
+        
+        <div class="row">
+        <div class="col-sm-12">
+         <table class="table table-sm">
 
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Codigo</th>
-                    <th>Usuario</th>
+                    <th style="width:15%"></th>
+                    <th style="width:35%">Codigo</th>
+                    <th style="width:60%">Aplicación</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let apex of listaAplicacion | paginate:  { itemsPerPage: 5, currentPage: p ,  id: 'app-apex'}  ; let i=index;">
+                    
+                    <td class="text-center">
+                        <label class="switch switch-3d switch-success">
+                        <input type="checkbox" class="switch-input " name="idAplicacion" [(ngModel)]="apex.checkeado"
+                        (ngModelChange)="actualizarEstadoUsuario(i,$event)">
+                        <span class="switch-slider"></span>
+                        </label>
+                    </td>
+                   <!--
                     <td class="text-center">
                         <i *ngIf="apex.checkeado"  class="fa fa-check-square-o fa-1_7x" aria-hidden="true"></i>
                         <i *ngIf="!apex.checkeado"  class="fa fa-square-o fa-1_7x" aria-hidden="true"></i>
                     </td>
+                -->
                     <td>{{apex.codigo}}</td>
                     <td>{{apex.nombre}}</td>
                 </tr>
             </tbody>
         </table>
-
+        </div>
+    </div>
     </div>
 
     <div class="card-footer p-1 text-right">

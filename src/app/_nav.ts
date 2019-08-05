@@ -49,36 +49,36 @@ export const navItems: NavData[] = [
   {
     name: 'Status',
     url: '/aplicacion/status',
-    icon: 'icon-drop'
+    icon: 'fa fa-crosshairs'
   },
   
   {
     title: true,
-    name: 'Aplicacion'
+    name: 'Integrador'
   },
   {
-    name: 'Aplicacion Ext',
+    name: 'Aplicación',
     url: '/aplicacion/lis-appexterna',
     icon: 'icon-pencil'
   },
   {
-    name: 'Servicio Web',
+    name: 'Servicios Web',
     url: '/aplicacion/servicioWeb',
-    icon: 'icon-pencil'
+    icon: 'fa fa-cogs'
   },
   {
-    name: 'Usuario-WS',
+    name: 'Privilegios',
     url: '/aplicacion/usuarioWs',
-    icon: 'icon-pencil'
+    icon: 'fa fa-user-plus'
   },
 
   {
-    name: 'Conexion JDBC',
+    name: 'Conexiones',
     url: '/aplicacion/jdbc-conexion',
-    icon: 'icon-pencil'
+    icon: 'fa fa-external-link'
   },
 
-  {
+  /*{
     title: true,
     name: 'Office 365'
   },
@@ -87,7 +87,7 @@ export const navItems: NavData[] = [
     url: '/api-office/grupo',
     icon: 'icon-drop'
   },
- /*
+ 
   {
     name: 'Base',
     url: '/base',

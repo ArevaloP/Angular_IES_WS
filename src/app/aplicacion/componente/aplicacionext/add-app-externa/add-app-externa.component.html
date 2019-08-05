@@ -2,9 +2,9 @@
     <div class="row">
 
         <!--/.col-->
-        <div class="col-sm-6">
+        <div class="col-sm-6 pr-0">
             <form method="POST" [formGroup]="fGeneral">
-                <div class="card">
+                <div class="card" >
                     <div class="card-header">
                         <strong>Aplicación Externa</strong>
                     </div>
@@ -80,11 +80,10 @@
 
                     </div>
 
-                    <div class="card-footer">
+                    <div class="card-footer p-1">
                         <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
                             (click)="irRegistar()">
                             Registar Cambios
-
                         </button>
                     </div>
 

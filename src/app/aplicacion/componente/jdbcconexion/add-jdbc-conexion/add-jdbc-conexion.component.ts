@@ -18,6 +18,8 @@ export class AddJdbcConexionComponent implements OnInit {
   private isNuevaConexion: boolean = false;
   private listaConexionesExistente: JdbcConexion[];
   private indexConexion: number;
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
 
@@ -70,8 +72,8 @@ export class AddJdbcConexionComponent implements OnInit {
 
   public irRegistar() {
     this.jdbcConexion.estado = "ACTIVO";
-    this.jdbcConexion.registradoPor = "usua_";
-    this.jdbcConexion.usuarioRealiza = "nombre";
+    this.jdbcConexion.registradoPor = this.usuarioVO.oid;
+    this.jdbcConexion.usuarioRealiza = this.usuarioVO.name;
     this.jdbcConexion.tipoConexion = "SID";
     this.jdbcConexion.formatoConexion = "URLSERVIDOR";
     this.jdbcConexion.descripcion = this.jdbcConexion.nombre;

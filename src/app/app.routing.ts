@@ -54,6 +54,19 @@ export const routes: Routes = [
 
 
   {
+    path: 'aplicacion',
+    canActivate: [MsalGuard],
+    redirectTo:'aplicacion/lis-appexterna',
+    pathMatch:"full",
+    data: {
+      title: 'Aplicacion'
+    }
+  },
+
+
+
+
+  {
     path: '',
     component: DefaultLayoutComponent,
     data: {
@@ -73,7 +86,7 @@ export const routes: Routes = [
       },
       {
         path: 'api-office',
-        //canActivate: [MsalGuard],
+        canActivate: [MsalGuard],
         loadChildren: () => import('./api-office/api-office.module').then(m => m.ApiOfficeModule)
       },/*
       {

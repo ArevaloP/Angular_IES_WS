@@ -18,6 +18,8 @@ export class AddUsuariowsComponent implements OnInit {
   private fGeneral: FormGroup;
   private isModificar: boolean = false;
   private userWebService: UserWebService = new UserWebService();
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('fileAvatar', { static: false }) public fileAvatar: UploadFileComponent;
 
@@ -46,8 +48,8 @@ export class AddUsuariowsComponent implements OnInit {
 
   public inicializarValidacion() {
 
-    this.userWebService.registradoPor = "usua_";
-    this.userWebService.usuarioRealiza = "nombre";
+    this.userWebService.registradoPor = this.usuarioVO.oid;;
+    this.userWebService.usuarioRealiza = this.usuarioVO.name;;
 
     this.fGeneral = this.fb.group({
       usuario: [this.userWebService.usuario, Validators.required],
@@ -65,7 +67,7 @@ export class AddUsuariowsComponent implements OnInit {
 
   public irRegistar() {
 
-    //console.log("this.uploadResponse", this.fileAvatar.uploadResponse);
+
     if (this.fileAvatar.cambioImagen) {
       let imagen: any = this.fileAvatar.uploadResponse;
       this.userWebService.imagen = "data:image/png;base64," + imagen.data;
@@ -114,22 +116,6 @@ export class AddUsuariowsComponent implements OnInit {
     );
 
   }
-
-
-
-  /*
-    public getImagen() {
-      //this.fileAvatar.subirArchivoAlServidor( (data)=>{this.ejecutarCallback(data)});
-     }
-  
-    public ejecutarCallback(data) {
-        //alert("---"+JSON.stringify(data));
-    }
-  */
-
-
-
-
 
 
 

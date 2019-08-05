@@ -20,6 +20,8 @@ export class LisJdbcConexionComponent implements OnInit {
   private dtOptions: any= {};
   private listadoConexionesJdbc: JdbcConexion[];
   private const: UtilConstante = new UtilConstante();
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  
 
 
   constructor(
@@ -75,6 +77,9 @@ export class LisJdbcConexionComponent implements OnInit {
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-centerm" }
 
       ],
+      language: {
+				url: "assets/spanish.json"
+			},
       paging: true,
       ordering: true,
       info: true,
@@ -139,7 +144,7 @@ export class LisJdbcConexionComponent implements OnInit {
 
 
   public eliminar(servicioWeb) {
-    servicioWeb.registradoPor = "usua_";
+    servicioWeb.registradoPor = this.usuarioVO.oid;
     this.restJdbcConexion.eliminarJdbcConexion(servicioWeb).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>

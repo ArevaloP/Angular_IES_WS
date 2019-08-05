@@ -5,13 +5,11 @@
             <!--/.col-->
             <div class="col-sm-12">
 
-                <div class="card">
+                <div class="card" style="margin-bottom: 0.1rem;">
                     <div class="card-header" *ngIf="mostarHeader">
                         <strong>Servicio Web</strong>
                     </div>
-                    <div class="card-body">
-
-
+                    <div class="card-body pb-0">
 
                         <div class="form-group">
                             <label for="otraconexion">Cargar Conexion Existente </label>
@@ -155,8 +153,8 @@
 
                     </div>
 
-                    <div class="card-footer" >
-                        <button type="button" class="btn btn-primary pull-right"
+                    <div class="card-footer p-0" >
+                        <button type="button" class="btn btn-ghost-success pull-right"
                             (click)="testearJdbcConexion()">
                             Test Conexión
                         </button>

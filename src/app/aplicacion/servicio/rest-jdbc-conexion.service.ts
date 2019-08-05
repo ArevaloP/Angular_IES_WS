@@ -38,7 +38,7 @@ export class RestJdbcConexionService {
     return this.http.post<JdbcConexion[]>(`${this.baseUrl}/test`, jdbcConexion, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }
     })
   }

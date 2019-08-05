@@ -13,7 +13,7 @@ export class UserWebService {
     public idAplicacion:String;
     public email:String;
     public imagen:String;
-    
+    public basic:String;
 
 
 

@@ -16,6 +16,8 @@ export class LisAppExternaComponent implements OnInit {
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   private listadoAplicacionExterna: AplicacionExterna[];
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  
   constructor(
     private restAplicacion: RestAplicacionService,
     private router: Router
@@ -62,7 +64,7 @@ export class LisAppExternaComponent implements OnInit {
 
 
   public eliminar(aplicacionExterna) {
-    aplicacionExterna.registradoPor = "usua_";
+    aplicacionExterna.registradoPor = this.usuarioVO.oid;
     return this.restAplicacion.eliminarAplicacionExterna(aplicacionExterna).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>

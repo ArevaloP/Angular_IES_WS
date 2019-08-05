@@ -5,14 +5,17 @@
             <div class="card text-white bg-success">
                 <div class="card-body pb-0">
                     <div class="btn-group float-right" dropdown>
+                       <!--
                         <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
                             <i class="icon-settings"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                     
+                    <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
                             <a class="dropdown-item" routerLink="/aplicacion/add-appexterna" >Agregar</a>
                         </div>
+                    -->
                     </div>
-                    <div class="text-value"><a routerLink="/aplicacion/add-appexterna" >AGREGAR</a></div>
+                    <div class="text-value"><span routerLink="/aplicacion/add-appexterna" style="cursor: pointer">AGREGAR</span></div>
                     <div>- - - - - -</div>
                     <div>- - - - - -</div>
                     <div>- - - - - -</div>
@@ -36,10 +39,10 @@
                         </div>
                     </div>
                     <div class="text-value">{{appVO.codigo}}</div>
-                    <div>{{appVO.nombre | uppercase}}</div>
-                    <div>{{appVO.descripcion}}</div>
-                    <div>{{appVO.urlAplicacion}}</div>
-                    <div>{{appVO.tipo}}</div>
+                    <div class="text-truncate">{{appVO.nombre | uppercase}}</div>
+                    <div class="text-truncate">{{appVO.descripcion}}</div>
+                    <div class="text-truncate">{{appVO.urlAplicacion}}</div>
+                    <div class="text-truncate">{{appVO.tipo}}</div>
                     <div class="chart-wrapper mt-3 mx-3" style="height:10px;"></div>
                 </div>
             </div>

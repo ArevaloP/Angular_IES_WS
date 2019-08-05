@@ -18,6 +18,8 @@ export class AddAppExternaComponent implements OnInit {
   public aplicacionExterna: AplicacionExterna = new AplicacionExterna();
   private fGeneral: FormGroup;
   private isModificar: boolean = false;
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   constructor(
@@ -67,17 +69,17 @@ export class AddAppExternaComponent implements OnInit {
 
   public irRegistar() {
 
-    this.aplicacionExterna.registradoPor = "usua_";
-    this.aplicacionExterna.usuarioRealiza = "nombre";
+    this.aplicacionExterna.registradoPor = this.usuarioVO.oid;
+    this.aplicacionExterna.usuarioRealiza = this.usuarioVO.name;
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.aplicacionExterna.nombre + "]  ?"),
+        ("¿ Esta seguro de modificar el usuario [" + this.aplicacionExterna.nombre + "]  ?"),
         () => this.actualizarAplicacion(this.aplicacionExterna)
       );
     } else {
 
       this.alerta.confirmarInsertar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.aplicacionExterna.nombre + "]  ?"),
+        ("¿ Esta seguro de agregar el usuario [" + this.aplicacionExterna.nombre + "]  ?"),
         () => this.insertarAplicacion(this.aplicacionExterna)
       );
     }

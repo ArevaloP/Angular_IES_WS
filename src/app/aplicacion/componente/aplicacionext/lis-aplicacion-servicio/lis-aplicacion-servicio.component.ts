@@ -17,6 +17,8 @@ export class LisAplicacionServicioComponent implements OnInit {
   //@ HostBinding ( 'class' ) className ="box box-primary";
   @Input() searchText: String;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  
 
   //@ViewChild("dataTable", null) table;
   //private dataTable: any;
@@ -43,8 +45,8 @@ export class LisAplicacionServicioComponent implements OnInit {
 
     //alert(""+index+" =>"+eve);
     this.listaServicio[index].checkeado = eve;
-    this.listaServicio[index].registradoPor = "reg_";
-    this.listaServicio[index].usuarioRealiza = "code_";
+    this.listaServicio[index].registradoPor = this.usuarioVO.oid;
+    this.listaServicio[index].usuarioRealiza = this.usuarioVO.name;
     if (this.listaServicio[index].idAplicacion!="-1") {
       if (eve) {
         this.restServicio.actualizarEstadoServicioAplicacion(this.listaServicio[index]).subscribe(

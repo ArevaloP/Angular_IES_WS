@@ -16,16 +16,17 @@ import { LoaderComponent } from './componente/utilidad/loader/loader.component';
 
 
 const routes: Routes = [
+
   {
 
     path: '',
-    canActivate : [MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Aplicacion'
     },
 
     children: [
-  
+
 
       {
         path: 'status',
@@ -39,7 +40,7 @@ const routes: Routes = [
         path: 'lis-appexterna',
         component: LisAppExternaComponent,
         data: {
-          title: 'Aplicacion Externa'
+          title: 'Aplicación Externa'
         }
       },
 
@@ -47,7 +48,7 @@ const routes: Routes = [
         path: 'add-appexterna',
         component: AddAppExternaComponent,
         data: {
-          title: 'Aplicacion Externa'
+          title: 'Aplicación Externa'
         }
       },
 
@@ -57,7 +58,7 @@ const routes: Routes = [
         path: 'servicioWeb',
         component: LisServicioWebComponent,
         data: {
-          title: 'Servicio Web'
+          title: 'Servicios Web'
         }
       },
 
@@ -65,7 +66,7 @@ const routes: Routes = [
         path: 'add-servicioweb',
         component: AddServicioWebComponent,
         data: {
-          title: 'Servicio Web'
+          title: 'Servicios Web'
         }
       },
 
@@ -73,14 +74,14 @@ const routes: Routes = [
         path: 'jdbc-conexion',
         component: LisJdbcConexionComponent,
         data: {
-          title: 'Servicio Web'
+          title: 'Servicios Web'
         }
       },
       {
         path: 'add-conexionjdbc',
         component: AddJdbcConexionComponent,
         data: {
-          title: 'Servicio Web'
+          title: 'Conexión Jdbc'
         }
       },
 
@@ -88,7 +89,7 @@ const routes: Routes = [
         path: 'usuarioWs',
         component: LisUsuariowsComponent,
         data: {
-          title: 'Usuario Ws'
+          title: 'Usuario Servicio Web'
         }
       },
 

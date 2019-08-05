@@ -104,6 +104,17 @@ export class RestUserWebService {
   }
 
 
+  actualizarContrasenaUsuario(userWs: UserWebService) :any{
+    return this.http.post(`${this.baseUrl}/actualizarPass`, userWs, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
+
+
+
   public setUserWebService(userWs: UserWebService) {
     this.userWebService = userWs;
   }

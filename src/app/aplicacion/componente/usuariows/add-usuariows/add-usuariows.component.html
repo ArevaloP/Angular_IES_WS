@@ -3,13 +3,13 @@
         <div class="row">
 
             <!--/.col-->
-            <div class="col-sm-5">
+            <div class="col-sm-5 pr-0">
 
-                <div class="card">
+                <div class="card p-1">
                     <div class="card-header">
                         <strong>Usuario Servicio Web</strong>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-1">
 
                         <!---->
                         <div class="form-group">
@@ -80,34 +80,31 @@
 
 
                     </div>
-
+                    <div class="card-footer p-1">
+                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
+                            (click)="irRegistar()">
+                            Registar Cambios
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-7">
 
                 <div class="card">
-                    <div class="card-header">
-                        <strong>Informacion Usuario </strong>
-                    </div>
                     <div class="card-body">
                         <tabset>
                             
                             <tab heading="Perfil">
                                 <app-perfil-usuariows [fileAvatar]="fileAvatar" [userWebService]="userWebService"></app-perfil-usuariows>
                             </tab>
-                            <tab heading="Aplicaciones" class="p-2">
+                            <tab heading="Aplicaciones" class="p-2" *ngIf="isModificar">
                                 <app-apex-usuariows [userWebService]="userWebService"></app-apex-usuariows>   
                             </tab>
 
-                            <tab heading="Ejecucion"></tab>
+                            <tab heading="Ejecucion" *ngIf="true">
+                                <app-ejec-usuariows [userWebService]="userWebService"></app-ejec-usuariows>
+                            </tab>
                         </tabset>
-                    </div>
-
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
-                            (click)="irRegistar()">
-                            Registar Cambios
-                        </button>
                     </div>
 
                 </div>

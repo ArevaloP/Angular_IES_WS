@@ -18,6 +18,8 @@ export class AddServicioWebComponent implements OnInit {
   private fGeneral: FormGroup;
   private servicioWeb: ServicioWeb = new ServicioWeb();
   private isModificar: boolean = false;
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild ('jdbcConexion', { static: false })  public jdbcComponente: JdbcServicioComponent;
 
@@ -48,8 +50,8 @@ export class AddServicioWebComponent implements OnInit {
 
   public inicializarValidacion() {
 
-    this.servicioWeb.registradoPor = "usua_";
-    this.servicioWeb.usuarioRealiza = "nombre";
+    this.servicioWeb.registradoPor = this.usuarioVO.oid;;
+    this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
 
     this.fGeneral = this.fb.group({
       //codigo: [this.aplicacionExterna.codigo, [Validators.required]]
@@ -73,8 +75,8 @@ export class AddServicioWebComponent implements OnInit {
 
   public irRegistar() {
 
-    this.servicioWeb.registradoPor = "usua_";
-    this.servicioWeb.usuarioRealiza = "nombre";
+    this.servicioWeb.registradoPor = this.usuarioVO.oid;
+    this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
     this.servicioWeb.conexionJdbc= this.jdbcComponente.getObjetoConexion();
     //console.log(this.servicioWeb);
 

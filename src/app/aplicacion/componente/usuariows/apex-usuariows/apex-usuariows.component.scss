@@ -1,0 +1,31 @@
+.img-avatar, .avatar > img, .img-circle {
+	max-width: 100%;
+	height: auto;
+    border-radius: 50em;
+    height: 28px;
+	margin: 0 5px;
+}
+
+
+.table-sm th, .table-sm td {
+	padding: 0.45rem;
+}
+
+
+.switch {
+	display: inline-block;
+	width: 40px;
+	height: 26px;
+}
+
+
+label {
+	display: inline-block;
+	margin-bottom: 0.1rem;
+}
+
+.ngx-pagination {
+	margin-left: 0;
+	margin-bottom: 0rem !important;
+	text-align: right;
+}

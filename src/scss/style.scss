@@ -11,6 +11,10 @@
 .fa-1_7x{
     font-size: 1.7em !important;
 }
+.fa-1_5x{
+    font-size: 1.5em !important;
+}
+
 
 .dt-button {
 	&.green {
@@ -34,7 +38,7 @@
 
 .td-center{
 	text-align: center;
-	width: 4%;
+	width: 2%;
 }
 
 
@@ -56,4 +60,11 @@
 
 
 
+.main .container-fluid {
+	padding: 0 10px;
+}
+
+body {
+	font-size: 11px;
+}
   

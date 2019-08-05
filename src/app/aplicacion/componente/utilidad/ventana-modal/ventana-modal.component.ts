@@ -136,6 +136,18 @@ export class VentanaModalComponent implements OnInit {
 
 
 
+  public mostarMensaje(titulo:string,texto: any) {
+    this.ventana.titulo =titulo ;
+    this.ventana.msgBotonCancelar = "Cerrar";
+    this.ventana.botonRegistar = false;
+    this.successModal.show();
+    this.ventana.mensaje =texto;
+  }
+
+
+
+
+
   public irAgregarVentana(mensaje,callback) {
     this.ventana.titulo = "Agregar Usuario";
     this.ventana.msgBotonCancelar = "Cancelar";

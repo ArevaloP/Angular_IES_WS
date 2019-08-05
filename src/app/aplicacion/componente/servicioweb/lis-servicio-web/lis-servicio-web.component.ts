@@ -26,6 +26,7 @@ export class LisServicioWebComponent implements OnInit {
   private dtOptions: any={}// DataTables.Settings = {};
   private listadoServicioWeb: ServicioWeb[];
   private const: UtilConstante = new UtilConstante();
+  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
 
   constructor(
     private restServicio: RestServicioWebService,
@@ -75,7 +76,9 @@ export class LisServicioWebComponent implements OnInit {
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
 
       ],
-     
+      language: {
+				url: "assets/spanish.json"
+			},
       paging: true,
       ordering: true,
       info: true,
@@ -137,7 +140,7 @@ export class LisServicioWebComponent implements OnInit {
 
 
   public eliminar(servicioWeb) {
-    servicioWeb.registradoPor = "usua_";
+    servicioWeb.registradoPor = this.usuarioVO.oid;;
     this.restServicio.eliminarServicioWeb(servicioWeb).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>

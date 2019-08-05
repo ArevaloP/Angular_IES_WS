@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RestErrorService } from '../../aplicacion/servicio/rest-error.service';
 
 @Component({
-  templateUrl: '500.component.html'
+  templateUrl: '500.component.html',
+  styleUrls: ['500.scss']
 })
 export class P500Component implements OnInit {
 
