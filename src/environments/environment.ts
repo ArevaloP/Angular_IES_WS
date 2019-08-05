@@ -27,8 +27,11 @@ export const environment = {
   optiosMsal:[
     "user.read",
     "api://ff27df78-09ee-4f0a-9dea-ccb5b21abe81/access_as_user/1",
-    "User.ReadBasic.All"
-  ]
+    "User.ReadBasic.All",
+    "Group.Read.All",
+    "Directory.AccessAsUser.All"
+  ],
+  group:"2141f301-82c8-4382-8459-2c8ac6bf1766"
 
 
 

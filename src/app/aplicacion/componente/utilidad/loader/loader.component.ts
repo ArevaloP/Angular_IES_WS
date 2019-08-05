@@ -43,7 +43,8 @@ export class LoaderComponent implements OnInit {
 
 
   private administarAplicacion(group) {
-    this.authRest.cargarInformacionAdministracion(this.authRest.getUser(), group).subscribe(
+    this.router.navigate(['aplicacion/status']);
+    /*this.authRest.cargarInformacionAdministracion(this.authRest.getUser(), group).subscribe(
       data => {
         sessionStorage.setItem("auth.tk.local", data.token);
         this.router.navigate(['aplicacion/status']);
@@ -53,7 +54,7 @@ export class LoaderComponent implements OnInit {
         this.restError.setError(error);
         this.router.navigate(['500']);
       }
-    )
+    )*/
   }
 
 

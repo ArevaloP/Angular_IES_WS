@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { VentanaAlerta } from '../../../modelo/ventana-alerta';
-import { JdbcConexion } from '../../../modelo/jdbc-conexion';
+import { VentanaAlerta } from '../../aplicacion/modelo/ventana-alerta';
+import { JdbcConexion } from '../../aplicacion/modelo/jdbc-conexion';
 import { Router } from '@angular/router';
-import { RestErrorService } from '../../../servicio/rest-error.service';
+import { RestErrorService } from '../../aplicacion/servicio/rest-error.service';
 
 
 @Component({
@@ -18,9 +18,8 @@ export class VentanaModalComponent implements OnInit {
   @ViewChild('dangerModal', { static: false }) public dangerModal: ModalDirective;
   @ViewChild('successModal', { static: false }) public successModal: ModalDirective;
   @ViewChild('primaryModal', { static: false }) public primaryModal: ModalDirective;
-  @ViewChild('prontmodal', { static: false }) public prontmodal: ModalDirective;
-  
-  promtValue:String="";
+
+
 
 
 
@@ -116,14 +115,6 @@ export class VentanaModalComponent implements OnInit {
   }
 
 
-  public accionPront() {
-    this.callback(this.promtValue);
-    this.prontmodal.hide();
-  }
-  
-
-
-
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   public statusConexion(jdbc: any) {
 
@@ -132,18 +123,6 @@ export class VentanaModalComponent implements OnInit {
     this.ventana.botonRegistar = false;
     this.successModal.show();
     this.ventana.mensaje = "" + jdbc.data.productName + " Conexion Ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
-  }
-
-
-
-  public irAgregarVentana(mensaje,callback) {
-    this.ventana.titulo = "Agregar Usuario";
-    this.ventana.msgBotonCancelar = "Cancelar";
-    this.ventana.msgBotonRegistar = "Registar";
-    this.ventana.botonRegistar = true;
-    this.ventana.mensaje = mensaje;
-    this.prontmodal.show();
-    this.callback = callback;
   }
 
 

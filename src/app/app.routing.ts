@@ -17,6 +17,13 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
+  /*{
+    path: '/id_token',
+    //redirectTo: 'aplicacion',
+    component: LoaderComponent,
+    //pathMatch: 'full',
+  },*/
+  
   {
     path: '404',
     component: P404Component,
@@ -42,7 +49,7 @@ export const routes: Routes = [
   {
     path: 'load',
     component: LoaderComponent,
-    canActivate : [MsalGuard]
+    canActivate: [MsalGuard]
   },
 
 
@@ -56,23 +63,24 @@ export const routes: Routes = [
 
       {
         path: 'dashboard',
-        canActivate : [MsalGuard],
+        canActivate: [MsalGuard],
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'aplicacion',
-        canActivate : [MsalGuard],
+        canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
-      }/*,
-      {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
       },
+      {
+        path: 'api-office',
+        //canActivate: [MsalGuard],
+        loadChildren: () => import('./api-office/api-office.module').then(m => m.ApiOfficeModule)
+      },/*
       {
         path: 'charts',
         loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
       },*/
-     
+
       /*{
         path: 'icons',
         loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
@@ -95,7 +103,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

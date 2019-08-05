@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StatusComponent } from './status/status.component'
+import { StatusComponent } from './componente/status/status.component'
 import { LisAppExternaComponent } from './componente/aplicacionext/lis-app-externa/lis-app-externa.component';
 import { AddAppExternaComponent } from './componente/aplicacionext/add-app-externa/add-app-externa.component';
 import { LisServicioWebComponent } from './componente/servicioweb/lis-servicio-web/lis-servicio-web.component';

@@ -22,7 +22,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 //import { RegisterComponent } from './views/register/register.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { DataTablesModule } from 'angular-datatables';
 
 const APP_CONTAINERS = [
@@ -35,7 +35,7 @@ import {
   AppHeaderModule,
   AppFooterModule,
   AppSidebarModule,
-  
+
 } from '@coreui/angular';
 
 // Import routing module
@@ -45,7 +45,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { ModalModule ,BsModalRef} from 'ngx-bootstrap/modal';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -55,7 +55,8 @@ import { LogLevel } from "msal";
 import { environment } from '../environments/environment';
 import { RestUserAuthService } from './aplicacion/servicio/rest-user-auth.service';
 import { LoaderComponent } from './aplicacion/componente/utilidad/loader/loader.component';
-import { VentanaModalComponent } from './aplicacion/componente/utilidad/ventana-modal/ventana-modal.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
+
 
 export function loggerCallback(logLevel, message, piiEnabled) {
   //console.log("client logging" + message);
@@ -64,8 +65,10 @@ export function loggerCallback(logLevel, message, piiEnabled) {
 export const protectedResourceMap: [string, string[]][] =
   [
     ['https://graph.microsoft.com/v1.0/me', ['user.read']],
+    ['https://graph.microsoft.com/v1.0/users', ['user.read']],
     ['https://graph.microsoft.com/v1.0/me/photo', ['User.ReadBasic.All']],
-    ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']]
+    ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']],
+    ['https://graph.microsoft.com/v1.0/groups/',['Directory.Read.All']]
   ];
 
 
@@ -106,7 +109,7 @@ export const protectedResourceMap: [string, string[]][] =
       protectedResourceMap: protectedResourceMap,
       logger: loggerCallback,
       level: LogLevel.Info
-    })
+    }),
 
 
   ],
@@ -117,19 +120,21 @@ export const protectedResourceMap: [string, string[]][] =
     P500Component,
     LoginComponent,
     LoaderComponent,
+
     //VentanaModalComponent
     //RegisterComponent
   ],
   providers: [
-    //{    provide: LocationStrategy,    useClass: HashLocationStrategy,    },
+    //{    provide: LocationStrategy,    useClass: HashLocationStrategy},
     BsModalRef,
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: MsalInterceptor, multi: true 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor, multi: true
     },
     RestUserAuthService
 
-],
-  bootstrap: [ AppComponent ]
+  ],
+
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

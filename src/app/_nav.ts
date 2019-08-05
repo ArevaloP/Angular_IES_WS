@@ -78,7 +78,15 @@ export const navItems: NavData[] = [
     icon: 'icon-pencil'
   },
 
-
+  {
+    title: true,
+    name: 'Office 365'
+  },
+  {
+    name: 'Grupo',
+    url: '/api-office/grupo',
+    icon: 'icon-drop'
+  },
  /*
   {
     name: 'Base',
