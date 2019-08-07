@@ -21,6 +21,7 @@ export class LoginComponent {
     if (this.authRest.isLoggedIn()) {
       this.router.navigate(['load']);
     } else {
+      //sessionStorage.removeItem("msal.idtoken");
       this.iniciarSession();
     }
   }

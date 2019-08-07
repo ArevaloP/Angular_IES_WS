@@ -134,18 +134,18 @@ export class LisJdbcConexionComponent implements OnInit {
     this.router.navigate(['aplicacion/add-conexionjdbc']);
   }
 
-  public irEliminar(servicioWeb) {
+  public irEliminar(conexionJdbc) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el servicio [" + servicioWeb.nombre + "]  ?"),
-      () => this.eliminar(servicioWeb)
+      ("¿ Esta seguro de eliminar la conexión [" + conexionJdbc.nombre + "]  ?"),
+      () => this.eliminar(conexionJdbc)
     );
   }
 
 
 
-  public eliminar(servicioWeb) {
-    servicioWeb.registradoPor = this.usuarioVO.oid;
-    this.restJdbcConexion.eliminarJdbcConexion(servicioWeb).subscribe(
+  public eliminar(conexionJdbc) {
+    conexionJdbc.registradoPor = this.usuarioVO.oid;
+    this.restJdbcConexion.eliminarJdbcConexion(conexionJdbc).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
           this.router.navigate(['aplicacion/jdbc-conexion']));

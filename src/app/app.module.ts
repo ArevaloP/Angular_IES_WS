@@ -64,13 +64,15 @@ export function loggerCallback(logLevel, message, piiEnabled) {
 
 export const protectedResourceMap: [string, string[]][] =
   [
-    ['https://graph.microsoft.com/v1.0/me', ['user.read']],
-    ['https://graph.microsoft.com/v1.0/users', ['user.read']],
-    ['https://graph.microsoft.com/v1.0/me/photo', ['User.ReadBasic.All']],
-    ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']],
-    ['https://graph.microsoft.com/v1.0/groups/',['Directory.Read.All']]
+    ['https://graph.microsoft.com/v1.0/me', ['User.Read']],
+    ['https://graph.microsoft.com/v1.0/users', ['User.Read']],
+    //['https://graph.microsoft.com/v1.0/me/photo', ['User.ReadBasic.All']],
+     ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']],
+     ['https://graph.microsoft.com/v1.0/groups/',['Group.ReadWrite.All', 'Directory.ReadWrite.All','User.Read','Directory.AccessAsUser.All'] ],
+    //['https://graph.microsoft.com/v1.0',['api://ff27df78-09ee-4f0a-9dea-ccb5b21abe81/access_as_user/1']]
   ];
 
+  
 
 
 @NgModule({
@@ -125,7 +127,11 @@ export const protectedResourceMap: [string, string[]][] =
     //RegisterComponent
   ],
   providers: [
+<<<<<<< HEAD
    // {    provide: LocationStrategy,    useClass: HashLocationStrategy},
+=======
+    //{    provide: LocationStrategy,    useClass: HashLocationStrategy},
+>>>>>>> 2f0981d5c007a4f95aa1fd35dde599844d2e1a38
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,
