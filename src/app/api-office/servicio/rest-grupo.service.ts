@@ -42,6 +42,21 @@ export class RestGrupoService {
 
 
 
+  public obtenerPropietarioGrupo():any {
+
+    console.log("token::",sessionStorage.getItem("msal.idtoken"));
+    let url = "https://graph.microsoft.com/v1.0/groups/" + environment.group + "/owners"
+    //console.log("",url);
+    return this.http.get(url, {
+      headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),
+        "Content-Type": "application/json"
+      }
+    })
+  }
+
+
+
 
 
   public obtenerMiembrosGrupo():any {
@@ -57,6 +72,10 @@ export class RestGrupoService {
       }
     })
   }
+
+
+
+
 
 
   public agregarMiembrosGrupo(userId) {

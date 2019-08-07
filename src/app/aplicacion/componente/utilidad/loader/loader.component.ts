@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { VentanaModalComponent } from '../ventana-modal/ventana-modal.component';
 import { RestErrorService } from '../../../servicio/rest-error.service';
 import { ConfiguraServicio } from '../../../modelo/configura-servicio';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-loader',
@@ -24,24 +25,20 @@ export class LoaderComponent implements OnInit {
 
 
   ngOnInit() {
-<<<<<<< HEAD
-    alert("llego");
-=======
-    //this.authRest.logout();
-    //this.cargarConfiguracion();
->>>>>>> 2f0981d5c007a4f95aa1fd35dde599844d2e1a38
-    this.validarAccesoGrupo();
-  }
 
+    //this.validarAccesoGrupo();
+    this.cargarConfiguracion();
+  }
 
 
   private cargarConfiguracion() {
     this.authRest.cargarConfiguracion().subscribe(
       data => {
-        alert("data:" + JSON.stringify(data));
+        //alert("data:" + JSON.stringify(data));
         if (data.id === "empty") {
           this.crearGrupoAcceso();
         } else {
+          environment.group=data.idGrupoAcceso;
           this.validarAccesoGrupo();
         }
       },
@@ -94,8 +91,11 @@ export class LoaderComponent implements OnInit {
     let userLog: any = this.authRest.getUser().idToken;
     this.authRest.crearGrupoAcceso(userLog.oid).subscribe(
       data => {
+        console.log("GRUPO:", data);
         this.configuraServicio.idGrupoAcceso = data.id;
-        this.registarConfiguracion();
+        this.crearConfiguracion(
+          () => this.registarConfiguracion()
+        )
       },
       error => {
         this.restError.setError(error);

@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class OfficeGrupoComponent implements OnInit {
 
   private listaMienbrosGrupo: any;
+  private listaOwnerGrupo: any;
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
@@ -31,39 +32,62 @@ export class OfficeGrupoComponent implements OnInit {
 
   ngOnInit() {
     //this.obtenerInformacionGrupo();
-    this.cargarMiembrosGrupo();
+    //this.cargarMiembrosGrupo();
+    this.obtenerPropietarioGrupo();
   }
 
 
-  public cargarMiembrosGrupo() {
+
+  public obtenerPropietarioGrupo() {
+    this.restGrupoService.obtenerPropietarioGrupo().subscribe(
+      data => {
+          this.cargarMiembrosGrupo(data.value);
+      }, 
+      error => {
+        this.alerta.mostrarError(error);
+      }
+
+    )
+
+  }
+
+
+
+
+
+  public cargarMiembrosGrupo(owners:any[]) {
 
     this.restGrupoService.obtenerMiembrosGrupo().subscribe(
       data => {
         console.log(data);
         this.listaMienbrosGrupo = data.value;
-        this.establecerOpcionesDataTable(data.value)
+        
+        this.establecerOpcionesDataTable(data.value, owners)
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
 
       },
       error => {
-        console.error(error);
+        this.alerta.mostrarError(error);
       }
     )
 
   }
 
-  public establecerOpcionesDataTable(data) {
+  public establecerOpcionesDataTable(data, owners) {
+
+    const checkRoleExistence = roleParam => owners.some( ({id}) => id == roleParam)
+
 
     this.dtOptions = {
       data: data,
       columns: [
-        { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
+        { title: 'Admin', defaultContent: this.const.ICONO_VER, orderable: false, className:"text-center", width: "4%" },
         { title: 'Codigo', data: 'displayName', width: "20%", className: "text-left" },
         { title: 'Nombre', data: 'userPrincipalName', width: "40%", className: "text-left" },
         //{ title: 'Tipo', data: 'id', width: "20%" ,className: "text-left" },
         //{ title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className:"text-center", width: "6%" }
       ],
 
       paging: true,
@@ -88,14 +112,23 @@ export class OfficeGrupoComponent implements OnInit {
         const self = this;
 
         $('td:eq(0)', row).unbind('click');
-        $('td:eq(0)', row).bind('click', () => {
-          //self.modificar(index);
-        });
+
+        if(checkRoleExistence(dataRow.id)){
+          $('td:eq(0)', row).html('<i class="fa fa-check" aria-hidden="true" style="font-size:15px"></i>');
+        }else{
+          $('td:eq(0)', row).html("");
+        }
 
         $('td:eq(3)', row).unbind('click');
-        $('td:eq(3)', row).bind('click', () => {
-          self.irEliminar(this.listaMienbrosGrupo[index]);
-        });
+
+        if(!checkRoleExistence(dataRow.id)){
+          $('td:eq(3)', row).bind('click', () => {
+            self.irEliminar(this.listaMienbrosGrupo[index]);
+          });
+        }else{
+          $('td:eq(3)', row).html('<i class="fa fa-ban" aria-hidden="true" style="font-size:17px"></i>');
+        }
+
 
         this.cambiarEstiloBotones();
         return row;

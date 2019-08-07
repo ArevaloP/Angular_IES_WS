@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/contexto/'  ,
-  //baseUrl: 'https://development.ciadti.co:8090/contexto/' , 
+  //baseUrl: 'http://localhost:8080/contexto/'  ,
+  baseUrl: 'https://development.ciadti.co:8090/contexto/' , 
   configuracionMsal :{
     clientID: 'ff27df78-09ee-4f0a-9dea-ccb5b21abe81',
     authority: "https://login.microsoftonline.com/2fe9a652-eedf-4168-9370-18a597068a8e/",
@@ -36,7 +36,7 @@ export const environment = {
     //"Directory.AccessAsUser.All"
 
   ],
-  group:"2141f301-82c8-4382-8459-2c8ac6bf1766"
+  group:"" //2141f301-82c8-4382-8459-2c8ac6bf1766
 
 
 

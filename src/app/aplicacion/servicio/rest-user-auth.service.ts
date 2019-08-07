@@ -193,24 +193,24 @@ export class RestUserAuthService {
   public crearGrupoAcceso(idUsuario): any {
 
 
-    /*let group = {
+    let group = {
       "description": "Integrador de Aplicaciones Rest",
       "displayName": "IntegradorRestWs",
       "groupTypes": [
         "Unified"
       ],
       "mailEnabled": false,
-      "mailNickname": "IntegradorRestWs",
-      "securityEnabled": false,
+      "mailNickname": "integradorRestWs",
+      "securityEnabled": true,
       "owners@odata.bind": [
         "https://graph.microsoft.com/v1.0/users/" + idUsuario,
       ],
       "members@odata.bind": [
         "https://graph.microsoft.com/v1.0/users/" + idUsuario,
       ]
-    }*/
+    }
 
-    let group = {
+    /*let group = {
       "description": "Self help community for library",
       "displayName": "Library Assist",
       "groupTypes": [
@@ -219,11 +219,11 @@ export class RestUserAuthService {
       "mailEnabled": true,
       "mailNickname": "library",
       "securityEnabled": false
-    };
+    };*/
 
 
-    console.log(group);
-    console.log(sessionStorage.getItem("msal.idtoken"));
+    //console.log(group);
+    //console.log(sessionStorage.getItem("msal.idtoken"));
 
     return this.http.post('https://graph.microsoft.com/v1.0/groups', group, {
       headers: {
