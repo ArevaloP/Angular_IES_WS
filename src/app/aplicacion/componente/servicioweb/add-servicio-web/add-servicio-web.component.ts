@@ -82,12 +82,12 @@ export class AddServicioWebComponent implements OnInit {
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.servicioWeb.nombre + "]  ?"),
+        ("¿ Esta seguro de modificar el servicio [" + this.servicioWeb.nombre + "]  ?"),
         () => this.actualizarServicio(this.servicioWeb)
       );
     } else {
       this.alerta.confirmarInsertar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.servicioWeb.nombre + "]  ?"),
+        ("¿ Esta seguro de agregar el servicio [" + this.servicioWeb.nombre + "]  ?"),
         () => this.insertarServicio(this.servicioWeb)
       );
 

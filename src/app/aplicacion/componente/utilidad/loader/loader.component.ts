@@ -3,6 +3,7 @@ import { RestUserAuthService } from '../../../servicio/rest-user-auth.service';
 import { Router } from '@angular/router';
 import { VentanaModalComponent } from '../ventana-modal/ventana-modal.component';
 import { RestErrorService } from '../../../servicio/rest-error.service';
+import { ConfiguraServicio } from '../../../modelo/configura-servicio';
 
 @Component({
   selector: 'app-loader',
@@ -11,23 +12,47 @@ import { RestErrorService } from '../../../servicio/rest-error.service';
 })
 export class LoaderComponent implements OnInit {
 
- // @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+  // @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+
+  private configuraServicio = new ConfiguraServicio;
 
   constructor(
     private router: Router,
     private authRest: RestUserAuthService,
-    private restError:RestErrorService
+    private restError: RestErrorService
   ) { }
 
 
   ngOnInit() {
+    //this.authRest.logout();
+    //this.cargarConfiguracion();
     this.validarAccesoGrupo();
   }
 
 
 
+  private cargarConfiguracion() {
+    this.authRest.cargarConfiguracion().subscribe(
+      data => {
+        alert("data:" + JSON.stringify(data));
+        if (data.id === "empty") {
+          this.crearGrupoAcceso();
+        } else {
+          this.validarAccesoGrupo();
+        }
+      },
+      error => {
+        //alert("error:"+JSON.stringify(error));
+        this.restError.setError(error);
+        this.router.navigate(['500']);
+      }
+    )
+  }
+
+
+
+
   private validarAccesoGrupo() {
-    //console.log(this.authRest.getUser());
     this.authRest.obtenerInformacionGrupo().subscribe(
       data => {
         this.administarAplicacion(data);
@@ -37,7 +62,6 @@ export class LoaderComponent implements OnInit {
         this.router.navigate(['500']);
       }
     )
-
   }
 
 
@@ -61,6 +85,48 @@ export class LoaderComponent implements OnInit {
 
 
 
+  private crearGrupoAcceso() {
+
+    let userLog: any = this.authRest.getUser().idToken;
+    this.authRest.crearGrupoAcceso(userLog.oid).subscribe(
+      data => {
+        this.configuraServicio.idGrupoAcceso = data.id;
+        this.registarConfiguracion();
+      },
+      error => {
+        this.restError.setError(error);
+        this.router.navigate(['500']);
+      }
+    )
+
+  }
+
+
+  private registarConfiguracion() {
+    this.authRest.registrarConfiguracion(this.configuraServicio).subscribe(
+      data => {
+        this.validarAccesoGrupo();
+      },
+      error => {
+        this.restError.setError(error);
+        this.router.navigate(['500']);
+      }
+    )
+  }
+
+
+
+
+  private crearConfiguracion(callback): void {
+    let userLog: any = this.authRest.getUser().idToken;
+    this.configuraServicio.usuarioRealiza = userLog.name;
+    this.configuraServicio.registradoPor = userLog.oid;
+    this.configuraServicio.cuentaPropietario = userLog.preferred_username;
+    this.configuraServicio.activarServicios = "1"
+    this.configuraServicio.urlWebService = "http://"
+    this.configuraServicio.token = sessionStorage.getItem("auth.tk.local");
+    callback();
+  }
 
 
 

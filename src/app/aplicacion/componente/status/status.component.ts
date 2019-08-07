@@ -31,6 +31,21 @@ export class StatusComponent implements OnInit {
     console.log("getUser", this.restUserAuthService.getUser());
   }
 
+  creraGrupo() {
+    let userLog: any = this.authRest.getUser().idToken;
+    this.authRest.crearGrupoAcceso(userLog.oid).subscribe(
+      data => {
+          alert(data);
+      },
+      error => {
+        console.log(error);
+        //this.restError.setError(error);
+        //this.router.navigate(['500']);
+      }
+    )
+  }
+
+
   getGrupo() {
     this.authRest.obtenerInformacionGrupo().subscribe(
       data => {

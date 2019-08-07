@@ -75,12 +75,12 @@ export class AddUsuariowsComponent implements OnInit {
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.userWebService.nombre + "]  ?"),
+        ("¿ Esta seguro de modificar el usuario [" + this.userWebService.nombre + "]  ?"),
         () => this.actualizarUsuarioWs(this.userWebService)
       );
     } else {
       this.alerta.confirmarInsertar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.userWebService.nombre + "]  ?"),
+        ("¿ Esta seguro de agregar el usuario [" + this.userWebService.nombre + "]  ?"),
         () => this.insertarUsuarioWs(this.userWebService)
       );
     }

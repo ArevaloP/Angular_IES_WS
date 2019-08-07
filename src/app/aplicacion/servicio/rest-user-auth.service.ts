@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ConfiguraServicio } from '../modelo/configura-servicio';
 
 
 
@@ -16,7 +17,11 @@ export class RestUserAuthService {
 
   private subscription: Subscription;
   private loggedIn: boolean;
-  baseUrl = environment.baseUrl + "admin-acceso";
+  private grupoAcceso: string;
+  baseUrlAcceso = environment.baseUrl + "admin-acceso";
+  baseUrlConfig = environment.baseUrl + "ws_configuracion";
+
+
 
   //constructor(private router:Router) { }
   //this.router.navigate(['aplicacion']);
@@ -59,11 +64,11 @@ export class RestUserAuthService {
 
     this.authService.loginPopup(environment.optiosMsal).then(
       data => {
-        console.log("data", data);
+        //console.log("data", data);
         this.cargar(callback);
       },
       error => {
-        console.log("error", error);
+        //console.log("error", error);
         callback(false);
       }
 
@@ -86,9 +91,19 @@ export class RestUserAuthService {
       callback(true);
     });
 
+    this.subscription=  this.broadcastService.subscribe("msal:acquireTokenFailure", (payload) => {
+    
+    });
+
+
   }
 
   logout(): void {
+    
+    this.broadcastService.getMSALSubject().next(1);
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
     sessionStorage.removeItem("b2c.access.token");
     this.authService.logout();
   };
@@ -126,16 +141,16 @@ export class RestUserAuthService {
 
 
 
-  public cargarInformacionAdministracion(userData:any, grupo):any {
-    
-    let dataPost:any={};
-    dataPost.id=userData.userIdentifier;
-    dataPost.usuario=userData.idToken.preferred_username;
-    dataPost.oid=userData.idToken.oid ;
-    dataPost.nombre=userData.idToken.name;
-    dataPost.grupos=this.getListaGrupo(grupo.value);
+  public cargarInformacionAdministracion(userData: any, grupo): any {
 
-    return this.http.post(`${this.baseUrl}/acceso`,dataPost, {
+    let dataPost: any = {};
+    dataPost.id = userData.userIdentifier;
+    dataPost.usuario = userData.idToken.preferred_username;
+    dataPost.oid = userData.idToken.oid;
+    dataPost.nombre = userData.idToken.name;
+    dataPost.grupos = this.getListaGrupo(grupo.value);
+
+    return this.http.post(`${this.baseUrlAcceso}/acceso`, dataPost, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -145,17 +160,93 @@ export class RestUserAuthService {
 
 
 
-  getListaGrupo(lista:any[]){
-      //console.log(lista);
-      let respuesta:any=[];
-      if(lista){
-        lista.forEach(element => {
-          respuesta.push(element.id);
-        });
-      }
-      //console.log("respuesta",respuesta);
-      return respuesta;
+  getListaGrupo(lista: any[]) {
+    let respuesta: any = [];
+    if (lista) {
+      lista.forEach(element => {
+        respuesta.push(element.id);
+      });
+    }
+    return respuesta;
   }
+
+
+
+  public cargarConfiguracion(): any {
+    return this.http.get(`${this.baseUrlConfig}/load-data`, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+  }
+
+
+  public registrarConfiguracion(configuraServicio: ConfiguraServicio): any {
+    return this.http.post(`${this.baseUrlConfig}/set-data`, configuraServicio, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+  }
+
+
+  public crearGrupoAcceso(idUsuario): any {
+
+
+    /*let group = {
+      "description": "Integrador de Aplicaciones Rest",
+      "displayName": "IntegradorRestWs",
+      "groupTypes": [
+        "Unified"
+      ],
+      "mailEnabled": false,
+      "mailNickname": "IntegradorRestWs",
+      "securityEnabled": false,
+      "owners@odata.bind": [
+        "https://graph.microsoft.com/v1.0/users/" + idUsuario,
+      ],
+      "members@odata.bind": [
+        "https://graph.microsoft.com/v1.0/users/" + idUsuario,
+      ]
+    }*/
+
+    let group = {
+      "description": "Self help community for library",
+      "displayName": "Library Assist",
+      "groupTypes": [
+        "Unified"
+      ],
+      "mailEnabled": true,
+      "mailNickname": "library",
+      "securityEnabled": false
+    };
+
+
+    console.log(group);
+    console.log(sessionStorage.getItem("msal.idtoken"));
+
+    return this.http.post('https://graph.microsoft.com/v1.0/groups', group, {
+      headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),
+        "Content-Type": "application/json"
+      }
+    })
+
+
+  }
+
+
+
+
+
+
+  public setGrupoAcceso(ga: string) {
+    this.grupoAcceso = ga;
+  }
+
+
+
+
 
 
 

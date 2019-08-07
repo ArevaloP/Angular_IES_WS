@@ -80,13 +80,13 @@ export class AddJdbcConexionComponent implements OnInit {
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.jdbcConexion.nombre + "]  ?"),
+        ("¿ Esta seguro de modificar la conexión [" + this.jdbcConexion.nombre + "]  ?"),
         () => this.actualizarJdbcConexion(this.jdbcConexion)
       );
     } else {
 
       this.alerta.confirmarInsertar(
-        ("¿ Esta seguro de eliminar el servicio [" + this.jdbcConexion.nombre + "]  ?"),
+        ("¿ Esta seguro de agregar la conexión [" + this.jdbcConexion.nombre + "]  ?"),
         () => this.insertarJdbcConexion(this.jdbcConexion)
       );
     }
