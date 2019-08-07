@@ -125,7 +125,7 @@ export const protectedResourceMap: [string, string[]][] =
     //RegisterComponent
   ],
   providers: [
-    {    provide: LocationStrategy,    useClass: HashLocationStrategy},
+   // {    provide: LocationStrategy,    useClass: HashLocationStrategy},
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,

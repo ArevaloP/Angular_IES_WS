@@ -21,6 +21,7 @@ export class LoaderComponent implements OnInit {
 
 
   ngOnInit() {
+    alert("llego");
     this.validarAccesoGrupo();
   }
 
