@@ -11,9 +11,9 @@ import { RestUserAuthService } from '../../aplicacion/servicio/rest-user-auth.se
 export class DefaultLayoutComponent implements OnDestroy {
   public navItems = navItems;
   public sidebarMinimized = true;
-  private changes: MutationObserver;
+  public changes: MutationObserver;
   public element: HTMLElement;
-  private userData:any;
+  public userData:any;
  
  
   constructor(

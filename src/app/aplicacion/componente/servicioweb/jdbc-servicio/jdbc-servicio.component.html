@@ -6,13 +6,13 @@
             <div class="col-sm-12">
 
                 <div class="card" style="margin-bottom: 0.1rem;">
-                    <div class="card-header" *ngIf="mostarHeader">
+                    <div class="card-header" *ngIf="false">
                         <strong>Servicio Web</strong>
                     </div>
                     <div class="card-body pb-0">
 
                         <div class="form-group">
-                            <label for="otraconexion">Cargar Conexion Existente </label>
+                            <label for="otraconexion">Cargar Conexión Existente</label>
                             <select class="form-control" id="otraconexion" name="otraconexion"
                                 formControlName="otraconexion" 
                                 [(ngModel)]="indexConexion"
@@ -29,7 +29,7 @@
                         <div class="form-group">
 
                             <div class="form-check form-check-inline mr-1">
-                                <label class="form-check-label" for="inline-checkbox3">Crear Nueva Conexion </label>
+                                <label class="form-check-label" for="inline-checkbox3">Seleccione para crear una nueva conexión </label>
                                 <input class="form-check-input" type="checkbox" id="nuevaconexion" name="nuevaconexion"
                                     formControlName="nuevaconexion" [(ngModel)]="isNuevaConexion"
                                     (change)="crearConexionNueva($event)">
@@ -40,9 +40,9 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-5">
-                                    <label for="codigo">Codigo</label>
+                                    <label for="codigo">Código</label>
                                     <input type="text" class="form-control" id="codigo" name="codigo"
-                                        placeholder="Ingrese el codigo de la aplicación" formControlName="codigo"
+                                        placeholder="Ingrese el código de la conexión" formControlName="codigo"
                                         [(ngModel)]="jdbcConexion.codigo"
                                         [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -52,9 +52,9 @@
 
 
                                 <div class="form-group col-sm-7">
-                                    <label for="nombre">nombre</label>
+                                    <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
-                                        placeholder="Ingrese el nombre de la aplicación" formControlName="nombre"
+                                        placeholder="Ingrese el nombre de la conexión jdbc/academico" formControlName="nombre"
                                         [(ngModel)]="jdbcConexion.nombre"
                                         [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -64,9 +64,9 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-8">
-                                    <label for="serverUrl">serverUrl</label>
+                                    <label for="serverUrl">Ip Servidor</label>
                                     <input type="text" class="form-control" id="serverUrl" name="serverUrl"
-                                        placeholder="Ingrese el nombre de la aplicación" formControlName="serverUrl"
+                                        placeholder="Ingrese la ip del servidor ejemplo 172.26.2.110" formControlName="serverUrl"
                                         [(ngModel)]="jdbcConexion.serverUrl"
                                         [ngClass]="{'is-invalid': fGeneral.get('serverUrl').errors && fGeneral.get('serverUrl').dirty ,'is-valid': !fGeneral.get('serverUrl').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -77,9 +77,9 @@
 
 
                                 <div class="form-group col-sm-3">
-                                    <label for="puerto">puerto</label>
+                                    <label for="puerto">Puerto</label>
                                     <input type="text" class="form-control" id="puerto" name="puerto"
-                                        placeholder="Ingrese el nombre de la aplicación" formControlName="puerto"
+                                        placeholder="Ingrese el puerto de la conexion ej 5432" formControlName="puerto"
                                         [(ngModel)]="jdbcConexion.puerto"
                                         [ngClass]="{'is-invalid': fGeneral.get('puerto').errors && fGeneral.get('puerto').dirty ,'is-valid': !fGeneral.get('puerto').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -92,7 +92,7 @@
                             <div class="row">
 
                                 <div class="form-group col-sm-5">
-                                    <label for="tipoBaseDatos">tipoBaseDatos</label>
+                                    <label for="tipoBaseDatos">Motor de Base de datos</label>
                                     <select class="form-control" id="tipoBaseDatos" formControlName="tipoBaseDatos"
                                         [(ngModel)]="jdbcConexion.tipoBaseDatos"
                                         [ngClass]="{'is-invalid': fGeneral.get('tipoBaseDatos').errors && fGeneral.get('tipoBaseDatos').dirty ,'is-valid': !fGeneral.get('tipoBaseDatos').errors}"
@@ -111,9 +111,9 @@
 
 
                                 <div class="form-group col-sm-7">
-                                    <label for="serviciosIdAlias">serviciosIdAlias</label>
+                                    <label for="serviciosIdAlias">Base de datos</label>
                                     <input type="text" class="form-control" id="serviciosIdAlias"
-                                        name="serviciosIdAlias" placeholder="Ingrese el nombre de la aplicación"
+                                        name="serviciosIdAlias" placeholder="Ingrese el nombre de la base de datos."
                                         formControlName="serviciosIdAlias" [(ngModel)]="jdbcConexion.serviciosIdAlias"
                                         [ngClass]="{'is-invalid': fGeneral.get('serviciosIdAlias').errors && fGeneral.get('serviciosIdAlias').dirty ,'is-valid': !fGeneral.get('serviciosIdAlias').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -127,9 +127,9 @@
 
                             <div class="row ">
                                 <div class="form-group col-sm-6">
-                                    <label for="userId">userId</label>
+                                    <label for="userId">Usuario Conexión</label>
                                     <input type="text" class="form-control" id="userId" name="userId"
-                                        placeholder="Ingrese el nombre de la aplicación" formControlName="userId"
+                                        placeholder="Ingrese el usuario de la conexión." formControlName="userId"
                                         [(ngModel)]="jdbcConexion.userId"
                                         [ngClass]="{'is-invalid': fGeneral.get('userId').errors && fGeneral.get('userId').dirty ,'is-valid': !fGeneral.get('userId').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -139,9 +139,9 @@
 
 
                                 <div class="form-group col-sm-6">
-                                    <label for="password">password</label>
+                                    <label for="password">Contraseña</label>
                                     <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Ingrese el nombre de la aplicación" formControlName="password"
+                                        placeholder="Ingrese la contraseña de conexión." formControlName="password"
                                         [(ngModel)]="jdbcConexion.password"
                                         [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
                                         [readonly]="isReadOnly" required autofocus>
@@ -156,7 +156,7 @@
                     <div class="card-footer p-0" >
                         <button type="button" class="btn btn-ghost-success pull-right"
                             (click)="testearJdbcConexion()">
-                            Test Conexión
+                            Probar Conexión
                         </button>
                     </div>
 

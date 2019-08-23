@@ -7,7 +7,10 @@ import { OfficeGrupoComponent } from './componente/office-grupo/office-grupo.com
 
 
 const routes: Routes = [
+
+
     {
+
         path: '',
         canActivate: [MsalGuard],
         data: {

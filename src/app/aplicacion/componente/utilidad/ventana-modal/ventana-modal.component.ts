@@ -28,8 +28,8 @@ export class VentanaModalComponent implements OnInit {
   ventana: VentanaAlerta = new VentanaAlerta();
 
   constructor(
-    private router: Router,
-    private restError:RestErrorService
+    public router: Router,
+    public restError:RestErrorService
     ) {
   }
 
@@ -127,11 +127,11 @@ export class VentanaModalComponent implements OnInit {
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   public statusConexion(jdbc: any) {
 
-    this.ventana.titulo = "Status Conexión";
+    this.ventana.titulo = "Prueba de conexión";
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonRegistar = false;
     this.successModal.show();
-    this.ventana.mensaje = "" + jdbc.data.productName + " Conexion Ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
+    this.ventana.mensaje = "" + jdbc.data.productName + " Conexión Ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
   }
 
 

@@ -7,8 +7,8 @@ import { RestErrorService } from '../../aplicacion/servicio/rest-error.service';
 })
 export class P500Component implements OnInit {
 
-  private error:any;
-  private texto;
+  public error:any;
+  public texto;
   constructor(private restErrorService:RestErrorService) {
 
   }

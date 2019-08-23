@@ -17,16 +17,17 @@ export class LisAplicacionServicioComponent implements OnInit {
   //@ HostBinding ( 'class' ) className ="box box-primary";
   @Input() searchText: String;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
 
   //@ViewChild("dataTable", null) table;
-  //private dataTable: any;
-  //private dtOptions: DataTables.Settings = {};
+  //public dataTable: any;
+  //public dtOptions: DataTables.Settings = {};
 
-  p: number = 1;
+  p1: number = 1;
+
   constructor(
-    private restServicio: RestServicioWebService,
+    public restServicio: RestServicioWebService,
   ) {
 
   }
@@ -41,7 +42,7 @@ export class LisAplicacionServicioComponent implements OnInit {
 
 
 
-  private actualizarEstadoServicio(index: number, eve: any) {
+  public actualizarEstadoServicio(index: number, eve: any) {
 
     //alert(""+index+" =>"+eve);
     this.listaServicio[index].checkeado = eve;

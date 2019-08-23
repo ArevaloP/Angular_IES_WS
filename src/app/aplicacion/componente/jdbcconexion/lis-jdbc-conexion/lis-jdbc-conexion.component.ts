@@ -16,17 +16,17 @@ export class LisJdbcConexionComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  private dataTable: any;
-  private dtOptions: any= {};
-  private listadoConexionesJdbc: JdbcConexion[];
-  private const: UtilConstante = new UtilConstante();
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public dataTable: any;
+  public dtOptions: any= {};
+  public listadoConexionesJdbc: JdbcConexion[];
+  public const: UtilConstante = new UtilConstante();
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
 
 
   constructor(
-    private restJdbcConexion: RestJdbcConexionService,
-    private router: Router,
+    public restJdbcConexion: RestJdbcConexionService,
+    public router: Router,
 
 
   ) { }
@@ -68,7 +68,7 @@ export class LisJdbcConexionComponent implements OnInit {
       data: data,
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Codigo', data: 'codigo', width: "20%" },
+        { title: 'Código', data: 'codigo', width: "20%" },
         { title: 'Nombre', data: 'nombre', width: "20%" },
         { title: 'Tipo', data: 'tipoBaseDatos', width: "20%" },
         { title: 'Host', data: 'serverUrl', width: "20%" },

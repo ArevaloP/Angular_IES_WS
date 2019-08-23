@@ -15,12 +15,12 @@ import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-moda
 export class LisAppExternaComponent implements OnInit {
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  private listadoAplicacionExterna: AplicacionExterna[];
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public listadoAplicacionExterna: AplicacionExterna[];
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
   constructor(
-    private restAplicacion: RestAplicacionService,
-    private router: Router
+    public restAplicacion: RestAplicacionService,
+    public router: Router
   ) {
 
   }
@@ -32,12 +32,10 @@ export class LisAppExternaComponent implements OnInit {
     this.restAplicacion.listarAplicacionesExterna().subscribe(
       data => {
         this.listadoAplicacionExterna = data;
-        console.log("trae datos de listado !!!", this.listadoAplicacionExterna);
-        
+        //console.log("trae datos de listado !!!", this.listadoAplicacionExterna);
       },
       error => {
         this.alerta.mostrarError(error);
-        //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
       }
     )
 

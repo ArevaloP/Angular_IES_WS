@@ -59,9 +59,8 @@ export class OfficeGrupoComponent implements OnInit {
 
     this.restGrupoService.obtenerMiembrosGrupo().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.listaMienbrosGrupo = data.value;
-        
         this.establecerOpcionesDataTable(data.value, owners)
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
@@ -83,13 +82,13 @@ export class OfficeGrupoComponent implements OnInit {
       data: data,
       columns: [
         { title: 'Admin', defaultContent: this.const.ICONO_VER, orderable: false, className:"text-center", width: "4%" },
-        { title: 'Codigo', data: 'displayName', width: "20%", className: "text-left" },
+        { title: 'Código', data: 'displayName', width: "20%", className: "text-left" },
         { title: 'Nombre', data: 'userPrincipalName', width: "40%", className: "text-left" },
-        //{ title: 'Tipo', data: 'id', width: "20%" ,className: "text-left" },
-        //{ title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className:"text-center", width: "6%" }
       ],
-
+      language: {
+				url: "assets/spanish.json"
+			},
       paging: true,
       ordering: true,
       info: true,
@@ -187,7 +186,7 @@ export class OfficeGrupoComponent implements OnInit {
 
     this.restGrupoService.obtenerInformacionGrupo().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
       },
       error => {
         this.alerta.mostrarError(error);

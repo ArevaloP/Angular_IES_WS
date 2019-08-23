@@ -14,10 +14,12 @@ export class LisAplicacionUsuarioComponent implements OnInit {
   @Input() listaUsuarioWs: UserWebService[];
   @Input() searchText: String;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));	
-	
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));	
+  p: number = 1;
+  p2: number = 1;
+  
   constructor(
-    private restUsuario: RestUserWebService,
+    public restUsuario: RestUserWebService,
 
   ) { }
 
@@ -26,7 +28,7 @@ export class LisAplicacionUsuarioComponent implements OnInit {
 
 
 
-  private actualizarEstadoUsuario(index: number, eve: any) {
+  public actualizarEstadoUsuario(index: number, eve: any) {
 
     this.listaUsuarioWs[index].checkeado = eve;
     this.listaUsuarioWs[index].registradoPor = this.usuarioVO.oid;

@@ -29,7 +29,7 @@ export class RestUserWebService {
   }
 
   listarUsuarioServicioWebAplicacion(idAplicacion) {
-    console.log(`${this.baseUrl}/listarXaplicacion/${idAplicacion || -1}`);
+    //console.log(`${this.baseUrl}/listarXaplicacion/${idAplicacion || -1}`);
     return this.http.get<UserWebService[]>(`${this.baseUrl}/listarXaplicacion/${idAplicacion || -1}`, {
       headers: {
         "Content-Type": "application/json",

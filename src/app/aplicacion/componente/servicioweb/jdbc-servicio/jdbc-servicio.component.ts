@@ -13,23 +13,23 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class JdbcServicioComponent implements OnInit {
 
-  private fGeneral: FormGroup;
-  private jdbcConexion: JdbcConexion = new JdbcConexion();
-  private isModificar: boolean = false;
-  private isReadOnly: boolean = false;
-  private isNuevaConexion: boolean = false;
-  private listaConexionesExistente: JdbcConexion[];
-  private indexConexion: number;
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public fGeneral: FormGroup;
+  public jdbcConexion: JdbcConexion = new JdbcConexion();
+  public isModificar: boolean = false;
+  public isReadOnly: boolean = false;
+  public isNuevaConexion: boolean = false;
+  public listaConexionesExistente: JdbcConexion[];
+  public indexConexion: number;
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
 
 
   constructor(
-    private fb: FormBuilder,
-    private restJdbcConexion: RestJdbcConexionService,
-    private router: Router
+    public fb: FormBuilder,
+    public restJdbcConexion: RestJdbcConexionService,
+    public router: Router
   ) {
 
   }
@@ -49,7 +49,7 @@ export class JdbcServicioComponent implements OnInit {
 
   public getObjetoConexion() {
 
-    console.log("GET_CONEXION:",this.jdbcConexion);
+    //console.log("GET_CONEXION:",this.jdbcConexion);
     if(this.jdbcConexion.id==null){
       this.jdbcConexion.estado = "ACTIVO";
       this.jdbcConexion.tipoConexion = "SID";

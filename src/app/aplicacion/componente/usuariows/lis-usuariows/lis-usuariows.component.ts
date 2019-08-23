@@ -17,15 +17,15 @@ export class LisUsuariowsComponent implements OnInit {
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
-  private dataTable: any;
-  private dtOptions: any ={}//DataTables.Settings = {};
-  private listaUsuarioServicio: UserWebService[];
-  private const: UtilConstante = new UtilConstante();
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public dataTable: any;
+  public dtOptions: any ={}//DataTables.Settings = {};
+  public listaUsuarioServicio: UserWebService[];
+  public const: UtilConstante = new UtilConstante();
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
 
   constructor(
-    private restUsuario: RestUserWebService,
-    private router: Router
+    public restUsuario: RestUserWebService,
+    public router: Router
   ) { }
 
   ngOnInit() {

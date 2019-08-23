@@ -13,9 +13,9 @@
 
                         <div class="row">
                             <div class="form-group col-sm-8">
-                                <label for="codigo">Codigo</label>
+                                <label for="codigo">Código</label>
                                 <input type="text" class="form-control" id="codigo" name="codigo"
-                                    placeholder="Ingrese el codigo de la aplicación" formControlName="codigo"
+                                    placeholder="Ingrese el código de servicio web" formControlName="codigo"
                                     [(ngModel)]="servicioWeb.codigo"
                                     [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
                                     required autofocus>
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label for="url">Url</label>
                             <input type="text" class="form-control" id="url" name="url"
-                                placeholder="Ingrese dirección de la aplicación" formControlName="url"
+                                placeholder="Ingrese dirección del servicio web" formControlName="url"
                                 [(ngModel)]="servicioWeb.url"
                                 [ngClass]="{'is-invalid': fGeneral.get('url').errors && fGeneral.get('url').dirty ,'is-valid': !fGeneral.get('url').errors}"
                                 required autofocus>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
-                                placeholder="Ingrese el nombre de la aplicación" formControlName="nombre"
+                                placeholder="Ingrese el nombre del servicio web" formControlName="nombre"
                                 [(ngModel)]="servicioWeb.nombre"
                                 [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
                                 required autofocus>
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
-                                placeholder="Contenido" formControlName="descripcion"
+                                placeholder="Breve descripción del servicio" formControlName="descripcion"
                                 [(ngModel)]="servicioWeb.descripcion"
                                 [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
                                 required></textarea>
@@ -106,7 +106,7 @@
                             <div class="card-body pb-0">
 
                                 <div class="form-group">
-                                    <label for="metodo">Metodo</label>
+                                    <label for="metodo">Método</label>
                                     <select class="form-control" id="metodo" formControlName="metodo"
                                         [(ngModel)]="servicioWeb.metodo" required>
                                         <option value="GET">GET</option>
@@ -121,15 +121,15 @@
                                 <div class="form-group">
                                     <label for="query">Query</label>
                                     <textarea id="query" name="query" rows="3" class="form-control"
-                                        placeholder="Contenido" formControlName="query" [(ngModel)]="servicioWeb.query">
-                            </textarea>
+                                        placeholder="Ingrese la consulta sql " formControlName="query" [(ngModel)]="servicioWeb.query">
+                                    </textarea>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="identificadorPadre">Identificador</label>
                                     <input type="text" class="form-control" id="identificadorPadre"
-                                        name="identificadorPadre" placeholder="Ingrese el codigo de la aplicación"
+                                        name="identificadorPadre" placeholder="Ingrese el identificador del padre para multitabla"
                                         formControlName="identificadorPadre"
                                         [(ngModel)]="servicioWeb.identificadorPadre" autofocus>
                                 </div>
@@ -138,7 +138,7 @@
                                 <div class="form-group">
                                     <label for="parametros">Parametros</label>
                                     <input type="text" class="form-control" id="parametros" name="parametros"
-                                        placeholder="Ingrese el parametros de la aplicación"
+                                        placeholder="Ingrese el parametros del servicio web, modo informativo"
                                         formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
 
                                 </div>
@@ -150,7 +150,7 @@
                         </div>
 
                     </tab>
-                    <tab heading="Conexion JDBC">
+                    <tab heading="Conexión JDBC">
                         <app-jdbc-servicio #jdbcConexion></app-jdbc-servicio>
                     </tab>
 
@@ -162,8 +162,8 @@
 
                 <div class="card">
                     <div class="card-body" style="padding: 0.25rem;">
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid" (click)="irRegistar()()">
-                            Registar Cambios
+                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid" (click)="irRegistar()">
+                            Registrar
                         </button>
                     </div>
                 </div>

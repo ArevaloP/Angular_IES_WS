@@ -15,10 +15,10 @@ export class PerfilUsuariowsComponent implements OnInit {
   @Input() userWebService: UserWebService;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
-  private newPassword: String;
+  public newPassword: String;
 
   constructor(
-    private restUserWebService: RestUserWebService
+    public restUserWebService: RestUserWebService
   ) { }
 
   ngOnInit() {

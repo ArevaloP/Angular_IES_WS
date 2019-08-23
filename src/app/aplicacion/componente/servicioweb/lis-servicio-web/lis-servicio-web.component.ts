@@ -22,15 +22,15 @@ export class LisServicioWebComponent implements OnInit {
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
 
-  private dataTable: any;
-  private dtOptions: any={}// DataTables.Settings = {};
-  private listadoServicioWeb: ServicioWeb[];
-  private const: UtilConstante = new UtilConstante();
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public dataTable: any;
+  public dtOptions: any={}// DataTables.Settings = {};
+  public listadoServicioWeb: ServicioWeb[];
+  public const: UtilConstante = new UtilConstante();
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
 
   constructor(
-    private restServicio: RestServicioWebService,
-    private router: Router
+    public restServicio: RestServicioWebService,
+    public router: Router
   ) {
   }
 
@@ -68,10 +68,10 @@ export class LisServicioWebComponent implements OnInit {
       data: data,
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Codigo', data: 'codigo', width: "20%", className: "text-left" },
+        { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
         { title: 'Nombre', data: 'nombre', width: "40%" ,className: "text-left" },
         { title: 'Tipo', data: 'tipo', width: "20%" ,className: "text-left" },
-        { title: 'Metodo', data: 'metodo', width: "20%" },
+        { title: 'Método', data: 'metodo', width: "20%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
 

@@ -15,12 +15,12 @@ export class LoaderComponent implements OnInit {
 
   // @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
-  private configuraServicio = new ConfiguraServicio;
+  public configuraServicio = new ConfiguraServicio;
 
   constructor(
-    private router: Router,
-    private authRest: RestUserAuthService,
-    private restError: RestErrorService
+    public router: Router,
+    public authRest: RestUserAuthService,
+    public restError: RestErrorService
   ) { }
 
 
@@ -31,14 +31,14 @@ export class LoaderComponent implements OnInit {
   }
 
 
-  private cargarConfiguracion() {
+  public cargarConfiguracion() {
     this.authRest.cargarConfiguracion().subscribe(
       data => {
         //alert("data:" + JSON.stringify(data));
         if (data.id === "empty") {
           this.crearGrupoAcceso();
         } else {
-          environment.group=data.idGrupoAcceso;
+          sessionStorage.setItem("group-lk-acc",data.idGrupoAcceso);
           this.validarAccesoGrupo();
         }
       },
@@ -53,7 +53,7 @@ export class LoaderComponent implements OnInit {
 
 
 
-  private validarAccesoGrupo() {
+  public validarAccesoGrupo() {
     this.authRest.obtenerInformacionGrupo().subscribe(
       data => {
         this.administarAplicacion(data);
@@ -67,7 +67,7 @@ export class LoaderComponent implements OnInit {
 
 
 
-  private administarAplicacion(group) {
+  public administarAplicacion(group) {
     this.router.navigate(['aplicacion/status']);
     this.authRest.cargarInformacionAdministracion(this.authRest.getUser(), group).subscribe(
       data => {
@@ -86,12 +86,12 @@ export class LoaderComponent implements OnInit {
 
 
 
-  private crearGrupoAcceso() {
+  public crearGrupoAcceso() {
 
     let userLog: any = this.authRest.getUser().idToken;
     this.authRest.crearGrupoAcceso(userLog.oid).subscribe(
       data => {
-        console.log("GRUPO:", data);
+        //console.log("GRUPO:", data);
         this.configuraServicio.idGrupoAcceso = data.id;
         this.crearConfiguracion(
           () => this.registarConfiguracion()
@@ -106,7 +106,7 @@ export class LoaderComponent implements OnInit {
   }
 
 
-  private registarConfiguracion() {
+  public registarConfiguracion() {
     this.authRest.registrarConfiguracion(this.configuraServicio).subscribe(
       data => {
         this.validarAccesoGrupo();
@@ -121,7 +121,7 @@ export class LoaderComponent implements OnInit {
 
 
 
-  private crearConfiguracion(callback): void {
+  public crearConfiguracion(callback): void {
     let userLog: any = this.authRest.getUser().idToken;
     this.configuraServicio.usuarioRealiza = userLog.name;
     this.configuraServicio.registradoPor = userLog.oid;

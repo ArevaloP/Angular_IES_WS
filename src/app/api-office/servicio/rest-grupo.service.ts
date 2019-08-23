@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 })
 export class RestGrupoService {
 
+
+  private grupoAcceso =sessionStorage.getItem("group-lk-acc");
   constructor(
     private http: HttpClient
 
@@ -29,7 +31,6 @@ export class RestGrupoService {
 
   public obtenerInformacionUsuario(correo) {
     let url = "https://graph.microsoft.com/v1.0/users/"+correo;
-    console.log(url);
     return this.http.get(url, {
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),
@@ -44,9 +45,9 @@ export class RestGrupoService {
 
   public obtenerPropietarioGrupo():any {
 
-    console.log("token::",sessionStorage.getItem("msal.idtoken"));
-    let url = "https://graph.microsoft.com/v1.0/groups/" + environment.group + "/owners"
-    //console.log("",url);
+    //console.log("https://graph.microsoft.com/v1.0/groups/" + this.grupoAcceso + "/owners");
+    //console.log("token::",sessionStorage.getItem("msal.idtoken"));
+    let url = "https://graph.microsoft.com/v1.0/groups/" + this.grupoAcceso + "/owners"
     return this.http.get(url, {
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),
@@ -59,12 +60,12 @@ export class RestGrupoService {
 
 
 
+
   public obtenerMiembrosGrupo():any {
 
-    console.log("token::",sessionStorage.getItem("msal.idtoken"));
-    let url = "https://graph.microsoft.com/v1.0/groups/" + environment.group + "/members"
-    console.log("",url);
-
+  //console.log("token::",sessionStorage.getItem("msal.idtoken"));
+  //console.log("",url);
+    let url = "https://graph.microsoft.com/v1.0/groups/" + this.grupoAcceso + "/members"
     return this.http.get(url, {
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),
@@ -80,7 +81,7 @@ export class RestGrupoService {
 
   public agregarMiembrosGrupo(userId) {
 
-    let url = "https://graph.microsoft.com/v1.0/groups/" + environment.group + "/members/$ref";
+    let url = "https://graph.microsoft.com/v1.0/groups/" + this.grupoAcceso+ "/members/$ref";
     let usuario = {
       "@odata.id": "https://graph.microsoft.com/v1.0/directoryObjects/"+userId
     };
@@ -96,7 +97,7 @@ export class RestGrupoService {
 
 
   public eliminarMiembrosGrupo(userId) {
-    let url = "https://graph.microsoft.com/v1.0/groups/" + environment.group + "/members/" + userId + "/$ref";
+    let url = "https://graph.microsoft.com/v1.0/groups/" + this.grupoAcceso + "/members/" + userId + "/$ref";
     return this.http.delete(url, {
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),

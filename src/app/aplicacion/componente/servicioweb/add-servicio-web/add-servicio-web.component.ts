@@ -15,19 +15,19 @@ import { JdbcServicioComponent } from '../jdbc-servicio/jdbc-servicio.component'
 export class AddServicioWebComponent implements OnInit {
 
 
-  private fGeneral: FormGroup;
-  private servicioWeb: ServicioWeb = new ServicioWeb();
-  private isModificar: boolean = false;
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public fGeneral: FormGroup;
+  public servicioWeb: ServicioWeb = new ServicioWeb();
+  public isModificar: boolean = false;
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild ('jdbcConexion', { static: false })  public jdbcComponente: JdbcServicioComponent;
 
   constructor(
-    private fb: FormBuilder,
-    private restServicio: RestServicioWebService,
-    private restConexionJdbc: RestJdbcConexionService,
-    private router: Router
+    public fb: FormBuilder,
+    public restServicio: RestServicioWebService,
+    public restConexionJdbc: RestJdbcConexionService,
+    public router: Router
 
   ) { }
 
@@ -38,9 +38,12 @@ export class AddServicioWebComponent implements OnInit {
       this.isModificar = true;
     } else {
       this.servicioWeb.estado = "ACTIVO";
+      this.servicioWeb.tipo = "CONSULTA";
+      this.servicioWeb.protocolo = "REST";
+      this.servicioWeb.metodo = "POST";
       this.isModificar = false;
     }
-    console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
+    //console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
     this.inicializarValidacion();
   }
 

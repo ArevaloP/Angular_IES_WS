@@ -13,13 +13,13 @@ export class ApexUsuariowsComponent implements OnInit {
 
   @Input() userWebService: UserWebService;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
   public listaAplicacion: any[];
   p: number = 1;
 
   constructor(
-    private restUsuario: RestUserWebService
+    public restUsuario: RestUserWebService
 
   ) { }
 
@@ -42,7 +42,7 @@ export class ApexUsuariowsComponent implements OnInit {
 
 
 
-  private actualizarEstadoUsuario(index: number, eve: any) {
+  public actualizarEstadoUsuario(index: number, eve: any) {
 
     this.userWebService.checkeado = eve;
     this.userWebService.registradoPor = this.usuarioVO.oid;

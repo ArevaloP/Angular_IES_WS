@@ -16,18 +16,18 @@ export class AddAppExternaComponent implements OnInit {
 
 
   public aplicacionExterna: AplicacionExterna = new AplicacionExterna();
-  private fGeneral: FormGroup;
-  private isModificar: boolean = false;
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public fGeneral: FormGroup;
+  public isModificar: boolean = false;
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   constructor(
-    private fb: FormBuilder,
-    private restAplicacion: RestAplicacionService,
-    private restServicio: RestServicioWebService,
-    private restUsuario: RestUserWebService,
-    private router: Router
+    public fb: FormBuilder,
+    public restAplicacion: RestAplicacionService,
+    public restServicio: RestServicioWebService,
+    public restUsuario: RestUserWebService,
+    public router: Router
   ) {
 
   }
@@ -122,7 +122,6 @@ export class AddAppExternaComponent implements OnInit {
   public cargarListaServiciosWeb() {
     this.restServicio.listarServicioWebAplicacion(this.aplicacionExterna.id).subscribe(
       data => {
-        console.log(data);
         this.aplicacionExterna.listaServicioWeb = data;
         this.restServicio.setListaServicio(data);
       },
@@ -139,7 +138,9 @@ export class AddAppExternaComponent implements OnInit {
         //alert(JSON.stringify(data));
         this.aplicacionExterna.listaUsuarioAplicacion = data;
       },
-      error => { console.log("falla la consulta de servicios web") }
+      error => { 
+		this.alerta.mostrarError(error);
+	  }
     );
   }
 

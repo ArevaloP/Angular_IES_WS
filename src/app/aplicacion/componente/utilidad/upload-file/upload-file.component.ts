@@ -22,7 +22,7 @@ export class UploadFileComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private restUpload: RestUploadFileService) {
+  constructor(public formBuilder: FormBuilder, public restUpload: RestUploadFileService) {
 
   }
 

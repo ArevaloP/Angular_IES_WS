@@ -15,18 +15,18 @@ import { Alert } from 'selenium-webdriver';
 export class AddUsuariowsComponent implements OnInit {
 
 
-  private fGeneral: FormGroup;
-  private isModificar: boolean = false;
-  private userWebService: UserWebService = new UserWebService();
-  private usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public fGeneral: FormGroup;
+  public isModificar: boolean = false;
+  public userWebService: UserWebService = new UserWebService();
+  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
   
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('fileAvatar', { static: false }) public fileAvatar: UploadFileComponent;
 
   constructor(
-    private fb: FormBuilder,
-    private restUsuario: RestUserWebService,
-    private router: Router
+    public fb: FormBuilder,
+    public restUsuario: RestUserWebService,
+    public router: Router
 
   ) { }
 

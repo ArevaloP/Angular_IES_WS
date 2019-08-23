@@ -35,8 +35,8 @@ export const environment = {
     //"Group.ReadWrite",
     //"Directory.AccessAsUser.All"
 
-  ],
-  group:"" //2141f301-82c8-4382-8459-2c8ac6bf1766
+  ]
+  //,group:"" //2141f301-82c8-4382-8459-2c8ac6bf1766
 
 
 

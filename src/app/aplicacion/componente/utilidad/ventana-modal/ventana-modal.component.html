@@ -35,7 +35,7 @@
             <p [innerHTML]="ventana.mensaje"></p>
         </div>
         <div class="modal-footer" style="padding: 0.5rem">
-          <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Cerrar</button>
           <button type="button" class="btn btn-success"  *ngIf="ventana.botonRegistar" (click)="accionSuccess()">{{ventana.msgBotonRegistar}}</button>
         </div>
       </div><!-- /.modal-content -->
@@ -57,7 +57,7 @@
             <p [innerHTML]="ventana.mensaje"></p>
         </div>
         <div class="modal-footer" style="padding: 0.5rem">
-          <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Cerrar</button>
           <button type="button" class="btn btn-primary"  *ngIf="ventana.botonRegistar" (click)="accionPrimary()">{{ventana.msgBotonRegistar}}</button>
         </div>
       </div><!-- /.modal-content -->
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="modal-footer" style="padding: 0.5rem">
-          <button type="button" class="btn btn-secondary" (click)="prontmodal.hide()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="prontmodal.hide()">Cerrar</button>
           <button type="button" class="btn btn-success" *ngIf="ventana.botonRegistar"
             (click)="accionPront()">{{ventana.msgBotonRegistar}}</button>
         </div>

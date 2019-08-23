@@ -22,7 +22,7 @@ const routes: Routes = [
     path: '',
     canActivate: [MsalGuard],
     data: {
-      title: 'Aplicacion'
+      title: 'Aplicación'
     },
 
     children: [

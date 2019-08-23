@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <label for="usuario">Usuario</label>
                             <input type="text" class="form-control" id="usuario" name="usuario"
-                                placeholder="Ingrese el codigo de la aplicación" formControlName="usuario"
+                                placeholder="Ingrese el usuario para acceso aplicación." formControlName="usuario"
                                 [(ngModel)]="userWebService.usuario"
                                 [ngClass]="{'is-invalid': fGeneral.get('usuario').errors && fGeneral.get('usuario').dirty ,'is-valid': !fGeneral.get('usuario').errors}"
                                 required autofocus>
@@ -25,9 +25,9 @@
 
 
                         <div class="form-group">
-                            <label for="nombre">nombre</label>
+                            <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
-                                placeholder="Ingrese el codigo de la aplicación" formControlName="nombre"
+                                placeholder="Ingrese el nombre de usuario" formControlName="nombre"
                                 [(ngModel)]="userWebService.nombre"
                                 [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
                                 required autofocus>
@@ -36,9 +36,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">email</label>
+                            <label for="email">Email</label>
                             <input type="text" class="form-control" id="email" name="email"
-                                placeholder="Ingrese el codigo de la aplicación" formControlName="email"
+                                placeholder="Ingrese el correo electrónico del usuario" formControlName="email"
                                 [(ngModel)]="userWebService.email"
                                 [ngClass]="{'is-invalid': fGeneral.get('email').errors && fGeneral.get('email').dirty ,'is-valid': !fGeneral.get('email').errors}"
                                 required autofocus>
@@ -50,9 +50,9 @@
 
 
                         <div class="form-group" *ngIf="!isModificar">
-                            <label for="password">Password</label>
+                            <label for="password">Contraseña</label>
                             <input type="text" class="form-control" id="password" name="password"
-                                placeholder="Ingrese el nombre de la aplicación" formControlName="password"
+                                placeholder="Ingrese la contraseña de usuario." formControlName="password"
                                 [(ngModel)]="userWebService.password"
                                 [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
                                 required autofocus>
@@ -83,7 +83,7 @@
                     <div class="card-footer p-1">
                         <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
                             (click)="irRegistar()">
-                            Registar Cambios
+                            Registrar
                         </button>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                                 <app-apex-usuariows [userWebService]="userWebService"></app-apex-usuariows>   
                             </tab>
 
-                            <tab heading="Ejecucion" *ngIf="true">
+                            <tab heading="Ejecución" *ngIf="true">
                                 <app-ejec-usuariows [userWebService]="userWebService"></app-ejec-usuariows>
                             </tab>
                         </tabset>

@@ -12,9 +12,9 @@
 
 
                         <div class="form-group">
-                            <label for="codigo">Codigo</label>
+                            <label for="codigo">Código</label>
                             <input type="text" class="form-control" id="codigo" name="codigo"
-                                placeholder="Ingrese el codigo de la aplicación" formControlName="codigo"
+                                placeholder="Ingrese el código de la aplicación" formControlName="codigo"
                                 [(ngModel)]="aplicacionExterna.codigo"
                                 [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
                                 required autofocus>
@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label for="vat">Nombre</label>
                             <input type="text" class="form-control" id="nombre"
-                                placeholder="Ingrese el nombre de la aplicacion" formControlName="nombre"
+                                placeholder="Ingrese el nombre de la aplicación" formControlName="nombre"
                                 [(ngModel)]="aplicacionExterna.nombre"
                                 [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
                                 required autofocus>
@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label for="url">Url Aplicación</label>
                             <input type="text" class="form-control" id="url"
-                                placeholder="Ingrese la direccion web de la aplicacion" formControlName="urlAplicacion"
+                                placeholder="Ingrese la dirección web de la aplicación, informativo" formControlName="urlAplicacion"
                                 [(ngModel)]="aplicacionExterna.urlAplicacion"
                                 [ngClass]="{'is-invalid': fGeneral.get('urlAplicacion').errors && fGeneral.get('urlAplicacion').dirty ,'is-valid': !fGeneral.get('urlAplicacion').errors}"
                                 required autofocus>
@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
-                                placeholder="Contenido" formControlName="descripcion"
+                                placeholder="Breve descripción de aplicación" formControlName="descripcion"
                                 [(ngModel)]="aplicacionExterna.descripcion"
                                 [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
                                 required></textarea>
@@ -83,7 +83,7 @@
                     <div class="card-footer p-1">
                         <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
                             (click)="irRegistar()">
-                            Registar Cambios
+                            Registrar
                         </button>
                     </div>
 

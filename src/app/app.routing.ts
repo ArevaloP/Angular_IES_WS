@@ -17,13 +17,7 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
-  /*{
-    path: '/id_token',
-    //redirectTo: 'aplicacion',
-    component: LoaderComponent,
-    //pathMatch: 'full',
-  },*/
-  
+   
   {
     path: '404',
     component: P404Component,
@@ -59,11 +53,19 @@ export const routes: Routes = [
     redirectTo:'aplicacion/lis-appexterna',
     pathMatch:"full",
     data: {
-      title: 'Aplicacion'
+      title: 'Aplicación'
     }
   },
 
-
+  {
+    path: 'api-office',
+    canActivate: [MsalGuard],
+    redirectTo:'api-office/grupo',
+    pathMatch:"full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
 
 
   {

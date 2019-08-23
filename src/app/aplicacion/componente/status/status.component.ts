@@ -9,8 +9,8 @@ import { RestUserAuthService } from '../../servicio/rest-user-auth.service';
 export class StatusComponent implements OnInit {
 
   constructor(
-    private restUserAuthService: RestUserAuthService,
-    private authRest: RestUserAuthService,
+    public restUserAuthService: RestUserAuthService,
+    public authRest: RestUserAuthService,
   ) { }
 
   ngOnInit() {

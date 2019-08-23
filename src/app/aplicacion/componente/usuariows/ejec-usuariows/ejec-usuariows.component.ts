@@ -11,15 +11,15 @@ import { UserWebService } from '../../../modelo/user-web-service';
 })
 export class EjecUsuariowsComponent implements OnInit {
 
-  constructor(private restEjecucionService: RestEjecucionService) { }
+  constructor(public restEjecucionService: RestEjecucionService) { }
   
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @Input() userWebService: UserWebService;
 
-  private dataTable: any;
-  private dtOptions: any ={}//DataTables.Settings = {};
-  private const: UtilConstante = new UtilConstante();
+  public dataTable: any;
+  public dtOptions: any ={}//DataTables.Settings = {};
+  public const: UtilConstante = new UtilConstante();
 
   ngOnInit() {
     this.listarEjecucionUsuario()
@@ -52,9 +52,9 @@ export class EjecUsuariowsComponent implements OnInit {
       columns: [
 
         { title: 'Fecha', data: 'fechaEjecucionText' ,  width: "25%"},
-        { title: 'Aplicacion', data: 'aplicacionExternaVO.codigo',  width: "15%" },
+        { title: 'Aplicación', data: 'aplicacionExternaVO.codigo',  width: "15%" },
         { title: 'Servicio', data: 'webServiceVO.nombre' ,  width: "50%"},
-        { title: 'Metodo', data: 'webServiceVO.metodo' ,  width: "10%"},
+        { title: 'Método', data: 'webServiceVO.metodo' ,  width: "10%"},
 
       ],
       language: {
