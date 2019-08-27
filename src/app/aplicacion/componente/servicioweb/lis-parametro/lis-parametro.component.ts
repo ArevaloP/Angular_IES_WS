@@ -61,15 +61,11 @@ export class LisParametroComponent implements OnInit {
     this.dtOptions = {
       data: data,
       columns: [
-        { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
-        { title: 'Nombre', data: 'nombre', width: "40%", className: "text-left" },
-        { title: 'Tipo', data: 'tipo', width: "20%", className: "text-left" },
-        { title: 'Método', data: 'metodo', width: "20%" },
-        { title: '', defaultContent: this.const.ICONO_PARAM, orderable: false, className: "td-center" },
+        { title: 'Orden', data: 'orden', width: "5%", className: "text-left" },
+        { title: 'Alias', data: 'aliasColumna', width: "35%", className: "text-left" },
+        { title: 'Descripción', data: 'descripcion', width: "60%", className: "text-left" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
-
       ],
       language: {
         url: "assets/spanish.json"
@@ -83,7 +79,7 @@ export class LisParametroComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-servicioweb']);
+            this.router.navigate(['aplicacion/add-parametro']);
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
@@ -91,26 +87,26 @@ export class LisParametroComponent implements OnInit {
       ],
 
 
-      rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
-        const self = this;
+      // rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
+      //   const self = this;
 
-        $('td:eq(0)', row).unbind('click');
-        $('td:eq(0)', row).bind('click', () => {
-          self.modificar(index);
-        });
+      //   $('td:eq(0)', row).unbind('click');
+      //   $('td:eq(0)', row).bind('click', () => {
+      //     self.modificar(index);
+      //   });
 
-        $('td:eq(6)', row).unbind('click');
-        $('td:eq(6)', row).bind('click', () => {
-          self.modificar(index);
-        });
+      //   $('td:eq(6)', row).unbind('click');
+      //   $('td:eq(6)', row).bind('click', () => {
+      //     self.modificar(index);
+      //   });
 
-        $('td:eq(7)', row).unbind('click');
-        $('td:eq(7)', row).bind('click', () => {
-          self.irEliminar(this.listadoParametroServicio[index]);
-        });
-        this.cambiarEstiloBotones();
-        return row;
-      }
+      //   $('td:eq(7)', row).unbind('click');
+      //   $('td:eq(7)', row).bind('click', () => {
+      //     self.irEliminar(this.listadoParametroServicio[index]);
+      //   });
+      //   this.cambiarEstiloBotones();
+      //   return row;
+      // }
 
 
     };

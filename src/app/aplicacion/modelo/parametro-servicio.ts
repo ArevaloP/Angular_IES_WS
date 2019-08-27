@@ -1,5 +1,5 @@
-export class ParametroServicio {
-
+export class ParametroServicio
+{
     public id:String;
     public idServicioWeb:String;
     public orden:String;
@@ -11,6 +11,6 @@ export class ParametroServicio {
     public registradoPor:String;
     public error:String;
     public ip:String;
-WWW
-
+    public valorFijo:String;
+    public aliasColumna:String;
 }
