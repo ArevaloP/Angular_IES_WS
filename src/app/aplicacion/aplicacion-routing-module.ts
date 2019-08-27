@@ -12,6 +12,10 @@ import { LisJdbcConexionComponent } from './componente/jdbcconexion/lis-jdbc-con
 import { AddJdbcConexionComponent } from './componente/jdbcconexion/add-jdbc-conexion/add-jdbc-conexion.component';
 import { MsalGuard } from '@azure/msal-angular';
 import { LoaderComponent } from './componente/utilidad/loader/loader.component';
+import { LisParametroComponent } from './componente/servicioweb/lis-parametro/lis-parametro.component';
+import { AddParametroComponent } from './componente/servicioweb/add-parametro/add-parametro.component';
+import { GrupoLlamado } from './modelo/grupo-llamado';
+import { LisGrupollamadoComponent } from './componente/grupollamado/lis-grupollamado/lis-grupollamado.component';
 
 
 
@@ -86,6 +90,22 @@ const routes: Routes = [
       },
 
       {
+        path: 'lis-parametro',
+        component: LisParametroComponent,
+        data: {
+          title: 'Listar Parametro'
+        }
+      },
+
+      {
+        path: 'add-parametro',
+        component: AddParametroComponent,
+        data: {
+          title: 'Agregar Parametro'
+        }
+      },
+
+      {
         path: 'usuarioWs',
         component: LisUsuariowsComponent,
         data: {
@@ -99,7 +119,17 @@ const routes: Routes = [
         data: {
           title: 'Usuario Ws'
         }
+      },
+
+
+      {
+        path: 'grupo-servicio',
+        component: LisGrupollamadoComponent,
+        data: {
+          title: 'Usuario Ws'
+        }
       }
+      
 
 
     ]

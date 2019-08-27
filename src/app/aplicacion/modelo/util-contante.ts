@@ -19,5 +19,9 @@ export class UtilConstante {
     public ICONO_VER = "<a class='ver'><i class='fa fa-circle-o ' aria-hidden='true'></i></a>";
     public ICONO_MODIFICAR = "<a class='update'><i class='fa fa-pencil-square-o fa-lg' style='color:darkblue;font-size:17px' aria-hidden='true'></i></a>";
 
+    public ICONO_PARAM = "<a class='ver'><i class='fa fa-th' style='color:darkgreen;font-size:17px' aria-hidden='true'></i></a>";
+    
+
+    
 
 }

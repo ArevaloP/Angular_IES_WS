@@ -1,0 +1,170 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { Router } from '@angular/router';
+import { GrupoLlamado } from '../../../modelo/grupo-llamado';
+import { UtilConstante } from '../../../modelo/util-contante';
+import { RestGrupoLlamadoService } from '../../../servicio/grupo-llamado.service';
+
+
+@Component({
+  selector: 'app-lis-grupollamado',
+  templateUrl: './lis-grupollamado.component.html',
+  styleUrls: ['./lis-grupollamado.component.scss']
+})
+export class LisGrupollamadoComponent implements OnInit {
+
+
+  @ViewChild("dataTable", null) table;
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+
+  public dataTable: any;
+  public dtOptions: any = {};
+  public listadoGrupoLlamado: GrupoLlamado[];
+  public const: UtilConstante = new UtilConstante();
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+
+
+  constructor(
+    public restGrupoLlamado: RestGrupoLlamadoService,
+    public router: Router
+  ) { }
+
+  ngOnInit() {
+
+    this.restGrupoLlamado.setGrupoLlamado(null);
+    this.listadoGrupoServicio();
+    
+  }
+
+
+
+  public listadoGrupoServicio() {
+
+    this.restGrupoLlamado.listarGrupoLlamado().subscribe(
+      data => {
+        console.log(data);
+        this.listadoGrupoLlamado = data;
+        this.establecerOpcionesDataTable(data);
+        this.dataTable = $(this.table.nativeElement);
+        this.dataTable.DataTable(this.dtOptions);
+      },
+      error => {
+        //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
+        this.alerta.mostrarError(error);
+      }
+    );
+
+  }
+
+
+
+
+  public establecerOpcionesDataTable(data) {
+
+    this.dtOptions = {
+      data: data,
+      columns: [
+        { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
+        { title: 'Código', data: 'codigo', width: "20%" },
+        { title: 'Nombre', data: 'nombre', width: "20%" },
+        { title: 'Tipo', data: 'tipoBaseDatos', width: "20%" },
+        { title: 'Host', data: 'serverUrl', width: "20%" },
+        { title: 'Puerto', data: 'puerto', width: "20%" },
+        { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
+
+      ],
+      language: {
+        url: "assets/spanish.json"
+      },
+      paging: true,
+      ordering: true,
+      info: true,
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          text: `${this.const.ICONO_AGREGAR}`,
+          className: `${this.const.CLASE_AGREGAR}`,
+          action: () => {
+            this.router.navigate(['aplicacion/add-conexionjdbc']);
+          },
+        },
+        { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
+        { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
+      ],
+
+      rowCallback: (row: Node, dataRow: GrupoLlamado, index: number) => {
+        const self = this;
+
+        $('td:eq(0)', row).unbind('click');
+        $('td:eq(0)', row).bind('click', () => {
+          self.modificar(index);
+        });
+
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
+          self.modificar(index);
+        });
+
+        $('td:eq(7)', row).unbind('click');
+        $('td:eq(7)', row).bind('click', () => {
+          self.irEliminar(this.listadoGrupoLlamado[index]);
+        });
+
+        this.cambiarEstiloBotones();
+
+        return row;
+      }
+
+
+    };
+
+
+  }
+
+
+
+
+  public modificar(index) {
+    this.restGrupoLlamado.setGrupoLlamado(this.listadoGrupoLlamado[index]);
+    this.router.navigate(['aplicacion/add-grupollamado']);
+  }
+
+  public irEliminar(conexionJdbc) {
+    this.alerta.confirmarEliminar(
+      ("¿ Esta seguro de eliminar el grupo llamado [" + conexionJdbc.nombre + "]  ?"),
+      () => this.eliminar(conexionJdbc)
+    );
+  }
+
+
+
+  public eliminar(conexionJdbc) {
+    conexionJdbc.registradoPor = this.usuarioVO.oid;
+    this.restGrupoLlamado.eliminarGrupoLlamado(conexionJdbc).subscribe(
+      data => {
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['aplicacion/lis-grupollamado']));
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
+
+
+
+  public cambiarEstiloBotones() {
+    $(":button.buttons-copy").html(`${this.const.ICONO_COPIAR}`);
+    $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
+    $(".dt-buttons").css("float", "left");
+  }
+
+
+
+
+
+
+
+
+}
