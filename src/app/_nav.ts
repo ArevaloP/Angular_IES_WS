@@ -78,6 +78,14 @@ export const navItems: NavData[] = [
     icon: 'fa fa-external-link'
   },
 
+  {
+    name: 'Grupo Servicio',
+    url: '/aplicacion/grupo-servicio',
+    icon: 'fa fa-users'
+  },
+
+
+
   /*{
     title: true,
     name: 'Office 365'

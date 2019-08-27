@@ -24,6 +24,12 @@ import { UploadFileComponent } from './componente/utilidad/upload-file/upload-fi
 import { ApexUsuariowsComponent } from './componente/usuariows/apex-usuariows/apex-usuariows.component';
 import { PerfilUsuariowsComponent } from './componente/usuariows/perfil-usuariows/perfil-usuariows.component';
 import { EjecUsuariowsComponent } from './componente/usuariows/ejec-usuariows/ejec-usuariows.component';
+import { LisParametroComponent } from './componente/servicioweb/lis-parametro/lis-parametro.component';
+import { AddParametroComponent } from './componente/servicioweb/add-parametro/add-parametro.component';
+import { AddGrupollamadoComponent } from './componente/grupollamado/add-grupollamado/add-grupollamado.component';
+import { LisGrupollamadoComponent } from './componente/grupollamado/lis-grupollamado/lis-grupollamado.component';
+import { AddItemgrupoComponent } from './componente/grupollamado/add-itemgrupo/add-itemgrupo.component';
+import { LisItemgrupoComponent } from './componente/grupollamado/lis-itemgrupo/lis-itemgrupo.component';
 
 
 
@@ -46,7 +52,13 @@ import { EjecUsuariowsComponent } from './componente/usuariows/ejec-usuariows/ej
     ApexUsuariowsComponent,
     PerfilUsuariowsComponent,
     VentanaModalComponent,
-    EjecUsuariowsComponent
+    EjecUsuariowsComponent,
+    LisParametroComponent,
+    AddParametroComponent,
+    AddGrupollamadoComponent,
+    LisGrupollamadoComponent,
+    AddItemgrupoComponent,
+    LisItemgrupoComponent
 
   ],
   imports: [

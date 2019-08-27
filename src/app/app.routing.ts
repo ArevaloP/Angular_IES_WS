@@ -46,7 +46,6 @@ export const routes: Routes = [
     canActivate: [MsalGuard]
   },
 
-
   {
     path: 'aplicacion',
     canActivate: [MsalGuard],

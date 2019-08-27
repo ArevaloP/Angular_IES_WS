@@ -1,52 +1,45 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ServicioWeb } from '../../../modelo/servicio-web';
-import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
-import { Router } from '@angular/router';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { UtilConstante } from '../../../modelo/util-contante';
-
-declare var $;
-
+import { Router } from '@angular/router';
+import { ParametroServicio } from '../../../modelo/parametro-servicio';
+import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 
 @Component({
-  selector: 'app-lis-servicio-web',
-  templateUrl: './lis-servicio-web.component.html',
-  styleUrls: ['./lis-servicio-web.component.scss']
+  selector: 'app-lis-parametro',
+  templateUrl: './lis-parametro.component.html',
+  styleUrls: ['./lis-parametro.component.scss']
 })
+export class LisParametroComponent implements OnInit {
 
-
-//https://jsonplaceholder.typicode.com/users
-export class LisServicioWebComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
-
   public dataTable: any;
-  public dtOptions: any={}// DataTables.Settings = {};
-  public listadoServicioWeb: ServicioWeb[];
+  public dtOptions: any = {}// DataTables.Settings = {};
   public const: UtilConstante = new UtilConstante();
-  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+  public listadoParametroServicio: ParametroServicio[];
+
 
   constructor(
-    public restServicio: RestServicioWebService,
+    public restParametro:RestParametroWebService,
     public router: Router
-  ) {
-  }
-
+  ) { }
 
   ngOnInit() {
-    this.restServicio.setServicioWeb(null);
-    this.listadoServiciosWeb();
-
+    this.restParametro.setParametroServicio(null);
+    this.listarParametroServicio();
   }
 
 
-  public listadoServiciosWeb() {
-    this.restServicio.listarServicioWeb().subscribe(
+  public listarParametroServicio() {
+
+    this.restParametro.listarParametroServicio().subscribe(
       data => {
         console.log(data);
-        this.listadoServicioWeb = data;
+        this.listadoParametroServicio = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
@@ -62,6 +55,7 @@ export class LisServicioWebComponent implements OnInit {
 
 
 
+
   public establecerOpcionesDataTable(data) {
 
     this.dtOptions = {
@@ -69,17 +63,17 @@ export class LisServicioWebComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
-        { title: 'Nombre', data: 'nombre', width: "40%" ,className: "text-left" },
-        { title: 'Tipo', data: 'tipo', width: "20%" ,className: "text-left" },
+        { title: 'Nombre', data: 'nombre', width: "40%", className: "text-left" },
+        { title: 'Tipo', data: 'tipo', width: "20%", className: "text-left" },
         { title: 'Método', data: 'metodo', width: "20%" },
         { title: '', defaultContent: this.const.ICONO_PARAM, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
 
       ],
       language: {
-				url: "assets/spanish.json"
-			},
+        url: "assets/spanish.json"
+      },
       paging: true,
       ordering: true,
       info: true,
@@ -97,17 +91,12 @@ export class LisServicioWebComponent implements OnInit {
       ],
 
 
-      rowCallback: (row: Node, dataRow: ServicioWeb, index: number) => {
+      rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
         const self = this;
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {
           self.modificar(index);
-        });
-
-        $('td:eq(5)', row).unbind('click');
-        $('td:eq(5)', row).bind('click', () => {
-          self.parametros(index);
         });
 
         $('td:eq(6)', row).unbind('click');
@@ -117,7 +106,7 @@ export class LisServicioWebComponent implements OnInit {
 
         $('td:eq(7)', row).unbind('click');
         $('td:eq(7)', row).bind('click', () => {
-          self.irEliminar(this.listadoServicioWeb[index]);
+          self.irEliminar(this.listadoParametroServicio[index]);
         });
         this.cambiarEstiloBotones();
         return row;
@@ -132,15 +121,11 @@ export class LisServicioWebComponent implements OnInit {
 
 
   public modificar(index) {
-    this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
-    this.router.navigate(['aplicacion/add-servicioweb']);
+    //this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
+    //this.router.navigate(['aplicacion/add-servicioweb']);
   }
 
 
-  public parametros(index) {
-    this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
-    this.router.navigate(['aplicacion/lis-parametro']);
-  }
 
 
 
@@ -154,7 +139,7 @@ export class LisServicioWebComponent implements OnInit {
 
 
   public eliminar(servicioWeb) {
-    servicioWeb.registradoPor = this.usuarioVO.oid;;
+    /*servicioWeb.registradoPor = this.usuarioVO.oid;;
     this.restServicio.eliminarServicioWeb(servicioWeb).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
@@ -163,8 +148,10 @@ export class LisServicioWebComponent implements OnInit {
       error => {
         this.alerta.mostrarError(error);
       }
-    );
+    );*/
   }
+
+
 
 
 
