@@ -4,6 +4,8 @@ import { UtilConstante } from '../../../modelo/util-contante';
 import { Router } from '@angular/router';
 import { ParametroServicio } from '../../../modelo/parametro-servicio';
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
+import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
+import { ServicioWeb } from '../../../modelo/servicio-web';
 
 @Component({
   selector: 'app-lis-parametro',
@@ -21,9 +23,11 @@ export class LisParametroComponent implements OnInit {
   public const: UtilConstante = new UtilConstante();
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public listadoParametroServicio: ParametroServicio[];
-
+  public servicioWeb: ServicioWeb;
+  public parametroServicio: ParametroServicio = new ParametroServicio();
 
   constructor(
+    public restServicio: RestServicioWebService,
     public restParametro:RestParametroWebService,
     public router: Router
   ) { }
@@ -34,11 +38,11 @@ export class LisParametroComponent implements OnInit {
   }
 
 
-  public listarParametroServicio() {
-
-    this.restParametro.listarParametroServicio().subscribe(
+  public listarParametroServicio()
+  {
+    this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
+    this.restParametro.listarParametroServicio( this.parametroServicio ).subscribe(
       data => {
-        console.log(data);
         this.listadoParametroServicio = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -52,18 +56,14 @@ export class LisParametroComponent implements OnInit {
 
   }
 
-
-
-
-
   public establecerOpcionesDataTable(data) {
 
     this.dtOptions = {
       data: data,
       columns: [
         { title: 'Orden', data: 'orden', width: "5%", className: "text-left" },
-        { title: 'Alias', data: 'aliasColumna', width: "35%", className: "text-left" },
-        { title: 'Descripción', data: 'descripcion', width: "60%", className: "text-left" },
+        { title: 'Nombre', data: 'parametro', width: "50%", className: "text-left" },
+        { title: 'Alias', data: 'aliasColumna', width: "45%", className: "text-left" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
@@ -85,66 +85,52 @@ export class LisParametroComponent implements OnInit {
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
         { extend: 'excel', "text": 'Export', className: `${this.const.CLASE_EXCEL}` }
       ],
+      rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
+        const self = this;
 
+        $('td:eq(4)', row).unbind('click');
+        $('td:eq(4)', row).bind('click', () => {
+          self.modificar(index);
+        });
 
-      // rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
-      //   const self = this;
+        $('td:eq(5)', row).unbind('click');
+        $('td:eq(5)', row).bind('click', () => {
+          self.irEliminar(this.listadoParametroServicio[index]);
+        });
 
-      //   $('td:eq(0)', row).unbind('click');
-      //   $('td:eq(0)', row).bind('click', () => {
-      //     self.modificar(index);
-      //   });
-
-      //   $('td:eq(6)', row).unbind('click');
-      //   $('td:eq(6)', row).bind('click', () => {
-      //     self.modificar(index);
-      //   });
-
-      //   $('td:eq(7)', row).unbind('click');
-      //   $('td:eq(7)', row).bind('click', () => {
-      //     self.irEliminar(this.listadoParametroServicio[index]);
-      //   });
-      //   this.cambiarEstiloBotones();
-      //   return row;
-      // }
-
-
+        this.cambiarEstiloBotones();
+        return row;
+      }
     };
-
-
   }
 
-
-
-  public modificar(index) {
-    //this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
-    //this.router.navigate(['aplicacion/add-servicioweb']);
+  public modificar(index)
+  {
+    this.restParametro.setParametroServicio( this.listadoParametroServicio[index] );
+    this.router.navigate(['aplicacion/add-parametro']);
   }
 
-
-
-
-
-  public irEliminar(servicioWeb) {
+  public irEliminar(parametroServicio)
+  {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el servicio [" + servicioWeb.nombre + "]  ?"),
-      () => this.eliminar(servicioWeb)
+      ("¿Esta seguro de eliminar el servicio [" + parametroServicio.parametro + "]?"),
+      () => this.eliminar(parametroServicio)
     );
   }
 
-
-
-  public eliminar(servicioWeb) {
-    /*servicioWeb.registradoPor = this.usuarioVO.oid;;
-    this.restServicio.eliminarServicioWeb(servicioWeb).subscribe(
+  public eliminar(parametroServicio)
+  {
+    parametroServicio.registradoPor = this.usuarioVO.oid;
+    this.restParametro.eliminarParametroServicio( parametroServicio ).subscribe(
       data => {
-        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/servicioWeb']));
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
+          () => this.router.navigate(['aplicacion/lis-parametro'])
+        );
       },
       error => {
         this.alerta.mostrarError(error);
       }
-    );*/
+    );
   }
 
 

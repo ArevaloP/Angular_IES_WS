@@ -13,7 +13,7 @@
                                 <label for="aliasColumna">Alias</label>
                                 <input type="text" class="form-control" id="aliasColumna" name="aliasColumna"
                                     placeholder="Ingrese el alias para la columna" formControlName="aliasColumna"
-                                    [(ngModel)]="ParametroServicio.aliasColumna"
+                                    [(ngModel)]="parametroServicio.aliasColumna"
                                     [ngClass]="{'is-invalid': fGeneral.get('aliasColumna').errors && fGeneral.get('aliasColumna').dirty ,'is-valid': !fGeneral.get('aliasColumna').errors}"
                                     required autofocus>
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('aliasColumna').hasError('required')">
@@ -24,7 +24,7 @@
                                 <label for="parametro">Nombre</label>
                                 <input type="text" class="form-control" id="parametro" name="parametro"
                                     placeholder="Ingrese el nombre del parámetro" formControlName="parametro"
-                                    [(ngModel)]="ParametroServicio.parametro"
+                                    [(ngModel)]="parametroServicio.parametro"
                                     [ngClass]="{'is-invalid': fGeneral.get('parametro').errors && fGeneral.get('parametro').dirty ,'is-valid': !fGeneral.get('parametro').errors}"
                                     required autofocus>
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('parametro').hasError('required')">
@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="tipoDato">Tipo de dato</label>
-                                <select class="form-control" id="tipoDato" formControlName="tipoDato" [(ngModel)]="ParametroServicio.tipoDato"
+                                <select class="form-control" id="tipoDato" formControlName="tipoDato" [(ngModel)]="parametroServicio.tipoDato"
                                     required>
                                     <option value="ARRAY">ARRAY</option>
                                     <option value="DATE">DATE</option>
@@ -50,7 +50,7 @@
                                 <label for="longitudFormato">Longitud</label>
                                 <input type="text" class="form-control" id="longitudFormato" name="longitudFormato"
                                     placeholder="Ingrese la longitud del parámetro" formControlName="longitudFormato"
-                                    [(ngModel)]="ParametroServicio.longitudFormato"
+                                    [(ngModel)]="parametroServicio.longitudFormato"
                                     [ngClass]="{'is-invalid': fGeneral.get('longitudFormato').errors && fGeneral.get('longitudFormato').dirty ,'is-valid': !fGeneral.get('longitudFormato').errors}"
                                     required autofocus>
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('longitudFormato').hasError('required')">
@@ -62,7 +62,7 @@
                                 <label for="descripcion">Descripción</label>
                                 <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
                                     placeholder="Breve descripción del parámetro" formControlName="descripcion"
-                                    [(ngModel)]="ParametroServicio.descripcion"
+                                    [(ngModel)]="parametroServicio.descripcion"
                                     [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
                                     required></textarea>
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('descripcion').hasError('required')">
@@ -76,26 +76,15 @@
                                 <label for="valorFijo">Valor fijo</label>
                                 <input type="text" class="form-control" id="valorFijo" name="valorFijo"
                                     placeholder="Ingrese el valor predeterminado para la columna" formControlName="valorFijo"
-                                    [(ngModel)]="ParametroServicio.valorFijo"
+                                    [(ngModel)]="parametroServicio.valorFijo"
                                     [ngClass]="{'is-invalid': fGeneral.get('valorFijo').errors && fGeneral.get('valorFijo').dirty ,'is-valid': !fGeneral.get('valorFijo').errors}" >
                             </div>
 
-                            <div class="form-group col-10 col-md-5">
-                                <label for="usuarioRealiza">Usuario</label>
-                                <input type="text" class="form-control" id="usuarioRealiza" name="usuarioRealiza"
-                                    placeholder="Ingrese el usuario que realiza el proceso" formControlName="usuarioRealiza"
-                                    [(ngModel)]="ParametroServicio.usuarioRealiza"
-                                    [ngClass]="{'is-invalid': fGeneral.get('usuarioRealiza').errors && fGeneral.get('usuarioRealiza').dirty ,'is-valid': !fGeneral.get('usuarioRealiza').errors}"
-                                    required autofocus>
-                                <div class="invalid-feedback" *ngIf="fGeneral.get('usuarioRealiza').hasError('required')">
-                                    <small>Campo requerido</small></div>
-                            </div>
-
-                            <div class="form-group col-2 col-md-1">
+                            <div class="form-group offset-md-2 col-2 col-md-1">
                                 <label for="orden">Orden</label>
                                 <input type="text" class="form-control" id="orden" name="orden"
                                     formControlName="orden"
-                                    [(ngModel)]="ParametroServicio.orden"
+                                    [(ngModel)]="parametroServicio.orden"
                                     [ngClass]="{'is-invalid': fGeneral.get('orden').errors && fGeneral.get('orden').dirty ,'is-valid': !fGeneral.get('orden').errors}"
                                     required autofocus>
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('orden').hasError('required')">
@@ -104,7 +93,7 @@
                         </div>
                     </div>
                     <div class="card-footer" >
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid" (click)="irRegistar()">
+                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid" (click)="irRegistrar()">
                             Registrar
                         </button>
                     </div>

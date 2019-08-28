@@ -14,8 +14,8 @@ export class RestParametroWebService {
 
   }
 
-  listarParametroServicio() {
-    return this.http.get<ParametroServicio[]>(`${this.baseUrl}/listar`, {
+  listarParametroServicio( parametroServicio: ParametroServicio ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listar`, parametroServicio, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
