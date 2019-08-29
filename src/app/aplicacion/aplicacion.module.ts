@@ -33,6 +33,7 @@ import { LisItemgrupoComponent } from './componente/grupollamado/lis-itemgrupo/l
 import { AddClaseComponent } from './componente/implementacion/add-clase/add-clase.component';
 import { LisClaseComponent } from './componente/implementacion/lis-clase/lis-clase.component';
 import { UploadLibreriaComponent } from './componente/utilidad/upload-libreria/upload-libreria.component';
+import { JsonParametrosComponent } from './componente/servicioweb/json-parametros/json-parametros.component';
 
 
 
@@ -64,7 +65,8 @@ import { UploadLibreriaComponent } from './componente/utilidad/upload-libreria/u
     LisItemgrupoComponent,
     AddClaseComponent,
     LisClaseComponent,
-    UploadLibreriaComponent
+    UploadLibreriaComponent,
+    JsonParametrosComponent
 
   ],
   imports: [

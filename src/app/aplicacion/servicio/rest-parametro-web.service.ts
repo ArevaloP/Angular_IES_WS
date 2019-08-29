@@ -9,13 +9,14 @@ import { ParametroServicio } from '../modelo/parametro-servicio';
 export class RestParametroWebService {
 
   parametroServicio: ParametroServicio;
+  listaParametroServicio: ParametroServicio[];
   baseUrl = environment.baseUrl + "ws_parametroservicio";
   constructor(private http: HttpClient) {
 
   }
 
-  listarParametroServicio() {
-    return this.http.get<ParametroServicio[]>(`${this.baseUrl}/listar`, {
+  listarParametroServicio( parametroServicio: ParametroServicio ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listar`, parametroServicio, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
@@ -76,8 +77,11 @@ export class RestParametroWebService {
     return this.parametroServicio;
   }
 
+  public setListaParametroServicio(listaParametroServicio: ParametroServicio[]) {
+    this.listaParametroServicio = listaParametroServicio;
+  }
 
-
-
-
+  public getListaParametroServicio() {
+    return this.listaParametroServicio;
+  }
 }

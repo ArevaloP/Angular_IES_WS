@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-header">
+        <b>Formato json</b>
+    </div>
+    <div class="card-body text-content cnt-json">
+        <span *ngIf="null != listaParametros; else elseLista">
+<pre class="brush: json language-json m-0">
+<code class="language-json"><span class="token punctuation">{{'{'}}</span>
+  <span class="token property">"tipoRetorno"</span><span class="token operator">:</span> <span class="token string">"DataObject"</span><span class="token punctuation">,</span>
+  <span class="token property">"parametros"</span><span class="token operator">:</span> <span class="token punctuation">{{'{'}}</span>
+    <span *ngFor="let param of listaParametros; last as isLast"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span></span>
+  <span class="token punctuation">{{'}'}}</span>
+<span class="token punctuation">{{'}'}}</span></code>
+</pre>
+
+<pre class="brush: sql language-sql mt-2">
+<code class="language-sql"><span class="sql-comentario">-- Comentarios para las columnas:</span>
+<span *ngFor="let param of listaParametros; last as isLast"><span class="sql-reservado">COMENTARIO DE COLUMNA</span> <span class="sql-columna">{{param.parametro}}</span>
+  <span class="sql-reservado">ES</span> <span class="sql-string">'{{param.descripcion}}'</span><span>;</span><span *ngIf="!isLast"><br></span></span></code>
+</pre>
+        </span>
+        <ng-template #elseLista>No hay datos para mostrar.</ng-template>
+    </div>
+</div>

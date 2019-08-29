@@ -1,0 +1,57 @@
+.cnt-json {
+	max-height: 468px;
+	overflow: auto;
+}
+
+pre {
+	display: block;
+	font-size: .7rem;
+	color: #23282c;
+}
+
+.text-content pre {
+    line-height: 1.5;
+}
+
+.text-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+:not(pre) > * > code, :not(pre) > code {
+	box-decoration-break: clone;
+	padding: 0 2px;
+}
+
+.token.number {
+    color: #690;
+}
+
+.token.punctuation {
+    color: #999;
+}
+
+.token.property {
+    color: #0048cc;
+}
+
+.token.operator {
+    color: #9a6e3a;
+}
+
+.token.string {
+    color: #905;
+}
+
+.sql-comentario {
+	color: #008000;
+}
+
+.sql-reservado {
+    color: #930293;
+    font-weight: bold;
+}
+
+.sql-string {
+	color: #ff4e0b;
+}
