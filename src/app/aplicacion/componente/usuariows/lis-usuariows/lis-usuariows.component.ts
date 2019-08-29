@@ -116,9 +116,14 @@ export class LisUsuariowsComponent implements OnInit {
         $('td:eq(6)', row).bind('click', () => {
           self.irEliminar(this.listaUsuarioServicio[index]);
         });
-        this.cambiarEstiloBotones();
+        //this.cambiarEstiloBotones();
         return row;
+      },
+      initComplete: (settings, json) => {
+        this.cambiarEstiloBotones();
       }
+
+
     }
 
   };

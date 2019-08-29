@@ -41,7 +41,7 @@ export const navItems: NavData[] = [
       variant: 'info',
       text: 'NEW'
     }
-  },*/
+  },
   {
     title: true,
     name: 'Status'
@@ -50,16 +50,16 @@ export const navItems: NavData[] = [
     name: 'Status',
     url: '/aplicacion/status',
     icon: 'fa fa-crosshairs'
-  },
+  },*/
   
   {
     title: true,
-    name: 'Integrador'
+    name: 'Configuración'
   },
   {
     name: 'Aplicación',
     url: '/aplicacion/lis-appexterna',
-    icon: 'icon-pencil'
+    icon: 'fa fa-television'
   },
   {
     name: 'Servicios Web',
@@ -73,14 +73,31 @@ export const navItems: NavData[] = [
   },
 
   {
+    title: true,
+    name: 'Recursos'
+  },
+
+  {
     name: 'Conexiones',
     url: '/aplicacion/jdbc-conexion',
     icon: 'fa fa-external-link'
   },
 
   {
+    name: 'Clase Interfaz',
+    url: '/aplicacion/lis-clase',
+    icon: 'fa fa-code'
+  },
+
+  {
+    title: true,
+    name: 'Integración',
+    icon: 'fa fa-users'
+  },
+
+  {
     name: 'Grupo Servicio',
-    url: '/aplicacion/grupo-servicio',
+    url: '/aplicacion/lis-grupollamado',
     icon: 'fa fa-users'
   },
 

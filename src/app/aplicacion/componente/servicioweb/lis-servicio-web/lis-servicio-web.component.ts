@@ -119,8 +119,11 @@ export class LisServicioWebComponent implements OnInit {
         $('td:eq(7)', row).bind('click', () => {
           self.irEliminar(this.listadoServicioWeb[index]);
         });
-        this.cambiarEstiloBotones();
+        //this.cambiarEstiloBotones();
         return row;
+      },
+      initComplete: (settings, json) => {
+        this.cambiarEstiloBotones();
       }
 
 

@@ -6,6 +6,9 @@ import { RestServicioWebService } from '../../../servicio/rest-servicio-web.serv
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.service';
 import { JdbcServicioComponent } from '../jdbc-servicio/jdbc-servicio.component';
+import { RestImplementacionClaseService } from '../../../servicio/rest-implementacion-clase.service';
+import { ImplementacionClase } from '../../../modelo/implementacion-clase';
+import { JdbcConexion } from '../../../modelo/jdbc-conexion';
 
 @Component({
   selector: 'app-add-servicio-web',
@@ -18,15 +21,18 @@ export class AddServicioWebComponent implements OnInit {
   public fGeneral: FormGroup;
   public servicioWeb: ServicioWeb = new ServicioWeb();
   public isModificar: boolean = false;
-  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
-  
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+  public listadoClasesSoap: ImplementacionClase[];
+  public listadoClasesRest: ImplementacionClase[];
+
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  @ViewChild ('jdbcConexion', { static: false })  public jdbcComponente: JdbcServicioComponent;
+  @ViewChild('jdbcConexion', { static: false }) public jdbcComponente: JdbcServicioComponent;
 
   constructor(
     public fb: FormBuilder,
     public restServicio: RestServicioWebService,
     public restConexionJdbc: RestJdbcConexionService,
+    public restImplementClase: RestImplementacionClaseService,
     public router: Router
 
   ) { }
@@ -39,7 +45,7 @@ export class AddServicioWebComponent implements OnInit {
     } else {
       this.servicioWeb.estado = "ACTIVO";
       this.servicioWeb.tipo = "CONSULTA";
-      this.servicioWeb.protocolo = "REST";
+      //this.servicioWeb.protocolo = "REST";
       this.servicioWeb.metodo = "POST";
       this.isModificar = false;
     }
@@ -72,6 +78,10 @@ export class AddServicioWebComponent implements OnInit {
 
     }
     );
+
+    this.cargarVariableImplementacionClase();
+
+
   }
 
 
@@ -80,8 +90,14 @@ export class AddServicioWebComponent implements OnInit {
 
     this.servicioWeb.registradoPor = this.usuarioVO.oid;
     this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
-    this.servicioWeb.conexionJdbc= this.jdbcComponente.getObjetoConexion();
-    //console.log(this.servicioWeb);
+
+    //console.log(this.jdbcComponente);
+    if(this.jdbcComponente.getObjetoConexion()!=null){
+      this.servicioWeb.conexionJdbc = this.jdbcComponente.getObjetoConexion();
+    }else{
+      //alert("objeto vacio !!!");
+      this.jdbcComponente.setObjetoConexion(new JdbcConexion());
+    }
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
@@ -139,6 +155,43 @@ export class AddServicioWebComponent implements OnInit {
       }
     );
   }
+
+
+
+
+  public cargarVariableImplementacionClase() {
+    this.restImplementClase.listarImplementacionClase("SOAP").subscribe(
+      data => {
+        this.listadoClasesSoap = data;
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+
+    this.restImplementClase.listarImplementacionClase("REST").subscribe(
+      data => {
+        this.listadoClasesRest = data;
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+
+  }
+
+
+
+  public cambiarOpcionTexto(event){
+    let urlservicio ="http://dominio:puerto/contexto/app-integrador/aplicacion/"+this.servicioWeb.codigo;
+    if(this.servicioWeb.protocolo=='REST'){
+      this.servicioWeb.url=urlservicio;
+    } if(this.servicioWeb.protocolo=='SOAP'){
+      this.servicioWeb.url="?wsdl";
+    }
+
+  }
+
 
 
 

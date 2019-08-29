@@ -30,6 +30,9 @@ import { AddGrupollamadoComponent } from './componente/grupollamado/add-grupolla
 import { LisGrupollamadoComponent } from './componente/grupollamado/lis-grupollamado/lis-grupollamado.component';
 import { AddItemgrupoComponent } from './componente/grupollamado/add-itemgrupo/add-itemgrupo.component';
 import { LisItemgrupoComponent } from './componente/grupollamado/lis-itemgrupo/lis-itemgrupo.component';
+import { AddClaseComponent } from './componente/implementacion/add-clase/add-clase.component';
+import { LisClaseComponent } from './componente/implementacion/lis-clase/lis-clase.component';
+import { UploadLibreriaComponent } from './componente/utilidad/upload-libreria/upload-libreria.component';
 
 
 
@@ -58,7 +61,10 @@ import { LisItemgrupoComponent } from './componente/grupollamado/lis-itemgrupo/l
     AddGrupollamadoComponent,
     LisGrupollamadoComponent,
     AddItemgrupoComponent,
-    LisItemgrupoComponent
+    LisItemgrupoComponent,
+    AddClaseComponent,
+    LisClaseComponent,
+    UploadLibreriaComponent
 
   ],
   imports: [

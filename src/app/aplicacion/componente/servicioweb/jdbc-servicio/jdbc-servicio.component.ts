@@ -5,6 +5,7 @@ import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.se
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-jdbc-servicio',
@@ -18,6 +19,8 @@ export class JdbcServicioComponent implements OnInit {
   public isModificar: boolean = false;
   public isReadOnly: boolean = false;
   public isNuevaConexion: boolean = false;
+  public isLimpiarConexion: boolean = false;
+
   public listaConexionesExistente: JdbcConexion[];
   public indexConexion: number;
   public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
@@ -43,6 +46,7 @@ export class JdbcServicioComponent implements OnInit {
 
 
   public setObjetoConexion(jdbcConexion: JdbcConexion) {
+    //alert(jdbcConexion);
     this.jdbcConexion = jdbcConexion||new JdbcConexion();
   }
 
@@ -65,6 +69,13 @@ export class JdbcServicioComponent implements OnInit {
 
 
   public inicializarValidacion() {
+
+    if(this.jdbcConexion==null){
+       //this.jdbcConexion=new JdbcConexion();
+    }else{
+      //alert("existe conexion ");
+    }  
+
 
     this.fGeneral = this.fb.group({
       codigo: [this.jdbcConexion.codigo, Validators.required],
@@ -109,7 +120,16 @@ export class JdbcServicioComponent implements OnInit {
   }
 
 
+  public limpiarConexion(){
+    
+    this.indexConexion = 0;
+    this.isModificar = false;
+    this.jdbcConexion = new JdbcConexion();
+    this.isLimpiarConexion=false;
+    this.isNuevaConexion=false;
+    this.inicializarValidacion();
 
+  }
 
 
   public irRegistar() {
@@ -132,6 +152,8 @@ export class JdbcServicioComponent implements OnInit {
         () => this.insertarJdbcConexion(this.jdbcConexion)
       );
     }
+
+
   }
 
 

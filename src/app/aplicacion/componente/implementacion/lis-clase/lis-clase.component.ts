@@ -1,54 +1,51 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
-import { Router } from '@angular/router';
-import { GrupoLlamado } from '../../../modelo/grupo-llamado';
+import { ImplementacionClase } from '../../../modelo/implementacion-clase';
 import { UtilConstante } from '../../../modelo/util-contante';
-import { RestGrupoLlamadoService } from '../../../servicio/grupo-llamado.service';
-
+import { RestImplementacionClaseService } from '../../../servicio/rest-implementacion-clase.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-lis-grupollamado',
-  templateUrl: './lis-grupollamado.component.html',
-  styleUrls: ['./lis-grupollamado.component.scss']
+  selector: 'app-lis-clase',
+  templateUrl: './lis-clase.component.html',
+  styleUrls: ['./lis-clase.component.scss']
 })
-export class LisGrupollamadoComponent implements OnInit {
+export class LisClaseComponent implements OnInit {
 
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-
   public dataTable: any;
   public dtOptions: any = {};
-  public listadoGrupoLlamado: GrupoLlamado[];
+  public listadoClaseImp: ImplementacionClase[];
   public const: UtilConstante = new UtilConstante();
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
 
 
+
   constructor(
-    public restGrupoLlamado: RestGrupoLlamadoService,
-    public router: Router
+    public restImplementacion: RestImplementacionClaseService,
+    public router: Router,
+
   ) { }
 
   ngOnInit() {
-
-    this.restGrupoLlamado.setGrupoLlamado(null);
-    this.listadoGrupoServicio();
-
+    this.restImplementacion.setImplementacionClase(null);
+    this.listadoCodnexiones();
   }
 
 
 
-  public listadoGrupoServicio() {
 
-    this.restGrupoLlamado.listarGrupoLlamado().subscribe(
+  public listadoCodnexiones() {
+
+    this.restImplementacion.listarImplementacionClase(null).subscribe(
       data => {
         console.log(data);
-        this.listadoGrupoLlamado = data;
+        this.listadoClaseImp = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
-        this.cambiarEstiloBotones();
-
       },
       error => {
         //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
@@ -67,10 +64,11 @@ export class LisGrupollamadoComponent implements OnInit {
       data: data,
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Código', data: 'codigo', width: "20%" },
+        { title: 'Código', data: 'codigo', width: "10%" },
         { title: 'Nombre', data: 'nombre', width: "20%" },
-        { title: 'Aplicacion', data: 'idAplicacion', width: "20%" },
-        { title: 'Estado', data: 'estado', width: "20%" },
+        { title: 'Tipo', data: 'tipoServicio', width: "10%" },
+        { title: 'Clase', data: 'clase', width: "40%" },
+        { title: 'Estado', data: 'estado', width: "10%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
 
@@ -87,14 +85,14 @@ export class LisGrupollamadoComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-grupollamado']);
+            this.router.navigate(['aplicacion/add-clase']);
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
         { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],
 
-      rowCallback: (row: Node, dataRow: GrupoLlamado, index: number) => {
+      rowCallback: (row: Node, dataRow: ImplementacionClase, index: number) => {
         const self = this;
 
         $('td:eq(0)', row).unbind('click');
@@ -102,21 +100,22 @@ export class LisGrupollamadoComponent implements OnInit {
           self.modificar(index);
         });
 
-        $('td:eq(5)', row).unbind('click');
-        $('td:eq(5)', row).bind('click', () => {
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
           self.modificar(index);
         });
 
-        $('td:eq(6)', row).unbind('click');
-        $('td:eq(6)', row).bind('click', () => {
-          self.irEliminar(this.listadoGrupoLlamado[index]);
+        $('td:eq(7)', row).unbind('click');
+        $('td:eq(7)', row).bind('click', () => {
+          self.irEliminar(this.listadoClaseImp[index]);
         });
-
+        //this.cambiarEstiloBotones();
         return row;
       },
       initComplete: (settings, json) => {
         this.cambiarEstiloBotones();
       }
+
 
     };
 
@@ -127,25 +126,25 @@ export class LisGrupollamadoComponent implements OnInit {
 
 
   public modificar(index) {
-    this.restGrupoLlamado.setGrupoLlamado(this.listadoGrupoLlamado[index]);
-    this.router.navigate(['aplicacion/add-grupollamado']);
+    this.restImplementacion.setImplementacionClase(this.listadoClaseImp[index]);
+    this.router.navigate(['aplicacion/add-clase']);
   }
 
-  public irEliminar(conexionJdbc) {
+  public irEliminar(implementaClase) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el grupo llamado [" + conexionJdbc.nombre + "]  ?"),
-      () => this.eliminar(conexionJdbc)
+      ("¿ Esta seguro de eliminar la conexión [" + implementaClase.nombre + "]  ?"),
+      () => this.eliminar(implementaClase)
     );
   }
 
 
 
-  public eliminar(conexionJdbc) {
-    conexionJdbc.registradoPor = this.usuarioVO.oid;
-    this.restGrupoLlamado.eliminarGrupoLlamado(conexionJdbc).subscribe(
+  public eliminar(implementaClase) {
+    implementaClase.registradoPor = this.usuarioVO.oid;
+    this.restImplementacion.eliminarImplementacionClase(implementaClase).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/lis-grupollamado']));
+          this.router.navigate(['aplicacion/lis-clase']));
       },
       error => {
         this.alerta.mostrarError(error);
@@ -160,12 +159,5 @@ export class LisGrupollamadoComponent implements OnInit {
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
   }
-
-
-
-
-
-
-
 
 }

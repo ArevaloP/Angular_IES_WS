@@ -40,6 +40,35 @@ export class RestUploadFileService {
   }
 
 
+
+
+  public cargarFicheroLibreria(data, userId) {
+    return this.httpClient.post<any>(`${this.baseUrl}/libreria/${userId}`, data, {
+      headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      },
+      reportProgress: true,
+      observe: 'events'
+
+    }).pipe(map((event) => {
+
+      switch (event.type) {
+
+        case HttpEventType.UploadProgress:
+          const progress = Math.round(100 * event.loaded / event.total);
+          return { status: 'progress', message: progress };
+
+        case HttpEventType.Response:
+          return event.body;
+        default:
+          return `Unhandled Evento: ${event.type}`;
+      }
+    })
+    );
+  }
+
+
+
   
 
 

@@ -16,6 +16,9 @@ import { LisParametroComponent } from './componente/servicioweb/lis-parametro/li
 import { AddParametroComponent } from './componente/servicioweb/add-parametro/add-parametro.component';
 import { GrupoLlamado } from './modelo/grupo-llamado';
 import { LisGrupollamadoComponent } from './componente/grupollamado/lis-grupollamado/lis-grupollamado.component';
+import { LisClaseComponent } from './componente/implementacion/lis-clase/lis-clase.component';
+import { AddClaseComponent } from './componente/implementacion/add-clase/add-clase.component';
+import { AddGrupollamadoComponent } from './componente/grupollamado/add-grupollamado/add-grupollamado.component';
 
 
 
@@ -123,10 +126,34 @@ const routes: Routes = [
 
 
       {
-        path: 'grupo-servicio',
+        path: 'lis-clase',
+        component: LisClaseComponent,
+        data: {
+          title: 'Listar Clase'
+        }
+      },
+
+      {
+        path: 'add-clase',
+        component: AddClaseComponent,
+        data: {
+          title: 'Agregar Clase'
+        }
+      },
+
+      {
+        path: 'lis-grupollamado',
         component: LisGrupollamadoComponent,
         data: {
-          title: 'Usuario Ws'
+          title: 'Grupo LLamado'
+        }
+      },
+
+      {
+        path: 'add-grupollamado',
+        component: AddGrupollamadoComponent,
+        data: {
+          title: 'Grupo LLamado'
         }
       }
       

@@ -26,15 +26,31 @@
                             <div class="form-group col-sm-4">
                                 <label for="protocolo">Protocolo</label>
                                 <select class="form-control" id="protocolo" formControlName="protocolo"
-                                    [(ngModel)]="servicioWeb.protocolo" required>
+                                    [(ngModel)]="servicioWeb.protocolo" 
+                                    required
+                                    (change)="cambiarOpcionTexto($event)"
+                                    >
+                                    <option></option>
                                     <option value="REST">REST</option>
                                     <option value="SOAP">SOAP</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="url">Url</label>
+                        <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST'">
+                            <label for="url">Url de conexión (Informativa)</label>
+                            <input type="text" class="form-control" id="url" name="url"
+                                placeholder="Ingrese dirección del servicio web" formControlName="url"
+                                [(ngModel)]="servicioWeb.url"
+                                [ngClass]="{'is-invalid': fGeneral.get('url').errors && fGeneral.get('url').dirty ,'is-valid': !fGeneral.get('url').errors}"
+                                required autofocus>
+                            <div class="invalid-feedback" *ngIf="fGeneral.get('url').hasError('required')">
+                                <small>Campo requerido</small></div>
+
+                        </div>
+
+                        <div class="form-group" *ngIf="servicioWeb.protocolo == 'SOAP'">
+                            <label for="url">Archivo de descripción WSDL</label>
                             <input type="text" class="form-control" id="url" name="url"
                                 placeholder="Ingrese dirección del servicio web" formControlName="url"
                                 [(ngModel)]="servicioWeb.url"
@@ -43,6 +59,9 @@
                             <div class="invalid-feedback" *ngIf="fGeneral.get('url').hasError('required')">
                                 <small>Campo requerido</small></div>
                         </div>
+    
+
+
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
@@ -55,30 +74,12 @@
                                 <small>Campo requerido</small></div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="tipo">Tipo</label>
-                            <select class="form-control" id="tipo" formControlName="tipo" [(ngModel)]="servicioWeb.tipo"
-                                required>
-                                <option value="CONSULTA">CONSULTA</option>
-                                <option value="TABLA">TABLA</option>
-                                <option value="CLASE">CLASE</option>
-                                <option value="MULTITABLAS">MULTITABLAS</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="estado">Estado</label>
-                            <select class="form-control" id="estado" formControlName="estado"
-                                [(ngModel)]="servicioWeb.estado" required>
-                                <option value="ACTIVO">ACTIVO</option>
-                                <option value="INACTIVO">INACTIVO</option>
-                            </select>
-                        </div>
+                       
+                       
 
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
-                            <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
+                            <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
                                 placeholder="Breve descripción del servicio" formControlName="descripcion"
                                 [(ngModel)]="servicioWeb.descripcion"
                                 [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
@@ -115,18 +116,65 @@
                                         <option value="DELETE">DELETE</option>
                                     </select>
                                 </div>
-
-
+                                
 
                                 <div class="form-group">
-                                    <label for="query">Query</label>
-                                    <textarea id="query" name="query" rows="3" class="form-control"
-                                        placeholder="Ingrese la consulta sql " formControlName="query" [(ngModel)]="servicioWeb.query">
-                                    </textarea>
+                                    <label for="tipo">Tipo</label>
+                                    <select class="form-control" id="tipo" formControlName="tipo" [(ngModel)]="servicioWeb.tipo"
+                                        required>
+                                        <option value="CONSULTA" *ngIf="servicioWeb.protocolo == 'REST'">CONSULTA</option>
+                                        <option value="TABLA" *ngIf="servicioWeb.protocolo == 'REST'">TABLA</option>
+                                        <option value="CLASE">CLASE</option>
+                                        <!--<option value="MULTITABLAS">MULTITABLAS</option>-->
+                                    </select>
                                 </div>
 
 
+                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'TABLA' ">
+                                    <label for="query">Esquema /tabla</label>
+                                    <input type="text" class="form-control" id="query" name="query"
+                                    placeholder="Ingrese el esquema y nombre de tabla academico.estudiantepensum"
+                                    formControlName="query" [(ngModel)]="servicioWeb.query" autofocus>
+                                </div>
+                             
+                               
+                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && (servicioWeb.tipo != 'CLASE' && servicioWeb.tipo != 'TABLA')">
+                                    <label for="query">Query</label>
+                                    <textarea id="query" name="query" rows="3" class="form-control"
+                                        placeholder="Ingrese la consulta sql incluyendo los respectivos esquemas " formControlName="query" [(ngModel)]="servicioWeb.query">
+                                    </textarea>
+                                </div>
+                               
+                                
+                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'CLASE' ">
+                                    <label for="query">Seleccione la clase de implementacion </label>
+                                    <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
+                                            <option *ngFor="let claseRest of listadoClasesRest" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
+                                    </select>
+                                </div>
+                            
+                                 
+                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'SOAP'">
+                                    <label for="query">Seleccione la clase de implementacion Soap</label>
+                                    <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
+                                            <option *ngFor="let claseRest of listadoClasesSoap" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
+                                    </select>
+                                </div>
+                                
+
+
                                 <div class="form-group">
+                                    <label for="estado">Estado</label>
+                                    <select class="form-control" id="estado" formControlName="estado"
+                                        [(ngModel)]="servicioWeb.estado" required>
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </div>
+ 
+
+
+                                <div class="form-group" *ngIf="false">
                                     <label for="identificadorPadre">Identificador</label>
                                     <input type="text" class="form-control" id="identificadorPadre"
                                         name="identificadorPadre" placeholder="Ingrese el identificador del padre para multitabla"
@@ -135,13 +183,16 @@
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="form-group" *ngIf="false">
                                     <label for="parametros">Parametros</label>
                                     <input type="text" class="form-control" id="parametros" name="parametros"
                                         placeholder="Ingrese el parametros del servicio web, modo informativo"
                                         formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
-
                                 </div>
+
+
+
+
 
                             </div>
 
