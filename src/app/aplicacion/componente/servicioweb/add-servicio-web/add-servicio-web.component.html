@@ -1,11 +1,9 @@
 <form method="POST" [formGroup]="fGeneral">
-    <div class="animated fadeIn">
+    <div class="animated fadeIn container-fluid">
         <div class="row">
-
             <!--/.col-->
             <div class="col-sm-6 pr-0">
-
-                <div class="card">
+                <div class="card m-0">
                     <div class="card-header">
                         <strong>Servicio Web</strong>
                     </div>
@@ -98,137 +96,110 @@
             </div>
             <!--/.col-->
             <div class="col-sm-6">
-
-
                 <tabset>
                     <tab heading="Servicios Web">
+                        <div class="form-group">
+                            <label for="metodo">Método</label>
+                            <select class="form-control" id="metodo" formControlName="metodo"
+                                [(ngModel)]="servicioWeb.metodo" required>
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                        </div>
+                        
 
-                        <div class="card pb-0" style="margin-bottom: 0.1rem;">
-                            <div class="card-body pb-0">
-
-                                <div class="form-group">
-                                    <label for="metodo">Método</label>
-                                    <select class="form-control" id="metodo" formControlName="metodo"
-                                        [(ngModel)]="servicioWeb.metodo" required>
-                                        <option value="GET">GET</option>
-                                        <option value="POST">POST</option>
-                                        <option value="PUT">PUT</option>
-                                        <option value="DELETE">DELETE</option>
-                                    </select>
-                                </div>
-                                
-
-                                <div class="form-group">
-                                    <label for="tipo">Tipo</label>
-                                    <select class="form-control" id="tipo" formControlName="tipo" [(ngModel)]="servicioWeb.tipo"
-                                        required>
-                                        <option value="CONSULTA" *ngIf="servicioWeb.protocolo == 'REST'">CONSULTA</option>
-                                        <option value="TABLA" *ngIf="servicioWeb.protocolo == 'REST'">TABLA</option>
-                                        <option value="CLASE">CLASE</option>
-                                        <!--<option value="MULTITABLAS">MULTITABLAS</option>-->
-                                    </select>
-                                </div>
-
-
-                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'TABLA' ">
-                                    <label for="query">Esquema /tabla</label>
-                                    <input type="text" class="form-control" id="query" name="query"
-                                    placeholder="Ingrese el esquema y nombre de tabla academico.estudiantepensum"
-                                    formControlName="query" [(ngModel)]="servicioWeb.query" autofocus>
-                                </div>
-                             
-                               
-                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && (servicioWeb.tipo != 'CLASE' && servicioWeb.tipo != 'TABLA')">
-                                    <label for="query">Query</label>
-                                    <textarea id="query" name="query" rows="3" class="form-control"
-                                        placeholder="Ingrese la consulta sql incluyendo los respectivos esquemas " formControlName="query" [(ngModel)]="servicioWeb.query">
-                                    </textarea>
-                                </div>
-                               
-                                
-                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'CLASE' ">
-                                    <label for="query">Seleccione la clase de implementacion </label>
-                                    <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
-                                            <option *ngFor="let claseRest of listadoClasesRest" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
-                                    </select>
-                                </div>
-                            
-                                 
-                                <div class="form-group" *ngIf="servicioWeb.protocolo == 'SOAP'">
-                                    <label for="query">Seleccione la clase de implementacion Soap</label>
-                                    <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
-                                            <option *ngFor="let claseRest of listadoClasesSoap" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
-                                    </select>
-                                </div>
-                                
-
-
-                                <div class="form-group">
-                                    <label for="estado">Estado</label>
-                                    <select class="form-control" id="estado" formControlName="estado"
-                                        [(ngModel)]="servicioWeb.estado" required>
-                                        <option value="ACTIVO">ACTIVO</option>
-                                        <option value="INACTIVO">INACTIVO</option>
-                                    </select>
-                                </div>
- 
-
-
-                                <div class="form-group" *ngIf="false">
-                                    <label for="identificadorPadre">Identificador</label>
-                                    <input type="text" class="form-control" id="identificadorPadre"
-                                        name="identificadorPadre" placeholder="Ingrese el identificador del padre para multitabla"
-                                        formControlName="identificadorPadre"
-                                        [(ngModel)]="servicioWeb.identificadorPadre" autofocus>
-                                </div>
-
-
-                                <div class="form-group" *ngIf="false">
-                                    <label for="parametros">Parametros</label>
-                                    <input type="text" class="form-control" id="parametros" name="parametros"
-                                        placeholder="Ingrese el parametros del servicio web, modo informativo"
-                                        formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
-                                </div>
-
-
-
-
-
-                            </div>
-
-                    
-
+                        <div class="form-group">
+                            <label for="tipo">Tipo</label>
+                            <select class="form-control" id="tipo" formControlName="tipo" [(ngModel)]="servicioWeb.tipo"
+                                required>
+                                <option value="CONSULTA" *ngIf="servicioWeb.protocolo == 'REST'">CONSULTA</option>
+                                <option value="TABLA" *ngIf="servicioWeb.protocolo == 'REST'">TABLA</option>
+                                <option value="CLASE">CLASE</option>
+                                <!--<option value="MULTITABLAS">MULTITABLAS</option>-->
+                            </select>
                         </div>
 
+
+                        <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'TABLA' ">
+                            <label for="query">Esquema /tabla</label>
+                            <input type="text" class="form-control" id="query" name="query"
+                            placeholder="Ingrese el esquema y nombre de tabla academico.estudiantepensum"
+                            formControlName="query" [(ngModel)]="servicioWeb.query" autofocus>
+                        </div>
+                        
+                        
+                        <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && (servicioWeb.tipo != 'CLASE' && servicioWeb.tipo != 'TABLA')">
+                            <label for="query">Query</label>
+                            <textarea id="query" name="query" rows="3" class="form-control"
+                                placeholder="Ingrese la consulta sql incluyendo los respectivos esquemas " formControlName="query" [(ngModel)]="servicioWeb.query">
+                            </textarea>
+                        </div>
+                        
+                        
+                        <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'CLASE' ">
+                            <label for="query">Seleccione la clase de implementacion </label>
+                            <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
+                                    <option *ngFor="let claseRest of listadoClasesRest" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
+                            </select>
+                        </div>
+                    
+                            
+                        <div class="form-group" *ngIf="servicioWeb.protocolo == 'SOAP'">
+                            <label for="query">Seleccione la clase de implementacion Soap</label>
+                            <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
+                                    <option *ngFor="let claseRest of listadoClasesSoap" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
+                            </select>
+                        </div>
+                        
+
+
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select class="form-control" id="estado" formControlName="estado"
+                                [(ngModel)]="servicioWeb.estado" required>
+                                <option value="ACTIVO">ACTIVO</option>
+                                <option value="INACTIVO">INACTIVO</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="form-group" *ngIf="false">
+                            <label for="identificadorPadre">Identificador</label>
+                            <input type="text" class="form-control" id="identificadorPadre"
+                                name="identificadorPadre" placeholder="Ingrese el identificador del padre para multitabla"
+                                formControlName="identificadorPadre"
+                                [(ngModel)]="servicioWeb.identificadorPadre" autofocus>
+                        </div>
+
+
+                        <div class="form-group" *ngIf="false">
+                            <label for="parametros">Parametros</label>
+                            <input type="text" class="form-control" id="parametros" name="parametros"
+                                placeholder="Ingrese el parametros del servicio web, modo informativo"
+                                formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
+                        </div>
                     </tab>
                     <tab heading="Conexión JDBC">
                         <app-jdbc-servicio #jdbcConexion></app-jdbc-servicio>
                     </tab>
-
-
-
-
+                    <tab heading="Formato json">
+                        <app-json-parametros></app-json-parametros>
+                    </tab>
                 </tabset>
-
-
-                <div class="card">
-                    <div class="card-body" style="padding: 0.25rem;">
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid" (click)="irRegistar()">
-                            Registrar
-                        </button>
-                    </div>
-                </div>
-
-
             </div>
-
-
-
-
         </div>
         <!--/.row-->
-
-
+        <div class="row my-2">
+            <div class="col-12"><div class="borde-arriba"></div></div>
+            <div class="col-12 text-right py-2">
+                <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid" (click)="irRegistar()">
+                    Registrar
+                </button>
+            </div>
+        </div>
     </div>
 </form>
 <app-ventana-modal #alerta></app-ventana-modal>
