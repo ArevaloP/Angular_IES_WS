@@ -34,6 +34,7 @@ export class LisParametroComponent implements OnInit {
 
   ngOnInit() {
     this.restParametro.setParametroServicio(null);
+    this.restParametro.setListaParametroServicio(null);
     this.listarParametroServicio();
   }
 
@@ -88,18 +89,20 @@ export class LisParametroComponent implements OnInit {
       rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
         const self = this;
 
-        $('td:eq(4)', row).unbind('click');
-        $('td:eq(4)', row).bind('click', () => {
+        $('td:eq(3)', row).unbind('click');
+        $('td:eq(3)', row).bind('click', () => {
           self.modificar(index);
         });
 
-        $('td:eq(5)', row).unbind('click');
-        $('td:eq(5)', row).bind('click', () => {
+        $('td:eq(4)', row).unbind('click');
+        $('td:eq(4)', row).bind('click', () => {
           self.irEliminar(this.listadoParametroServicio[index]);
         });
 
-        this.cambiarEstiloBotones();
         return row;
+      },
+      initComplete: (settings, json) => {
+        this.cambiarEstiloBotones();
       }
     };
   }

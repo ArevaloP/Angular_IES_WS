@@ -9,6 +9,7 @@ import { ParametroServicio } from '../modelo/parametro-servicio';
 export class RestParametroWebService {
 
   parametroServicio: ParametroServicio;
+  listaParametroServicio: ParametroServicio[];
   baseUrl = environment.baseUrl + "ws_parametroservicio";
   constructor(private http: HttpClient) {
 
@@ -76,8 +77,11 @@ export class RestParametroWebService {
     return this.parametroServicio;
   }
 
+  public setListaParametroServicio(listaParametroServicio: ParametroServicio[]) {
+    this.listaParametroServicio = listaParametroServicio;
+  }
 
-
-
-
+  public getListaParametroServicio() {
+    return this.listaParametroServicio;
+  }
 }

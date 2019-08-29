@@ -129,7 +129,7 @@ export const protectedResourceMap: [string, string[]][] =
   ],
 
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy},
+    //{ provide: LocationStrategy, useClass: HashLocationStrategy},
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,
