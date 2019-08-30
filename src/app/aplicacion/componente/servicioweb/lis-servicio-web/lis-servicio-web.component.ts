@@ -97,8 +97,10 @@ export class LisServicioWebComponent implements OnInit {
       ],
 
 
-      rowCallback: (row: Node, dataRow: ServicioWeb, index: number) => {
+      rowCallback: (row: any, dataRow: ServicioWeb, index: number) => {
         const self = this;
+
+        index =row._DT_RowIndex;
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {

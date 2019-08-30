@@ -92,8 +92,9 @@ export class LisClaseComponent implements OnInit {
         { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],
 
-      rowCallback: (row: Node, dataRow: ImplementacionClase, index: number) => {
+      rowCallback: (row: any, dataRow: ImplementacionClase, index: number) => {
         const self = this;
+        index =row._DT_RowIndex;
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {

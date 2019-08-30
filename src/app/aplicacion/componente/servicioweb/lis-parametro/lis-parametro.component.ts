@@ -86,8 +86,9 @@ export class LisParametroComponent implements OnInit {
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
         { extend: 'excel', "text": 'Export', className: `${this.const.CLASE_EXCEL}` }
       ],
-      rowCallback: (row: Node, dataRow: ParametroServicio, index: number) => {
+      rowCallback: (row: any, dataRow: ParametroServicio, index: number) => {
         const self = this;
+        index =row._DT_RowIndex;
 
         $('td:eq(3)', row).unbind('click');
         $('td:eq(3)', row).bind('click', () => {

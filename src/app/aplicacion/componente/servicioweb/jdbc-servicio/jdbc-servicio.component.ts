@@ -87,7 +87,8 @@ export class JdbcServicioComponent implements OnInit {
       password: [this.jdbcConexion.password, Validators.required],
       tipoBaseDatos: [this.jdbcConexion.tipoBaseDatos, Validators.required],
       otraconexion: [this.indexConexion || 0],
-      nuevaconexion: [this.isNuevaConexion]
+      nuevaconexion: [this.isNuevaConexion],
+      limpiarConexion:[]
     }
     );
 

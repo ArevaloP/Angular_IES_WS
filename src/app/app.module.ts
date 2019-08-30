@@ -122,13 +122,14 @@ export const protectedResourceMap: [string, string[]][] =
     P404Component,
     P500Component,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+
     //VentanaModalComponent
     //RegisterComponent
   ],
 
   providers: [
-    //{provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,

@@ -74,6 +74,10 @@ export class AddClaseComponent implements OnInit {
     this.implementacion.estado = "ACTIVO";
     this.implementacion.registradoPor = this.usuarioVO.oid;
     this.implementacion.usuarioRealiza = this.usuarioVO.name;
+    this.implementacion.cambioImagen=this.libreriaZip.cambioFichero;
+    if(this.libreriaZip.cambioFichero){
+      this.implementacion.nombreFile=this.libreriaZip.uploadResponse.filePath;
+    }
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(

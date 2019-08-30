@@ -16,7 +16,8 @@ export class UploadLibreriaComponent implements OnInit {
   public imagePath;
   public imgURL: any;
   public message: string;
-  public  cambioImagen:boolean=false;
+  public cambioFichero:boolean=false;
+
 
 
 
@@ -39,29 +40,33 @@ export class UploadLibreriaComponent implements OnInit {
         this.vistaPreviaImagen(fx);
         this.form.get('libreriaZip').setValue(file);
         this.subirArchivoAlServidor();
-        this.cambioImagen=true;
+        this.cambioFichero=true;
+        alert(this.cambioFichero);
       }
 
   }
 
 
   public subirArchivoAlServidor() {
-      //public  subirArchivoAlServidor(callback) {
-      const formData = new FormData();
-      formData.append('file', this.form.get('libreriaZip').value);
-      this.restUpload.cargarFicheroLibreria(formData, this.userId).subscribe(
-        data => {
-          this.uploadResponse = data;
-          //callback(data);
-        },
-        (err) => this.error = err
-      );
+
+    //alert("subirArchivoAlServidor");
+    const formData = new FormData();
+    formData.append('file', this.form.get('libreriaZip').value);
+    this.restUpload.cargarFicheroLibreria(formData, this.userId).subscribe(
+      data => {
+        console.log("data::",data.data);
+        this.uploadResponse.filePath = data.data;
+      },
+      (err) => this.error = err
+    );
 
   }
 
 
 
   public vistaPreviaImagen(files) {
+
+    this.message ="cargado ok";
 
     /*if (files.length === 0) {
       return;

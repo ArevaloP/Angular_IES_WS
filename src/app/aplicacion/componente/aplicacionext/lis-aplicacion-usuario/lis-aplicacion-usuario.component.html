@@ -18,7 +18,7 @@
                     <td>
                         <label class="switch switch-3d switch-success">
                             <input type="checkbox" class="switch-input " name="idServicio" [(ngModel)]="uswe.checkeado"
-                                (ngModelChange)="actualizarEstadoUsuario(i,$event)">
+                                (ngModelChange)="actualizarEstadoUsuario(((p2-1)*7) + i,$event)">
                             <span class="switch-slider"></span>
                         </label>
                     </td>
