@@ -1,17 +1,13 @@
 <form method="POST" [formGroup]="fGeneral">
-    <div class="animated fadeIn">
+    <div class="animated fadeIn container-fuid">
         <div class="row">
-
             <!--/.col-->
-            <div class="col-sm-5 pr-0">
-
-                <div class="card p-1">
+            <div class="col-12 col-md-5 pr-md-0">
+                <div class="card">
                     <div class="card-header">
                         <strong>Usuario Servicio Web</strong>
                     </div>
-                    <div class="card-body p-1">
-
-                        <!---->
+                    <div class="card-body">
                         <div class="form-group">
                             <label for="usuario">Usuario</label>
                             <input type="text" class="form-control" id="usuario" name="usuario"
@@ -22,7 +18,6 @@
                             <div class="invalid-feedback" *ngIf="fGeneral.get('usuario').hasError('required')">
                                 <small>Campo requerido</small></div>
                         </div>
-
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
@@ -88,25 +83,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-7">
-
-                <div class="card">
+            <div class="col-12 col-md-7">
+                <div class="card m-0">
                     <div class="card-body">
                         <tabset>
-                            
                             <tab heading="Perfil">
                                 <app-perfil-usuariows [fileAvatar]="fileAvatar" [userWebService]="userWebService"></app-perfil-usuariows>
                             </tab>
                             <tab heading="Aplicaciones" class="p-2" *ngIf="isModificar">
                                 <app-apex-usuariows [userWebService]="userWebService"></app-apex-usuariows>   
                             </tab>
-
                             <tab heading="Ejecución" *ngIf="true">
                                 <app-ejec-usuariows [userWebService]="userWebService"></app-ejec-usuariows>
                             </tab>
                         </tabset>
                     </div>
-
                 </div>
 
             </div>

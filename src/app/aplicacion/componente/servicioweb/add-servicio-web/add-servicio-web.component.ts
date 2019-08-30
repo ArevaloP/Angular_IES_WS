@@ -9,6 +9,8 @@ import { JdbcServicioComponent } from '../jdbc-servicio/jdbc-servicio.component'
 import { RestImplementacionClaseService } from '../../../servicio/rest-implementacion-clase.service';
 import { ImplementacionClase } from '../../../modelo/implementacion-clase';
 import { JdbcConexion } from '../../../modelo/jdbc-conexion';
+import { ParametroServicio } from '../../../modelo/parametro-servicio';
+import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 
 @Component({
   selector: 'app-add-servicio-web',
@@ -16,14 +18,14 @@ import { JdbcConexion } from '../../../modelo/jdbc-conexion';
   styleUrls: ['./add-servicio-web.component.scss']
 })
 export class AddServicioWebComponent implements OnInit {
-
-
   public fGeneral: FormGroup;
   public servicioWeb: ServicioWeb = new ServicioWeb();
   public isModificar: boolean = false;
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public listadoClasesSoap: ImplementacionClase[];
   public listadoClasesRest: ImplementacionClase[];
+  public parametroServicio: ParametroServicio = new ParametroServicio();
+  public listaParametros: ParametroServicio[];
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('jdbcConexion', { static: false }) public jdbcComponente: JdbcServicioComponent;
@@ -33,6 +35,7 @@ export class AddServicioWebComponent implements OnInit {
     public restServicio: RestServicioWebService,
     public restConexionJdbc: RestJdbcConexionService,
     public restImplementClase: RestImplementacionClaseService,
+    public restParametro:RestParametroWebService,
     public router: Router
 
   ) { }
@@ -41,6 +44,7 @@ export class AddServicioWebComponent implements OnInit {
     if (this.restServicio.getServicioWeb() != null) {
       this.servicioWeb = this.restServicio.getServicioWeb();
       this.consultarConexionJdbc();
+      this.consultarParametros();
       this.isModificar = true;
     } else {
       this.servicioWeb.estado = "ACTIVO";
@@ -80,8 +84,6 @@ export class AddServicioWebComponent implements OnInit {
     );
 
     this.cargarVariableImplementacionClase();
-
-
   }
 
 
@@ -142,8 +144,6 @@ export class AddServicioWebComponent implements OnInit {
 
   }
 
-
-
   public consultarConexionJdbc() {
 
     this.restConexionJdbc.consultarJdbcConexion(this.servicioWeb.idConexionJdbc).subscribe(
@@ -156,8 +156,19 @@ export class AddServicioWebComponent implements OnInit {
     );
   }
 
+  public consultarParametros()
+  {
+    this.parametroServicio.idServicioWeb = this.servicioWeb.id;
+    this.restParametro.listarParametroServicio( this.parametroServicio ).subscribe(
+      data => {
+        this.listaParametros = data;
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
 
-
+  }
 
   public cargarVariableImplementacionClase() {
     this.restImplementClase.listarImplementacionClase("SOAP").subscribe(
@@ -180,8 +191,6 @@ export class AddServicioWebComponent implements OnInit {
 
   }
 
-
-
   public cambiarOpcionTexto(event){
     let urlservicio ="http://dominio:puerto/contexto/app-integrador/aplicacion/"+this.servicioWeb.codigo;
     if(this.servicioWeb.protocolo=='REST'){
@@ -191,8 +200,4 @@ export class AddServicioWebComponent implements OnInit {
     }
 
   }
-
-
-
-
 }

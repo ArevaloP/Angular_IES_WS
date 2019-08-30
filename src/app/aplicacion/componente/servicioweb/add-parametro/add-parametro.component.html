@@ -36,10 +36,10 @@
                                 <label for="tipoDato">Tipo de dato</label>
                                 <select class="form-control" id="tipoDato" formControlName="tipoDato" [(ngModel)]="parametroServicio.tipoDato"
                                     required>
-                                    <option value="ARRAY">ARRAY</option>
+                                    <!-- <option value="ARRAY">ARRAY</option> -->
                                     <option value="DATE">DATE</option>
                                     <option value="INTEGER">INTEGER</option>
-                                    <option value="NUMERICO">NUMERICO</option>
+                                    <option value="NUMERICO">NUMERIC</option>
                                     <option value="OTRO">OTRO</option>
                                     <option value="SMALLINT">SMALLINT</option>
                                     <option value="STRING">STRING</option>
@@ -52,7 +52,7 @@
                                     placeholder="Ingrese la longitud del parámetro" formControlName="longitudFormato"
                                     [(ngModel)]="parametroServicio.longitudFormato"
                                     [ngClass]="{'is-invalid': fGeneral.get('longitudFormato').errors && fGeneral.get('longitudFormato').dirty ,'is-valid': !fGeneral.get('longitudFormato').errors}"
-                                    required autofocus>
+                                    required inputmode="numeric" autofocus>
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('longitudFormato').hasError('required')">
                                     <small>Campo requerido</small></div>
                             </div>
@@ -63,11 +63,7 @@
                                 <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
                                     placeholder="Breve descripción del parámetro" formControlName="descripcion"
                                     [(ngModel)]="parametroServicio.descripcion"
-                                    [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
-                                    required></textarea>
-                                <div class="invalid-feedback" *ngIf="fGeneral.get('descripcion').hasError('required')">
-                                    <small>Campo requerido</small>
-                                </div>
+                                    [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"></textarea>
                             </div>
                         </div>
                         
@@ -86,7 +82,7 @@
                                     formControlName="orden"
                                     [(ngModel)]="parametroServicio.orden"
                                     [ngClass]="{'is-invalid': fGeneral.get('orden').errors && fGeneral.get('orden').dirty ,'is-valid': !fGeneral.get('orden').errors}"
-                                    required autofocus>
+                                    required inputmode="numeric" autofocus style="text-align:right">
                                 <div class="invalid-feedback" *ngIf="fGeneral.get('orden').hasError('required')">
                                     <small>Campo requerido</small></div>
                             </div>

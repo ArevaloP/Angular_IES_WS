@@ -2,7 +2,7 @@
     <div class="animated fadeIn container-fluid">
         <div class="row">
             <!--/.col-->
-            <div class="col-sm-6 pr-0">
+            <div class="col-12 col-md-6 pr-md-0">
                 <div class="card m-0">
                     <div class="card-header">
                         <strong>Servicio Web</strong>
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST'">
-                            <label for="url">Url de conexión (Informativa)</label>
+                            <label for="url">Url de conexión (informativa)</label>
                             <input type="text" class="form-control" id="url" name="url"
                                 placeholder="Ingrese dirección del servicio web" formControlName="url"
                                 [(ngModel)]="servicioWeb.url"
@@ -95,7 +95,7 @@
 
             </div>
             <!--/.col-->
-            <div class="col-sm-6">
+            <div class="col-12 col-md-6">
                 <tabset>
                     <tab heading="Servicios Web">
                         <div class="form-group">
@@ -147,7 +147,7 @@
                     
                             
                         <div class="form-group" *ngIf="servicioWeb.protocolo == 'SOAP'">
-                            <label for="query">Seleccione la clase de implementacion Soap</label>
+                            <label for="query">Seleccione la clase de implementacion SOAP</label>
                             <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
                                     <option *ngFor="let claseRest of listadoClasesSoap" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
                             </select>
@@ -186,7 +186,7 @@
                         <app-jdbc-servicio #jdbcConexion></app-jdbc-servicio>
                     </tab>
                     <tab heading="Formato json">
-                        <app-json-parametros></app-json-parametros>
+                        <app-json-parametros [listaParametros]="listaParametros"></app-json-parametros>
                     </tab>
                 </tabset>
             </div>

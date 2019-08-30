@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { VentanaAlerta } from '../../../modelo/ventana-alerta';
-import { JdbcConexion } from '../../../modelo/jdbc-conexion';
 import { Router } from '@angular/router';
 import { RestErrorService } from '../../../servicio/rest-error.service';
 
@@ -39,9 +38,9 @@ export class VentanaModalComponent implements OnInit {
 
 
   public confirmarEliminar(mensaje, callback) {
-    this.ventana.titulo = "Eliminar Registro";
+    this.ventana.titulo = "Eliminar registro";
     this.ventana.msgBotonCancelar = "Cancelar";
-    this.ventana.msgBotonRegistar = "Registar";
+    this.ventana.msgBotonRegistar = "Aceptar";
     this.ventana.botonDelete = true;
     this.ventana.mensaje = mensaje;
     this.dangerModal.show();
@@ -58,7 +57,7 @@ export class VentanaModalComponent implements OnInit {
     this.ventana.mensaje = error.error.mensaje || error.message;
 
     if (error.status == 403) {
-        error.error="El acceso al recurso especificado ha sido prohibido."
+        error.error="El acceso al recurso especificado ha sido prohibido.";
         this.restError.setError(error);
         this.router.navigate(['500']);
     } else {
@@ -73,13 +72,10 @@ export class VentanaModalComponent implements OnInit {
     this.router.navigate(['500']);
   }
 
-
-
-
   public confirmarInsertar(mensaje, callback) {
-    this.ventana.titulo = "Agregar Registro ";
+    this.ventana.titulo = "Agregar registro ";
     this.ventana.msgBotonCancelar = "Cancelar";
-    this.ventana.msgBotonRegistar = "Registar";
+    this.ventana.msgBotonRegistar = "Registrar";
     this.ventana.botonRegistar = true;
     this.ventana.mensaje = mensaje;
     this.successModal.show();
@@ -87,17 +83,14 @@ export class VentanaModalComponent implements OnInit {
   }
 
   public confirmarActualizar(mensaje, callback) {
-    this.ventana.titulo = "Modificar Registro";
+    this.ventana.titulo = "Modificar registro";
     this.ventana.msgBotonCancelar = "Cancelar";
-    this.ventana.msgBotonRegistar = "Registar";
+    this.ventana.msgBotonRegistar = "Registrar";
     this.ventana.botonRegistar = true;
     this.ventana.mensaje = mensaje;
     this.primaryModal.show();
     this.callback = callback;
   }
-
-
-
 
   public accionSuccess() {
     this.callback();
@@ -121,20 +114,14 @@ export class VentanaModalComponent implements OnInit {
     this.prontmodal.hide();
   }
   
-
-
-
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   public statusConexion(jdbc: any) {
-
     this.ventana.titulo = "Prueba de conexión";
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonRegistar = false;
     this.successModal.show();
-    this.ventana.mensaje = "" + jdbc.data.productName + " Conexión Ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
+    this.ventana.mensaje = "" + jdbc.data.productName + " conexión ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
   }
-
-
 
   public mostarMensaje(titulo:string,texto: any) {
     this.ventana.titulo =titulo ;
@@ -144,20 +131,13 @@ export class VentanaModalComponent implements OnInit {
     this.ventana.mensaje =texto;
   }
 
-
-
-
-
   public irAgregarVentana(mensaje,callback) {
-    this.ventana.titulo = "Agregar Usuario";
+    this.ventana.titulo = "Agregar usuario";
     this.ventana.msgBotonCancelar = "Cancelar";
-    this.ventana.msgBotonRegistar = "Registar";
+    this.ventana.msgBotonRegistar = "Registrar";
     this.ventana.botonRegistar = true;
     this.ventana.mensaje = mensaje;
     this.prontmodal.show();
     this.callback = callback;
   }
-
-
-
 }

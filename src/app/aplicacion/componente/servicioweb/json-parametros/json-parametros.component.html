@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card m-0">
     <div class="card-header">
         <b>Formato json</b>
     </div>
@@ -8,7 +8,7 @@
 <code class="language-json"><span class="token punctuation">{{'{'}}</span>
   <span class="token property">"tipoRetorno"</span><span class="token operator">:</span> <span class="token string">"DataObject"</span><span class="token punctuation">,</span>
   <span class="token property">"parametros"</span><span class="token operator">:</span> <span class="token punctuation">{{'{'}}</span>
-    <span *ngFor="let param of listaParametros; last as isLast"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span></span>
+    <span *ngFor="let param of listaParametros; last as isLast"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock><span *ngIf="'DATE' == param.tipoDato; else elseDate">"dd-MM-yyyy 00:00:00"</span><ng-template #elseDate>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span></span>
   <span class="token punctuation">{{'}'}}</span>
 <span class="token punctuation">{{'}'}}</span></code>
 </pre>

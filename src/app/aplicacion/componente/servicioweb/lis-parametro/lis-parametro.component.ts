@@ -25,6 +25,7 @@ export class LisParametroComponent implements OnInit {
   public listadoParametroServicio: ParametroServicio[];
   public servicioWeb: ServicioWeb;
   public parametroServicio: ParametroServicio = new ParametroServicio();
+  public nombreServicioWeb: String;
 
   constructor(
     public restServicio: RestServicioWebService,
@@ -35,6 +36,7 @@ export class LisParametroComponent implements OnInit {
   ngOnInit() {
     this.restParametro.setParametroServicio(null);
     this.restParametro.setListaParametroServicio(null);
+    this.nombreServicioWeb = "-";
     this.listarParametroServicio();
   }
 
@@ -42,6 +44,7 @@ export class LisParametroComponent implements OnInit {
   public listarParametroServicio()
   {
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
+    this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
     this.restParametro.listarParametroServicio( this.parametroServicio ).subscribe(
       data => {
         this.listadoParametroServicio = data;
@@ -116,7 +119,7 @@ export class LisParametroComponent implements OnInit {
   public irEliminar(parametroServicio)
   {
     this.alerta.confirmarEliminar(
-      ("¿Esta seguro de eliminar el servicio [" + parametroServicio.parametro + "]?"),
+      ("¿Está seguro de eliminar el servicio [" + parametroServicio.parametro + "]?"),
       () => this.eliminar(parametroServicio)
     );
   }
@@ -136,16 +139,9 @@ export class LisParametroComponent implements OnInit {
     );
   }
 
-
-
-
-
   public cambiarEstiloBotones() {
     $(":button.buttons-copy").html(`${this.const.ICONO_COPIAR}`);
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
   }
-
-
-
 }
