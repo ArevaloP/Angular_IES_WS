@@ -6,9 +6,10 @@
         {{ uploadResponse.message }}
     </div>
 
-
-
     <form [formGroup]="form">
-        <input #file type="file" name="avatar" (change)="onFileChange(file.files,$event)" />
+        <div class="custom-file">
+            <input #file type="file" id="avatar" name="avatar" (change)="onFileChange(file.files,$event)" class="custom-file-input" lang="es">
+            <label class="custom-file-label" for="avatar" data-browse="Examinar">Seleccionar archivo</label>
+        </div>
     </form>
 </div>

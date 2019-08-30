@@ -1,11 +1,6 @@
-<div class="card">
-
-    <div class="card-body b-0" >
-        
-        <div class="row">
-        <div class="col-sm-12">
-         <table class="table table-sm">
-
+<div class="card m-0">
+    <div class="card-body b-0">
+        <table class="table table-sm m-0">
             <thead>
                 <tr>
                     <th style="width:15%"></th>
@@ -34,17 +29,12 @@
                 </tr>
             </tbody>
         </table>
-        </div>
     </div>
-    </div>
-
     <div class="card-footer p-1 text-right">
         <pagination-controls id="app-apex" (pageChange)="p = $event" maxSize="5" directionLinks="true"
             autoHide="true" responsive="true" previousLabel="" nextLabel=" " screenReaderPaginationLabel="Pagination"
             screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
         </pagination-controls>
     </div>
-
-
-
+</div>
 <app-ventana-modal #alerta></app-ventana-modal>

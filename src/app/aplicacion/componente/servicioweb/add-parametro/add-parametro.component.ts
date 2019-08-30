@@ -33,10 +33,7 @@ export class AddParametroComponent implements OnInit {
       this.parametroServicio = this.restParametro.getParametroServicio();
       this.isModificar = true;
     } else {
-      // this.parametroServicio.estado = "ACTIVO";
-      // this.parametroServicio.tipo = "CONSULTA";
-      // this.parametroServicio.protocolo = "REST";
-      // this.parametroServicio.metodo = "POST";
+      this.parametroServicio.tipoDato = "STRING";
       this.isModificar = false;
     }
     //console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
@@ -50,11 +47,11 @@ export class AddParametroComponent implements OnInit {
 
     this.fGeneral = this.fb.group({
       firstName:[],
-      orden: [this.parametroServicio.orden, Validators.required],
+      orden: [this.parametroServicio.orden, [Validators.required, Validators.maxLength(2), Validators.pattern('[0-9]*')]],
       parametro: [this.parametroServicio.parametro, Validators.required],
       tipoDato: [this.parametroServicio.tipoDato, Validators.required],
-      longitudFormato: [this.parametroServicio.longitudFormato, Validators.required],
-      descripcion: [this.parametroServicio.descripcion, Validators.required],
+      longitudFormato: [this.parametroServicio.longitudFormato, [Validators.required, Validators.maxLength(4), Validators.pattern('[0-9]*')]],
+      descripcion: [this.parametroServicio.descripcion],
       valorFijo: [this.parametroServicio.valorFijo],
       aliasColumna: [this.parametroServicio.aliasColumna, Validators.required]
     });
@@ -68,12 +65,12 @@ export class AddParametroComponent implements OnInit {
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿Esta seguro de modificar el parámetro [" + this.parametroServicio.parametro + "]?"),
+        ("¿Está seguro de modificar el parámetro [" + this.parametroServicio.parametro + "]?"),
         () => this.actualizarParametro(this.parametroServicio)
       );
     } else {
       this.alerta.confirmarInsertar(
-        ("¿Esta seguro de agregar el parámetro [" + this.parametroServicio.parametro + "]?"),
+        ("¿Está seguro de agregar el parámetro [" + this.parametroServicio.parametro + "]?"),
         () => this.insertarParametro(this.parametroServicio)
       );
 

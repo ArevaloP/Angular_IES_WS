@@ -12,15 +12,13 @@
                     <div class="card-body pb-0">
 
                         <div class="form-group">
-                            <label for="otraconexion">Cargar Conexión Existente</label>
+                            <label for="otraconexion">Cargar conexión existente</label>
                             <select class="form-control" id="otraconexion" name="otraconexion"
                                 formControlName="otraconexion" 
                                 [(ngModel)]="indexConexion"
                                 (ngModelChange)="actualizarCampos($event)">
                                 <option disabled>&nbsp;</option>
-                                <option *ngFor="let conexion of listaConexionesExistente; let i=index;" [value]="i"
-                                   
-                                        >
+                                <option *ngFor="let conexion of listaConexionesExistente; let i=index;" [value]="i">
                                     {{conexion.nombre}}</option>
                             </select>
                         </div>
@@ -74,7 +72,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-8">
-                                    <label for="serverUrl">Ip Servidor</label>
+                                    <label for="serverUrl">Ip servidor</label>
                                     <input type="text" class="form-control" id="serverUrl" name="serverUrl"
                                         placeholder="Ingrese la ip del servidor ejemplo 172.26.2.110" formControlName="serverUrl"
                                         [(ngModel)]="jdbcConexion.serverUrl"
@@ -102,7 +100,7 @@
                             <div class="row">
 
                                 <div class="form-group col-sm-5">
-                                    <label for="tipoBaseDatos">Motor de Base de datos</label>
+                                    <label for="tipoBaseDatos">Motor de base de datos</label>
                                     <select class="form-control" id="tipoBaseDatos" formControlName="tipoBaseDatos"
                                         [(ngModel)]="jdbcConexion.tipoBaseDatos"
                                         [ngClass]="{'is-invalid': fGeneral.get('tipoBaseDatos').errors && fGeneral.get('tipoBaseDatos').dirty ,'is-valid': !fGeneral.get('tipoBaseDatos').errors}"
@@ -137,7 +135,7 @@
 
                             <div class="row ">
                                 <div class="form-group col-sm-6">
-                                    <label for="userId">Usuario Conexión</label>
+                                    <label for="userId">Usuario de conexión</label>
                                     <input type="text" class="form-control" id="userId" name="userId"
                                         placeholder="Ingrese el usuario de la conexión." formControlName="userId"
                                         [(ngModel)]="jdbcConexion.userId"
@@ -163,10 +161,10 @@
 
                     </div>
 
-                    <div class="card-footer p-0" >
+                    <div class="card-footer p-1" >
                         <button type="button" class="btn btn-ghost-success pull-right"
                             (click)="testearJdbcConexion()">
-                            Probar Conexión
+                            Probar conexión
                         </button>
                     </div>
 

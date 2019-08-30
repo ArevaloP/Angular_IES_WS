@@ -76,24 +76,18 @@ export class EjecUsuariowsComponent implements OnInit {
         { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],
       rowCallback: (row: Node, dataRow: any, index: number) => {
-        const self = this;
-        this.cambiarEstiloBotones();
         return row;
+      },
+      initComplete: (settings, json) => {
+        this.cambiarEstiloBotones();
       }
     }
 
   };
-
-
-
 
   public cambiarEstiloBotones() {
     $(":button.buttons-copy").html(`${this.const.ICONO_COPIAR}`);
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
   }
-
-
-
-
 }
