@@ -12,6 +12,8 @@ export class ImplementacionClase {
     public registradoPor:String;
     public nombreFile:String;
     public cambioImagen:boolean;
+    public libreriaDinamica:boolean; 
+    public rutaLibreria:String; 
 
 
 

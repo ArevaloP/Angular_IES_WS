@@ -67,8 +67,9 @@ export class LisClaseComponent implements OnInit {
         { title: 'Código', data: 'codigo', width: "10%" },
         { title: 'Nombre', data: 'nombre', width: "20%" },
         { title: 'Tipo', data: 'tipoServicio', width: "10%" },
-        { title: 'Clase', data: 'clase', width: "40%" },
-        { title: 'Estado', data: 'estado', width: "10%" },
+        { title: 'Clase', data: 'clase', width: "35%" },
+        { title: 'Estado', data: 'estado', width: "7%" },
+        { title: 'Lib', defaultContent: '', width: "8%",  className: "td-center"},
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
 
@@ -94,7 +95,7 @@ export class LisClaseComponent implements OnInit {
 
       rowCallback: (row: any, dataRow: ImplementacionClase, index: number) => {
         const self = this;
-        index =row._DT_RowIndex;
+        index = row._DT_RowIndex;
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {
@@ -102,12 +103,19 @@ export class LisClaseComponent implements OnInit {
         });
 
         $('td:eq(6)', row).unbind('click');
-        $('td:eq(6)', row).bind('click', () => {
-          self.modificar(index);
-        });
+        if(dataRow.libreriaDinamica){
+          $('td:eq(6)', row).html('<a href="'+dataRow.rutaLibreria+'" download><i class="fa fa-file-archive-o" style="font-size: 17px" aria-hidden="true"></i></a>');
+        }
 
         $('td:eq(7)', row).unbind('click');
         $('td:eq(7)', row).bind('click', () => {
+          self.modificar(index);
+        });
+
+        
+
+        $('td:eq(8)', row).unbind('click');
+        $('td:eq(8)', row).bind('click', () => {
           self.irEliminar(this.listadoClaseImp[index]);
         });
         //this.cambiarEstiloBotones();

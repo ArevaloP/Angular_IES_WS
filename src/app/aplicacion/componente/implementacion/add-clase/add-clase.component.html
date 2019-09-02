@@ -78,13 +78,18 @@
                                         <small>Campo requerido</small></div>
                                 </div>
                             </div>
+
                             <div class="form-group col-sm-12">
-                                <div class="form-group">
+                                <div class="form-check form-check-inline">
                                     <label for="archivozip">Archivo ZIP</label>
                                     <app-upload-libreria #libreriaZip></app-upload-libreria>
+                            
+                                    <span *ngIf="implementacion.libreriaDinamica">
+                                        <a href="{{implementacion.rutaLibreria}}" download>
+                                            <i class="fa fa-file-archive-o" style="font-size: 17px" aria-hidden="true"></i>
+                                        </a>
+                                    </span>
                                 </div>
-
-
                             </div>
 
                         </div>
