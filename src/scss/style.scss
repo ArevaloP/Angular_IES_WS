@@ -112,6 +112,17 @@ body {
 	margin: 0;
 }
 
-.cnt-header > button:nth-last-child(2) {
+.cnt-header {
+	min-width: 410px;
+}
+.cnt-header > button:nth-last-child(-n+2) {
 	display: none !important;
+}
+
+.app-header .navbar-brand {
+	position: initial;
+	top: 0;
+	left: 50%;
+	margin-left: 0;
+	width: auto;
 }
