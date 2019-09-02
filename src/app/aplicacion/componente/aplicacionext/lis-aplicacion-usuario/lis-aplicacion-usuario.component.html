@@ -14,13 +14,14 @@
             <tbody>
 
                 <tr *ngFor="let uswe of listaUsuarioWs | paginate:  { itemsPerPage: 7, currentPage: p2 ,  id: 'app-usuario'}  ; let i=index;">
-                    
                     <td>
-                        <label class="switch switch-3d switch-success">
-                            <input type="checkbox" class="switch-input " name="idServicio" [(ngModel)]="uswe.checkeado"
-                                (ngModelChange)="actualizarEstadoUsuario(((p2-1)*7) + i,$event)">
-                            <span class="switch-slider"></span>
-                        </label>
+                        <div class="cnt-switch">
+                            <label class="switch switch-3d switch-success">
+                                <input type="checkbox" class="switch-input " name="idServicio" [(ngModel)]="uswe.checkeado"
+                                    (ngModelChange)="actualizarEstadoUsuario(((p2-1)*7) + i,$event)">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
                     </td>
                     <td>
                         <img class="img-circle-40" [src]="uswe.imagen||'/assets/img/avatars/no-disponible.png'">

@@ -99,6 +99,19 @@ body {
 	text-align: center;
 }
 
-.dataTables_wrapper table tbody td {
+.dataTables_wrapper table tbody td, .table tbody td {
 	vertical-align: middle;
+}
+
+.cnt-switch {
+	display: flex;
+	justify-content: center;
+}
+
+.switch {
+	margin: 0;
+}
+
+.cnt-header > button:nth-last-child(2) {
+	display: none !important;
 }

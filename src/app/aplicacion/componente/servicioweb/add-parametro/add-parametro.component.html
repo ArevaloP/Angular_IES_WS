@@ -76,7 +76,7 @@
                                     [ngClass]="{'is-invalid': fGeneral.get('valorFijo').errors && fGeneral.get('valorFijo').dirty ,'is-valid': !fGeneral.get('valorFijo').errors}" >
                             </div>
 
-                            <div class="form-group offset-md-2 col-2 col-md-1">
+                            <div class="form-group offset-md-2 col-3 col-md-1">
                                 <label for="orden">Orden</label>
                                 <input type="text" class="form-control" id="orden" name="orden"
                                     formControlName="orden"
@@ -95,74 +95,6 @@
                     </div>
                 </div>
             </div>
-            <!--/.col-->
-            <!-- <div class="col-sm-6">
-
-
-                <tabset>
-                    <tab heading="Servicios Web">
-
-                        <div class="card pb-0" style="margin-bottom: 0.1rem;">
-                            <div class="card-body pb-0">
-
-                                <div class="form-group">
-                                    <label for="metodo">Método</label>
-                                    <select class="form-control" id="metodo" formControlName="metodo"
-                                        [(ngModel)]="servicioWeb.metodo" required>
-                                        <option value="GET">GET</option>
-                                        <option value="POST">POST</option>
-                                        <option value="PUT">PUT</option>
-                                        <option value="DELETE">DELETE</option>
-                                    </select>
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    <label for="query">Query</label>
-                                    <textarea id="query" name="query" rows="3" class="form-control"
-                                        placeholder="Ingrese la consulta sql " formControlName="query" [(ngModel)]="servicioWeb.query">
-                                    </textarea>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="identificadorPadre">Identificador</label>
-                                    <input type="text" class="form-control" id="identificadorPadre"
-                                        name="identificadorPadre" placeholder="Ingrese el identificador del padre para multitabla"
-                                        formControlName="identificadorPadre"
-                                        [(ngModel)]="servicioWeb.identificadorPadre" autofocus>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="parametros">Parametros</label>
-                                    <input type="text" class="form-control" id="parametros" name="parametros"
-                                        placeholder="Ingrese el parametros del servicio web, modo informativo"
-                                        formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
-
-                                </div>
-
-                            </div>
-
-                    
-
-                        </div>
-
-                    </tab>
-                    <tab heading="Conexión JDBC">
-                        <app-jdbc-servicio #jdbcConexion></app-jdbc-servicio>
-                    </tab>
-
-
-
-
-                </tabset>
-            </div> -->
-
-
-
-
         </div>
         <!--/.row-->
 

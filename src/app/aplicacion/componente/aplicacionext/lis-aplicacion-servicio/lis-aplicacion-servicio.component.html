@@ -23,18 +23,19 @@
 
                 <tr *ngFor="let wese of listaServicio | paginate:  { itemsPerPage: 7, currentPage: p1 ,  id: 'app-servicio'} ; let i=index;">
                     <td>
-                        <label class="switch switch-3d switch-success">
-                                <input type="checkbox" class="switch-input" name="idServicio" 
-                                    [(ngModel)]="wese.checkeado"
-                                    (ngModelChange)="actualizarEstadoServicio( ((p1-1)*7) + i ,$event)"
-                                >
-                            <span class="switch-slider"></span>
-                        </label>
+                        <div class="cnt-switch">
+                            <label class="switch switch-3d switch-success">
+                                    <input type="checkbox" class="switch-input" name="idServicio" 
+                                        [(ngModel)]="wese.checkeado"
+                                        (ngModelChange)="actualizarEstadoServicio( ((p1-1)*7) + i ,$event)"
+                                    >
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
                     </td>
                     <td>{{wese.codigo}}</td>
                     <td>{{wese.nombre}}</td>
                     <td>{{wese.metodo}}</td>
-
                 </tr>
             </tbody>
         </table>
