@@ -9,6 +9,9 @@
 
 
     <form [formGroup]="form">
-        <input #file type="file" name="libreriaZip" (change)="onFileChange(file.files,$event)" />
+        <div class="custom-file">
+            <input #file type="file" id="libreriaZip" name="libreriaZip" (change)="onFileChange(file.files,$event)" class="custom-file-input" lang="es">
+            <label class="custom-file-label" for="libreriaZip" data-browse="Examinar">Seleccionar archivo</label>
+        </div>
     </form>
 </div>

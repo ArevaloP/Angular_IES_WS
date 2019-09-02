@@ -5,14 +5,12 @@
             <!--/.col-->
             <div class="col-sm-12">
 
-                <div class="card p-2">
+                <div class="card">
                     <div class="card-header">
                         <strong>Clase de implementación </strong>
                     </div>
-                    <div class="card-body p-2">
-
-                        <div class="form-group">
-
+                    <div class="card-body">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="form-group col-sm-5">
                                     <label for="codigo">Código</label>
@@ -24,7 +22,6 @@
                                     <div class="invalid-feedback" *ngIf="fGeneral.get('codigo').hasError('required')">
                                         <small>Campo requerido</small></div>
                                 </div>
-
 
                                 <div class="form-group col-sm-7">
                                     <label for="nombre">Nombre</label>
@@ -38,10 +35,7 @@
                                 </div>
                             </div>
 
-
                             <div class="row">
-
-
                                 <div class="form-group col-sm-6">
                                     <label for="tipoServicio">Protocolo</label>
                                     <select class="form-control" id="tipoServicio" formControlName="tipoServicio"
@@ -50,9 +44,6 @@
                                         <option value="SOAP">SOAP</option>
                                     </select>
                                 </div>
-
-
-
 
                                 <div class="form-group col-sm-6">
                                     <label for="estado">Estado</label>
@@ -68,7 +59,7 @@
                             <div class="row">
 
                                 <div class="form-group col-sm-12">
-                                    <label for="clase">Paquete y nombre de la clase (Recurso Java)</label>
+                                    <label for="clase">Paquete y nombre de la clase (recurso java)</label>
                                     <input type="text" class="form-control" id="clase" name="clase"
                                         placeholder="Ingrese el paquete y el nombre de la clase sin extensión"
                                         formControlName="clase" [(ngModel)]="implementacion.clase"
@@ -79,11 +70,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-sm-12">
-                                <div class="form-check form-check-inline">
-                                    <label for="archivozip">Archivo ZIP</label>
-                                    <app-upload-libreria #libreriaZip></app-upload-libreria>
-                            
+                            <div class="form-group">
+                                <label for="archivozip">Archivo ZIP</label>
+                                <app-upload-libreria #libreriaZip></app-upload-libreria>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
                                     <span *ngIf="implementacion.libreriaDinamica">
                                         <a href="{{implementacion.rutaLibreria}}" download>
                                             <i class="fa fa-file-archive-o" style="font-size: 17px" aria-hidden="true"></i>
@@ -91,25 +84,17 @@
                                     </span>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="card-footer p-1">
-
                         <button type="button" class="btn btn-primary pull-right mr-1" [disabled]="fGeneral.invalid"
                             (click)="irRegistar()">
                             Registrar
                         </button>
-
                     </div>
-
-
                 </div>
-
             </div>
-
         </div>
         <!--/.row-->
     </div>
