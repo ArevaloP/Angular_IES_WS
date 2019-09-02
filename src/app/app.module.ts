@@ -53,6 +53,7 @@ import { LogLevel } from "msal";
 import { environment } from '../environments/environment';
 import { RestUserAuthService } from './aplicacion/servicio/rest-user-auth.service';
 import { LoaderComponent } from './aplicacion/componente/utilidad/loader/loader.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
 export function loggerCallback(logLevel, message, piiEnabled) {
@@ -126,6 +127,7 @@ export const protectedResourceMap: [string, string[]][] =
   ],
 
   providers: [
+    // { provide: LocationStrategy, useClass: HashLocationStrategy},
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,
