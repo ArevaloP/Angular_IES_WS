@@ -10,13 +10,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let apex of listaAplicacion | paginate:  { itemsPerPage: 5, currentPage: p ,  id: 'app-apex'}  ; let i=index;">
-                    
-                    <td class="text-center">
-                        <label class="switch switch-3d switch-success">
-                        <input type="checkbox" class="switch-input " name="idAplicacion" [(ngModel)]="apex.checkeado"
-                        (ngModelChange)="actualizarEstadoUsuario(i,$event)">
-                        <span class="switch-slider"></span>
-                        </label>
+                    <td>
+                        <div class="cnt-switch">
+                            <label class="switch switch-3d switch-success">
+                            <input type="checkbox" class="switch-input " name="idAplicacion" [(ngModel)]="apex.checkeado"
+                            (ngModelChange)="actualizarEstadoUsuario(i,$event)">
+                            <span class="switch-slider"></span>
+                            </label>
+                        </div>
                     </td>
                    <!--
                     <td class="text-center">

@@ -3,9 +3,9 @@
         <div class="row">
             <!--/.col-->
             <div class="col-12 col-md-5 pr-md-0">
-                <div class="card">
+                <div class="card m-0">
                     <div class="card-header">
-                        <strong>Usuario Servicio Web</strong>
+                        <strong>Usuario servicio web</strong>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -71,19 +71,10 @@
                             <label for="foto">Foto</label>
                             <app-upload-file #fileAvatar></app-upload-file>
                         </div>
-
-
-
-                    </div>
-                    <div class="card-footer p-1">
-                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
-                            (click)="irRegistar()">
-                            Registrar
-                        </button>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-7 mt-3 mt-md-0">
                 <div class="card m-0">
                     <div class="card-body">
                         <tabset>
@@ -99,12 +90,18 @@
                         </tabset>
                     </div>
                 </div>
-
             </div>
         </div>
         <!--/.row-->
-
-
+        <div class="row my-2">
+            <div class="col-12"><div class="borde-arriba"></div></div>
+            <div class="col-12 text-right py-2">
+                <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
+                    (click)="irRegistar()">
+                    Registrar
+                </button>
+            </div>
+        </div>
     </div>
 </form>
 <app-ventana-modal #alerta></app-ventana-modal>

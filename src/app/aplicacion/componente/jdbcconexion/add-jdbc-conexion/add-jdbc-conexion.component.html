@@ -1,136 +1,127 @@
 <form method="POST" [formGroup]="fGeneral">
-    <div class="animated fadeIn">
+    <div class="animated fadeIn container-fluid">
         <div class="row">
-
             <!--/.col-->
             <div class="col-sm-12">
-
-                <div class="card p-1">
+                <div class="card">
                     <div class="card-header" >
                         <strong>Conexión Jdbc</strong>
                     </div>
-                    <div class="card-body p-1">
-
-                        <div class="form-group">
-
-                            <div class="row">
-                                <div class="form-group col-sm-5">
-                                    <label for="codigo">Código</label>
-                                    <input type="text" class="form-control" id="codigo" name="codigo"
-                                        placeholder="Ingrese el código de la conexión" formControlName="codigo"
-                                        [(ngModel)]="jdbcConexion.codigo"
-                                        [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback" *ngIf="fGeneral.get('codigo').hasError('required')">
-                                        <small>Campo requerido</small></div>
-                                </div>
-
-
-                                <div class="form-group col-sm-7">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre"
-                                        placeholder="Ingrese el nombre de la conexión jdbc/academico" formControlName="nombre"
-                                        [(ngModel)]="jdbcConexion.nombre"
-                                        [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback" *ngIf="fGeneral.get('nombre').hasError('required')">
-                                        <small>Campo requerido</small></div>
-                                </div>
+                    <div class="card-body container">
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <label for="codigo">Código</label>
+                                <input type="text" class="form-control" id="codigo" name="codigo"
+                                    placeholder="Ingrese el código de la conexión" formControlName="codigo"
+                                    [(ngModel)]="jdbcConexion.codigo"
+                                    [ngClass]="{'is-invalid': fGeneral.get('codigo').errors && fGeneral.get('codigo').dirty ,'is-valid': !fGeneral.get('codigo').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('codigo').hasError('required')">
+                                    <small>Campo requerido</small></div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-8">
-                                    <label for="serverUrl">Ip Servidor</label>
-                                    <input type="text" class="form-control" id="serverUrl" name="serverUrl"
-                                        placeholder="Ingrese la ip del servidor ejemplo 172.26.2.110" formControlName="serverUrl"
-                                        [(ngModel)]="jdbcConexion.serverUrl"
-                                        [ngClass]="{'is-invalid': fGeneral.get('serverUrl').errors && fGeneral.get('serverUrl').dirty ,'is-valid': !fGeneral.get('serverUrl').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback"
-                                        *ngIf="fGeneral.get('serverUrl').hasError('required')">
-                                        <small>Campo requerido</small></div>
-                                </div>
 
-
-                                <div class="form-group col-sm-3">
-                                    <label for="puerto">Puerto</label>
-                                    <input type="text" class="form-control" id="puerto" name="puerto"
-                                        placeholder="Ingrese el puerto de la conexion ej 5432" formControlName="puerto"
-                                        [(ngModel)]="jdbcConexion.puerto"
-                                        [ngClass]="{'is-invalid': fGeneral.get('puerto').errors && fGeneral.get('puerto').dirty ,'is-valid': !fGeneral.get('puerto').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback" *ngIf="fGeneral.get('puerto').hasError('required')">
-                                        <small>Campo requerido</small></div>
-                                </div>
+                            <div class="form-group col-sm-7">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                    placeholder="Ingrese el nombre de la conexión jdbc/academico" formControlName="nombre"
+                                    [(ngModel)]="jdbcConexion.nombre"
+                                    [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('nombre').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                <label for="serverUrl">Ip Servidor</label>
+                                <input type="text" class="form-control" id="serverUrl" name="serverUrl"
+                                    placeholder="Ingrese la ip del servidor ejemplo 172.26.2.110" formControlName="serverUrl"
+                                    [(ngModel)]="jdbcConexion.serverUrl"
+                                    [ngClass]="{'is-invalid': fGeneral.get('serverUrl').errors && fGeneral.get('serverUrl').dirty ,'is-valid': !fGeneral.get('serverUrl').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback"
+                                    *ngIf="fGeneral.get('serverUrl').hasError('required')">
+                                    <small>Campo requerido</small></div>
                             </div>
 
 
-                            <div class="row">
-
-                                <div class="form-group col-sm-5">
-                                    <label for="tipoBaseDatos">Motor de Base de datos</label>
-                                    <select class="form-control" id="tipoBaseDatos" formControlName="tipoBaseDatos"
-                                        [(ngModel)]="jdbcConexion.tipoBaseDatos"
-                                        [ngClass]="{'is-invalid': fGeneral.get('tipoBaseDatos').errors && fGeneral.get('tipoBaseDatos').dirty ,'is-valid': !fGeneral.get('tipoBaseDatos').errors}"
-                                        required>
-                                        <option value="oraclethin">ORACLE THIN</option>
-                                        <option value="oracle">ORACLE</option>
-                                        <option value="postgresql">POSTGRESQL</option>
-                                    </select>
-
-                                    <div class="invalid-feedback"
-                                        *ngIf="fGeneral.get('tipoBaseDatos').hasError('required')">
-                                        <small>Campo requerido</small>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="form-group col-sm-7">
-                                    <label for="serviciosIdAlias">Base de datos</label>
-                                    <input type="text" class="form-control" id="serviciosIdAlias"
-                                        name="serviciosIdAlias" placeholder="Ingrese el nombre de la base de datos."
-                                        formControlName="serviciosIdAlias" [(ngModel)]="jdbcConexion.serviciosIdAlias"
-                                        [ngClass]="{'is-invalid': fGeneral.get('serviciosIdAlias').errors && fGeneral.get('serviciosIdAlias').dirty ,'is-valid': !fGeneral.get('serviciosIdAlias').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback"
-                                        *ngIf="fGeneral.get('serviciosIdAlias').hasError('required')">
-                                        <small>Campo requerido</small>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row ">
-                                <div class="form-group col-sm-6">
-                                    <label for="userId">Usuario Conexión</label>
-                                    <input type="text" class="form-control" id="userId" name="userId"
-                                        placeholder="Ingrese el usuario de la conexión." formControlName="userId"
-                                        [(ngModel)]="jdbcConexion.userId"
-                                        [ngClass]="{'is-invalid': fGeneral.get('userId').errors && fGeneral.get('userId').dirty ,'is-valid': !fGeneral.get('userId').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback" *ngIf="fGeneral.get('userId').hasError('required')">
-                                        <small>Campo requerido</small></div>
-                                </div>
-
-
-                                <div class="form-group col-sm-6">
-                                    <label for="password">Contraseña</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Ingrese la contraseña de conexión." formControlName="password"
-                                        [(ngModel)]="jdbcConexion.password"
-                                        [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
-                                         required autofocus>
-                                    <div class="invalid-feedback" *ngIf="fGeneral.get('password').hasError('required')">
-                                        <small>Campo requerido</small></div>
-                                </div>
+                            <div class="form-group col-sm-3">
+                                <label for="puerto">Puerto</label>
+                                <input type="text" class="form-control" id="puerto" name="puerto"
+                                    placeholder="Ingrese el puerto de la conexion ej 5432" formControlName="puerto"
+                                    [(ngModel)]="jdbcConexion.puerto"
+                                    [ngClass]="{'is-invalid': fGeneral.get('puerto').errors && fGeneral.get('puerto').dirty ,'is-valid': !fGeneral.get('puerto').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('puerto').hasError('required')">
+                                    <small>Campo requerido</small></div>
                             </div>
                         </div>
 
+
+                        <div class="row">
+
+                            <div class="form-group col-sm-5">
+                                <label for="tipoBaseDatos">Motor de Base de datos</label>
+                                <select class="form-control" id="tipoBaseDatos" formControlName="tipoBaseDatos"
+                                    [(ngModel)]="jdbcConexion.tipoBaseDatos"
+                                    [ngClass]="{'is-invalid': fGeneral.get('tipoBaseDatos').errors && fGeneral.get('tipoBaseDatos').dirty ,'is-valid': !fGeneral.get('tipoBaseDatos').errors}"
+                                    required>
+                                    <option value="oraclethin">ORACLE THIN</option>
+                                    <option value="oracle">ORACLE</option>
+                                    <option value="postgresql">POSTGRESQL</option>
+                                </select>
+
+                                <div class="invalid-feedback"
+                                    *ngIf="fGeneral.get('tipoBaseDatos').hasError('required')">
+                                    <small>Campo requerido</small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group col-sm-7">
+                                <label for="serviciosIdAlias">Base de datos</label>
+                                <input type="text" class="form-control" id="serviciosIdAlias"
+                                    name="serviciosIdAlias" placeholder="Ingrese el nombre de la base de datos."
+                                    formControlName="serviciosIdAlias" [(ngModel)]="jdbcConexion.serviciosIdAlias"
+                                    [ngClass]="{'is-invalid': fGeneral.get('serviciosIdAlias').errors && fGeneral.get('serviciosIdAlias').dirty ,'is-valid': !fGeneral.get('serviciosIdAlias').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback"
+                                    *ngIf="fGeneral.get('serviciosIdAlias').hasError('required')">
+                                    <small>Campo requerido</small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="form-group col-sm-6">
+                                <label for="userId">Usuario Conexión</label>
+                                <input type="text" class="form-control" id="userId" name="userId"
+                                    placeholder="Ingrese el usuario de la conexión." formControlName="userId"
+                                    [(ngModel)]="jdbcConexion.userId"
+                                    [ngClass]="{'is-invalid': fGeneral.get('userId').errors && fGeneral.get('userId').dirty ,'is-valid': !fGeneral.get('userId').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('userId').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                            </div>
+
+
+                            <div class="form-group col-sm-6">
+                                <label for="password">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Ingrese la contraseña de conexión." formControlName="password"
+                                    [(ngModel)]="jdbcConexion.password"
+                                    [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
+                                        required autofocus>
+                                <div class="invalid-feedback" *ngIf="fGeneral.get('password').hasError('required')">
+                                    <small>Campo requerido</small></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-footer p-1">
-                        
-                        <button type="button" class="btn btn-primary pull-right mr-1" [disabled]="fGeneral.invalid"
+                        <button type="button" class="btn btn-primary pull-right ml-2 mr-1" [disabled]="fGeneral.invalid"
                             (click)="irRegistar()">
                             Registrar
                         </button>&nbsp;   
