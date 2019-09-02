@@ -89,7 +89,7 @@ export class LisServicioWebComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-servicioweb']);
+            this.router.navigate(['aplicacion/servicio/add-servicioweb']);
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
@@ -138,13 +138,13 @@ export class LisServicioWebComponent implements OnInit {
 
   public modificar(index) {
     this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
-    this.router.navigate(['aplicacion/add-servicioweb']);
+    this.router.navigate(['aplicacion/servicio/add-servicioweb']);
   }
 
 
   public parametros(index) {
     this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
-    this.router.navigate(['aplicacion/lis-parametro']);
+    this.router.navigate(['aplicacion/servicio/lis-parametro']);
   }
 
 
@@ -163,7 +163,7 @@ export class LisServicioWebComponent implements OnInit {
     this.restServicio.eliminarServicioWeb(servicioWeb).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/servicioWeb']));
+          this.router.navigate(['aplicacion/servicio/servicioWeb']));
       },
       error => {
         this.alerta.mostrarError(error);

@@ -83,7 +83,7 @@ export class LisUsuariowsComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-usuariows']);
+            this.router.navigate(['aplicacion/privilegio/add-usuariows']);
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
@@ -133,7 +133,7 @@ export class LisUsuariowsComponent implements OnInit {
 
   public modificar(index) {
     this.restUsuario.setUserWebService(this.listaUsuarioServicio[index]);
-    this.router.navigate(['aplicacion/add-usuariows']);
+    this.router.navigate(['aplicacion/privilegio/add-usuariows']);
   }
 
 
@@ -154,7 +154,7 @@ export class LisUsuariowsComponent implements OnInit {
     this.restUsuario.eliminarUserWebService(usuarioServicio).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/usuarioWs']));
+          this.router.navigate(['aplicacion/privilegio/usuarioWs']));
       },
       error => {
         this.alerta.mostrarError(error);

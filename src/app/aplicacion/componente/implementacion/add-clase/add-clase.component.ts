@@ -101,7 +101,7 @@ export class AddClaseComponent implements OnInit {
   public insertarImplementacionClase(restImplementacion) {
     this.restImplementacionClase.insertarImplementacionClase(restImplementacion).subscribe(
       data => {
-        this.router.navigate(['aplicacion/lis-clase']);
+        this.router.navigate(['aplicacion/interfaz/lis-clase']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -114,7 +114,7 @@ export class AddClaseComponent implements OnInit {
 
     this.restImplementacionClase.actualizarImplementacionClase(restImplementacion).subscribe(
       data => {
-        this.router.navigate(['aplicacion/lis-clase']);
+        this.router.navigate(['aplicacion/interfaz/lis-clase']);
       },
       error => {
         this.alerta.mostrarError(error);

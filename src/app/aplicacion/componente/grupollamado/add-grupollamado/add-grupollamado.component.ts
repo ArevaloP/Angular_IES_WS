@@ -19,8 +19,8 @@ export class AddGrupollamadoComponent implements OnInit {
   public isNuevaConexion: boolean = false;
   public listaConexionesExistente: GrupoLlamado[];
   public indexConexion: number;
-  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
-  
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   constructor(
     public fb: FormBuilder,
@@ -95,7 +95,7 @@ export class AddGrupollamadoComponent implements OnInit {
   public insertarGrupoLlamado(grupoLlamado) {
     this.restGrupoLlamado.insertarGrupoLlamado(grupoLlamado).subscribe(
       data => {
-        this.router.navigate(['aplicacion/lis-grupollamado']);
+        this.router.navigate(['aplicacion/grupo/lis-grupollamado']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -108,7 +108,7 @@ export class AddGrupollamadoComponent implements OnInit {
 
     this.restGrupoLlamado.actualizarGrupoLlamado(grupoLlamado).subscribe(
       data => {
-        this.router.navigate(['aplicacion/lis-grupollamado']);
+        this.router.navigate(['aplicacion/grupo/lis-grupollamado']);
       },
       error => {
         this.alerta.mostrarError(error);

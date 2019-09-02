@@ -17,7 +17,7 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
-   
+
   {
     path: '404',
     component: P404Component,
@@ -49,18 +49,74 @@ export const routes: Routes = [
   {
     path: 'aplicacion',
     canActivate: [MsalGuard],
-    redirectTo:'aplicacion/lis-appexterna',
-    pathMatch:"full",
+    redirectTo: 'aplicacion/lis-appexterna',
+    pathMatch: "full",
     data: {
       title: 'Aplicación'
     }
   },
 
+
+  {
+    path: 'aplicacion/servicio',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/servicio/servicioWeb',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+
+  {
+    path: 'aplicacion/privilegio',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/privilegio/usuarioWs',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+
+  {
+    path: 'aplicacion/conexion',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/conexion/jdbc-conexion',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+
+  {
+    path: 'aplicacion/interfaz',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/interfaz/lis-clase',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+
+  {
+    path: 'aplicacion/grupollamado',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/grupollamado/lis-grupollamado',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+
   {
     path: 'api-office',
     canActivate: [MsalGuard],
-    redirectTo:'api-office/grupo',
-    pathMatch:"full",
+    redirectTo: 'api-office/grupo',
+    pathMatch: "full",
     data: {
       title: 'Aplicación'
     }
@@ -71,7 +127,7 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home'
+      title: ''
     },
     children: [
 
@@ -82,6 +138,32 @@ export const routes: Routes = [
       },
       {
         path: 'aplicacion',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/servicio',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/privilegio',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/conexion',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+
+      {
+        path: 'aplicacion/interfaz',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/grupollamado',
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },

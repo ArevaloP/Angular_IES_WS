@@ -82,7 +82,7 @@ export class AddParametroComponent implements OnInit {
   {
     this.restParametro.insertarParametroServicio( servicioWeb ).subscribe(
       data => {
-        this.router.navigate(['aplicacion/lis-parametro']);
+        this.router.navigate(['aplicacion/servicio/lis-parametro']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -94,7 +94,7 @@ export class AddParametroComponent implements OnInit {
   {
     this.restParametro.actualizarParametroServicio(servicioWeb).subscribe(
       data => {
-        this.router.navigate(['aplicacion/lis-parametro']);
+        this.router.navigate(['aplicacion/servicio/lis-parametro']);
       },
       error => {
         this.alerta.mostrarError(error);

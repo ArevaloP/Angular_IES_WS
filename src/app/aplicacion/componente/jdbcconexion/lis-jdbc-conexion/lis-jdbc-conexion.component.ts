@@ -89,7 +89,7 @@ export class LisJdbcConexionComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-conexionjdbc']);
+            this.router.navigate(['aplicacion/conexion/add-conexionjdbc']);
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
@@ -132,7 +132,7 @@ export class LisJdbcConexionComponent implements OnInit {
 
   public modificar(index) {
     this.restJdbcConexion.setJdbcConexion(this.listadoConexionesJdbc[index]);
-    this.router.navigate(['aplicacion/add-conexionjdbc']);
+    this.router.navigate(['aplicacion/conexion/add-conexionjdbc']);
   }
 
   public irEliminar(conexionJdbc) {
@@ -149,7 +149,7 @@ export class LisJdbcConexionComponent implements OnInit {
     this.restJdbcConexion.eliminarJdbcConexion(conexionJdbc).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/jdbc-conexion']));
+          this.router.navigate(['aplicacion/conexion/jdbc-conexion']));
       },
       error => {
         this.alerta.mostrarError(error);

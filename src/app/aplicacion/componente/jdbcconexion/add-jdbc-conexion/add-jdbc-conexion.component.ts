@@ -100,7 +100,7 @@ export class AddJdbcConexionComponent implements OnInit {
   public insertarJdbcConexion(jdbcConexion) {
     this.restJdbcConexion.insertarJdbcConexion(jdbcConexion).subscribe(
       data => {
-        this.router.navigate(['aplicacion/jdbc-conexion']);
+        this.router.navigate(['aplicacion/conexion/jdbc-conexion']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -113,7 +113,7 @@ export class AddJdbcConexionComponent implements OnInit {
 
     this.restJdbcConexion.actualizarJdbcConexion(jdbcConexion).subscribe(
       data => {
-        this.router.navigate(['aplicacion/jdbc-conexion']);
+        this.router.navigate(['aplicacion/conexion/jdbc-conexion']);
       },
       error => {
         this.alerta.mostrarError(error);
