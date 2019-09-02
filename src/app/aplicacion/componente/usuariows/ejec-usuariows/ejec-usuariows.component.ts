@@ -69,7 +69,7 @@ export class EjecUsuariowsComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            //this.router.navigate(['aplicacion/add-usuariows']);
+            //this.router.navigate(['aplicacion/privilegio/add-usuariows']);
           },
         },*/
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },

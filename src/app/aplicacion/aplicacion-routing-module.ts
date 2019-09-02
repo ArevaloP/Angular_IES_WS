@@ -31,10 +31,7 @@ const routes: Routes = [
     data: {
       title: 'Aplicación'
     },
-
     children: [
-
-
       {
         path: 'status',
         component: StatusComponent,
@@ -59,7 +56,15 @@ const routes: Routes = [
         }
       },
 
+    ]
+  },
 
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Servicio Web'
+    }, children: [
 
       {
         path: 'servicioWeb',
@@ -77,20 +82,6 @@ const routes: Routes = [
         }
       },
 
-      {
-        path: 'jdbc-conexion',
-        component: LisJdbcConexionComponent,
-        data: {
-          title: 'Servicios Web'
-        }
-      },
-      {
-        path: 'add-conexionjdbc',
-        component: AddJdbcConexionComponent,
-        data: {
-          title: 'Conexión Jdbc'
-        }
-      },
 
       {
         path: 'lis-parametro',
@@ -108,6 +99,16 @@ const routes: Routes = [
         }
       },
 
+    ]
+  },
+
+
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Usuario Servicio Web'
+    }, children: [
       {
         path: 'usuarioWs',
         component: LisUsuariowsComponent,
@@ -123,7 +124,39 @@ const routes: Routes = [
           title: 'Usuario Ws'
         }
       },
+    ]
+  },
 
+
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Recursos'
+    }, children: [
+
+      {
+        path: 'jdbc-conexion',
+        component: LisJdbcConexionComponent,
+        data: {
+          title: 'Conexión Jdbc'
+        }
+      },
+      {
+        path: 'add-conexionjdbc',
+        component: AddJdbcConexionComponent,
+        data: {
+          title: 'Conexión Jdbc'
+        }
+      }]
+  },
+  
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Interfaz'
+    }, children: [
 
       {
         path: 'lis-clase',
@@ -139,8 +172,15 @@ const routes: Routes = [
         data: {
           title: 'Agregar Clase'
         }
-      },
-
+      }
+    ]
+  },
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Grupo LLamado'
+    }, children: [
       {
         path: 'lis-grupollamado',
         component: LisGrupollamadoComponent,
@@ -156,7 +196,7 @@ const routes: Routes = [
           title: 'Grupo LLamado'
         }
       }
-      
+
 
 
     ]

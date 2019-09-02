@@ -68,12 +68,12 @@ export class LoaderComponent implements OnInit {
 
 
   public administarAplicacion(group) {
-    this.router.navigate(['aplicacion/status']);
+    this.router.navigate(['aplicacion/']);
     this.authRest.cargarInformacionAdministracion(this.authRest.getUser(), group).subscribe(
       data => {
         sessionStorage.setItem("user.app.local", JSON.stringify(this.authRest.getUser().idToken));
         sessionStorage.setItem("auth.tk.local", data.token);
-        this.router.navigate(['aplicacion/status']);
+        this.router.navigate(['aplicacion/']);
       },
       error => {
         sessionStorage.removeItem("user.app.local");

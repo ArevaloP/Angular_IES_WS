@@ -93,7 +93,7 @@ export class AddUsuariowsComponent implements OnInit {
 
     this.restUsuario.insertarUserWebService(userWebService).subscribe(
       data => {
-        this.router.navigate(['aplicacion/usuarioWs']);
+        this.router.navigate(['aplicacion/privilegio/usuarioWs']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -108,7 +108,7 @@ export class AddUsuariowsComponent implements OnInit {
   public actualizarUsuarioWs(userWebService) {
     this.restUsuario.actualizarUserWebService(userWebService).subscribe(
       data => {
-        this.router.navigate(['aplicacion/usuarioWs']);
+        this.router.navigate(['aplicacion/privilegio/usuarioWs']);
       },
       error => {
         this.alerta.mostrarError(error);

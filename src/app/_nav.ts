@@ -63,14 +63,16 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Servicios Web',
-    url: '/aplicacion/servicioWeb',
+    url: '/aplicacion/servicio/servicioWeb',
     icon: 'fa fa-cogs'
   },
   {
     name: 'Privilegios',
-    url: '/aplicacion/usuarioWs',
+    url: '/aplicacion/privilegio/usuarioWs',
     icon: 'fa fa-user-plus'
   },
+
+
 
   {
     title: true,
@@ -79,13 +81,13 @@ export const navItems: NavData[] = [
 
   {
     name: 'Conexiones',
-    url: '/aplicacion/jdbc-conexion',
+    url: '/aplicacion/conexion/jdbc-conexion',
     icon: 'fa fa-external-link'
   },
 
   {
     name: 'Clase Interfaz',
-    url: '/aplicacion/lis-clase',
+    url: '/aplicacion/interfaz/lis-clase',
     icon: 'fa fa-code'
   },
 
@@ -97,7 +99,7 @@ export const navItems: NavData[] = [
 
   {
     name: 'Grupo Servicio',
-    url: '/aplicacion/lis-grupollamado',
+    url: '/aplicacion/grupollamado/lis-grupollamado',
     icon: 'fa fa-users'
   },
 

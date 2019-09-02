@@ -120,7 +120,7 @@ export class AddServicioWebComponent implements OnInit {
   public insertarServicio(servicioWeb) {
     this.restServicio.insertarServicioWeb(servicioWeb).subscribe(
       data => {
-        this.router.navigate(['aplicacion/servicioWeb']);
+        this.router.navigate(['aplicacion/servicio/servicioWeb']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -135,7 +135,7 @@ export class AddServicioWebComponent implements OnInit {
 
     this.restServicio.actualizarServicioWeb(servicioWeb).subscribe(
       data => {
-        this.router.navigate(['aplicacion/servicioWeb']);
+        this.router.navigate(['aplicacion/servicio/servicioWeb']);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -192,7 +192,7 @@ export class AddServicioWebComponent implements OnInit {
   }
 
   public cambiarOpcionTexto(event){
-    let urlservicio ="http://dominio:puerto/contexto/app-integrador/aplicacion/"+this.servicioWeb.codigo;
+    let urlservicio ="http://dominio:puerto/contexto/app-integrador/aplicacion/servicio/"+this.servicioWeb.codigo;
     if(this.servicioWeb.protocolo=='REST'){
       this.servicioWeb.url=urlservicio;
     } if(this.servicioWeb.protocolo=='SOAP'){

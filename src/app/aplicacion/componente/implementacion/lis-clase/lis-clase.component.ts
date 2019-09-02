@@ -86,7 +86,7 @@ export class LisClaseComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-clase']);
+            this.router.navigate(['aplicacion/interfaz/add-clase']);
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
@@ -136,7 +136,7 @@ export class LisClaseComponent implements OnInit {
 
   public modificar(index) {
     this.restImplementacion.setImplementacionClase(this.listadoClaseImp[index]);
-    this.router.navigate(['aplicacion/add-clase']);
+    this.router.navigate(['aplicacion/interfaz/add-clase']);
   }
 
   public irEliminar(implementaClase) {
@@ -153,7 +153,7 @@ export class LisClaseComponent implements OnInit {
     this.restImplementacion.eliminarImplementacionClase(implementaClase).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/lis-clase']));
+          this.router.navigate(['aplicacion/interfaz/lis-clase']));
       },
       error => {
         this.alerta.mostrarError(error);
