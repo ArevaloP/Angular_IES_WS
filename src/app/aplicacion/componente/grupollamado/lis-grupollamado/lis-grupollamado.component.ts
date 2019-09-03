@@ -47,8 +47,6 @@ export class LisGrupollamadoComponent implements OnInit {
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
-        this.cambiarEstiloBotones();
-
       },
       error => {
         //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
@@ -58,9 +56,6 @@ export class LisGrupollamadoComponent implements OnInit {
 
   }
 
-
-
-
   public establecerOpcionesDataTable(data) {
 
     this.dtOptions = {
@@ -68,12 +63,11 @@ export class LisGrupollamadoComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%" },
-        { title: 'Nombre', data: 'nombre', width: "20%" },
-        { title: 'Aplicacion', data: 'idAplicacion', width: "20%" },
-        { title: 'Estado', data: 'estado', width: "20%" },
+        { title: 'Nombre', data: 'nombre', width: "50%" },
+        { title: 'Aplicación', data: 'idAplicacion', width: "10%" },
+        { title: 'Estado', data: 'estado', className: "td-center", width: "10%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
-
       ],
       language: {
         url: "assets/spanish.json"
