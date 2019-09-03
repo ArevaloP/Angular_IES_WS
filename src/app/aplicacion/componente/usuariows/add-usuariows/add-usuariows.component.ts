@@ -6,6 +6,7 @@ import { UserWebService } from '../../../modelo/user-web-service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { UploadFileComponent } from '../../utilidad/upload-file/upload-file.component';
 import { Alert } from 'selenium-webdriver';
+import { LisAplicacionUsuarioComponent } from '../../aplicacionext/lis-aplicacion-usuario/lis-aplicacion-usuario.component';
 
 @Component({
   selector: 'app-add-usuariows',
@@ -22,6 +23,7 @@ export class AddUsuariowsComponent implements OnInit {
   
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('fileAvatar', { static: false }) public fileAvatar: UploadFileComponent;
+  @ViewChild('lstaplicacion', { static: false }) public lstaplicacion: LisAplicacionUsuarioComponent;
 
   constructor(
     public fb: FormBuilder,

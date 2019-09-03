@@ -52,7 +52,7 @@ export const routes: Routes = [
     redirectTo: 'aplicacion/lis-appexterna',
     pathMatch: "full",
     data: {
-      title: 'Aplicación'
+      title: 'Aplicaciones'
     }
   },
 

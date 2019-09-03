@@ -81,6 +81,7 @@ export class LisClaseComponent implements OnInit {
       ordering: true,
       info: true,
       dom: 'Bfrtip',
+      order: [[2, 'asc']],
       buttons: [
         {
           text: `${this.const.ICONO_AGREGAR}`,

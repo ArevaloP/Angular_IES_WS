@@ -64,13 +64,13 @@ export const protectedResourceMap: [string, string[]][] =
     ['https://graph.microsoft.com/v1.0/me', ['User.Read']],
     ['https://graph.microsoft.com/v1.0/users', ['User.Read']],
     //['https://graph.microsoft.com/v1.0/me/photo', ['User.ReadBasic.All']],
-     ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']],
-     //['https://graph.microsoft.com/v1.0/groups/',['Group.ReadWrite.All', 'Directory.ReadWrite.All','User.Read','Directory.AccessAsUser.All'] ],
-     ['https://graph.microsoft.com/v1.0/groups/',['Directory.Read.All'] ],
-     ['https://graph.microsoft.com',['Group.ReadWrite.All']]
+    ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']],
+    //['https://graph.microsoft.com/v1.0/groups/',['Group.ReadWrite.All', 'Directory.ReadWrite.All','User.Read','Directory.AccessAsUser.All'] ],
+    ['https://graph.microsoft.com/v1.0/groups/', ['Directory.Read.All']],
+    ['https://graph.microsoft.com', ['Group.ReadWrite.All']]
   ];
 
-  
+
 
 
 @NgModule({

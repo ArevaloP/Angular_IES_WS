@@ -83,6 +83,7 @@ export class LisJdbcConexionComponent implements OnInit {
       paging: true,
       ordering: true,
       info: true,
+      order: [[2, 'asc']],
       dom: 'Bfrtip',
       buttons: [
         {

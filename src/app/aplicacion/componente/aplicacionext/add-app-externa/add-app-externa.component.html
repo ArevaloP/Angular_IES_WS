@@ -5,7 +5,7 @@
             <form method="POST" [formGroup]="fGeneral">
                 <div class="card m-0" >
                     <div class="card-header">
-                        <strong>Aplicación Externa</strong>
+                        <strong>Aplicación externa</strong>
                     </div>
                     <div class="card-body">
 
@@ -34,7 +34,7 @@
                                 <small>Campo requerido</small></div>
                         </div>
                         <div class="form-group">
-                            <label for="url">Url Aplicación</label>
+                            <label for="url">Url aplicación</label>
                             <input type="text" class="form-control" id="url"
                                 placeholder="Ingrese la dirección web de la aplicación, informativo" formControlName="urlAplicacion"
                                 [(ngModel)]="aplicacionExterna.urlAplicacion"
@@ -84,12 +84,12 @@
         <!--/.col-->
         <div class="col-12 col-md-6 mt-3 mt-md-0">
             <tabset>
-                <tab heading="Servicios web">
-                    <app-lis-aplicacion-servicio [listaServicio]="aplicacionExterna.listaServicioWeb">
+                <tab heading="Asociar servicios web">
+                    <app-lis-aplicacion-servicio #lstServicio [listaServicio]="aplicacionExterna.listaServicioWeb">
                     </app-lis-aplicacion-servicio>
                 </tab>
-                <tab heading="Usuario aplicación">
-                    <app-lis-aplicacion-usuario [listaUsuarioWs]="aplicacionExterna.listaUsuarioAplicacion">
+                <tab heading="Asociar privilegios ">
+                    <app-lis-aplicacion-usuario #lstUsuario [listaUsuarioWs]="aplicacionExterna.listaUsuarioAplicacion">
                     </app-lis-aplicacion-usuario>
                 </tab>
             </tabset>

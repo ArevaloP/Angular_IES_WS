@@ -97,7 +97,7 @@
             <!--/.col-->
             <div class="col-12 col-md-6 mt-3 mt-md-0">
                 <tabset>
-                    <tab heading="Servicios Web">
+                    <tab heading="Información de servicios web">
                         <div class="form-group">
                             <label for="metodo">Método</label>
                             <select class="form-control" id="metodo" formControlName="metodo"
@@ -123,9 +123,9 @@
 
 
                         <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'TABLA' ">
-                            <label for="query">Esquema /tabla</label>
+                            <label for="query">Esquema . tabla</label>
                             <input type="text" class="form-control" id="query" name="query"
-                            placeholder="Ingrese el esquema y nombre de tabla academico.estudiantepensum"
+                            placeholder="Ingrese el esquema y nombre de tabla. ejempo:academico.estudiantepensum"
                             formControlName="query" [(ngModel)]="servicioWeb.query" autofocus>
                         </div>
                         
@@ -139,7 +139,7 @@
                         
                         
                         <div class="form-group" *ngIf="servicioWeb.protocolo == 'REST' && servicioWeb.tipo == 'CLASE' ">
-                            <label for="query">Seleccione la clase de implementacion </label>
+                            <label for="query">Seleccione la clase de implementación REST</label>
                             <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
                                     <option *ngFor="let claseRest of listadoClasesRest" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
                             </select>
@@ -147,7 +147,7 @@
                     
                             
                         <div class="form-group" *ngIf="servicioWeb.protocolo == 'SOAP'">
-                            <label for="query">Seleccione la clase de implementacion SOAP</label>
+                            <label for="query">Seleccione la clase de implementación SOAP</label>
                             <select class="form-control" id="query" name="query" [(ngModel)]="servicioWeb.query" formControlName="query"  required>
                                     <option *ngFor="let claseRest of listadoClasesSoap" value="{{claseRest.id}}">{{claseRest.nombre}}</option>
                             </select>
@@ -182,10 +182,10 @@
                                 formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
                         </div>
                     </tab>
-                    <tab heading="Conexión JDBC">
+                    <tab heading="Conexión a base de datos">
                         <app-jdbc-servicio #jdbcConexion></app-jdbc-servicio>
                     </tab>
-                    <tab heading="Formato json">
+                    <tab heading="Formato parametros json">
                         <app-json-parametros [listaParametros]="listaParametros"></app-json-parametros>
                     </tab>
                 </tabset>

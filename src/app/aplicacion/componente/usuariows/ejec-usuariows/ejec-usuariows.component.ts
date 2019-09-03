@@ -51,27 +51,21 @@ export class EjecUsuariowsComponent implements OnInit {
       data: data,
       columns: [
 
-        { title: 'Fecha', data: 'fechaEjecucionText' ,  width: "25%"},
-        { title: 'Aplicación', data: 'aplicacionExternaVO.codigo',  width: "15%" },
+        { title: 'Fecha', data: 'fechaEjecucionText' ,  width: "25%" , className: "center" },
+        { title: 'Aplicación', data: 'aplicacionExternaVO.codigo',  width: "10%" },
         { title: 'Servicio', data: 'webServiceVO.nombre' ,  width: "50%"},
         { title: 'Método', data: 'webServiceVO.metodo' ,  width: "10%"},
 
       ],
       language: {
 				url: "assets/spanish.json"
-			},
+      },
+      pageLength: 7,
       paging: true,
       ordering: true,
       info: true,
       dom: 'Bfrtip',
       buttons: [
-        /*{
-          text: `${this.const.ICONO_AGREGAR}`,
-          className: `${this.const.CLASE_AGREGAR}`,
-          action: () => {
-            //this.router.navigate(['aplicacion/privilegio/add-usuariows']);
-          },
-        },*/
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
         { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],

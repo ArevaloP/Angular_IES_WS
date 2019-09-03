@@ -1,62 +1,67 @@
-
-
-
-
-
 <div class="card">
-  <!--
-    <div class="card-header">
-        <i class="fa fa-align-justify"></i> Simple Table
-    </div>
--->
     <div class="card-body">
-        <table class="table table-sm table-responsive" style="width: 100%">
-            <thead>
-                <tr>
-                    <th style="width:15%">Estado</th>
-                    <th style="width:35%">Código</th>
-                    <th style="width:50%">Nombre</th>
-                    <th style="width:15%">Método</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr *ngFor="let wese of listaServicio | paginate:  { itemsPerPage: 7, currentPage: p1 ,  id: 'app-servicio'} ; let i=index;">
-                    <td>
-                        <div class="cnt-switch">
-                            <label class="switch switch-3d switch-success">
-                                    <input type="checkbox" class="switch-input" name="idServicio" 
-                                        [(ngModel)]="wese.checkeado"
-                                        (ngModelChange)="actualizarEstadoServicio( ((p1-1)*7) + i ,$event)"
-                                    >
-                                <span class="switch-slider"></span>
-                            </label>
-                        </div>
-                    </td>
-                    <td>{{wese.codigo}}</td>
-                    <td>{{wese.nombre}}</td>
-                    <td>{{wese.metodo}}</td>
-                </tr>
-            </tbody>
+        <table #dataTable id="tablapx" class="table table-hover table-sm table-responsive" style="width:100%">
         </table>
     </div>
-
-    <div class="card-footer">
-
-        <pagination-controls 
-            id="app-servicio"
-            (pageChange)="p1 = $event" 
-            maxSize="7" 
-            directionLinks="true" 
-            autoHide="true" 
-            responsive="true"
-            previousLabel="" 
-            nextLabel=" " 
-            screenReaderPaginationLabel="Pagination" 
-            screenReaderPageLabel="page"
-            screenReaderCurrentLabel="You're on page"
-        >
-        </pagination-controls>
-
-    </div>
 </div>
+<app-ventana-modal #alerta></app-ventana-modal>
+
+
+
+
+
+
+<!--
+<div class="card">
+      <div class="card-body">
+          <table class="table table-sm table-responsive" style="width: 100%">
+              <thead>
+                  <tr>
+                      <th style="width:15%">Estado</th>
+                      <th style="width:35%">Código</th>
+                      <th style="width:50%">Nombre</th>
+                      <th style="width:15%">Método</th>
+                  </tr>
+              </thead>
+              <tbody>
+  
+                  <tr *ngFor="let wese of listaServicio | paginate:  { itemsPerPage: 7, currentPage: p1 ,  id: 'app-servicio'} ; let i=index;">
+                      <td>
+                          <div class="cnt-switch">
+                              <label class="switch switch-3d switch-success">
+                                      <input type="checkbox" class="switch-input" name="idServicio" 
+                                          [(ngModel)]="wese.checkeado"
+                                          (ngModelChange)="actualizarEstadoServicio( ((p1-1)*7) + i ,$event)"
+                                      >
+                                  <span class="switch-slider"></span>
+                              </label>
+                          </div>
+                      </td>
+                      <td>{{wese.codigo}}</td>
+                      <td>{{wese.nombre}}</td>
+                      <td>{{wese.metodo}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  
+      <div class="card-footer">
+  
+          <pagination-controls 
+              id="app-servicio"
+              (pageChange)="p1 = $event" 
+              maxSize="7" 
+              directionLinks="true" 
+              autoHide="true" 
+              responsive="true"
+              previousLabel="" 
+              nextLabel=" " 
+              screenReaderPaginationLabel="Pagination" 
+              screenReaderPageLabel="page"
+              screenReaderCurrentLabel="You're on page"
+          >
+          </pagination-controls>
+  
+      </div>
+  </div>
+  --->

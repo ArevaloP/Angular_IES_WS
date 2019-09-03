@@ -23,10 +23,10 @@ export class LisServicioWebComponent implements OnInit {
 
 
   public dataTable: any;
-  public dtOptions: any={}// DataTables.Settings = {};
+  public dtOptions: any = {}// DataTables.Settings = {};
   public listadoServicioWeb: ServicioWeb[];
   public const: UtilConstante = new UtilConstante();
-  public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
 
   constructor(
     public restServicio: RestServicioWebService,
@@ -69,20 +69,21 @@ export class LisServicioWebComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
-        { title: 'Nombre', data: 'nombre', width: "40%" ,className: "text-left" },
-        { title: 'Tipo', data: 'tipo', width: "20%" ,className: "text-left" },
-        { title: 'Método', data: 'metodo', width: "20%" },
+        { title: 'Nombre', data: 'nombre', width: "50%", className: "text-left" },
+        { title: 'Tipo', data: 'tipo', width: "15%", className: "text-left" },
+        { title: 'Método', data: 'metodo', width: "15%" },
         { title: '', defaultContent: this.const.ICONO_PARAM, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR,  orderable: false, className: "td-center" }
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
 
       ],
       language: {
-				url: "assets/spanish.json"
-			},
+        url: "assets/spanish.json"
+      },
       paging: true,
       ordering: true,
       info: true,
+      order: [[2, 'asc']],
       dom: 'Bfrtip',
       buttons: [
         {
@@ -100,7 +101,7 @@ export class LisServicioWebComponent implements OnInit {
       rowCallback: (row: any, dataRow: ServicioWeb, index: number) => {
         const self = this;
 
-        index =row._DT_RowIndex;
+        index = row._DT_RowIndex;
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {

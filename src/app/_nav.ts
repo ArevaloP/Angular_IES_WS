@@ -57,12 +57,12 @@ export const navItems: NavData[] = [
     name: 'Configuración'
   },
   {
-    name: 'Aplicación',
+    name: 'Aplicaciones',
     url: '/aplicacion/lis-appexterna',
     icon: 'fa fa-television'
   },
   {
-    name: 'Servicios Web',
+    name: 'Servicios web',
     url: '/aplicacion/servicio/servicioWeb',
     icon: 'fa fa-cogs'
   },
@@ -86,7 +86,7 @@ export const navItems: NavData[] = [
   },
 
   {
-    name: 'Clase Interfaz',
+    name: 'Clase Java',
     url: '/aplicacion/interfaz/lis-clase',
     icon: 'fa fa-code'
   },

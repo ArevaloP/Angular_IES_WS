@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { LisAplicacionServicioComponent } from '../lis-aplicacion-servicio/lis-aplicacion-servicio.component';
+import { LisAplicacionUsuarioComponent } from '../lis-aplicacion-usuario/lis-aplicacion-usuario.component';
 
 @Component({
   selector: 'app-add-app-externa',
@@ -21,7 +23,11 @@ export class AddAppExternaComponent implements OnInit {
   public usuarioVO:any =JSON.parse(sessionStorage.getItem("user.app.local"));
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+  @ViewChild('lstServicio', { static: false }) public lstServicio: LisAplicacionServicioComponent;
+  @ViewChild('lstUsuario', { static: false }) public lstUsuario: LisAplicacionUsuarioComponent;
 
+ 
+  
   constructor(
     public fb: FormBuilder,
     public restAplicacion: RestAplicacionService,
@@ -124,6 +130,8 @@ export class AddAppExternaComponent implements OnInit {
       data => {
         this.aplicacionExterna.listaServicioWeb = data;
         this.restServicio.setListaServicio(data);
+        //console.log(data);
+        this.lstServicio.load(data);
       },
       error => { 
         this.alerta.mostrarError(error);
@@ -135,8 +143,8 @@ export class AddAppExternaComponent implements OnInit {
   public cargarListaUsuarioAplicacion() {
     this.restUsuario.listarUsuarioServicioWebAplicacion(this.aplicacionExterna.id).subscribe(
       data => {
-        //alert(JSON.stringify(data));
         this.aplicacionExterna.listaUsuarioAplicacion = data;
+        this.lstUsuario.load(data);
       },
       error => { 
 		this.alerta.mostrarError(error);
