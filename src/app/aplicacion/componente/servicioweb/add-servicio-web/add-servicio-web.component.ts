@@ -49,7 +49,7 @@ export class AddServicioWebComponent implements OnInit {
     } else {
       this.servicioWeb.estado = "ACTIVO";
       this.servicioWeb.tipo = "CONSULTA";
-      //this.servicioWeb.protocolo = "REST";
+      this.servicioWeb.protocolo = "REST";
       this.servicioWeb.metodo = "POST";
       this.isModificar = false;
     }

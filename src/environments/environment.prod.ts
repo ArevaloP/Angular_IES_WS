@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  //baseUrl: 'http://localhost:8080/contexto/servicios/'  ,
-  baseUrl: 'http://localhost:9019/contexto/servicios/',
+  baseUrl: 'http://localhost:8080/contexto/servicios/'  ,
+  //baseUrl: 'http://localhost:9019/contexto/servicios/',
   //baseUrl: 'https://development.ciadti.co:8090/contexto/' , 
   configuracionMsal :{
     clientID: 'ff27df78-09ee-4f0a-9dea-ccb5b21abe81',

@@ -65,7 +65,7 @@ export class LisParametroComponent implements OnInit {
     this.dtOptions = {
       data: data,
       columns: [
-        { title: 'Orden', data: 'orden', width: "5%", className: "text-left" },
+        { title: 'Orden', data: 'orden', width: "5%", className: "text-center" },
         { title: 'Nombre', data: 'parametro', width: "50%", className: "text-left" },
         { title: 'Alias', data: 'aliasColumna', width: "45%", className: "text-left" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
@@ -78,6 +78,7 @@ export class LisParametroComponent implements OnInit {
       ordering: true,
       info: true,
       dom: 'Bfrtip',
+      order: [[0, 'asc']],
       buttons: [
         {
           text: `${this.const.ICONO_AGREGAR}`,

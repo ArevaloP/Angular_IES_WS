@@ -63,7 +63,7 @@ export class LisUsuariowsComponent implements OnInit {
       columns: [
 
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Avatar', defaultContent: "",  width: "10%"},
+        { title: 'Avatar', defaultContent: "", orderable: false, width: "15%", className: "td-center" },
         { title: 'Nombre', data: 'nombre' ,  width: "30%"},
         { title: 'Correo', data: 'email',  width: "30%" },
         { title: 'Usuario', data: 'usuario' ,  width: "20%"},
@@ -77,6 +77,7 @@ export class LisUsuariowsComponent implements OnInit {
       paging: true,
       ordering: true,
       info: true,
+      order: [[2, 'asc']],
       dom: 'Bfrtip',
       buttons: [
         {

@@ -42,8 +42,6 @@
                         </div>
 
 
-
-
                         <div class="form-group" *ngIf="!isModificar">
                             <label for="password">Contraseña</label>
                             <input type="text" class="form-control" id="password" name="password"
@@ -55,7 +53,6 @@
                                 <small>Campo requerido</small></div>
                         </div>
 
-
                         <div class="form-group">
                             <label for="estado">Estado</label>
                             <select class="form-control" id="estado" formControlName="estado"
@@ -64,8 +61,6 @@
                                 <option value="INACTIVO">INACTIVO</option>
                             </select>
                         </div>
-
-
 
                         <div class="form-group">
                             <label for="foto">Foto</label>
@@ -78,13 +73,13 @@
                 <div class="card m-0">
                     <div class="card-body">
                         <tabset>
-                            <tab heading="Perfil">
+                            <tab heading="Perfil usuario">
                                 <app-perfil-usuariows [fileAvatar]="fileAvatar" [userWebService]="userWebService"></app-perfil-usuariows>
                             </tab>
-                            <tab heading="Aplicaciones" class="p-2" *ngIf="isModificar">
-                                <app-apex-usuariows [userWebService]="userWebService"></app-apex-usuariows>   
+                            <tab heading="Aplicaciones asociadas" class="p-2" *ngIf="isModificar">
+                                <app-apex-usuariows #lstaplicacion [userWebService]="userWebService"></app-apex-usuariows>   
                             </tab>
-                            <tab heading="Ejecución" *ngIf="true">
+                            <tab heading="Ejecución de servicios" *ngIf="true">
                                 <app-ejec-usuariows [userWebService]="userWebService"></app-ejec-usuariows>
                             </tab>
                         </tabset>

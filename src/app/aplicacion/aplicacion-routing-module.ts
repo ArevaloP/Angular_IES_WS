@@ -44,7 +44,7 @@ const routes: Routes = [
         path: 'lis-appexterna',
         component: LisAppExternaComponent,
         data: {
-          title: 'Aplicación Externa'
+          title: 'Listar aplicación externa'
         }
       },
 
@@ -52,7 +52,7 @@ const routes: Routes = [
         path: 'add-appexterna',
         component: AddAppExternaComponent,
         data: {
-          title: 'Aplicación Externa'
+          title: 'Gestionar aplicación externa'
         }
       },
 
@@ -63,14 +63,14 @@ const routes: Routes = [
     path: '',
     canActivate: [MsalGuard],
     data: {
-      title: 'Servicio Web'
+      title: 'Servicios web'
     }, children: [
 
       {
         path: 'servicioWeb',
         component: LisServicioWebComponent,
         data: {
-          title: 'Servicios Web'
+          title: 'Listar servicios web'
         }
       },
 
@@ -78,7 +78,7 @@ const routes: Routes = [
         path: 'add-servicioweb',
         component: AddServicioWebComponent,
         data: {
-          title: 'Servicios Web'
+          title: 'Gestionar servicios web'
         }
       },
 
@@ -87,7 +87,7 @@ const routes: Routes = [
         path: 'lis-parametro',
         component: LisParametroComponent,
         data: {
-          title: 'Listar Parametro'
+          title: 'Listar parametros'
         }
       },
 
@@ -95,9 +95,11 @@ const routes: Routes = [
         path: 'add-parametro',
         component: AddParametroComponent,
         data: {
-          title: 'Agregar Parametro'
+          title: 'Gestionar parametros'
         }
       },
+
+      
 
     ]
   },
@@ -107,13 +109,13 @@ const routes: Routes = [
     path: '',
     canActivate: [MsalGuard],
     data: {
-      title: 'Usuario Servicio Web'
+      title: 'Privilegios'
     }, children: [
       {
         path: 'usuarioWs',
         component: LisUsuariowsComponent,
         data: {
-          title: 'Usuario Servicio Web'
+          title: 'Listar privilegios'
         }
       },
 
@@ -121,7 +123,7 @@ const routes: Routes = [
         path: 'add-usuariows',
         component: AddUsuariowsComponent,
         data: {
-          title: 'Usuario Ws'
+          title: 'Gestionar privilegios'
         }
       },
     ]
@@ -132,37 +134,37 @@ const routes: Routes = [
     path: '',
     canActivate: [MsalGuard],
     data: {
-      title: 'Recursos'
+      title: 'Conexiones'
     }, children: [
 
       {
         path: 'jdbc-conexion',
         component: LisJdbcConexionComponent,
         data: {
-          title: 'Conexión Jdbc'
+          title: 'Listar conexiones Jdbc'
         }
       },
       {
         path: 'add-conexionjdbc',
         component: AddJdbcConexionComponent,
         data: {
-          title: 'Conexión Jdbc'
+          title: 'Gestionar Conexiones Jdbc'
         }
       }]
   },
-  
+
   {
     path: '',
     canActivate: [MsalGuard],
     data: {
-      title: 'Interfaz'
+      title: 'Clases Java'
     }, children: [
 
       {
         path: 'lis-clase',
         component: LisClaseComponent,
         data: {
-          title: 'Listar Clase'
+          title: 'Listar clases Java'
         }
       },
 
@@ -170,7 +172,7 @@ const routes: Routes = [
         path: 'add-clase',
         component: AddClaseComponent,
         data: {
-          title: 'Agregar Clase'
+          title: 'Gestionar clase Java'
         }
       }
     ]
