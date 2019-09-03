@@ -1,20 +1,16 @@
 <form method="POST" [formGroup]="fGeneral">
-    <div class="animated fadeIn">
+    <div class="animated fadeIn container-fluid">
         <div class="row">
-
             <!--/.col-->
-            <div class="col-sm-12">
-
-                <div class="card p-1">
+            <div class="col-12">
+                <div class="card">
                     <div class="card-header">
-                        <strong>Grupo Conexión Servicio</strong>
+                        <strong>Grupo conexión servicio</strong>
                     </div>
                     <div class="card-body p-1">
-
-                        <div class="form-group">
-
+                        <div class="container-fluid">
                             <div class="row">
-                                <div class="form-group col-sm-5">
+                                <div class="form-group col-5">
                                     <label for="codigo">Código</label>
                                     <input type="text" class="form-control" id="codigo" name="codigo"
                                         placeholder="Ingrese el código de la conexión" formControlName="codigo"
@@ -25,8 +21,7 @@
                                         <small>Campo requerido</small></div>
                                 </div>
 
-
-                                <div class="form-group col-sm-7">
+                                <div class="form-group col-7">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
                                         placeholder="Ingrese el nombre de la conexión jdbc/academico"
@@ -38,50 +33,43 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="aplicacion">Aplicación</label>
+                                    <input type="text" class="form-control" id="aplicacion" name="aplicacion"
+                                        placeholder="Ingrese el código de la conexión" formControlName="aplicacion"
+                                        [(ngModel)]="grupoLlamado.idAplicacion"
+                                        [ngClass]="{'is-invalid': fGeneral.get('aplicacion').errors && fGeneral.get('aplicacion').dirty ,'is-valid': !fGeneral.get('aplicacion').errors}"
+                                        [value]="21"
+                                        required autofocus>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('aplicacion').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
 
-                            <div class="form-group col-sm-6">
-
-                                <label for="aplicacion">Aplicación</label>
-                                <input type="text" class="form-control" id="aplicacion" name="aplicacion"
-                                    placeholder="Ingrese el código de la conexión" formControlName="aplicacion"
-                                    [(ngModel)]="grupoLlamado.idAplicacion"
-                                    [ngClass]="{'is-invalid': fGeneral.get('aplicacion').errors && fGeneral.get('aplicacion').dirty ,'is-valid': !fGeneral.get('aplicacion').errors}"
-                                    [value]="21"
-                                    required autofocus>
-                                <div class="invalid-feedback" *ngIf="fGeneral.get('aplicacion').hasError('required')">
-                                    <small>Campo requerido</small></div>
+                                <div class="form-group col-6">
+                                    <label for="estado">Estado</label>
+                                    <select class="form-control" id="estado" formControlName="estado"
+                                        [(ngModel)]="grupoLlamado.estado" required>
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </div>
                             </div>
 
-
-                            <div class="form-group col-sm-6">
-                                <label for="estado">Estado</label>
-                                <select class="form-control" id="estado" formControlName="estado"
-                                    [(ngModel)]="grupoLlamado.estado" required>
-                                    <option value="ACTIVO">ACTIVO</option>
-                                    <option value="INACTIVO">INACTIVO</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="descripcion">Descripción</label>
+                                    <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
+                                        placeholder="Breve descripción de aplicación" formControlName="descripcion"
+                                        [(ngModel)]="grupoLlamado.descripcion"
+                                        [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
+                                        required></textarea>
+                                    <div class="invalid-feedback" *ngIf="fGeneral.get('descripcion').hasError('required')">
+                                        <small>Campo requerido</small></div>
+                                </div>
                             </div>
-
-
-                            <div class="form-group">
-                                <label for="descripcion">Descripción</label>
-                                <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
-                                    placeholder="Breve descripción de aplicación" formControlName="descripcion"
-                                    [(ngModel)]="grupoLlamado.descripcion"
-                                    [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"
-                                    required></textarea>
-                                <div class="invalid-feedback" *ngIf="fGeneral.get('descripcion').hasError('required')">
-                                    <small>Campo requerido</small></div>
-                            </div>
-
-
-
-
-
                         </div>
-
                     </div>
-
                     <div class="card-footer p-1">
 
                         <button type="button" class="btn btn-primary pull-right mr-1" [disabled]="fGeneral.invalid"
@@ -90,12 +78,8 @@
                         </button>
 
                     </div>
-
-
                 </div>
-
             </div>
-
         </div>
         <!--/.row-->
     </div>

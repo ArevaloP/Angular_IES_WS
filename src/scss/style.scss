@@ -115,3 +115,9 @@ body {
 .cnt-header > button:nth-last-child(2) {
 	display: none !important;
 }
+
+@media (min-width: 768px) {
+	.pl-integrador-15 {
+		padding-left: 15px !important;
+	}
+}
