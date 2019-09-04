@@ -51,7 +51,7 @@ export const navItems: NavData[] = [
     url: '/aplicacion/status',
     icon: 'fa fa-crosshairs'
   },*/
-  
+
   {
     title: true,
     name: 'Configuración'
@@ -103,7 +103,11 @@ export const navItems: NavData[] = [
     icon: 'fa fa-users'
   },
 
-
+  {
+    name: 'Ejecuciones',
+    url: '/aplicacion/detalle/lis-ejecucionws',
+    icon: 'fa fa-list-ol'
+  },
 
   /*{
     title: true,

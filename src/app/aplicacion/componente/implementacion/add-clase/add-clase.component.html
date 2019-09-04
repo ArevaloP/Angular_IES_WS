@@ -70,13 +70,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="archivozip">Archivo ZIP</label>
-                                <app-upload-libreria #libreriaZip></app-upload-libreria>
-                            </div>
+                            
+                            
 
                             <div class="row">
-                                <div class="col-12">
+
+                                    <div class="col-11">
+                                            <label for="archivozip">Archivo ZIP</label>
+                                            <app-upload-libreria #libreriaZip></app-upload-libreria>
+                                        </div>
+                                <div class="col-1 text-center libreriazipmod">
                                     <span *ngIf="implementacion.libreriaDinamica">
                                         <a href="{{implementacion.rutaLibreria}}" download>
                                             <i class="fa fa-file-archive-o" style="font-size: 17px" aria-hidden="true"></i>
@@ -84,6 +87,7 @@
                                     </span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 

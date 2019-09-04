@@ -54,6 +54,7 @@ import { environment } from '../environments/environment';
 import { RestUserAuthService } from './aplicacion/servicio/rest-user-auth.service';
 import { LoaderComponent } from './aplicacion/componente/utilidad/loader/loader.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 
 export function loggerCallback(logLevel, message, piiEnabled) {
@@ -111,7 +112,7 @@ export const protectedResourceMap: [string, string[]][] =
       logger: loggerCallback,
       level: LogLevel.Info
     }),
-
+    NgxJsonViewerModule
 
   ],
   declarations: [
@@ -127,7 +128,7 @@ export const protectedResourceMap: [string, string[]][] =
   ],
 
   providers: [
-    // { provide: LocationStrategy, useClass: HashLocationStrategy},
+    //{ provide: LocationStrategy, useClass: HashLocationStrategy},
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,

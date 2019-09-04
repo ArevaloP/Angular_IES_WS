@@ -34,6 +34,9 @@ import { AddClaseComponent } from './componente/implementacion/add-clase/add-cla
 import { LisClaseComponent } from './componente/implementacion/lis-clase/lis-clase.component';
 import { UploadLibreriaComponent } from './componente/utilidad/upload-libreria/upload-libreria.component';
 import { JsonParametrosComponent } from './componente/servicioweb/json-parametros/json-parametros.component';
+import { LisEjedetalleComponent } from './componente/detalle-ejecucion/lis-ejedetalle/lis-ejedetalle.component';
+import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejedetalle/ver-ejedetalle.component';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 
 
@@ -66,7 +69,9 @@ import { JsonParametrosComponent } from './componente/servicioweb/json-parametro
     AddClaseComponent,
     LisClaseComponent,
     UploadLibreriaComponent,
-    JsonParametrosComponent
+    JsonParametrosComponent,
+    LisEjedetalleComponent,
+    VerEjedetalleComponent
 
   ],
   imports: [
@@ -79,7 +84,8 @@ import { JsonParametrosComponent } from './componente/servicioweb/json-parametro
     TabsModule,
     DataTablesModule,
     NgxPaginationModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgxJsonViewerModule
   ], providers: [
     BsModalRef
 

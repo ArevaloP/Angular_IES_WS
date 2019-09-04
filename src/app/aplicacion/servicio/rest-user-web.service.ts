@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { UserWebService } from '../modelo/user-web-service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { DetalleEjecucion } from '../modelo/detalle-ejecucion';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,12 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 export class RestUserWebService {
 
   userWebService: UserWebService;
+  detalleEjecucion: DetalleEjecucion;
 
   baseUrl = environment.baseUrl + "ws_userservicio";
   constructor(private http: HttpClient) {
 
   }
-
 
 
 
@@ -115,6 +116,38 @@ export class RestUserWebService {
 
 
 
+  listarDetalleEjecucion(): any {
+    return this.http.get(`${this.baseUrl}/listadoEjecucion`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
+
+
+
+  consultarUsuario(id): any {
+    return this.http.get(`${this.baseUrl}/consultarUsuario/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
+
+  consultarJsonEjecucion(idServicio, idEjecucion): any {
+    return this.http.get(`${this.baseUrl}/consultarJsonEjecucion/${idServicio}/${idEjecucion}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
+
+
+
+
   public setUserWebService(userWs: UserWebService) {
     this.userWebService = userWs;
   }
@@ -122,6 +155,17 @@ export class RestUserWebService {
   public getUserWebService() {
     return this.userWebService;
   }
+  
+  
+  public setDetalleEjecucion(detalleWs: DetalleEjecucion) {
+    this.detalleEjecucion = detalleWs;
+  }
+
+  public getDetalleEjecucion() {
+    return this.detalleEjecucion;
+  }
+
+
 
 
 

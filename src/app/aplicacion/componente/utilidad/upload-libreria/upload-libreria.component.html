@@ -11,7 +11,7 @@
     <form [formGroup]="form">
         <div class="custom-file">
             <input #file type="file" id="libreriaZip" name="libreriaZip" (change)="onFileChange(file.files,$event)" class="custom-file-input" lang="es">
-            <label class="custom-file-label" for="libreriaZip" data-browse="Examinar">Seleccionar archivo</label>
+            <label class="custom-file-label" for="libreriaZip" data-browse="Examinar">{{nombreFichero}}</label>
         </div>
     </form>
 </div>

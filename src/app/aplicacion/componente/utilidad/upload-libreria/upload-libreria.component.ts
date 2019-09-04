@@ -18,7 +18,7 @@ export class UploadLibreriaComponent implements OnInit {
   public message: string;
   public cambioFichero:boolean=false;
 
-
+  public nombreFichero:String ="Seleccionar archivo ";
 
 
   constructor(public formBuilder: FormBuilder, public restUpload: RestUploadFileService) {
@@ -41,7 +41,8 @@ export class UploadLibreriaComponent implements OnInit {
         this.form.get('libreriaZip').setValue(file);
         this.subirArchivoAlServidor();
         this.cambioFichero=true;
-        alert(this.cambioFichero);
+        this.nombreFichero=file.name;
+        //alert(this.cambioFichero);
       }
 
   }

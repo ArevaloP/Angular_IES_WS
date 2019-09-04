@@ -51,10 +51,10 @@ export class EjecUsuariowsComponent implements OnInit {
       data: data,
       columns: [
 
-        { title: 'Fecha', data: 'fechaEjecucionText' ,  width: "25%" , className: "center" },
-        { title: 'Aplicación', data: 'aplicacionExternaVO.codigo',  width: "10%" },
-        { title: 'Servicio', data: 'webServiceVO.nombre' ,  width: "50%"},
-        { title: 'Método', data: 'webServiceVO.metodo' ,  width: "10%"},
+        { title: 'Fecha', data: 'fechaEjecucionText' ,  width: "25%" , className: "text-center" },
+        { title: 'Aplicación', data: 'aplicacionExternaVO.codigo',  width: "10%", className: "text-left" },
+        { title: 'Servicio', data: 'webServiceVO.nombre' ,  width: "55%", className: "text-left"},
+        { title: 'Método', data: 'webServiceVO.metodo' ,  width: "10%", className: "text-left"},
 
       ],
       language: {

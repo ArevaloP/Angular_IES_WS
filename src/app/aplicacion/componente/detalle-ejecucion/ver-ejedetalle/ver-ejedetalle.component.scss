@@ -1,0 +1,108 @@
+.ajustar-detalle {
+    max-height: 15rem;
+    height: auto;
+    overflow-y: auto;
+}
+
+.ajustar-parametro {
+    min-height: 7rem;
+    max-height: 10rem;
+    height: auto;
+    overflow-y: auto;
+}
+
+.ajustar-descripcion {
+    min-height: 5rem;
+    max-height: 10rem;
+    height: auto;
+    overflow-y: auto;
+}
+
+.form-control:disabled, .form-control[readonly] {
+	background-color: transparent;
+}
+
+.img-circle-90 {
+	border-radius: 50%;
+	width: 97px;
+	height: 97px;
+}
+
+i{
+  font-size: 16px;
+}
+
+  
+  .img-persona {
+    border: 2px solid #20a8de;
+    width: 3.5rem;
+    height: 4rem;
+    background: #FFF; }
+  
+  .borde-color-principal {
+    border: 1px solid #20a8de; }
+  
+  .color-principal {
+    color: #20a8de; }
+  
+  #cnt-img-usuario {
+    margin-top: -2.8rem; }
+  
+  .inf-persona h6 {
+    font-size: .8rem;
+    color: #20a8de;
+    margin: 0;
+    flex: 1 1 0px;
+    text-align: right;
+    padding-right: 0.3rem;
+    margin-right: .5rem;
+  }
+  
+  .inf-persona span {
+    flex: 2 1 0px;
+    font-size: .9rem; }
+  
+  .inf-persona select {
+    flex: 2 1 0px; }
+  
+  .ajustar-altura {
+    height: calc(2rem + 1px); }
+  
+  .borde-arriba-d {
+    border-top: 1px dashed #20a8de; }
+  
+  .borde-abajo {
+    border-bottom: 1px solid #20a8de; }
+  
+  
+  .truncate-ellipsis {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap; }
+  
+  .truncate-ellipsis > * {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  
+  
+  
+  /* ----------------
+      Medias Queries
+     ---------------- */
+  @media (max-width: 767px) {
+  
+    .hidden-sm-down {
+      display: none !important; } }
+  @media (min-width: 768px) {
+  
+    .hidden-md-up {
+      display: none !important; }
+  
+    .borde-izq-principal {
+      border-left: 1px solid #20a8de; } }
+  @media (min-width: 992px) {
+    .borde-izquierdo {
+      border-left: 1px solid #20a8de; } }
+  

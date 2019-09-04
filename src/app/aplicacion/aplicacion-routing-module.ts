@@ -19,6 +19,8 @@ import { LisGrupollamadoComponent } from './componente/grupollamado/lis-grupolla
 import { LisClaseComponent } from './componente/implementacion/lis-clase/lis-clase.component';
 import { AddClaseComponent } from './componente/implementacion/add-clase/add-clase.component';
 import { AddGrupollamadoComponent } from './componente/grupollamado/add-grupollamado/add-grupollamado.component';
+import { LisEjedetalleComponent } from './componente/detalle-ejecucion/lis-ejedetalle/lis-ejedetalle.component';
+import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejedetalle/ver-ejedetalle.component';
 
 
 
@@ -202,7 +204,35 @@ const routes: Routes = [
 
 
     ]
+  },
+
+
+
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Ejecución Servicio'
+    }, children: [
+      {
+        path: 'lis-ejecucionws',
+        component: LisEjedetalleComponent,
+        data: {
+          title: 'Listar Ejecución Servicio'
+        }
+      },{
+        path: 'ver-ejecucionws',
+        component: VerEjedetalleComponent,
+        data: {
+          title: 'Listar Ejecución Servicio'
+        }
+      }
+
+    ]
   }
+
+
+
 ];
 
 @NgModule({

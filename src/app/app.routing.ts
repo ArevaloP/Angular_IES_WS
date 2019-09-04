@@ -108,9 +108,20 @@ export const routes: Routes = [
     pathMatch: "full",
     data: {
       title: 'Aplicación'
-    }
+    },
+    
   },
 
+  {
+    path: 'aplicacion/detalle',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/detalle/lis-ejecucionws',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    },
+    
+  },
 
   {
     path: 'api-office',
@@ -164,6 +175,11 @@ export const routes: Routes = [
       },
       {
         path: 'aplicacion/grupollamado',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/detalle',
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },
