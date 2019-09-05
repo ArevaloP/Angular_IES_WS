@@ -53,8 +53,10 @@ import { LogLevel } from "msal";
 import { environment } from '../environments/environment';
 import { RestUserAuthService } from './aplicacion/servicio/rest-user-auth.service';
 import { LoaderComponent } from './aplicacion/componente/utilidad/loader/loader.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { TokenSessionComponent } from './aplicacion/componente/utilidad/token-session/token-session.component';
+import { AuthGuard } from './aplicacion/modelo/auth-guard';
 
 
 export function loggerCallback(logLevel, message, piiEnabled) {
@@ -65,9 +67,7 @@ export const protectedResourceMap: [string, string[]][] =
   [
     ['https://graph.microsoft.com/v1.0/me', ['User.Read']],
     ['https://graph.microsoft.com/v1.0/users', ['User.Read']],
-    //['https://graph.microsoft.com/v1.0/me/photo', ['User.ReadBasic.All']],
     ['https://graph.microsoft.com/v1.0/me/memberOf', ['Group.Read.All']],
-    //['https://graph.microsoft.com/v1.0/groups/',['Group.ReadWrite.All', 'Directory.ReadWrite.All','User.Read','Directory.AccessAsUser.All'] ],
     ['https://graph.microsoft.com/v1.0/groups/', ['Directory.Read.All']],
     ['https://graph.microsoft.com', ['Group.ReadWrite.All']]
   ];
@@ -112,7 +112,7 @@ export const protectedResourceMap: [string, string[]][] =
       logger: loggerCallback,
       level: LogLevel.Info
     }),
-    NgxJsonViewerModule
+    NgxJsonViewerModule,
 
   ],
   declarations: [
@@ -122,13 +122,17 @@ export const protectedResourceMap: [string, string[]][] =
     P500Component,
     LoginComponent,
     LoaderComponent,
-
+    //TokenSessionComponent
     //VentanaModalComponent
     //RegisterComponent
   ],
 
   providers: [
-    //{ provide: LocationStrategy, useClass: HashLocationStrategy},
+    { 
+      provide: LocationStrategy, 
+      useClass: PathLocationStrategy 
+      
+    },
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,

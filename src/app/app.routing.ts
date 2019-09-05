@@ -9,6 +9,8 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { MsalGuard } from '@azure/msal-angular';
 import { LoaderComponent } from './aplicacion/componente/utilidad/loader/loader.component';
+import { TokenSessionComponent } from './aplicacion/componente/utilidad/token-session/token-session.component';
+import { AuthGuard } from './aplicacion/modelo/auth-guard';
 //import { RegisterComponent } from './views/register/register.component';
 
 export const routes: Routes = [
@@ -43,12 +45,20 @@ export const routes: Routes = [
   {
     path: 'load',
     component: LoaderComponent,
-    canActivate: [MsalGuard]
+    //canActivate: [MsalGuard]
   },
+  /*{
+    path: 'id_token',
+    component: TokenSessionComponent,
+    canActivate:[MsalGuard]
+    //redirectTo: 'load',
+    //pathMatch: "full",
+    //canActivate: [MsalGuard]
+  },*/
 
   {
     path: 'aplicacion',
-    canActivate: [MsalGuard],
+    //canActivate: [MsalGuard],
     redirectTo: 'aplicacion/lis-appexterna',
     pathMatch: "full",
     data: {
@@ -59,7 +69,7 @@ export const routes: Routes = [
 
   {
     path: 'aplicacion/servicio',
-    canActivate: [MsalGuard],
+    //canActivate: [MsalGuard],
     redirectTo: 'aplicacion/servicio/servicioWeb',
     pathMatch: "full",
     data: {
@@ -187,28 +197,7 @@ export const routes: Routes = [
         path: 'api-office',
         canActivate: [MsalGuard],
         loadChildren: () => import('./api-office/api-office.module').then(m => m.ApiOfficeModule)
-      },/*
-      {
-        path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
-      },*/
-
-      /*{
-        path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
-      },
-      {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
-      },
-      {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }*/
+      }
     ]
   },
   { path: '**', component: P404Component }

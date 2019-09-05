@@ -121,7 +121,7 @@ export class JdbcServicioComponent implements OnInit {
   }
 
 
-  public limpiarConexion(){
+  public limpiarConexion(eve){
     
     this.indexConexion = 0;
     this.isModificar = false;

@@ -5,16 +5,16 @@
 
 export const environment = {
   production: false,
+  puerto:"4200",
+  grupo:'integradorRestWs-pruebas',
   baseUrl: 'http://localhost:8080/contexto/servicios/'  ,
-  //baseUrl: 'http://localhost:9019/contexto/servicios/',
-  //baseUrl: 'https://development.ciadti.co:8090/contexto/' , 
   configuracionMsal :{
     clientID: 'ff27df78-09ee-4f0a-9dea-ccb5b21abe81',
     authority: "https://login.microsoftonline.com/2fe9a652-eedf-4168-9370-18a597068a8e/",
     validateAuthority: true,
-    redirectUri: "http://localhost:4200/load",
+    redirectUri: "http://localhost:4200/contexto/load",
     cacheLocation: "sessionStorage",
-    postLogoutRedirectUri: "http://localhost:4200/",
+    postLogoutRedirectUri: "http://localhost:4200",
     navigateToLoginRequestUrl: false,
     popUp: false,
     consentScopes: [
@@ -24,17 +24,11 @@ export const environment = {
     ],
     correlationId: '1234',
     piiLoggingEnabled: true,
-    unprotectedResources: ["https://www.microsoft.com/en-us/"],
-
+    //unprotectedResources: ["https://www.microsoft.com/en-us/"],
+    unprotectedResources: ["http://localhost:8080/contexto/servicios/"]
   },
   optiosMsal:[
-    //"user.read",
-    //"api://ff27df78-09ee-4f0a-9dea-ccb5b21abe81/access_as_user/info",
-    //"User.ReadBasic.All",
-    //"Group.Read.All",
-    //"Directory.AccessAsUser.All",
-    //"Group.ReadWrite",
-    //"Directory.AccessAsUser.All"
+
 
   ]
   //,group:"" //2141f301-82c8-4382-8459-2c8ac6bf1766

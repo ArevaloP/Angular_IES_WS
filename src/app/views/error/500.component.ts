@@ -9,6 +9,7 @@ export class P500Component implements OnInit {
 
   public error:any;
   public texto;
+  public texto2;
   constructor(private restErrorService:RestErrorService) {
 
   }
@@ -16,6 +17,7 @@ export class P500Component implements OnInit {
 
   ngOnInit() {
     this.error= this.restErrorService.getError();
+    this.texto2= JSON.stringify(this.error.error);
     this.texto=JSON.stringify(this.error);
   }
 

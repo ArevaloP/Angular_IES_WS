@@ -1,6 +1,3 @@
-
-
-
 import { Injectable } from '@angular/core';
 import { BroadcastService, MsalService } from '@azure/msal-angular';
 import { Router } from '@angular/router';
@@ -56,7 +53,6 @@ export class RestUserAuthService {
         console.log("error", error);
         callback(false);
       }
-
     );*/
   }
 
@@ -195,12 +191,12 @@ export class RestUserAuthService {
 
     let group = {
       "description": "Integrador de Aplicaciones Rest",
-      "displayName": "IntegradorRestWs",
+      "displayName": environment.grupo,
       "groupTypes": [
         "Unified"
       ],
       "mailEnabled": false,
-      "mailNickname": "integradorRestWs",
+      "mailNickname": environment.grupo,
       "securityEnabled": true,
       "owners@odata.bind": [
         "https://graph.microsoft.com/v1.0/users/" + idUsuario,
@@ -209,21 +205,6 @@ export class RestUserAuthService {
         "https://graph.microsoft.com/v1.0/users/" + idUsuario,
       ]
     }
-
-    /*let group = {
-      "description": "Self help community for library",
-      "displayName": "Library Assist",
-      "groupTypes": [
-        "Unified"
-      ],
-      "mailEnabled": true,
-      "mailNickname": "library",
-      "securityEnabled": false
-    };*/
-
-
-    //console.log(group);
-    //console.log(sessionStorage.getItem("msal.idtoken"));
 
     return this.http.post('https://graph.microsoft.com/v1.0/groups', group, {
       headers: {

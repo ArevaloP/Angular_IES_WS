@@ -37,6 +37,7 @@ import { JsonParametrosComponent } from './componente/servicioweb/json-parametro
 import { LisEjedetalleComponent } from './componente/detalle-ejecucion/lis-ejedetalle/lis-ejedetalle.component';
 import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejedetalle/ver-ejedetalle.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { TokenSessionComponent } from './componente/utilidad/token-session/token-session.component';
 
 
 
@@ -71,7 +72,8 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
     UploadLibreriaComponent,
     JsonParametrosComponent,
     LisEjedetalleComponent,
-    VerEjedetalleComponent
+    VerEjedetalleComponent,
+    TokenSessionComponent
 
   ],
   imports: [

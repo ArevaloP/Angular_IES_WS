@@ -19,6 +19,8 @@ export class RestAplicacionService {
 
 
   listarAplicacionesExterna() {
+
+    console.log(sessionStorage.getItem("auth.tk.local"));
     return this.http.get<AplicacionExterna[]>(`${this.baseUrl}/listar`, {
       headers: {
         "Content-Type": "application/json",

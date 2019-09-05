@@ -28,10 +28,13 @@ export class LoaderComponent implements OnInit {
 
     //this.validarAccesoGrupo();
     this.cargarConfiguracion();
+    //this.router.navigate(['aplicacion/']);
   }
 
 
   public cargarConfiguracion() {
+
+    //alert("cargarConfiguracion");
     this.authRest.cargarConfiguracion().subscribe(
       data => {
         //alert("data:" + JSON.stringify(data));
@@ -43,7 +46,7 @@ export class LoaderComponent implements OnInit {
         }
       },
       error => {
-        //alert("error:"+JSON.stringify(error));
+        alert("error:"+JSON.stringify(error));
         this.restError.setError(error);
         this.router.navigate(['500']);
       }
@@ -54,15 +57,21 @@ export class LoaderComponent implements OnInit {
 
 
   public validarAccesoGrupo() {
+    
+    //alert("validarAccesoGrupo");
     this.authRest.obtenerInformacionGrupo().subscribe(
       data => {
         this.administarAplicacion(data);
       },
       error => {
+        alert("Error validarAccesoGrupo");
+        console.log(error);
         this.restError.setError(error);
         this.router.navigate(['500']);
       }
     )
+
+
   }
 
 

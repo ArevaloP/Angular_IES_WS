@@ -29,7 +29,7 @@ const routes: Routes = [
   {
 
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Aplicación'
     },
@@ -63,7 +63,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Servicios web'
     }, children: [
@@ -109,7 +109,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Privilegios'
     }, children: [
@@ -134,7 +134,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Conexiones'
     }, children: [
@@ -157,7 +157,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Clases Java'
     }, children: [
@@ -181,7 +181,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Grupo LLamado'
     }, children: [
@@ -210,7 +210,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate:[MsalGuard],
     data: {
       title: 'Ejecución Servicio'
     }, children: [
