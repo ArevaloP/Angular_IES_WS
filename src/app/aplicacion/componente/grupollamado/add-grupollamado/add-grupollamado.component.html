@@ -2,13 +2,13 @@
     <div class="animated fadeIn container-fluid">
         <div class="row">
             <!--/.col-->
-            <div class="col-12">
+            <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Grupo conexión servicio</strong>
+                        <strong>Grupo servicio</strong>
                     </div>
-                    <div class="card-body p-1">
-                        <div class="container-fluid">
+                    <div class="card-body">
+                        
                             <div class="row">
                                 <div class="form-group col-5">
                                     <label for="codigo">Código</label>
@@ -36,14 +36,10 @@
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label for="aplicacion">Aplicación</label>
-                                    <input type="text" class="form-control" id="aplicacion" name="aplicacion"
-                                        placeholder="Ingrese el código de la conexión" formControlName="aplicacion"
-                                        [(ngModel)]="grupoLlamado.idAplicacion"
-                                        [ngClass]="{'is-invalid': fGeneral.get('aplicacion').errors && fGeneral.get('aplicacion').dirty ,'is-valid': !fGeneral.get('aplicacion').errors}"
-                                        [value]="21"
-                                        required autofocus>
-                                    <div class="invalid-feedback" *ngIf="fGeneral.get('aplicacion').hasError('required')">
-                                        <small>Campo requerido</small></div>
+                                    <select class="form-control" id="aplicacion" formControlName="aplicacion"
+                                        [(ngModel)]="grupoLlamado.idAplicacion" required>
+                                            <option *ngFor="let param of listaAplicacionesExternas" value="{{param.id}}">{{param.nombre}}</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-6">
@@ -68,7 +64,7 @@
                                         <small>Campo requerido</small></div>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                     <div class="card-footer p-1">
 
@@ -77,6 +73,20 @@
                             Registrar
                         </button>
 
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Servicios web</strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <table #dataTable class="table table-hover table-sm table-responsive" style="width:100%"></table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

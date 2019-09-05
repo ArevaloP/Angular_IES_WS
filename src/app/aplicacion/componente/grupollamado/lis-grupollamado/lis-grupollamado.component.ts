@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { GrupoLlamado } from '../../../modelo/grupo-llamado';
 import { UtilConstante } from '../../../modelo/util-contante';
 import { RestGrupoLlamadoService } from '../../../servicio/grupo-llamado.service';
+import { RestAplicacionService } from '../../../servicio/rest-aplicacion.service';
+import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 
 
 @Component({
@@ -23,26 +25,27 @@ export class LisGrupollamadoComponent implements OnInit {
   public const: UtilConstante = new UtilConstante();
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
 
-
   constructor(
     public restGrupoLlamado: RestGrupoLlamadoService,
+    public restAplicacion: RestAplicacionService,
+    public restServicioWeb: RestServicioWebService,
     public router: Router
   ) { }
 
   ngOnInit() {
 
     this.restGrupoLlamado.setGrupoLlamado(null);
+    this.restAplicacion.setListaAplicaciones( null );
     this.listadoGrupoServicio();
-
+    this.listarAppsExternas();
+    this.listarServiciosWeb();
   }
-
-
 
   public listadoGrupoServicio() {
 
     this.restGrupoLlamado.listarGrupoLlamado().subscribe(
       data => {
-        console.log(data);
+        console.log("Lista de grupos",data);
         this.listadoGrupoLlamado = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -54,6 +57,32 @@ export class LisGrupollamadoComponent implements OnInit {
       }
     );
 
+  }
+
+  public listarAppsExternas()
+  {
+    this.restAplicacion.listarAplicacionesExterna().subscribe(
+      data => {
+        this.restAplicacion.setListaAplicaciones( data );
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    )
+  }
+
+  public listarServiciosWeb()
+  {
+    this.restServicioWeb.listarServicioWeb().subscribe(
+      data => {
+        console.log("Lista de servicios",data);
+        this.restServicioWeb.setListaServicio( data );
+      },
+      error => {
+        //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
+        this.alerta.mostrarError(error);
+      }
+    );
   }
 
   public establecerOpcionesDataTable(data) {

@@ -4,6 +4,10 @@ import { GrupoLlamado } from '../../../modelo/grupo-llamado';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { RestGrupoLlamadoService } from '../../../servicio/grupo-llamado.service';
 import { Router } from '@angular/router';
+import { RestAplicacionService } from '../../../servicio/rest-aplicacion.service';
+import { AplicacionExterna } from '../../../modelo/aplicacion-externa';
+import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
+import { UtilConstante } from '../../../modelo/util-contante';
 
 @Component({
   selector: 'app-add-grupollamado',
@@ -12,7 +16,8 @@ import { Router } from '@angular/router';
 })
 export class AddGrupollamadoComponent implements OnInit {
 
-
+  public dataTable: any;
+  public dtOptions: any = {};
   public fGeneral: FormGroup;
   public grupoLlamado: GrupoLlamado = new GrupoLlamado();
   public isModificar: boolean = false;
@@ -20,19 +25,23 @@ export class AddGrupollamadoComponent implements OnInit {
   public listaConexionesExistente: GrupoLlamado[];
   public indexConexion: number;
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+  public listaAplicacionesExternas: AplicacionExterna[];
+  public const: UtilConstante = new UtilConstante();
 
+  @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   constructor(
     public fb: FormBuilder,
     public restGrupoLlamado: RestGrupoLlamadoService,
+    public restAplicacion: RestAplicacionService,
+    public restServicioWeb: RestServicioWebService,
     public router: Router
   ) {
 
   }
 
-
-
   ngOnInit() {
+    this.listaAplicacionesExternas = this.restAplicacion.getListaAplicaciones();
 
     if (this.restGrupoLlamado.getGrupoLlamado() != null) {
       this.grupoLlamado = this.restGrupoLlamado.getGrupoLlamado();
@@ -40,12 +49,38 @@ export class AddGrupollamadoComponent implements OnInit {
     } else {
       this.isModificar = false;
     }
-
+    
+    this.renderizarDataTableServicios();
     this.inicializarValidacion();
   }
 
+  public renderizarDataTableServicios()
+  {
+    this.dtOptions = {
+      data: this.restServicioWeb.getListaServicio(),
+      columns: [
+        { title: '', defaultContent:'', orderable: false, className: "td-center" },
+        { title: 'Código', data: 'codigo', width: "30%" },
+        { title: 'Nombre', data: 'nombre', width: "60%" }
+      ],
+      language: {
+        url: "assets/spanish.json"
+      },
+      paging: true,
+      ordering: true,
+      info: true,
+      rowCallback: (row: Node, dataRow: GrupoLlamado, index: number) => {
+        const self = this;
+        $('td:eq(0)', row).html('<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" id="serweb'+index+'"><label class="custom-control-label" for="serweb'+index+'"></label></div>');
+        
+        return row;
+      }
 
+    };
 
+    this.dataTable = $(this.table.nativeElement);
+    this.dataTable.DataTable(this.dtOptions);
+  }
 
 
   public inicializarValidacion() {
@@ -57,8 +92,7 @@ export class AddGrupollamadoComponent implements OnInit {
       estado: [this.grupoLlamado.estado, Validators.required],
       descripcion: [this.grupoLlamado.descripcion, Validators.required]
 
-    }
-    );
+    });
 
   }
 
