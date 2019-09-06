@@ -101,13 +101,13 @@ export class JdbcServicioComponent implements OnInit {
     // alert("index "+ this.indexConexion );
 
     if ( $("#nuevaconexion").prop("checked") === false ) {
-        this.isReadOnly = false;
+        this.isReadOnly = true;
         this.isNuevaConexion = false;
         this.isModificar = true;
         if (this.indexConexion) {
           console.log( this.listaConexionesExistente );
-          // this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
-          this.jdbcConexion.codigo = this.listaConexionesExistente[this.indexConexion].codigo;
+          this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
+          //this.jdbcConexion.codigo = this.listaConexionesExistente[this.indexConexion].codigo;
         }
       
     }
