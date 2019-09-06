@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   grupo:'integradorRestWs-pruebas',
   baseUrl: 'https://test.ciadti.co:9024/integrador-rest/servicios/'  ,
   configuracionMsal :{

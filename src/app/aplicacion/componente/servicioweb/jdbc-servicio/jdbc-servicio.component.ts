@@ -16,7 +16,7 @@ declare var $:any;
 })
 export class JdbcServicioComponent implements OnInit {
 
-  public fGeneralX: FormGroup;
+  public fGeneral: FormGroup;
   public jdbcConexion: JdbcConexion = new JdbcConexion();
   public isModificar: boolean = false;
   public isReadOnly: boolean = false;
@@ -42,13 +42,9 @@ export class JdbcServicioComponent implements OnInit {
 
 
   ngOnInit() {
-    setTimeout(() => {
-      this.inicializarValidacion(()=>this.listarJdbcConexion);
-   });
+    this.inicializarValidacion();
+    this.listarJdbcConexion();
   }
-
-
-
 
 
   public setObjetoConexion(jdbcConexion: JdbcConexion) {
@@ -74,9 +70,16 @@ export class JdbcServicioComponent implements OnInit {
   }
 
 
-  public inicializarValidacion(callback) {
+  public inicializarValidacion() {
 
-    this.fGeneralX = this.fb.group({
+    // if(this.jdbcConexion==null){
+    //    //this.jdbcConexion=new JdbcConexion();
+    // }else{
+    //   //alert("existe conexion ");
+    // }  
+
+
+    this.fGeneral = this.fb.group({
       codigo: [this.jdbcConexion.codigo, Validators.required],
       nombre: [this.jdbcConexion.nombre, Validators.required],
       serverUrl: [this.jdbcConexion.serverUrl, Validators.required],
@@ -89,8 +92,6 @@ export class JdbcServicioComponent implements OnInit {
       nuevaconexion: [this.isNuevaConexion],
       limpiarConexion:[]
     });
-
-    callback();
 
   }
 
