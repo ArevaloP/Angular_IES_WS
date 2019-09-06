@@ -16,7 +16,6 @@ declare var $;
 export class LisAplicacionServicioComponent implements OnInit {
 
   @Input() listaServicio: ServicioWeb[];
-  //@ HostBinding ( 'class' ) className ="box box-primary";
   @Input() searchText: String;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild("dataTable", null) table;
@@ -57,32 +56,35 @@ export class LisAplicacionServicioComponent implements OnInit {
 
 
 
-  public actualizarEstadoServicio(index: number, eve: any) {
+  public actualizarEstadoServicio(index: number, eve: boolean) {
 
     //alert(""+index+" =>"+eve);
-    console.log(+"evento", eve);
+    //console.log("evento =actualizacion->", eve);
 
     this.listaServicio[index].checkeado = eve;
     this.listaServicio[index].registradoPor = this.usuarioVO.oid;
     this.listaServicio[index].usuarioRealiza = this.usuarioVO.name;
+    
     if (this.listaServicio[index].idAplicacion != "-1") {
+      
+      //onsole.log("evento !-1",eve);
       if (eve) {
 
-        console.log("actualizarEstadoServicioAplicacion");
+        //console.log("Ccambiando estado de aplicacion !!!");
         this.restServicio.actualizarEstadoServicioAplicacion(this.listaServicio[index]).subscribe(
           data => {
-            console.log("El registro se actualizo exitosamente");
+            console.log("El registro se ACTUALIZO exitosamente");
           },
           error => {
             this.listaServicio[index].checkeado = !eve;
             this.alerta.mostrarError(error);
           }
         );
-      } else if (!eve) {
+      } else {//if (!eve) {
 
         this.restServicio.eliminarServicioWebXaplicacion(this.listaServicio[index]).subscribe(
           data => {
-            console.log("El registro se actualizo exitosamente");
+            console.log("El registro se ELIMINO  exitosamente");
           },
           error => {
             this.listaServicio[index].checkeado = !eve;
@@ -96,7 +98,7 @@ export class LisAplicacionServicioComponent implements OnInit {
 
 
   public funcionActualizacionTabla(index: number) {
-    console.log("funcionActualizacionTabla");
+    console.log("funcionActualizacionTabla ",index,this.listaServicio[index]);
     this.actualizarEstadoServicio(index, !this.listaServicio[index].checkeado);
   }
 

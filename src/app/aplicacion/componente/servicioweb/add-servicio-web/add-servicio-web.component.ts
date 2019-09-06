@@ -27,6 +27,9 @@ export class AddServicioWebComponent implements OnInit {
   public parametroServicio: ParametroServicio = new ParametroServicio();
   public listaParametros: ParametroServicio[];
 
+  public isLoadServicio:boolean=false;
+
+
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('jdbcConexion', { static: false }) public jdbcComponente: JdbcServicioComponent;
 
@@ -41,6 +44,8 @@ export class AddServicioWebComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    this.isLoadServicio=true;
     if (this.restServicio.getServicioWeb() != null) {
       this.servicioWeb = this.restServicio.getServicioWeb();
       this.consultarConexionJdbc();
@@ -53,7 +58,6 @@ export class AddServicioWebComponent implements OnInit {
       this.servicioWeb.metodo = "POST";
       this.isModificar = false;
     }
-    //console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
     this.inicializarValidacion();
   }
 

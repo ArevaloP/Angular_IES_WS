@@ -206,6 +206,9 @@ export class RestUserAuthService {
       ]
     }
 
+    //console.log(group);
+    //console.log(sessionStorage.getItem("msal.idtoken"));
+
     return this.http.post('https://graph.microsoft.com/v1.0/groups', group, {
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("msal.idtoken"),

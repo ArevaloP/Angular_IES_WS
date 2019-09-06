@@ -50,30 +50,35 @@ export class ApexUsuariowsComponent implements OnInit {
 
 
 
-  public actualizarEstadoUsuario(index: number, eve: any) {
+  public actualizarEstadoUsuario(index: number, eve: boolean) {
 
-    this.userWebService.checkeado = eve;
+
+    let apex: AplicacionExterna = this.listaAplicacion[index];
+
+    this.listaAplicacion[index].checkeado=eve;
     this.userWebService.registradoPor = this.usuarioVO.oid;
     this.userWebService.usuarioRealiza = this.usuarioVO.name;
-    let apex: AplicacionExterna = this.listaAplicacion[index];
-    this.userWebService.idAplicacion = apex.id;
+    this.userWebService.idAplicacion = this.listaAplicacion[index].id;
 
+    console.log("evento->",eve);
     if (this.userWebService.idAplicacion != "-1") {
+      
       if (eve) {
+        console.log("ingresa 1");
         this.restUsuario.actualizarUsuarioWebXaplicacion(this.userWebService).subscribe(
           data => {
-            console.log("El registro se actualizo exitosamente");
+            console.log("El registro se ACTUALIZO exitosamente");
           },
           error => {
             this.userWebService.checkeado = !eve;
             this.alerta.mostrarError(error);
           }
         );
-      } else if (!eve) {
-
+      } else {
+        console.log("ingresa 2");
         this.restUsuario.eliminarUsuarioWebXaplicacion(this.userWebService).subscribe(
           data => {
-            console.log("El registro se actualizo exitosamente");
+            console.log("El registro se ELIMIN exitosamente");
           },
           error => {
             this.userWebService.checkeado = !eve;
@@ -100,7 +105,7 @@ export class ApexUsuariowsComponent implements OnInit {
 
 
   public funcionActualizacionTabla(index: number) {
-    console.log("funcionActualizacionTabla");
+    //console.log("funcionActualizacionTabla");
     this.actualizarEstadoUsuario(index, !this.listaAplicacion[index].checkeado);
   }
 
@@ -138,9 +143,9 @@ export class ApexUsuariowsComponent implements OnInit {
 
         $('td:eq(0)', row).unbind('change');
         if (dataRow.checkeado) {
-          $('td:eq(0)', row).html('<div class="cnt-switch"> <label class="switch switch-3d switch-success"> <input type="checkbox" class="switch-input" name="idServicio" checked> <span class="switch-slider"></span> </label> </div>');
+          $('td:eq(0)', row).html('<div class="cnt-switch"> <label class="switch switch-3d switch-success"> <input type="checkbox" class="switch-input" name="idAplicacion" checked> <span class="switch-slider"></span> </label> </div>');
         } else {
-          $('td:eq(0)', row).html('<div class="cnt-switch"> <label class="switch switch-3d switch-success"> <input type="checkbox" class="switch-input" name="idServicio"> <span class="switch-slider"></span> </label> </div>');
+          $('td:eq(0)', row).html('<div class="cnt-switch"> <label class="switch switch-3d switch-success"> <input type="checkbox" class="switch-input" name="idAplicacion"> <span class="switch-slider"></span> </label> </div>');
         }
 
 

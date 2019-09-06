@@ -14,7 +14,7 @@ import { Alert } from 'selenium-webdriver';
 })
 export class JdbcServicioComponent implements OnInit {
 
-  public fGeneral: FormGroup;
+  public fGeneralX: FormGroup;
   public jdbcConexion: JdbcConexion = new JdbcConexion();
   public isModificar: boolean = false;
   public isReadOnly: boolean = false;
@@ -40,9 +40,13 @@ export class JdbcServicioComponent implements OnInit {
 
 
   ngOnInit() {
-    this.inicializarValidacion();
-    this.listarJdbcConexion();
+    setTimeout(() => {
+      this.inicializarValidacion(()=>this.listarJdbcConexion);
+   });
   }
+
+
+
 
 
   public setObjetoConexion(jdbcConexion: JdbcConexion) {
@@ -68,16 +72,11 @@ export class JdbcServicioComponent implements OnInit {
   }
 
 
-  public inicializarValidacion() {
-
-    if(this.jdbcConexion==null){
-       //this.jdbcConexion=new JdbcConexion();
-    }else{
-      //alert("existe conexion ");
-    }  
+  public inicializarValidacion(callback) {
 
 
-    this.fGeneral = this.fb.group({
+
+    this.fGeneralX = this.fb.group({
       codigo: [this.jdbcConexion.codigo, Validators.required],
       nombre: [this.jdbcConexion.nombre, Validators.required],
       serverUrl: [this.jdbcConexion.serverUrl, Validators.required],
@@ -88,9 +87,11 @@ export class JdbcServicioComponent implements OnInit {
       tipoBaseDatos: [this.jdbcConexion.tipoBaseDatos, Validators.required],
       otraconexion: [this.indexConexion || 0],
       nuevaconexion: [this.isNuevaConexion],
-      limpiarConexion:[]
+      limpiarConexion:['']
     }
     );
+
+    callback();
 
   }
 
@@ -116,19 +117,19 @@ export class JdbcServicioComponent implements OnInit {
     this.isModificar = false;
     this.jdbcConexion = new JdbcConexion();
     this.isReadOnly = !this.isNuevaConexion;
-    this.inicializarValidacion();
+    //this.inicializarValidacion();
     //alert(JSON.stringify(this.jdbcConexion));
   }
 
 
-  public limpiarConexion(eve){
+  public limpiarConexionFunc(eve){
     
     this.indexConexion = 0;
     this.isModificar = false;
     this.jdbcConexion = new JdbcConexion();
     this.isLimpiarConexion=false;
     this.isNuevaConexion=false;
-    this.inicializarValidacion();
+    //this.inicializarValidacion();
 
   }
 

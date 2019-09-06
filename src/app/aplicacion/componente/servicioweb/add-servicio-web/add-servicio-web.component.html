@@ -182,10 +182,10 @@
                                 formControlName="parametros" [(ngModel)]="servicioWeb.parametros" autofocus>
                         </div>
                     </tab>
-                    <tab heading="Conexión a base de datos">
+                    <tab heading="Conexión a base de datos" *ngIf="isLoadServicio">
                         <app-jdbc-servicio #jdbcConexion></app-jdbc-servicio>
                     </tab>
-                    <tab heading="Formato parametros json">
+                    <tab heading="Formato parametros json" *ngIf="true">
                         <app-json-parametros [listaParametros]="listaParametros"></app-json-parametros>
                     </tab>
                 </tabset>

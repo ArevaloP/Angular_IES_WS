@@ -5,7 +5,6 @@
 
 export const environment = {
   production: false,
-  puerto:"4200",
   grupo:'integradorRestWs-pruebas',
   baseUrl: 'https://test.ciadti.co:9024/integrador-rest/servicios/'  ,
   configuracionMsal :{
@@ -18,20 +17,11 @@ export const environment = {
     navigateToLoginRequestUrl: false,
     popUp: false,
     consentScopes: [
-      //"User.Read",
-      //"api://ff27df78-09ee-4f0a-9dea-ccb5b21abe81/access_as_user/1",
-      //"Directory.AccessAsUser.All"
     ],
     correlationId: '1234',
     piiLoggingEnabled: true,
     unprotectedResources: ["https://test.ciadti.co:9024/integrador-rest/servicios/"]
-
   },
   optiosMsal:[
-
   ]
-
-
-
-
 };

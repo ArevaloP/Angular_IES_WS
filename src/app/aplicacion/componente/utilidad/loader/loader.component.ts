@@ -77,7 +77,7 @@ export class LoaderComponent implements OnInit {
 
 
   public administarAplicacion(group) {
-    this.router.navigate(['aplicacion/']);
+    //this.router.navigate(['aplicacion/']);
     this.authRest.cargarInformacionAdministracion(this.authRest.getUser(), group).subscribe(
       data => {
         sessionStorage.setItem("user.app.local", JSON.stringify(this.authRest.getUser().idToken));
