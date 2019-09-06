@@ -81,13 +81,13 @@ export class AddClaseComponent implements OnInit {
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿ Esta seguro de modificar la conexión [" + this.implementacion.nombre + "]  ?"),
+        ("¿Esta seguro de modificar la clase [" + this.implementacion.nombre + "]?"),
         () => this.actualizarImplementacionClase(this.implementacion)
       );
     } else {
 
       this.alerta.confirmarInsertar(
-        ("¿ Esta seguro de agregar la conexión [" + this.implementacion.nombre + "]  ?"),
+        ("¿Esta seguro de agregar la clase [" + this.implementacion.nombre + "]?"),
         () => this.insertarImplementacionClase(this.implementacion)
       );
     }

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Alert } from 'selenium-webdriver';
 
+declare var $:any;
+
 @Component({
   selector: 'app-jdbc-servicio',
   templateUrl: './jdbc-servicio.component.html',
@@ -70,11 +72,11 @@ export class JdbcServicioComponent implements OnInit {
 
   public inicializarValidacion() {
 
-    if(this.jdbcConexion==null){
-       //this.jdbcConexion=new JdbcConexion();
-    }else{
-      //alert("existe conexion ");
-    }  
+    // if(this.jdbcConexion==null){
+    //    //this.jdbcConexion=new JdbcConexion();
+    // }else{
+    //   //alert("existe conexion ");
+    // }  
 
 
     this.fGeneral = this.fb.group({
@@ -86,49 +88,53 @@ export class JdbcServicioComponent implements OnInit {
       userId: [this.jdbcConexion.serviciosIdAlias, Validators.required],
       password: [this.jdbcConexion.password, Validators.required],
       tipoBaseDatos: [this.jdbcConexion.tipoBaseDatos, Validators.required],
-      otraconexion: [this.indexConexion || 0],
+      otraconexion: [this.indexConexion || -1],
       nuevaconexion: [this.isNuevaConexion],
       limpiarConexion:[]
-    }
-    );
+    });
 
   }
 
 
 
   public actualizarCampos(event) {
+    // alert("index "+ this.indexConexion );
 
-
-    if (!this.isNuevaConexion) {
-      this.isReadOnly = true;
-      this.isNuevaConexion = false;
-      this.isModificar = true;
-      if (this.indexConexion) {
-        this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
-      }
+    if ( $("#nuevaconexion").prop("checked") === false ) {
+        this.isReadOnly = false;
+        this.isNuevaConexion = false;
+        this.isModificar = true;
+        if (this.indexConexion) {
+          console.log( this.listaConexionesExistente );
+          // this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
+          this.jdbcConexion.codigo = this.listaConexionesExistente[this.indexConexion].codigo;
+        }
+      
     }
-
-
+    else if ( this.indexConexion != -1 ) {
+      this.indexConexion = -1;
+      // alert("Tiene marca");
+    }
   }
 
   public crearConexionNueva(event) {
-    this.indexConexion = 0;
+    this.indexConexion = -1;
     this.isModificar = false;
     this.jdbcConexion = new JdbcConexion();
     this.isReadOnly = !this.isNuevaConexion;
-    this.inicializarValidacion();
+    //this.inicializarValidacion();
     //alert(JSON.stringify(this.jdbcConexion));
   }
 
 
-  public limpiarConexion(eve){
+  public limpiarConexionX(eve){
     
-    this.indexConexion = 0;
+    this.indexConexion = -1;
     this.isModificar = false;
     this.jdbcConexion = new JdbcConexion();
     this.isLimpiarConexion=false;
     this.isNuevaConexion=false;
-    this.inicializarValidacion();
+    //this.inicializarValidacion();
 
   }
 

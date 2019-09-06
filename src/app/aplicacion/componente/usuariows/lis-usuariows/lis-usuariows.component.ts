@@ -102,7 +102,7 @@ export class LisUsuariowsComponent implements OnInit {
 
         //$('td:eq(1)', row).html("<img src='"+dataRow.imagen+"' class='img-circle' >");
         $('td:eq(1)', row).unbind('click');
-        $('td:eq(1)', row).html("<div class='column'><img class='img-circle-40' src='"+(dataRow.imagen||'/assets/img/avatars/no-disponible.png')+"' /></div>");
+        $('td:eq(1)', row).html("<div class='column'><img class='img-circle-40' src='"+(dataRow.imagen||'assets/img/avatars/no-disponible.png')+"' /></div>");
         $('td:eq(1)', row).bind('click', () => {
           self.modificar(index);
         });

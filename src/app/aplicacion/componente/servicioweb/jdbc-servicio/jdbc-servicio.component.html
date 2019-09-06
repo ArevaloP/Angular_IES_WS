@@ -17,7 +17,7 @@
                                 formControlName="otraconexion" 
                                 [(ngModel)]="indexConexion"
                                 (ngModelChange)="actualizarCampos($event)">
-                                <option disabled>&nbsp;</option>
+                                <option value="-1">&nbsp;</option>
                                 <option *ngFor="let conexion of listaConexionesExistente; let i=index;" [value]="i">
                                     {{conexion.nombre}}</option>
                             </select>
@@ -40,7 +40,7 @@
                                         <label class="custom-control-label" for="limpiarconexion">Seleccione para limpiar la conexión</label>
                                         <input class="custom-control-input" type="checkbox" id="limpiarconexion" name="limpiarconexion"
                                             formControlName="limpiarConexion" [(ngModel)]="isLimpiarConexion"
-                                            (change)="limpiarConexion($event)">
+                                            (change)="limpiarConexionX($event)">
                                     </div>
                                 </div>
                             </div>
