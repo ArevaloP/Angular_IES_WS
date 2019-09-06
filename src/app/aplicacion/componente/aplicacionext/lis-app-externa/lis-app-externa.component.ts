@@ -65,7 +65,7 @@ export class LisAppExternaComponent implements OnInit {
     aplicacionExterna.registradoPor = this.usuarioVO.oid;
     return this.restAplicacion.eliminarAplicacionExterna(aplicacionExterna).subscribe(
       data => {
-        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+        this.router.navigateByUrl('aplicacion/servicio', { skipLocationChange: true }).then(() =>
           this.router.navigate(['aplicacion/lis-appexterna']));
       },
       error => {

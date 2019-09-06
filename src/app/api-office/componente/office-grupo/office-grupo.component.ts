@@ -200,7 +200,7 @@ export class OfficeGrupoComponent implements OnInit {
     //let usuarioID = member.id;
     this.restGrupoService.agregarMiembrosGrupo(member.id).subscribe(
       data => {
-        this.router.navigateByUrl('api-office', { skipLocationChange: true }).then(() =>
+        this.router.navigateByUrl('api-office/', { skipLocationChange: true }).then(() =>
           this.router.navigate(['api-office/grupo']));
       },
       error => {
@@ -215,7 +215,7 @@ export class OfficeGrupoComponent implements OnInit {
     //let usuarioID = "08297a24-0d3d-419a-8d3f-9b906e9e930d";
     this.restGrupoService.eliminarMiembrosGrupo(member.id).subscribe(
       data => {
-        this.router.navigateByUrl('api-office', { skipLocationChange: true }).then(() =>
+        this.router.navigateByUrl('api-office/', { skipLocationChange: true }).then(() =>
           this.router.navigate(['api-office/grupo']));
       },
       error => {

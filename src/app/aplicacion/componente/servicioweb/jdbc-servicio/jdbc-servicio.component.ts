@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Alert } from 'selenium-webdriver';
 
+declare var $:any;
+
 @Component({
   selector: 'app-jdbc-servicio',
   templateUrl: './jdbc-servicio.component.html',
@@ -74,8 +76,6 @@ export class JdbcServicioComponent implements OnInit {
 
   public inicializarValidacion(callback) {
 
-
-
     this.fGeneralX = this.fb.group({
       codigo: [this.jdbcConexion.codigo, Validators.required],
       nombre: [this.jdbcConexion.nombre, Validators.required],
@@ -85,11 +85,10 @@ export class JdbcServicioComponent implements OnInit {
       userId: [this.jdbcConexion.serviciosIdAlias, Validators.required],
       password: [this.jdbcConexion.password, Validators.required],
       tipoBaseDatos: [this.jdbcConexion.tipoBaseDatos, Validators.required],
-      otraconexion: [this.indexConexion || 0],
+      otraconexion: [this.indexConexion || -1],
       nuevaconexion: [this.isNuevaConexion],
-      limpiarConexion:['']
-    }
-    );
+      limpiarConexion:[]
+    });
 
     callback();
 
@@ -98,22 +97,27 @@ export class JdbcServicioComponent implements OnInit {
 
 
   public actualizarCampos(event) {
+    // alert("index "+ this.indexConexion );
 
-
-    if (!this.isNuevaConexion) {
-      this.isReadOnly = true;
-      this.isNuevaConexion = false;
-      this.isModificar = true;
-      if (this.indexConexion) {
-        this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
-      }
+    if ( $("#nuevaconexion").prop("checked") === false ) {
+        this.isReadOnly = false;
+        this.isNuevaConexion = false;
+        this.isModificar = true;
+        if (this.indexConexion) {
+          console.log( this.listaConexionesExistente );
+          // this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
+          this.jdbcConexion.codigo = this.listaConexionesExistente[this.indexConexion].codigo;
+        }
+      
     }
-
-
+    else if ( this.indexConexion != -1 ) {
+      this.indexConexion = -1;
+      // alert("Tiene marca");
+    }
   }
 
   public crearConexionNueva(event) {
-    this.indexConexion = 0;
+    this.indexConexion = -1;
     this.isModificar = false;
     this.jdbcConexion = new JdbcConexion();
     this.isReadOnly = !this.isNuevaConexion;
@@ -122,9 +126,9 @@ export class JdbcServicioComponent implements OnInit {
   }
 
 
-  public limpiarConexionFunc(eve){
+  public limpiarConexionX(eve){
     
-    this.indexConexion = 0;
+    this.indexConexion = -1;
     this.isModificar = false;
     this.jdbcConexion = new JdbcConexion();
     this.isLimpiarConexion=false;

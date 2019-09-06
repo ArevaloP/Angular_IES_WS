@@ -79,13 +79,13 @@ export class AddAppExternaComponent implements OnInit {
     this.aplicacionExterna.usuarioRealiza = this.usuarioVO.name;
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
-        ("¿ Esta seguro de modificar el usuario [" + this.aplicacionExterna.nombre + "]  ?"),
+        ("¿Esta seguro de modificar la aplicación [" + this.aplicacionExterna.nombre + "]?"),
         () => this.actualizarAplicacion(this.aplicacionExterna)
       );
     } else {
 
       this.alerta.confirmarInsertar(
-        ("¿ Esta seguro de agregar el usuario [" + this.aplicacionExterna.nombre + "]  ?"),
+        ("¿Esta seguro de agregar la aplicación [" + this.aplicacionExterna.nombre + "]?"),
         () => this.insertarAplicacion(this.aplicacionExterna)
       );
     }

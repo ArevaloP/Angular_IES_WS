@@ -142,7 +142,7 @@ export class LisClaseComponent implements OnInit {
 
   public irEliminar(implementaClase) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar la conexión [" + implementaClase.nombre + "]  ?"),
+      ("¿Esta seguro de eliminar la clase [" + implementaClase.nombre + "]?"),
       () => this.eliminar(implementaClase)
     );
   }
