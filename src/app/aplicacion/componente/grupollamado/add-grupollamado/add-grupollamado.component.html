@@ -2,8 +2,8 @@
     <div class="animated fadeIn container-fluid">
         <div class="row">
             <!--/.col-->
-            <div class="col-12 col-md-6">
-                <div class="card">
+            <div class="col-12 col-md-6 pr-md-0">
+                <div class="card m-0">
                     <div class="card-header">
                         <strong>Grupo servicio</strong>
                     </div>
@@ -24,7 +24,7 @@
                                 <div class="form-group col-7">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
-                                        placeholder="Ingrese el nombre de la conexión jdbc/academico"
+                                        placeholder="Ingrese el nombre del grupo"
                                         formControlName="nombre" [(ngModel)]="grupoLlamado.nombre"
                                         [ngClass]="{'is-invalid': fGeneral.get('nombre').errors && fGeneral.get('nombre').dirty ,'is-valid': !fGeneral.get('nombre').errors}"
                                         required autofocus>
@@ -66,18 +66,10 @@
                             </div>
                         
                     </div>
-                    <div class="card-footer p-1">
-
-                        <button type="button" class="btn btn-primary pull-right mr-1" [disabled]="fGeneral.invalid"
-                            (click)="irRegistar()">
-                            Registrar
-                        </button>
-
-                    </div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="card">
+                <div class="card m-0">
                     <div class="card-header">
                         <strong>Servicios web</strong>
                     </div>
@@ -92,6 +84,15 @@
             </div>
         </div>
         <!--/.row-->
+        <div class="row my-2">
+            <div class="col-12"><div class="borde-arriba"></div></div>
+            <div class="col-12 text-right py-2">
+                <button type="button" class="btn btn-primary pull-right mr-1" [disabled]="fGeneral.invalid"
+                    (click)="irRegistar()">
+                    Registrar
+                </button>
+            </div>
+        </div>
     </div>
 </form>
 <app-ventana-modal #alerta></app-ventana-modal>

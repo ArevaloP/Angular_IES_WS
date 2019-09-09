@@ -37,6 +37,16 @@ export class RestServicioWebService {
     });
   }
 
+  listarServicioWebPorGrupo(idGrupo)
+  {
+    return this.http.get<ServicioWeb[]>(`${this.baseUrl}/listarPorGrupo/${idGrupo || -1}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
 
   insertarServicioWeb(servicioWeb: ServicioWeb) {
     return this.http.post(`${this.baseUrl}/insertar`, servicioWeb, {

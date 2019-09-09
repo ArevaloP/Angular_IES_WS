@@ -38,14 +38,12 @@ export class LisGrupollamadoComponent implements OnInit {
     this.restAplicacion.setListaAplicaciones( null );
     this.listadoGrupoServicio();
     this.listarAppsExternas();
-    this.listarServiciosWeb();
   }
 
   public listadoGrupoServicio() {
 
     this.restGrupoLlamado.listarGrupoLlamado().subscribe(
       data => {
-        console.log("Lista de grupos",data);
         this.listadoGrupoLlamado = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -69,20 +67,6 @@ export class LisGrupollamadoComponent implements OnInit {
         this.alerta.mostrarError(error);
       }
     )
-  }
-
-  public listarServiciosWeb()
-  {
-    this.restServicioWeb.listarServicioWeb().subscribe(
-      data => {
-        console.log("Lista de servicios",data);
-        this.restServicioWeb.setListaServicio( data );
-      },
-      error => {
-        //alert("Error en la consultad de aplicaccin " + JSON.stringify(error));
-        this.alerta.mostrarError(error);
-      }
-    );
   }
 
   public establecerOpcionesDataTable(data) {
@@ -154,21 +138,21 @@ export class LisGrupollamadoComponent implements OnInit {
     this.router.navigate(['aplicacion/add-grupollamado']);
   }
 
-  public irEliminar(conexionJdbc) {
+  public irEliminar(grupoLlamado) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el grupo llamado [" + conexionJdbc.nombre + "]  ?"),
-      () => this.eliminar(conexionJdbc)
+      ("¿Esta seguro de eliminar el grupo llamado [" + grupoLlamado.nombre + "]?"),
+      () => this.eliminar(grupoLlamado)
     );
   }
 
 
 
-  public eliminar(conexionJdbc) {
-    conexionJdbc.registradoPor = this.usuarioVO.oid;
-    this.restGrupoLlamado.eliminarGrupoLlamado(conexionJdbc).subscribe(
+  public eliminar(grupoLlamado) {
+    grupoLlamado.registradoPor = this.usuarioVO.oid;
+    this.restGrupoLlamado.eliminarGrupoLlamado(grupoLlamado).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/lis-grupollamado']));
+          this.router.navigate(['aplicacion/grupollamado/lis-grupollamado']));
       },
       error => {
         this.alerta.mostrarError(error);

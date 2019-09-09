@@ -1,3 +1,5 @@
+import { ServicioWeb } from './servicio-web';
+
 export class GrupoLlamado {
 
     public id:String;
@@ -8,6 +10,6 @@ export class GrupoLlamado {
     public estado:String;
     public usuarioRealiza:String;
     public registradoPor:String;
-    
+    public listaWebServiceVO:ServicioWeb[];
 
 }

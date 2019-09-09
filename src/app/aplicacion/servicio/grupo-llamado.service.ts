@@ -59,7 +59,7 @@ export class RestGrupoLlamadoService {
       }),
       body: grupoLlamado
     }
-    return this.http.delete(`${this.baseUrl}/eliminar/${grupoLlamado.id}`, options)
+    return this.http.delete(`${this.baseUrl}/eliminar`, options)
   }
 
 
