@@ -97,11 +97,11 @@ export const navItems: NavData[] = [
     icon: 'fa fa-users'
   },
 
-  /*{
+  {
     name: 'Grupo Servicio',
     url: '/aplicacion/grupollamado/lis-grupollamado',
     icon: 'fa fa-users'
-  },*/
+  },
 
   {
     name: 'Ejecuciones',
