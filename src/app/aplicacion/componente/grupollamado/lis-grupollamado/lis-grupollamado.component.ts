@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { GrupoLlamado } from '../../../modelo/grupo-llamado';
 import { UtilConstante } from '../../../modelo/util-contante';
 import { RestGrupoLlamadoService } from '../../../servicio/grupo-llamado.service';
+import { RestAplicacionService } from '../../../servicio/rest-aplicacion.service';
+import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 
 
 @Component({
@@ -23,26 +25,25 @@ export class LisGrupollamadoComponent implements OnInit {
   public const: UtilConstante = new UtilConstante();
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
 
-
   constructor(
     public restGrupoLlamado: RestGrupoLlamadoService,
+    public restAplicacion: RestAplicacionService,
+    public restServicioWeb: RestServicioWebService,
     public router: Router
   ) { }
 
   ngOnInit() {
 
     this.restGrupoLlamado.setGrupoLlamado(null);
+    this.restAplicacion.setListaAplicaciones( null );
     this.listadoGrupoServicio();
-
+    this.listarAppsExternas();
   }
-
-
 
   public listadoGrupoServicio() {
 
     this.restGrupoLlamado.listarGrupoLlamado().subscribe(
       data => {
-        console.log(data);
         this.listadoGrupoLlamado = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -54,6 +55,18 @@ export class LisGrupollamadoComponent implements OnInit {
       }
     );
 
+  }
+
+  public listarAppsExternas()
+  {
+    this.restAplicacion.listarAplicacionesExterna().subscribe(
+      data => {
+        this.restAplicacion.setListaAplicaciones( data );
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    )
   }
 
   public establecerOpcionesDataTable(data) {
@@ -125,21 +138,21 @@ export class LisGrupollamadoComponent implements OnInit {
     this.router.navigate(['aplicacion/add-grupollamado']);
   }
 
-  public irEliminar(conexionJdbc) {
+  public irEliminar(grupoLlamado) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el grupo llamado [" + conexionJdbc.nombre + "]  ?"),
-      () => this.eliminar(conexionJdbc)
+      ("¿Esta seguro de eliminar el grupo llamado [" + grupoLlamado.nombre + "]?"),
+      () => this.eliminar(grupoLlamado)
     );
   }
 
 
 
-  public eliminar(conexionJdbc) {
-    conexionJdbc.registradoPor = this.usuarioVO.oid;
-    this.restGrupoLlamado.eliminarGrupoLlamado(conexionJdbc).subscribe(
+  public eliminar(grupoLlamado) {
+    grupoLlamado.registradoPor = this.usuarioVO.oid;
+    this.restGrupoLlamado.eliminarGrupoLlamado(grupoLlamado).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/lis-grupollamado']));
+          this.router.navigate(['aplicacion/grupollamado/lis-grupollamado']));
       },
       error => {
         this.alerta.mostrarError(error);

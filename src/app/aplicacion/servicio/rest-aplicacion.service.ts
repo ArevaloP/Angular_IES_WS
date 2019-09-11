@@ -11,6 +11,7 @@ export class RestAplicacionService {
 
 
   aplicacionExterna: AplicacionExterna;
+  listaAplicaciones: AplicacionExterna[];
 
   baseUrl = environment.baseUrl + "ws_appexterna";
   constructor(private http: HttpClient) {
@@ -71,6 +72,12 @@ export class RestAplicacionService {
     return this.aplicacionExterna;
   }
 
+  public setListaAplicaciones(lista: AplicacionExterna[]) {
+    this.listaAplicaciones = lista;
+  }
 
+  public getListaAplicaciones() {
+    return this.listaAplicaciones;
+  }
 
 }
