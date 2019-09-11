@@ -97,6 +97,8 @@ export class AddServicioWebComponent implements OnInit {
     this.servicioWeb.registradoPor = this.usuarioVO.oid;
     this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
 
+    console.log("servicioWeb.tipo=>",this.servicioWeb.tipo);
+
     //console.log(this.jdbcComponente);
     if(this.jdbcComponente.getObjetoConexion()!=null){
       this.servicioWeb.conexionJdbc = this.jdbcComponente.getObjetoConexion();

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -57,7 +57,7 @@ import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@a
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { TokenSessionComponent } from './aplicacion/componente/utilidad/token-session/token-session.component';
 import { AuthGuard } from './aplicacion/modelo/auth-guard';
-
+import { AppConfigService } from './app-config.service';
 
 export function loggerCallback(logLevel, message, piiEnabled) {
   //console.log("client logging" + message);
@@ -71,6 +71,11 @@ export const protectedResourceMap: [string, string[]][] =
     ['https://graph.microsoft.com/v1.0/groups/', ['Directory.Read.All']],
     ['https://graph.microsoft.com', ['Group.ReadWrite.All']]
   ];
+
+
+
+
+
 
 
 
@@ -94,7 +99,6 @@ export const protectedResourceMap: [string, string[]][] =
     ReactiveFormsModule,
     DataTablesModule,
     ModalModule.forRoot(),
-
     MsalModule.forRoot({
       clientID: environment.configuracionMsal.clientID,
       authority: environment.configuracionMsal.authority,
@@ -128,17 +132,18 @@ export const protectedResourceMap: [string, string[]][] =
   ],
 
   providers: [
-    { 
-      provide: LocationStrategy, 
-      useClass: PathLocationStrategy 
-      
+    {
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy
+
     },
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor, multi: true
     },
-    RestUserAuthService
+    RestUserAuthService,
+
 
   ],
 

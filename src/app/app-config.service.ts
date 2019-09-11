@@ -8,13 +8,23 @@ export class AppConfigService {
   constructor(private http: HttpClient) { }
 
   loadAppConfig() {
-    return this.http.get('/assets/config/configuracion.json')
-      .toPromise()
-      .then(data => {
-        this.appConfig = data;
-        console.log("cargo la configuracion ", data);
-      });
+
+    console.log("===loadAppConfig===");
+    return this.http.get('assets/config/configuracion.json')
+    .toPromise()
+    .then(data => {
+      this.appConfig = data;
+      console.log("cargo la configuracion ", data);
+    },error=>{
+        console.log("error 2145",error);
+    }
+    
+    );
   }
+
+
+
+
 
   getConfig() {
     return this.appConfig;

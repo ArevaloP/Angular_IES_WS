@@ -66,8 +66,9 @@ export class LisParametroComponent implements OnInit {
       data: data,
       columns: [
         { title: 'Orden', data: 'orden', width: "5%", className: "text-center" },
-        { title: 'Nombre', data: 'parametro', width: "50%", className: "text-left" },
-        { title: 'Alias', data: 'aliasColumna', width: "45%", className: "text-left" },
+        { title: 'Nombre', data: 'parametro', width: "10%", className: "text-left" },
+        { title: 'Alias', data: 'aliasColumna', width: "40%", className: "text-left" },
+        { title: 'Default', data: 'valorFijo', defaultContent:"", width: "15%", className: "text-left" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
@@ -94,13 +95,13 @@ export class LisParametroComponent implements OnInit {
         const self = this;
         index =row._DT_RowIndex;
 
-        $('td:eq(3)', row).unbind('click');
-        $('td:eq(3)', row).bind('click', () => {
+        $('td:eq(4)', row).unbind('click');
+        $('td:eq(4)', row).bind('click', () => {
           self.modificar(index);
         });
 
-        $('td:eq(4)', row).unbind('click');
-        $('td:eq(4)', row).bind('click', () => {
+        $('td:eq(5)', row).unbind('click');
+        $('td:eq(5)', row).bind('click', () => {
           self.irEliminar(this.listadoParametroServicio[index]);
         });
 

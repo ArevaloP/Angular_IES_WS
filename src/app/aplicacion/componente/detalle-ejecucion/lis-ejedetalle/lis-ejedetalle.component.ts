@@ -81,7 +81,7 @@ export class LisEjedetalleComponent implements OnInit {
       paging: true,
       ordering: true,
       info: true,
-      order: [[2, 'asc']],
+      order: [[1, 'desc']],
       dom: 'Bfrtip',
       buttons: [
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
