@@ -86,8 +86,14 @@ export const navItems: NavData[] = [
   },
 
   {
-    name: 'Clase Java',
+    name: 'Clases Java',
     url: '/aplicacion/interfaz/lis-clase',
+    icon: 'fa fa-code'
+  },
+
+  {
+    name: 'Equivalencias',
+    url: '/aplicacion/equivalencia/lis-equivalencia',
     icon: 'fa fa-code'
   },
 

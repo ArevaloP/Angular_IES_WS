@@ -21,6 +21,8 @@ import { AddClaseComponent } from './componente/implementacion/add-clase/add-cla
 import { AddGrupollamadoComponent } from './componente/grupollamado/add-grupollamado/add-grupollamado.component';
 import { LisEjedetalleComponent } from './componente/detalle-ejecucion/lis-ejedetalle/lis-ejedetalle.component';
 import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejedetalle/ver-ejedetalle.component';
+import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivalencia/lis-equivalencia.component';
+import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 
 
 
@@ -183,6 +185,32 @@ const routes: Routes = [
     path: '',
     canActivate:[MsalGuard],
     data: {
+      title: 'Equivalencia de entidades'
+    }, children: [
+
+      {
+        path: 'lis-equivalencia',
+        component: LisEquivalenciaComponent,
+        data: {
+          title: 'Listar equivalencia de entidad'
+        }
+      },
+
+      {
+        path: 'add-equivalencia',
+        component: AddEquivalenciaComponent,
+        data: {
+          title: 'Agregar equivalencia de entidad'
+        }
+      }
+    ]
+  },
+
+
+  {
+    path: '',
+    canActivate:[MsalGuard],
+    data: {
       title: 'Grupo LLamado'
     }, children: [
       {
@@ -218,13 +246,13 @@ const routes: Routes = [
         path: 'lis-ejecucionws',
         component: LisEjedetalleComponent,
         data: {
-          title: 'Listar Ejecución Servicio'
+          title: 'Listar ejecución de servicio'
         }
       },{
         path: 'ver-ejecucionws',
         component: VerEjedetalleComponent,
         data: {
-          title: 'Listar Ejecución Servicio'
+          title: 'Ver ejecución de servicio'
         }
       }
 

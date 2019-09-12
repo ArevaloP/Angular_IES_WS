@@ -110,6 +110,15 @@ export const routes: Routes = [
     }
   },
 
+  {
+    path: 'aplicacion/equivalencia',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/equivalencia/lis-equivalencia',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
 
   {
     path: 'aplicacion/grupollamado',
@@ -183,6 +192,12 @@ export const routes: Routes = [
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },
+      {
+        path: 'aplicacion/equivalencia',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+
       {
         path: 'aplicacion/grupollamado',
         canActivate: [MsalGuard],

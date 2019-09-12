@@ -38,6 +38,8 @@ import { LisEjedetalleComponent } from './componente/detalle-ejecucion/lis-ejede
 import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejedetalle/ver-ejedetalle.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { TokenSessionComponent } from './componente/utilidad/token-session/token-session.component';
+import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivalencia/lis-equivalencia.component';
+import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 
 
 
@@ -73,7 +75,9 @@ import { TokenSessionComponent } from './componente/utilidad/token-session/token
     JsonParametrosComponent,
     LisEjedetalleComponent,
     VerEjedetalleComponent,
-    TokenSessionComponent
+    TokenSessionComponent,
+    LisEquivalenciaComponent,
+    AddEquivalenciaComponent
 
   ],
   imports: [

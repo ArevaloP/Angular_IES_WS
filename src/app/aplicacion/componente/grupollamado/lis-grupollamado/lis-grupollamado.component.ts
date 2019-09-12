@@ -94,7 +94,7 @@ export class LisGrupollamadoComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/add-grupollamado']);
+            this.router.navigate(['aplicacion/grupollamado/add-grupollamado']);
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
@@ -135,7 +135,7 @@ export class LisGrupollamadoComponent implements OnInit {
 
   public modificar(index) {
     this.restGrupoLlamado.setGrupoLlamado(this.listadoGrupoLlamado[index]);
-    this.router.navigate(['aplicacion/add-grupollamado']);
+    this.router.navigate(['aplicacion/grupollamado/add-grupollamado']);
   }
 
   public irEliminar(grupoLlamado) {
