@@ -101,8 +101,9 @@ export class LisGrupollamadoComponent implements OnInit {
         { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],
 
-      rowCallback: (row: Node, dataRow: GrupoLlamado, index: number) => {
+      rowCallback: (row: any, dataRow: GrupoLlamado, index: number) => {
         const self = this;
+        index = row._DT_RowIndex;
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {

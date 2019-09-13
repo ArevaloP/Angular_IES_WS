@@ -6,29 +6,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class RestEquivalenciaService {
-
-  implementacionClase: AtributoEquivalencia;
+export class RestEquivalenciaService
+{
+  entidadEquivalencia: AtributoEquivalencia;
   baseUrl = environment.baseUrl + "ws_equivalencia";
-  constructor(private http: HttpClient) {
 
+  constructor(private http: HttpClient) {
   }
 
-
-  listarImplementacionClase(tipo) {
-    return this.http.get<AtributoEquivalencia[]>(`${this.baseUrl}/listar/${tipo || -1}`, {
+  listarEntidades() {
+    return this.http.get<AtributoEquivalencia[]>(`${this.baseUrl}/listar`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }
     });
   }
-
-
-
-
   
-  consultarImplementacionClase(id) {
+  consultarEntidad(id) {
     return this.http.get<AtributoEquivalencia>(`${this.baseUrl}/consultar/${id || -1}`, {
       headers: {
         "Content-Type": "application/json",
@@ -37,11 +32,9 @@ export class RestEquivalenciaService {
     });
   }
 
-
-
-
-  insertarImplementacionClase(implementacionClase: AtributoEquivalencia) {
-    return this.http.post(`${this.baseUrl}/insertar`, implementacionClase, {
+  insertarEntidad( entidadEquivalencia: AtributoEquivalencia )
+  {
+    return this.http.post(`${this.baseUrl}/insertar`, entidadEquivalencia, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
@@ -49,9 +42,9 @@ export class RestEquivalenciaService {
     })
   }
 
-
-  actualizarImplementacionClase(implementacionClase: AtributoEquivalencia) {
-    return this.http.put(`${this.baseUrl}/actualizar`, implementacionClase, {
+  actualizarEntidad( entidadEquivalencia: AtributoEquivalencia )
+  {
+    return this.http.put(`${this.baseUrl}/actualizar`, entidadEquivalencia, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
@@ -59,25 +52,26 @@ export class RestEquivalenciaService {
     })
   }
 
-
-
-  eliminarImplementacionClase(implementacionClase: AtributoEquivalencia) {
+  eliminarEntidad( entidadEquivalencia: AtributoEquivalencia )
+  {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }),
-      body: implementacionClase
+      body: entidadEquivalencia
     }
+
     return this.http.delete(`${this.baseUrl}/eliminar`, options)
   }
 
-
-  public setImplementacionClase(implementacionClase: AtributoEquivalencia) {
-    this.implementacionClase = implementacionClase;
+  public setEntidadEquivalencia(entidadEquivalencia: AtributoEquivalencia)
+  {
+    this.entidadEquivalencia = entidadEquivalencia;
   }
 
-  public getImplementacionClase() {
-    return this.implementacionClase;
+  public getEntidadEquivalencia()
+  {
+    return this.entidadEquivalencia;
   }
 }

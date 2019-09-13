@@ -1,20 +1,163 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
+import { UtilConstante } from '../../../modelo/util-contante';
+import { JdbcConexion } from '../../../modelo/jdbc-conexion';
+import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.service';
 
 @Component({
   selector: 'app-lis-equivalencia',
   templateUrl: './lis-equivalencia.component.html',
   styleUrls: ['./lis-equivalencia.component.scss']
 })
-export class LisEquivalenciaComponent implements OnInit {
+export class LisEquivalenciaComponent implements OnInit
+{
+  @ViewChild("dataTable", null) table;
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
-  constructor(public router: Router) { }
+  public dataTable: any;
+  public dtOptions: any = {};
+  public listaEquivalencias: AtributoEquivalencia[];
+  public const: UtilConstante = new UtilConstante();
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
 
-  ngOnInit() {
+  constructor(
+    public router: Router,
+    public restEquivalencia: RestEquivalenciaService,
+    public restConexion: RestJdbcConexionService
+  ) { }
+
+  ngOnInit()
+  {
+    this.restEquivalencia.setEntidadEquivalencia( null );
+    this.listarEntidades();
   }
 
   cargarAgregar(){
     this.router.navigate(['aplicacion/equivalencia/add-equivalencia']);
   }
 
+  public listarEntidades()
+  {
+    this.restConexion.setListaConexiones( null );
+    this.restEquivalencia.listarEntidades().subscribe(
+      data => {
+        this.listaEquivalencias = data;
+        this.establecerOpcionesDataTable(data);
+        this.dataTable = $(this.table.nativeElement);
+        this.dataTable.DataTable(this.dtOptions);
+        this.listarConexiones();
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
+
+  public establecerOpcionesDataTable( data )
+  {
+    this.dtOptions = {
+      data: data,
+      columns: [
+        { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
+        { title: 'Nombre', data: 'nombre', width: "20%" },
+        { title: 'Entidad', data: 'entidad', width: "25%" },
+        { title: 'Descripción', data: 'descripcion', width: "40%" },
+        { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
+      ],
+      language: {
+        url: "assets/spanish.json"
+      },
+      paging: true,
+      ordering: true,
+      info: true,
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          text: `${this.const.ICONO_AGREGAR}`,
+          className: `${this.const.CLASE_AGREGAR}`,
+          action: () => {
+            this.router.navigate(['aplicacion/equivalencia/add-equivalencia']);
+          },
+        },
+        { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
+        { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
+      ],
+
+      rowCallback: (row: any, dataRow: AtributoEquivalencia, index: number) => {
+        const self = this;
+        index = row._DT_RowIndex;
+
+        $('td:eq(0)', row).unbind('click');
+        $('td:eq(0)', row).bind('click', () => {
+          self.modificar( index );
+        });
+
+        $('td:eq(5)', row).unbind('click');
+        $('td:eq(5)', row).bind('click', () => {
+          self.modificar( index );
+        });
+
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
+          self.irEliminar( this.listaEquivalencias[index] );
+        });
+
+        return row;
+      },
+      initComplete: (settings, json) => {
+        this.cambiarEstiloBotones();
+      }
+    };
+  }
+
+  public listarConexiones()
+  {
+    this.restConexion.listarJdbcConexion().subscribe(
+      data => {
+        this.restConexion.setListaConexiones( data );
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
+
+  public modificar( index )
+  {
+    this.restEquivalencia.setEntidadEquivalencia( this.listaEquivalencias[index] );
+    this.router.navigate(['aplicacion/equivalencia/add-equivalencia']);
+  }
+
+  public irEliminar( entidadEquivalencia )
+  {
+    this.alerta.confirmarEliminar(
+      ("¿Esta seguro de eliminar la equivalencia [" + entidadEquivalencia.nombre + "]?"),
+      () => this.eliminar( entidadEquivalencia )
+    );
+  }
+
+  public eliminar( entidadEquivalencia )
+  {
+    entidadEquivalencia.registradoPor = this.usuarioVO.oid;
+    this.restEquivalencia.eliminarEntidad( entidadEquivalencia ).subscribe(
+      data => {
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['aplicacion/equivalencia/add-equivalencia']));
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
+
+  public cambiarEstiloBotones()
+  {
+    $(":button.buttons-copy").html(`${this.const.ICONO_COPIAR}`);
+    $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
+    $(".dt-buttons").css("float", "left");
+  }
 }

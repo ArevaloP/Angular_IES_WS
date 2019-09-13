@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 export class RestJdbcConexionService {
 
   jdbcConexion: JdbcConexion;
+  listaConexiones: JdbcConexion[];
   baseUrl = environment.baseUrl + "ws_jdbcconexion";
   constructor(private http: HttpClient) {
 
@@ -85,4 +86,11 @@ export class RestJdbcConexionService {
     return this.jdbcConexion;
   }
 
+  public setListaConexiones(listaConexiones: JdbcConexion[]) {
+    this.listaConexiones = listaConexiones;
+  }
+
+  public getListaConexiones() {
+    return this.listaConexiones;
+  }
 }
