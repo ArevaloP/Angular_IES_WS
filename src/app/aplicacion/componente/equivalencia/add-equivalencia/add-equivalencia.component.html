@@ -43,8 +43,10 @@
                             <div class="form-group col-12">
                                 <label for="conexion">Conexión</label>
                                 <select class="form-control" id="conexion" formControlName="conexion"
-                                    [(ngModel)]="entidadEquivalencia.idConexionJdbc">
-                                    <option *ngFor="let param of listaConexiones" value="{{param.id}}">{{param.nombre}}</option>
+                                    [(ngModel)]="entidadEquivalencia.idConexionJdbc"
+                                    (ngModelChange)="cargarAtributos($event)">
+                                    <option value="-1"></option>
+                                    <option *ngFor="let param of listaConexiones; let i=index;" value="{{i}}">{{param.nombre}}</option>
                                 </select>
                             </div>
                         </div>
@@ -55,55 +57,7 @@
             <div class="col-12 col-md-6">
                 <tabset>
                     <tab heading="Atributos simples">
-                        <div class="card m-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-sm table-borderless">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center"></th>
-                                                        <th colspan="2" class="text-center">Origen</th>
-                                                        <th colspan="2" class="text-center">Destino</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="col" width="10%"></th>
-                                                        <th scope="col" width="28%" class="text-center">Nombre</th>
-                                                        <th scope="col" width="17%" class="text-center">Valor</th>
-                                                        <th scope="col" width="28%" class="text-center">Nombre</th>
-                                                        <th scope="col" width="17%" class="text-center">Valor</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row" class="text-center">X</th>
-                                                        <td>CC</td>
-                                                        <td class="text-center">10</td>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" class="text-center">X</th>
-                                                        <td>TI</td>
-                                                        <td class="text-center">11</td>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" class="text-center">+</th>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                        <td class="text-center"><input class="form-control form-control-sm" type="text"></td>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                        <td><input class="form-control form-control-sm" type="text"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <app-add-detalleeq [estructuraEntidad]="estructuraEntidad"></app-add-detalleeq>
                     </tab>
                 </tabset>
             </div>

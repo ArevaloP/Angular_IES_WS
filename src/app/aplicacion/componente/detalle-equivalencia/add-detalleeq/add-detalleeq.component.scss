@@ -1,0 +1,29 @@
+.table-eq {
+    border: 1px solid #c8ced3;
+}
+.table-eq tbody tr th {
+	vertical-align: middle;
+	font-size: .9rem;
+}
+
+.table-eq thead tr:last-child {
+	border-bottom: 2px solid #c8ced3;
+}
+
+.color-fila {
+    background-color: #F0F0F0;
+}
+
+.truncate-nombre {
+	width: 120px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.truncate-valor {
+	width: 69px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

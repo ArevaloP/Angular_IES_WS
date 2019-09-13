@@ -9,4 +9,6 @@ export class AtributoEquivalencia
     public ip: String;
     public usuarioRealiza: String;
     public registradoPor: String;
+    public nOrigen: String;
+    public vOrigen: String;
 }

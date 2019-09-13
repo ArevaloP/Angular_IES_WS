@@ -105,7 +105,7 @@ export class JdbcServicioComponent implements OnInit {
         this.isNuevaConexion = false;
         this.isModificar = true;
         if (this.indexConexion) {
-          console.log( this.listaConexionesExistente );
+          //console.log( this.listaConexionesExistente );
           this.jdbcConexion = this.listaConexionesExistente[this.indexConexion];
           //this.jdbcConexion.codigo = this.listaConexionesExistente[this.indexConexion].codigo;
         }
