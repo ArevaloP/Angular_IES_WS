@@ -5,7 +5,7 @@
                 <div class="form-group col-6">
                     <label for="nOrigen">Nombre</label>
                     <select class="form-control" id="nOrigen" formControlName="nOrigen"
-                        [(ngModel)]="detalleEquivalencia.nombreOrigen"
+                        [(ngModel)]="detalleEquivalencia.tagNombreOrigen"
                         (ngModelChange)="cargarNombres($event)">
                         <option *ngFor="let nColumna of estructuraEntidad.columnas; let i = index" value="{{nColumna}}">{{nColumna}}</option>
                     </select>
@@ -14,7 +14,7 @@
                 <div class="form-group col-6">
                     <label for="vOrigen">Valor</label>
                     <select class="form-control" id="vOrigen" formControlName="vOrigen"
-                        [(ngModel)]="detalleEquivalencia.valorOrigen"
+                        [(ngModel)]="detalleEquivalencia.tagValorOrigen"
                         (ngModelChange)="cargarValores($event)">
                         <ng-container *ngFor="let nColumna of estructuraEntidad.columnas; let i = index">
                             <option value="{{nColumna}}" [selected]="i == 0">{{nColumna}}</option>
@@ -46,10 +46,10 @@
                             </thead>
                             <tbody>
                                 <ng-container *ngIf="!porDefecto && !porDefecto2">
-                                <tr *ngFor="let vColumna of estructuraEntidad.datos">
+                                <tr *ngFor="let objetoDE of listaProcesar">
                                     <th scope="row" class="text-center"><a href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a></th>
-                                    <td><div class="truncate-nombre" title="{{vColumna[nombreColumna]}}">{{vColumna[nombreColumna]}}</div></td>
-                                    <td><div class="text-center truncate-valor" title="{{vColumna[valorColumna]}}">{{vColumna[valorColumna]}}</div></td>
+                                    <td><div class="truncate-nombre" title="{{objetoDE.nombreOrigen}}">{{objetoDE.nombreOrigen}}</div></td>
+                                    <td><div class="text-center truncate-valor" title="{{objetoDE.valorOrigen}}">{{objetoDE.valorOrigen}}</div></td>
                                     <td><input class="form-control form-control-sm" type="text"></td>
                                     <td><input class="form-control form-control-sm" type="text"></td>
                                 </tr>

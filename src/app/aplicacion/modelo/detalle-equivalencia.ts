@@ -13,4 +13,5 @@ export class DetalleEquivalencia
     public registradoPor: String;
     public conexionJdbcVO: JdbcConexion;
     public nombreEntidad: String;
+    public esAutomatico: Boolean;
 }

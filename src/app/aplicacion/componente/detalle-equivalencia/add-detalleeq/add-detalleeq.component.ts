@@ -16,6 +16,10 @@ export class AddDetalleeqComponent implements OnInit
   public valorColumna: String;
   public porDefecto: Boolean;
   public porDefecto2: Boolean;
+  public listaProcesar: DetalleEquivalencia[];
+  public detalleEquivalenciaCargar: DetalleEquivalencia;
+  public cntNombre: String;
+  public cntValor: String;
 
   @Input() estructuraEntidad: EstructuraEntidad;
   
@@ -26,6 +30,7 @@ export class AddDetalleeqComponent implements OnInit
   ngOnInit()
   {
     this.porDefecto = true;
+    this.listaProcesar = null;
     this.inicializarValidacion();
   }
 
@@ -44,10 +49,14 @@ export class AddDetalleeqComponent implements OnInit
 
   public cargarNombres( value )
   {
+    console.log("estructuraEntidad",this.estructuraEntidad);
     if ( this.porDefecto )
       this.porDefecto = false;
     else
       this.nombreColumna = value;
+
+    this.cntNombre = value;
+    this.cargarListaProcesar();
   }
   
   public cargarValores( value )
@@ -56,6 +65,34 @@ export class AddDetalleeqComponent implements OnInit
       this.porDefecto2 = false;
     else
       this.valorColumna = value;
+    
+    this.cntValor = value;
+    this.cargarListaProcesar();
+  }
+
+  public cargarListaProcesar()
+  {
+    console.log( this.cntNombre, this.cntValor );
+    if ( this.cntNombre && this.cntValor )
+    {
+      alert("Cargar lista procesar.");
+      
+      if ( this.listaProcesar )
+      {
+        // this.listaProcesar
+      }
+      else {
+        this.listaProcesar = [];
+        
+        this.estructuraEntidad.datos.forEach( (objeto) => {
+          this.detalleEquivalenciaCargar = new DetalleEquivalencia();
+          this.detalleEquivalenciaCargar.nombreOrigen = objeto[this.cntNombre.toString()];
+          this.detalleEquivalenciaCargar.valorOrigen = objeto[this.cntValor.toString()];
+          this.detalleEquivalenciaCargar.esAutomatico = true;
+          this.listaProcesar.push(this.detalleEquivalenciaCargar);
+        });
+      }
+    }
   }
 
   public adManual()
