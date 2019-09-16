@@ -40,6 +40,8 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { TokenSessionComponent } from './componente/utilidad/token-session/token-session.component';
 import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivalencia/lis-equivalencia.component';
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
+import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
+
 
 
 
@@ -77,7 +79,8 @@ import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivale
     VerEjedetalleComponent,
     TokenSessionComponent,
     LisEquivalenciaComponent,
-    AddEquivalenciaComponent
+    AddEquivalenciaComponent,
+    TablaParametroComponent
 
   ],
   imports: [

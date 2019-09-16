@@ -26,10 +26,12 @@ export class LisParametroComponent implements OnInit {
   public servicioWeb: ServicioWeb;
   public parametroServicio: ParametroServicio = new ParametroServicio();
   public nombreServicioWeb: String;
+  public componenteTabla: boolean = false;
+
 
   constructor(
     public restServicio: RestServicioWebService,
-    public restParametro:RestParametroWebService,
+    public restParametro: RestParametroWebService,
     public router: Router
   ) { }
 
@@ -41,11 +43,14 @@ export class LisParametroComponent implements OnInit {
   }
 
 
-  public listarParametroServicio()
-  {
+  public listarParametroServicio() {
+
+    this.componenteTabla = this.restServicio.getServicioWeb().tipo == 'TABLA' && (this.restServicio.getServicioWeb().metodo == 'POST' || this.restServicio.getServicioWeb().metodo == 'PUT' || this.restServicio.getServicioWeb().metodo == 'DELETE');
+    //console.log("componenteTabla",this.componenteTabla);
+
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
-    this.restParametro.listarParametroServicio( this.parametroServicio ).subscribe(
+    this.restParametro.listarParametroServicio(this.parametroServicio).subscribe(
       data => {
         this.listadoParametroServicio = data;
         this.establecerOpcionesDataTable(data);
@@ -68,7 +73,7 @@ export class LisParametroComponent implements OnInit {
         { title: 'Orden', data: 'orden', width: "5%", className: "text-center" },
         { title: 'Nombre', data: 'parametro', width: "10%", className: "text-left" },
         { title: 'Alias', data: 'aliasColumna', width: "40%", className: "text-left" },
-        { title: 'Default', data: 'valorFijo', defaultContent:"", width: "15%", className: "text-left" },
+        { title: 'Default', data: 'valorFijo', defaultContent: "", width: "15%", className: "text-left" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
@@ -85,7 +90,11 @@ export class LisParametroComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            this.router.navigate(['aplicacion/servicio/add-parametro']);
+            if (this.componenteTabla) {
+              this.router.navigate(['aplicacion/servicio/add-parametro-tabla']);
+            } else {
+              this.router.navigate(['aplicacion/servicio/add-parametro']);
+            }
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
@@ -93,7 +102,7 @@ export class LisParametroComponent implements OnInit {
       ],
       rowCallback: (row: any, dataRow: ParametroServicio, index: number) => {
         const self = this;
-        index =row._DT_RowIndex;
+        index = row._DT_RowIndex;
 
         $('td:eq(4)', row).unbind('click');
         $('td:eq(4)', row).bind('click', () => {
@@ -113,24 +122,21 @@ export class LisParametroComponent implements OnInit {
     };
   }
 
-  public modificar(index)
-  {
-    this.restParametro.setParametroServicio( this.listadoParametroServicio[index] );
+  public modificar(index) {
+    this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
     this.router.navigate(['aplicacion/servicio/add-parametro']);
   }
 
-  public irEliminar(parametroServicio)
-  {
+  public irEliminar(parametroServicio) {
     this.alerta.confirmarEliminar(
       ("¿Está seguro de eliminar el servicio [" + parametroServicio.parametro + "]?"),
       () => this.eliminar(parametroServicio)
     );
   }
 
-  public eliminar(parametroServicio)
-  {
+  public eliminar(parametroServicio) {
     parametroServicio.registradoPor = this.usuarioVO.oid;
-    this.restParametro.eliminarParametroServicio( parametroServicio ).subscribe(
+    this.restParametro.eliminarParametroServicio(parametroServicio).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
           () => this.router.navigate(['aplicacion/servicio/lis-parametro'])

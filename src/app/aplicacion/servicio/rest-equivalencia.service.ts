@@ -8,14 +8,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class RestEquivalenciaService {
 
-  implementacionClase: AtributoEquivalencia;
+  atributoEquivalencia: AtributoEquivalencia;
   baseUrl = environment.baseUrl + "ws_equivalencia";
   constructor(private http: HttpClient) {
 
   }
 
 
-  listarImplementacionClase(tipo) {
+  listarAtributoEquivalencia(tipo) {
     return this.http.get<AtributoEquivalencia[]>(`${this.baseUrl}/listar/${tipo || -1}`, {
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export class RestEquivalenciaService {
 
 
   
-  consultarImplementacionClase(id) {
+  consultarAtributoEquivalencia(id) {
     return this.http.get<AtributoEquivalencia>(`${this.baseUrl}/consultar/${id || -1}`, {
       headers: {
         "Content-Type": "application/json",
@@ -40,8 +40,8 @@ export class RestEquivalenciaService {
 
 
 
-  insertarImplementacionClase(implementacionClase: AtributoEquivalencia) {
-    return this.http.post(`${this.baseUrl}/insertar`, implementacionClase, {
+  insertarAtributoEquivalencia(atributoEquivalencia: AtributoEquivalencia) {
+    return this.http.post(`${this.baseUrl}/insertar`, atributoEquivalencia, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
@@ -50,8 +50,8 @@ export class RestEquivalenciaService {
   }
 
 
-  actualizarImplementacionClase(implementacionClase: AtributoEquivalencia) {
-    return this.http.put(`${this.baseUrl}/actualizar`, implementacionClase, {
+  actualizarAtributoEquivalencia(atributoEquivalencia: AtributoEquivalencia) {
+    return this.http.put(`${this.baseUrl}/actualizar`, atributoEquivalencia, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
@@ -61,23 +61,23 @@ export class RestEquivalenciaService {
 
 
 
-  eliminarImplementacionClase(implementacionClase: AtributoEquivalencia) {
+  eliminarAtributoEquivalencia(atributoEquivalencia: AtributoEquivalencia) {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       }),
-      body: implementacionClase
+      body: atributoEquivalencia
     }
     return this.http.delete(`${this.baseUrl}/eliminar`, options)
   }
 
 
-  public setImplementacionClase(implementacionClase: AtributoEquivalencia) {
-    this.implementacionClase = implementacionClase;
+  public setAtributoEquivalencia(atributoEquivalencia: AtributoEquivalencia) {
+    this.atributoEquivalencia = atributoEquivalencia;
   }
 
-  public getImplementacionClase() {
-    return this.implementacionClase;
+  public getAtributoEquivalencia() {
+    return this.atributoEquivalencia;
   }
 }
