@@ -1,0 +1,83 @@
+<div class="animated fadeIn">
+    <div class="container-fluid">
+        <div class="row">
+            <!--/.col-->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Parámetros</strong>
+                    </div>
+                    <div class="card-body">
+
+
+               
+
+                        <div class="table-responsive">
+
+                            <div class="dt-buttons" style="">
+                                <button class="dt-button btn btn-default btn-xs excel" tabindex="0" aria-controls="DataTables_Table_2" type="button" (click)="modoManual()">
+                                <span><i class="fa fa-keyboard-o fa-1_5x" title="Modo Manual"></i></span>
+                            </button>
+
+
+                            <table  class="table table-hover  table-sm table-responsive dataTable no-footer" style="width: 100%;" id="DataTables_Table_2" role="grid" aria-describedby="DataTables_Table_2_info">
+
+
+                                <thead>
+                                    <tr role="row">
+                                        <th scope="col" style="width: 10%" class="text-center">#</th>
+                                        <th scope="col" style="width: 15%" class="text-center">Columna</th>
+                                        <th scope="col" style="width: 10%" class="text-center">Tipo Dato</th>
+                                        <th scope="col" style="width: 10%" class="text-center">Longitud</th>
+                                        <th scope="col" style="width: 25%" class="text-center">Alias</th>
+                                        <th scope="col" style="width: 25%" class="text-center">Valor Fijo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let paramVO of listadoParametro" role="row">
+                                        <th scope="row" class="text-center">{{paramVO.orden}}</th>
+                                        <td class="text-left">{{paramVO.parametro}}</td>
+                                        <td class="text-left">{{paramVO.tipoDato}}</td>
+                                        <td class="text-center">{{paramVO.longitudFormato}}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <input type="text" class="form-control form-control-sm" id="valor"
+                                                    name="valor" style="width: 70%" [value]="paramVO.aliasColumna"
+                                                    [(ngModel)]="paramVO.aliasColumna">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <input type="text" class="form-control form-control-sm" id="valorFijo"
+                                                    name="valorFijo" [value]="paramVO.valorFijo"
+                                                    [(ngModel)]="paramVO.valorFijo" style="width: 70%">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+                            <div class="dataTables_info" id="DataTables_Table_2_info" role="status" aria-live="polite"></div>
+                            <div class="dataTables_paginate p-1" id="DataTables_Table_2_paginate">
+                                <button type="button" class="btn btn-primary pull-right pl-1" (click)="irRegistrar()">
+                                Registrar
+                                </button>&nbsp; &nbsp;
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <!--                    
+                    <div class="card-footer">
+                    </div>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-ventana-modal #alerta></app-ventana-modal>

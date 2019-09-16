@@ -6,8 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class RestEquivalenciaService
-{
+export class RestEquivalenciaService {
+
   entidadEquivalencia: AtributoEquivalencia;
   baseUrl = environment.baseUrl + "ws_equivalencia";
 

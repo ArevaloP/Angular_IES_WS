@@ -41,6 +41,8 @@ import { TokenSessionComponent } from './componente/utilidad/token-session/token
 import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivalencia/lis-equivalencia.component';
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 import { AddDetalleeqComponent } from './componente/detalle-equivalencia/add-detalleeq/add-detalleeq.component';
+import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
+
 
 
 
@@ -79,7 +81,8 @@ import { AddDetalleeqComponent } from './componente/detalle-equivalencia/add-det
     TokenSessionComponent,
     LisEquivalenciaComponent,
     AddEquivalenciaComponent,
-    AddDetalleeqComponent
+    AddDetalleeqComponent,
+    TablaParametroComponent
 
   ],
   imports: [

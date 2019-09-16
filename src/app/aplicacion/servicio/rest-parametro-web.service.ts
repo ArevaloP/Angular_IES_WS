@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ParametroServicio } from '../modelo/parametro-servicio';
+import { ServicioWeb } from '../modelo/servicio-web';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,28 @@ export class RestParametroWebService {
       body: parametroServicio
     }
     return this.http.delete(`${this.baseUrl}/eliminar`, options)
+  }
+
+
+  
+
+  consultarColumnaParametro( webService: ServicioWeb ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/consultarColumna`, webService, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+  registrarParametroTabla( listaParametro: ParametroServicio[] ) {
+      return this.http.post(`${this.baseUrl}/registrarParametroTabla`, listaParametro, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+        }
+      });
   }
 
 

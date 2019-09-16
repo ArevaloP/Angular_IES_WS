@@ -23,6 +23,7 @@ import { LisEjedetalleComponent } from './componente/detalle-ejecucion/lis-ejede
 import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejedetalle/ver-ejedetalle.component';
 import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivalencia/lis-equivalencia.component';
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
+import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
 
 
 
@@ -31,7 +32,7 @@ const routes: Routes = [
   {
 
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Aplicación'
     },
@@ -65,7 +66,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Servicios web'
     }, children: [
@@ -102,8 +103,15 @@ const routes: Routes = [
           title: 'Gestionar parametros'
         }
       },
+      {
+        path: 'add-parametro-tabla',
+        component: TablaParametroComponent,
+        data: {
+          title: 'Gestionar parametros'
+        }
+      },
 
-      
+
 
     ]
   },
@@ -111,7 +119,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Privilegios'
     }, children: [
@@ -136,7 +144,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Conexiones'
     }, children: [
@@ -159,7 +167,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Clases Java'
     }, children: [
@@ -183,7 +191,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Equivalencia de entidades'
     }, children: [
@@ -209,7 +217,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Grupo LLamado'
     }, children: [
@@ -238,7 +246,7 @@ const routes: Routes = [
 
   {
     path: '',
-    canActivate:[MsalGuard],
+    canActivate: [MsalGuard],
     data: {
       title: 'Ejecución Servicio'
     }, children: [
@@ -248,7 +256,7 @@ const routes: Routes = [
         data: {
           title: 'Listar ejecución de servicio'
         }
-      },{
+      }, {
         path: 'ver-ejecucionws',
         component: VerEjedetalleComponent,
         data: {
