@@ -18,6 +18,7 @@ export class VentanaModalComponent implements OnInit {
   @ViewChild('successModal', { static: false }) public successModal: ModalDirective;
   @ViewChild('primaryModal', { static: false }) public primaryModal: ModalDirective;
   @ViewChild('prontmodal', { static: false }) public prontmodal: ModalDirective;
+  @ViewChild('warningModal', { static: false }) public warningModal: ModalDirective;
   
   promtValue:String="";
 
@@ -128,6 +129,14 @@ export class VentanaModalComponent implements OnInit {
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonRegistar = false;
     this.successModal.show();
+    this.ventana.mensaje =texto;
+  }
+
+  public mostarAdvertencia(titulo:string,texto: any) {
+    this.ventana.titulo =titulo ;
+    this.ventana.msgBotonCancelar = "Cerrar";
+    this.ventana.botonRegistar = false;
+    this.warningModal.show();
     this.ventana.mensaje =texto;
   }
 

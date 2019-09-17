@@ -14,4 +14,6 @@ export class DetalleEquivalencia
     public conexionJdbcVO: JdbcConexion;
     public nombreEntidad: String;
     public esAutomatico: Boolean;
+    public iAutomatico: Number;
+    public esCompuesto: String;
 }

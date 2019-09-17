@@ -44,6 +44,7 @@ export class LisEquivalenciaComponent implements OnInit
     this.restConexion.setListaConexiones( null );
     this.restEquivalencia.listarEntidades().subscribe(
       data => {
+        console.log( "data", data );
         this.listaEquivalencias = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
