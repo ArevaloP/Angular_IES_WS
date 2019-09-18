@@ -34,6 +34,8 @@ export class AddDetalleeqComponent implements OnInit
     this.porDefecto = true;
     // this.inicializarValidacion();
     this.listaProcesar = this.entidadEquivalencia.listaDetalles;
+    this.cntNombre = this.entidadEquivalencia.tagNombreOrigen;
+    this.cntValor = this.entidadEquivalencia.tagValorOrigen;
   }
 
   public inicializarValidacion()
@@ -53,7 +55,6 @@ export class AddDetalleeqComponent implements OnInit
 
   public cargarNombres( value )
   {
-    console.log("estructuraEntidad",this.estructuraEntidad);
     if ( this.porDefecto )
       this.porDefecto = false;
     else
@@ -83,10 +84,10 @@ export class AddDetalleeqComponent implements OnInit
         let objEncontrado;
         
         this.listaProcesar.forEach( (objeto) => {
-          if ( objeto.esAutomatico )
+          if ( "1" == objeto.esAutomatico )
           {
             objEncontrado = this.estructuraEntidad.datos.find( (objetoBus) => {
-              return objeto.iAutomatico == objetoBus.indice;
+              return objeto.indice == objetoBus.identificador;
             });
             
             objeto.nombreOrigen = this.getDatoDetalle( objEncontrado[this.cntNombre.toString()] );
@@ -108,14 +109,13 @@ export class AddDetalleeqComponent implements OnInit
     if ( !this.listaProcesar )
       this.listaProcesar = [];
     
-    this.estructuraEntidad.datos.forEach( (objeto, indice) => {
+    this.estructuraEntidad.datos.forEach( (objeto) => {
       this.detalleEquivalenciaCargar = new DetalleEquivalencia();
       this.detalleEquivalenciaCargar.nombreOrigen = this.getDatoDetalle( objeto[this.cntNombre.toString()] );
       this.detalleEquivalenciaCargar.valorOrigen = this.getDatoDetalle( objeto[this.cntValor.toString()] );
-      this.detalleEquivalenciaCargar.esAutomatico = true;
-      this.detalleEquivalenciaCargar.iAutomatico = indice;
+      this.detalleEquivalenciaCargar.esAutomatico = "1";
+      this.detalleEquivalenciaCargar.indice = objeto.identificador;
       this.detalleEquivalenciaCargar.esCompuesto = "0";
-      objeto.indice = indice;
       this.listaProcesar.push(this.detalleEquivalenciaCargar);
     });
     
@@ -132,13 +132,13 @@ export class AddDetalleeqComponent implements OnInit
     this.detalleEquivalenciaCargar.valorOrigen = this.detalleEquivalencia.valorOrigen;
     this.detalleEquivalenciaCargar.nombreEquivalencia = this.detalleEquivalencia.nombreEquivalencia;
     this.detalleEquivalenciaCargar.valorEquivalente = this.detalleEquivalencia.valorEquivalente;
+    this.detalleEquivalenciaCargar.esAutomatico = "0";
     this.detalleEquivalenciaCargar.esCompuesto = "0";
     this.listaProcesar.push(this.detalleEquivalenciaCargar);
     this.detalleEquivalencia.nombreOrigen = null;
     this.detalleEquivalencia.valorOrigen = null;
     this.detalleEquivalencia.nombreEquivalencia = null;
     this.detalleEquivalencia.valorEquivalente = null;
-    console.log( this.listaProcesar );
     this.entidadEquivalencia.listaDetalles = this.listaProcesar;
   }
 

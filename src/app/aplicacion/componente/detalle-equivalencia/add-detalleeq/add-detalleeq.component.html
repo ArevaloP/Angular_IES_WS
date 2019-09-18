@@ -4,7 +4,7 @@
             <div class="form-group col-6">
                 <label for="nOrigen">Nombre</label>
                 <select class="form-control" id="nOrigen"
-                    [(ngModel)]="detalleEquivalencia.tagNombreOrigen"
+                    [(ngModel)]="entidadEquivalencia.tagNombreOrigen"
                     (ngModelChange)="cargarNombres($event)">
                     <option *ngFor="let nColumna of estructuraEntidad.columnas; let i = index" value="{{nColumna}}">{{nColumna}}</option>
                 </select>
@@ -13,7 +13,7 @@
             <div class="form-group col-6">
                 <label for="vOrigen">Valor</label>
                 <select class="form-control" id="vOrigen"
-                    [(ngModel)]="detalleEquivalencia.tagValorOrigen"
+                    [(ngModel)]="entidadEquivalencia.tagValorOrigen"
                     (ngModelChange)="cargarValores($event)">
                     <option *ngFor="let nColumna of estructuraEntidad.columnas; let i = index" value="{{nColumna}}">{{nColumna}}</option>
                 </select>

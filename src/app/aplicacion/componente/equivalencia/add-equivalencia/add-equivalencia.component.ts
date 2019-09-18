@@ -51,7 +51,7 @@ export class AddEquivalenciaComponent implements OnInit
     } else {
       this.estructuraEntidad = new EstructuraEntidad();
       this.isModificar = false;
-      this.entidadEquivalencia.entidad = "GENERAL.TIPODOCUMENTOGENERAL";
+      // this.entidadEquivalencia.entidad = "GENERAL.TIPODOCUMENTOGENERAL";
     }
     
     this.inicializarValidacion();
@@ -87,7 +87,6 @@ export class AddEquivalenciaComponent implements OnInit
       }
       else {
         // this.entidadEquivalencia.listaDetalles = this.detalleComponent.getListaDetalles();
-        console.log( this.entidadEquivalencia );
         this.alerta.confirmarInsertar(
           ("¿Esta seguro de agregar la equivalencia [" + this.entidadEquivalencia.nombre + "]?"),
           () => this.insertarEntidadEquivalencia(this.entidadEquivalencia)
@@ -147,11 +146,17 @@ export class AddEquivalenciaComponent implements OnInit
             }
           );
         }
-        else
-          this.entidadEquivalencia.listaDetalles = null;
+        else {
+          this.suprimirAutomaticas( this.entidadEquivalencia.listaDetalles, 0 );
+          this.entidadEquivalencia.tagNombreOrigen = null;
+          this.entidadEquivalencia.tagValorOrigen = null;
+        }
       }
-      else
-        this.entidadEquivalencia.listaDetalles = null;
+      else {
+        this.suprimirAutomaticas( this.entidadEquivalencia.listaDetalles, 0 );
+        this.entidadEquivalencia.tagNombreOrigen = null;
+        this.entidadEquivalencia.tagValorOrigen = null;
+      }
     }, 50);
   }
 
@@ -162,6 +167,22 @@ export class AddEquivalenciaComponent implements OnInit
     });
     
     return objeto;
+  }
+
+  public suprimirAutomaticas( listaDetalles, indice )
+  {
+    if ( listaDetalles && listaDetalles.length > 0 )
+    {
+      indice = listaDetalles.findIndex( objeto => {
+        return "1" == objeto.esAutomatico;
+      });
+
+      if ( -1 !== indice )
+      {
+        listaDetalles.splice( indice, 1 );
+        this.suprimirAutomaticas( listaDetalles, indice );
+      }
+    }
   }
 
   public validarDetalleEquivalencia()
