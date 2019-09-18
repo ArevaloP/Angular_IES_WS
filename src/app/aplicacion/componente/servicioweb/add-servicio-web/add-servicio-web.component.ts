@@ -165,7 +165,7 @@ export class AddServicioWebComponent implements OnInit {
   public consultarParametros()
   {
     this.parametroServicio.idServicioWeb = this.servicioWeb.id;
-    this.restParametro.listarParametroServicio( this.parametroServicio ).subscribe(
+    this.restParametro.listarParametroEquivalencia( this.parametroServicio ).subscribe(
       data => {
         this.listaParametros = data;
       },

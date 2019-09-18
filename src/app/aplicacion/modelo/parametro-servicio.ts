@@ -13,4 +13,6 @@ export class ParametroServicio
     public ip:String;
     public valorFijo:String;
     public aliasColumna:String;
+    public idEquivalencia:String;
+    public listaAtributoCompuesto:any;
 }

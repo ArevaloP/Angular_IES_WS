@@ -10,11 +10,13 @@ import { ParametroServicio } from '../../../modelo/parametro-servicio';
 export class JsonParametrosComponent implements OnInit {
   //public ejemplo: any = "Ejemplo";
   @Input() listaParametros: ParametroServicio[];
+  public p:any;
+
   constructor(
     public restParametro: RestParametroWebService
   ) { }
 
   ngOnInit() {
-    
+   
   }
 }

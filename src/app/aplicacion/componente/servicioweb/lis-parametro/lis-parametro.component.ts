@@ -50,8 +50,9 @@ export class LisParametroComponent implements OnInit {
 
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
-    this.restParametro.listarParametroServicio(this.parametroServicio).subscribe(
+    this.restParametro.listarParametroEquivalencia(this.parametroServicio).subscribe(
       data => {
+        console.log(data);
         this.listadoParametroServicio = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -72,8 +73,9 @@ export class LisParametroComponent implements OnInit {
       columns: [
         { title: 'Orden', data: 'orden', width: "5%", className: "text-center" },
         { title: 'Nombre', data: 'parametro', width: "10%", className: "text-left" },
-        { title: 'Alias', data: 'aliasColumna', width: "40%", className: "text-left" },
-        { title: 'Default', data: 'valorFijo', defaultContent: "", width: "15%", className: "text-left" },
+        { title: 'Alias', data: 'aliasColumna', width: "35%", className: "text-left" },
+        { title: 'Defecto', data: 'valorFijo', defaultContent: "", width: "10%", className: "text-left" },
+        { title: 'Equiv', data: 'idEquivalencia', defaultContent: "", width: "10%", className: "text-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
@@ -105,12 +107,17 @@ export class LisParametroComponent implements OnInit {
         index = row._DT_RowIndex;
 
         $('td:eq(4)', row).unbind('click');
-        $('td:eq(4)', row).bind('click', () => {
-          self.modificar(index);
-        });
+        if (dataRow.idEquivalencia) {
+          $('td:eq(4)', row).html('<i class="fa fa-random" style="font-size:16px; color:orange" aria-hidden="true"></i>');
+        }  
 
         $('td:eq(5)', row).unbind('click');
         $('td:eq(5)', row).bind('click', () => {
+          self.modificar(index);
+        });
+
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
           self.irEliminar(this.listadoParametroServicio[index]);
         });
 

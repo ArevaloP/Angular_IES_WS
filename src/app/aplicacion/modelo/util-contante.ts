@@ -22,6 +22,9 @@ export class UtilConstante {
     public ICONO_PARAM = "<a class='ver' title='Parámetros'><i class='fa fa-th' style='color:darkgreen;font-size:17px' aria-hidden='true'></i></a>";
     
 
+    public ICONO_ACTIVO = "<i class='fa fa-filter fa-1_5x' aria-hidden='true'></i>";
+    public CLASE_ACTIVO = "btn btn-default btn-xs filtrox";
+
     
 
 }
