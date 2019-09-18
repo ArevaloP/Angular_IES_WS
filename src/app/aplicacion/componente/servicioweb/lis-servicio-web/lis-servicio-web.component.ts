@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { ServicioWeb } from '../../../modelo/servicio-web';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class LisServicioWebComponent implements OnInit {
   public listadoServicioWeb: ServicioWeb[];
   public const: UtilConstante = new UtilConstante();
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+  public estadoFiltro = 'ACTIVO'
 
   constructor(
     public restServicio: RestServicioWebService,
@@ -69,12 +70,14 @@ export class LisServicioWebComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
-        { title: 'Nombre', data: 'nombre', width: "50%", className: "text-left" },
-        { title: 'Tipo', data: 'tipo', width: "15%", className: "text-left" },
-        { title: 'Método', data: 'metodo', width: "15%" },
+        { title: 'Nombre', data: 'nombre', width: "45%", className: "text-left" },
+        { title: 'Tipo', data: 'tipo', width: "15%", className: "text-left", visible: false },
+        { title: 'Método', data: 'metodo', width: "10%" ,className: "text-center"},
+        { title: 'Estado', data: 'estado', width: "10%" ,className: "text-center"},
         { title: '', defaultContent: this.const.ICONO_PARAM, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" },
+        
 
       ],
       language: {
@@ -83,7 +86,7 @@ export class LisServicioWebComponent implements OnInit {
       paging: true,
       ordering: true,
       info: true,
-      order: [[2, 'asc']],
+      order: [[3, 'asc'], [2, 'asc']],
       dom: 'Bfrtip',
       buttons: [
         {
@@ -94,7 +97,17 @@ export class LisServicioWebComponent implements OnInit {
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
-        { extend: 'excel', "text": 'Export', className: `${this.const.CLASE_EXCEL}` }
+        { extend: 'excel', "text": 'Export', className: `${this.const.CLASE_EXCEL}` },
+
+        {
+          text: `${this.const.ICONO_ACTIVO}`,
+          className: `${this.const.CLASE_ACTIVO}`,
+          action: () => {
+            this.filtar();
+          },
+        },
+
+
       ],
 
 
@@ -127,7 +140,25 @@ export class LisServicioWebComponent implements OnInit {
       },
       initComplete: (settings, json) => {
         this.cambiarEstiloBotones();
+      },
+
+      drawCallback: function (settings) {
+        var api = this.api();
+        var rows = api.rows({ page: 'current' }).nodes();
+        var last = null;
+
+        api.column(3, { page: 'current' }).data().each(function (group, i) {
+          if (last !== group) {
+            $(rows).eq(i).before(
+              '<tr class="group" style="background-color:#f0f3f5 !important;"><td colspan="8"><strong>' + group + '</strong></td></tr>'
+            );
+
+            last = group;
+          }
+        });
       }
+
+
 
 
     };
@@ -136,6 +167,18 @@ export class LisServicioWebComponent implements OnInit {
   }
 
 
+  public filtar() {
+    let table = $('#example').DataTable();
+    table.column(5).search("(^" + this.estadoFiltro + "$)", true, false).draw();
+    console.log(this.estadoFiltro);
+    if (this.estadoFiltro == 'ACTIVO') {
+      this.estadoFiltro = 'INACTIVO';
+    } else {
+      this.estadoFiltro = 'ACTIVO';
+      $(":btn btn-default btn-xs filtrox").html(`${this.const.CLASE_ACTIVO}`);
+    }
+
+  }
 
   public modificar(index) {
     this.restServicio.setServicioWeb(this.listadoServicioWeb[index]);
@@ -178,6 +221,7 @@ export class LisServicioWebComponent implements OnInit {
     $(":button.buttons-copy").html(`${this.const.ICONO_COPIAR}`);
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
+    this.filtar();
   }
 
 

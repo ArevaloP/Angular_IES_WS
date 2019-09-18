@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { VentanaAlerta } from '../../../modelo/ventana-alerta';
 import { Router } from '@angular/router';
 import { RestErrorService } from '../../../servicio/rest-error.service';
+import { XlsParametroComponent } from '../../servicioweb/xls-parametro/xls-parametro.component';
 
 
 @Component({
@@ -20,11 +21,16 @@ export class VentanaModalComponent implements OnInit {
   @ViewChild('prontmodal', { static: false }) public prontmodal: ModalDirective;
   @ViewChild('warningModal', { static: false }) public warningModal: ModalDirective;
   
+
+  @ViewChild('fileUpload', { static: false }) public agregarXls: ModalDirective;
+  @ViewChild('xlsparam', { static: false }) public xlsparam: XlsParametroComponent;
+
   promtValue:String="";
 
 
 
   callback: any;
+  callbackParam: any;
   ventana: VentanaAlerta = new VentanaAlerta();
 
   constructor(
@@ -149,4 +155,28 @@ export class VentanaModalComponent implements OnInit {
     this.prontmodal.show();
     this.callback = callback;
   }
+
+
+
+  public agregarParametroVentana(servicio, mensaje, callback) {
+    this.callbackParam=callback;
+    this.xlsparam.inicializarVariables(servicio);
+    this.ventana.titulo = "Cargar parametro xls";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registrar";
+    this.ventana.botonRegistar = true;
+    this.ventana.mensaje = mensaje;
+    this.agregarXls.show();
+    this.callback =(callbackParam)=>this.accionRegistrarParametro(callbackParam);
+  }
+
+
+  public async accionRegistrarParametro(callback){
+      this.xlsparam.procesarArchivo(callback);
+      this.agregarXls.hide();
+     
+   }
+
+
+
 }

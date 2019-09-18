@@ -1,0 +1,17 @@
+<div>
+    <div *ngIf="error">
+        {{ error.message }} 
+    </div>
+    <div *ngIf="uploadResponse.status === 'error'">
+        {{ uploadResponse.message }} 
+    </div>
+
+
+
+    <form [formGroup]="form">
+        <div class="custom-file">
+            <input #file type="file" id="parametroFile" name="parametroFile" (change)="onFileChange(file.files,$event)" class="custom-file-input" lang="es">
+            <label class="custom-file-label" for="parametroFile" data-browse="Examinar">{{nombreFichero}}</label>
+        </div>
+    </form>
+</div>

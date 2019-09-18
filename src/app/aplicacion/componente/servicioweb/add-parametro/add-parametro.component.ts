@@ -41,15 +41,18 @@ export class AddParametroComponent implements OnInit {
       this.isModificar = false;
     }
     //console.log("SERVICIO:(" + this.isModificar + ")", this.servicioWeb);
-    this.inicializarValidacion(()=>this.listarEquivalenciaDatos);
+    this.inicializarValidacion();
+    //this.listarEquivalenciaDatos();
   }
 
 
 
 
-  public inicializarValidacion(callBackEquivalencia) {
+   public async inicializarValidacion() {
     this.parametroServicio.registradoPor = this.usuarioVO.oid;;
     this.parametroServicio.usuarioRealiza = this.usuarioVO.name;
+
+   
 
     this.fGeneral = this.fb.group({
       firstName: [],
@@ -60,11 +63,11 @@ export class AddParametroComponent implements OnInit {
       descripcion: [this.parametroServicio.descripcion],
       valorFijo: [this.parametroServicio.valorFijo],
       aliasColumna: [this.parametroServicio.aliasColumna, Validators.required],
-      equivalencia:[]
+      equivalencia: [this.parametroServicio.idEquivalencia]
     });
 
-
-    callBackEquivalencia();
+    await this.listarEquivalenciaDatos();
+    
 
 
   }
@@ -114,11 +117,13 @@ export class AddParametroComponent implements OnInit {
 
 
   
-  public listarEquivalenciaDatos() {
-
-    this.restEquivalencia.listarAtributoEquivalencia(1).subscribe(
+  public  listarEquivalenciaDatos() {
+    
+    //alert("listarEquivalenciaDatos");
+    this.restEquivalencia.listarEntidades().subscribe(
       data => {
         this.listadoEquivalencia = data;
+        console.log(this.listadoEquivalencia);
       },
       error => {
         this.alerta.mostrarError(error);

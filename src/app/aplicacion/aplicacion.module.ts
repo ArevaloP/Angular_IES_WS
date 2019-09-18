@@ -42,6 +42,8 @@ import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivale
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 import { AddDetalleeqComponent } from './componente/detalle-equivalencia/add-detalleeq/add-detalleeq.component';
 import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
+import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
+import { UploadParametroComponent } from './componente/utilidad/upload-parametro/upload-parametro.component';
 
 
 
@@ -82,7 +84,9 @@ import { TablaParametroComponent } from './componente/servicioweb/tabla-parametr
     LisEquivalenciaComponent,
     AddEquivalenciaComponent,
     AddDetalleeqComponent,
-    TablaParametroComponent
+    TablaParametroComponent,
+    XlsParametroComponent,
+    UploadParametroComponent
 
   ],
   imports: [

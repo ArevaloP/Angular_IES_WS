@@ -24,6 +24,7 @@ import { VerEjedetalleComponent } from './componente/detalle-ejecucion/ver-ejede
 import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivalencia/lis-equivalencia.component';
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
+import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
 
 
 
@@ -85,9 +86,22 @@ const routes: Routes = [
         data: {
           title: 'Gestionar servicios web'
         }
-      },
+      }
 
 
+
+
+    ]
+  },
+
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Gestión de datos'
+    }, children: [
+
+      
       {
         path: 'lis-parametro',
         component: LisParametroComponent,
@@ -110,11 +124,20 @@ const routes: Routes = [
           title: 'Gestionar parametros'
         }
       },
-
+      {
+        path: 'xls-parametro',
+        component: XlsParametroComponent,
+        data: {
+          title: 'Gestionar parametros'
+        }
+      },
 
 
     ]
+  
   },
+
+
 
 
   {

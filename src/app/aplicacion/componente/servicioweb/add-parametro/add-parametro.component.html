@@ -93,8 +93,9 @@
                            
                             <div class="form-group col-12 col-md-6">
                                 <label for="equivalencia">Equivalencia de datos</label>
-                                <select class="form-control" id="equivalencia" formControlName="equivalencia">
-                                    <option *ngFor="let attEquVO of listadoEquivalencia" value="attEquVO.id">{{attEquVO.nomnbre}}</option>
+                                <select class="form-control" id="equivalencia" name="equivalencia" formControlName="equivalencia" [(ngModel)]="parametroServicio.idEquivalencia">
+                                    <option></option>
+                                    <option *ngFor="let attEquVO of listadoEquivalencia" [value]="attEquVO.id">{{attEquVO.nombre}}</option>
                                 </select>
                             </div>
                         

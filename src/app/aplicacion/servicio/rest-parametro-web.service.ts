@@ -11,6 +11,9 @@ export class RestParametroWebService {
 
   parametroServicio: ParametroServicio;
   listaParametroServicio: ParametroServicio[];
+  respuesta:boolean;
+  infoData:any;
+
   baseUrl = environment.baseUrl + "ws_parametroservicio";
   constructor(private http: HttpClient) {
 
@@ -24,6 +27,7 @@ export class RestParametroWebService {
       }
     });
   }
+
 
   consultarParametroServicio(id) {
     return this.http.get<ParametroServicio>(`${this.baseUrl}/consultar/${id || -1}`, {
@@ -92,6 +96,28 @@ export class RestParametroWebService {
   }
 
 
+  listarParametroEquivalencia( parametroServicio: ParametroServicio ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listarParametroEquivalencia`, parametroServicio, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+  cargarArchivoParametroDatos( webService: ServicioWeb ) {
+    return this.http.post(`${this.baseUrl}/cargarDatosXls`, webService, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+
+
   public setParametroServicio(parametroServicio: ParametroServicio) {
     this.parametroServicio = parametroServicio;
   }
@@ -107,4 +133,25 @@ export class RestParametroWebService {
   public getListaParametroServicio() {
     return this.listaParametroServicio;
   }
+
+
+
+  public setRespuesta(respuesta: boolean) {
+    this.respuesta = respuesta;
+  }
+
+  public getRespuesta() {
+    return this.respuesta;
+  }
+
+
+  public setInfoData(infoData: any) {
+    this.infoData = infoData;
+  }
+
+  public getInfoData() {
+    return this.infoData;
+  }
+
+
 }
