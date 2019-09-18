@@ -140,4 +140,21 @@ export class VentanaModalComponent implements OnInit {
     this.prontmodal.show();
     this.callback = callback;
   }
+
+
+
+  public agregarParametroVentana(mensaje,callback) {
+    this.ventana.titulo = "Agregar usuario";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registrar";
+    this.ventana.botonRegistar = true;
+    this.ventana.mensaje = mensaje;
+    this.prontmodal.show();
+    this.callback = callback;
+  }
+
+
+
+
+
 }

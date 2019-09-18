@@ -24,6 +24,10 @@ export class UtilConstante {
 
     public ICONO_ACTIVO = "<i class='fa fa-filter fa-1_5x' aria-hidden='true'></i>";
     public CLASE_ACTIVO = "btn btn-default btn-xs filtrox";
+    
+    
+    public ICONO_AGREGARXLS = "<i class='fa fa-upload fa-1_5x' aria-hidden='true'></i>";
+    public CLASE_AGREGARXLS= "btn btn-default btn-xs excel";
 
     
 

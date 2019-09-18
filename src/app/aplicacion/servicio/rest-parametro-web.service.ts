@@ -103,6 +103,17 @@ export class RestParametroWebService {
   }
 
 
+  cargarArchivoParametroDatos( webService: ServicioWeb ) {
+    return this.http.post(`${this.baseUrl}/cargarDatosXls`, webService, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+
 
   public setParametroServicio(parametroServicio: ParametroServicio) {
     this.parametroServicio = parametroServicio;

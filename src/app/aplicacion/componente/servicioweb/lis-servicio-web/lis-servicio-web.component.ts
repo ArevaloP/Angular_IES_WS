@@ -70,13 +70,14 @@ export class LisServicioWebComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
-        { title: 'Nombre', data: 'nombre', width: "50%", className: "text-left" },
+        { title: 'Nombre', data: 'nombre', width: "45%", className: "text-left" },
         { title: 'Tipo', data: 'tipo', width: "15%", className: "text-left", visible: false },
-        { title: 'Método', data: 'metodo', width: "15%" },
+        { title: 'Método', data: 'metodo', width: "10%" ,className: "text-center"},
+        { title: 'Estado', data: 'estado', width: "10%" ,className: "text-center"},
         { title: '', defaultContent: this.const.ICONO_PARAM, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" },
-        { title: 'Estado', data: 'estado', visible: false },
+        
 
       ],
       language: {
@@ -120,18 +121,18 @@ export class LisServicioWebComponent implements OnInit {
           self.modificar(index);
         });
 
-        $('td:eq(4)', row).unbind('click');
-        $('td:eq(4)', row).bind('click', () => {
-          self.parametros(index);
-        });
-
         $('td:eq(5)', row).unbind('click');
         $('td:eq(5)', row).bind('click', () => {
-          self.modificar(index);
+          self.parametros(index);
         });
 
         $('td:eq(6)', row).unbind('click');
         $('td:eq(6)', row).bind('click', () => {
+          self.modificar(index);
+        });
+
+        $('td:eq(7)', row).unbind('click');
+        $('td:eq(7)', row).bind('click', () => {
           self.irEliminar(this.listadoServicioWeb[index]);
         });
         //this.cambiarEstiloBotones();
@@ -168,7 +169,7 @@ export class LisServicioWebComponent implements OnInit {
 
   public filtar() {
     let table = $('#example').DataTable();
-    table.column(8).search("(^" + this.estadoFiltro + "$)", true, false).draw();
+    table.column(5).search("(^" + this.estadoFiltro + "$)", true, false).draw();
     console.log(this.estadoFiltro);
     if (this.estadoFiltro == 'ACTIVO') {
       this.estadoFiltro = 'INACTIVO';

@@ -93,10 +93,17 @@ export class LisParametroComponent implements OnInit {
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
             if (this.componenteTabla) {
-              this.router.navigate(['aplicacion/servicio/add-parametro-tabla']);
+              this.router.navigate(['aplicacion/parametro/add-parametro-tabla']);
             } else {
-              this.router.navigate(['aplicacion/servicio/add-parametro']);
+              this.router.navigate(['aplicacion/parametro/add-parametro']);
             }
+          },
+        },
+        {
+          text: `${this.const.ICONO_AGREGARXLS}`,
+          className: `${this.const.CLASE_AGREGARXLS}`,
+          action: () => {
+            this.router.navigate(['aplicacion/parametro/xls-parametro']);
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
@@ -131,7 +138,7 @@ export class LisParametroComponent implements OnInit {
 
   public modificar(index) {
     this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
-    this.router.navigate(['aplicacion/servicio/add-parametro']);
+    this.router.navigate(['aplicacion/parametro/add-parametro']);
   }
 
   public irEliminar(parametroServicio) {
