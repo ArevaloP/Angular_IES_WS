@@ -63,8 +63,8 @@ export class LisEquivalenciaComponent implements OnInit
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Nombre', data: 'nombre', width: "20%" },
-        { title: 'Entidad', data: 'entidad', width: "25%" },
-        { title: 'Descripción', data: 'descripcion', width: "40%" },
+        { title: 'Entidad', defaultContent: '', data: 'entidad', width: "25%" },
+        { title: 'Descripción', defaultContent: '', data: 'descripcion', width: "40%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
       ],
@@ -96,13 +96,13 @@ export class LisEquivalenciaComponent implements OnInit
           self.modificar( index );
         });
 
-        $('td:eq(5)', row).unbind('click');
-        $('td:eq(5)', row).bind('click', () => {
+        $('td:eq(4)', row).unbind('click');
+        $('td:eq(4)', row).bind('click', () => {
           self.modificar( index );
         });
 
-        $('td:eq(6)', row).unbind('click');
-        $('td:eq(6)', row).bind('click', () => {
+        $('td:eq(5)', row).unbind('click');
+        $('td:eq(5)', row).bind('click', () => {
           self.irEliminar( this.listaEquivalencias[index] );
         });
 
@@ -146,7 +146,7 @@ export class LisEquivalenciaComponent implements OnInit
     this.restEquivalencia.eliminarEntidad( entidadEquivalencia ).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['aplicacion/equivalencia/add-equivalencia']));
+          this.router.navigate(['aplicacion/equivalencia/lis-equivalencia']));
       },
       error => {
         this.alerta.mostrarError(error);

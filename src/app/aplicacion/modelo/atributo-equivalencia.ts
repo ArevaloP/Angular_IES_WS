@@ -1,3 +1,5 @@
+import { DetalleEquivalencia } from './detalle-equivalencia';
+
 export class AtributoEquivalencia
 {
     public id: String;
@@ -11,4 +13,7 @@ export class AtributoEquivalencia
     public registradoPor: String;
     public nOrigen: String;
     public vOrigen: String;
+    public listaDetalles: DetalleEquivalencia[];
+    public tagNombreOrigen: String;
+    public tagValorOrigen: String;
 }

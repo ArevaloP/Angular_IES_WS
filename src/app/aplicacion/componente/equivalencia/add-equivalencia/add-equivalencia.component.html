@@ -26,6 +26,7 @@
                                 <input type="text" class="form-control" id="entidad" name="entidad"
                                     placeholder="Ingrese el nombre de la entidad con su esquema"
                                     formControlName="entidad" [(ngModel)]="entidadEquivalencia.entidad"
+                                    (keyup.enter)="cargarAtributos()"
                                     autofocus>
                             </div>
                         </div>
@@ -44,9 +45,9 @@
                                 <label for="conexion">Conexión</label>
                                 <select class="form-control" id="conexion" formControlName="conexion"
                                     [(ngModel)]="entidadEquivalencia.idConexionJdbc"
-                                    (ngModelChange)="cargarAtributos($event)">
+                                    (ngModelChange)="cargarAtributos()">
                                     <option value="-1"></option>
-                                    <option *ngFor="let param of listaConexiones; let i=index;" value="{{i}}">{{param.nombre}}</option>
+                                    <option *ngFor="let param of listaConexiones; let i=index;" value="{{param.id}}">{{param.nombre}}</option>
                                 </select>
                             </div>
                         </div>
@@ -57,7 +58,7 @@
             <div class="col-12 col-md-6">
                 <tabset>
                     <tab heading="Atributos simples">
-                        <app-add-detalleeq [estructuraEntidad]="estructuraEntidad"></app-add-detalleeq>
+                        <app-add-detalleeq *ngIf="reRender" [estructuraEntidad]="estructuraEntidad" [entidadEquivalencia]="entidadEquivalencia"></app-add-detalleeq>
                     </tab>
                 </tabset>
             </div>

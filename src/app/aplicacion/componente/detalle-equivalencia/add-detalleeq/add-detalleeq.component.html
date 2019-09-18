@@ -1,83 +1,74 @@
-<form method="POST" [formGroup]="fGeneral">
-    <div class="card m-0">
-        <div class="card-body">
-            <div class="row">
-                <div class="form-group col-6">
-                    <label for="nOrigen">Nombre</label>
-                    <select class="form-control" id="nOrigen" formControlName="nOrigen"
-                        [(ngModel)]="detalleEquivalencia.tagNombreOrigen"
-                        (ngModelChange)="cargarNombres($event)">
-                        <option *ngFor="let nColumna of estructuraEntidad.columnas; let i = index" value="{{nColumna}}">{{nColumna}}</option>
-                    </select>
-                </div>
-
-                <div class="form-group col-6">
-                    <label for="vOrigen">Valor</label>
-                    <select class="form-control" id="vOrigen" formControlName="vOrigen"
-                        [(ngModel)]="detalleEquivalencia.tagValorOrigen"
-                        (ngModelChange)="cargarValores($event)">
-                        <ng-container *ngFor="let nColumna of estructuraEntidad.columnas; let i = index">
-                            <option value="{{nColumna}}" [selected]="i == 0">{{nColumna}}</option>
-                            <!-- <ng-template #elseIf>
-                                <option value="{{nColumna}}">B {{nColumna}}</option>
-                            </ng-template> -->
-                        </ng-container>
-                    </select>
-                </div>
+<div class="card m-0">
+    <div class="card-body">
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="nOrigen">Nombre</label>
+                <select class="form-control" id="nOrigen"
+                    [(ngModel)]="entidadEquivalencia.tagNombreOrigen"
+                    (ngModelChange)="cargarNombres($event)">
+                    <option *ngFor="let nColumna of estructuraEntidad.columnas; let i = index" value="{{nColumna}}">{{nColumna}}</option>
+                </select>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-borderless table-eq m-0">
-                            <thead>
-                                <tr class="color-fila">
-                                    <th class="text-center"></th>
-                                    <th colspan="2" class="text-center">Origen</th>
-                                    <th colspan="2" class="text-center">Destino</th>
-                                </tr>
-                                <tr>
-                                    <th scope="col" width="10%"></th>
-                                    <th scope="col" width="28%" class="text-center">Nombre</th>
-                                    <th scope="col" width="17%" class="text-center">Valor</th>
-                                    <th scope="col" width="28%" class="text-center">Nombre</th>
-                                    <th scope="col" width="17%" class="text-center">Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngIf="!porDefecto && !porDefecto2">
-                                <tr *ngFor="let objetoDE of listaProcesar">
-                                    <th scope="row" class="text-center"><a href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i></a></th>
-                                    <td><div class="truncate-nombre" title="{{objetoDE.nombreOrigen}}">{{objetoDE.nombreOrigen}}</div></td>
-                                    <td><div class="text-center truncate-valor" title="{{objetoDE.valorOrigen}}">{{objetoDE.valorOrigen}}</div></td>
-                                    <td><input class="form-control form-control-sm" type="text"></td>
-                                    <td><input class="form-control form-control-sm" type="text"></td>
-                                </tr>
-                                </ng-container>
-                                <tr>
-                                    <th scope="row" class="text-center"><a href="javascript:;" (click)="adManual()"><i class="fa fa-plus" aria-hidden="true"></i></a></th>
-                                    <td>
-                                        <input class="form-control form-control-sm" type="text" name="nombreOrigen"
-                                        formControlName="nombreOrigen" [(ngModel)]="detalleEquivalencia.nombreOrigen">
-                                    </td>
-                                    <td class="text-center">
-                                        <input class="form-control form-control-sm" type="text" name="valorOrigen"
-                                        formControlName="valorOrigen" [(ngModel)]="detalleEquivalencia.valorOrigen">
-                                    </td>
-                                    <td>
-                                        <input class="form-control form-control-sm" type="text" name="nombreEquivalencia"
-                                        formControlName="nombreEquivalencia" [(ngModel)]="detalleEquivalencia.nombreEquivalencia">
-                                    </td>
-                                    <td>
-                                        <input class="form-control form-control-sm" type="text" name="valorEquivalente"
-                                        formControlName="valorEquivalente" [(ngModel)]="detalleEquivalencia.valorEquivalente">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="form-group col-6">
+                <label for="vOrigen">Valor</label>
+                <select class="form-control" id="vOrigen"
+                    [(ngModel)]="entidadEquivalencia.tagValorOrigen"
+                    (ngModelChange)="cargarValores($event)">
+                    <option *ngFor="let nColumna of estructuraEntidad.columnas; let i = index" value="{{nColumna}}">{{nColumna}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless table-eq m-0">
+                        <thead>
+                            <tr class="color-fila">
+                                <th class="text-center"></th>
+                                <th colspan="2" class="text-center">Origen</th>
+                                <th colspan="2" class="text-center">Destino</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" width="10%"></th>
+                                <th scope="col" width="28%" class="text-center">Nombre</th>
+                                <th scope="col" width="17%" class="text-center">Valor</th>
+                                <th scope="col" width="28%" class="text-center">Nombre</th>
+                                <th scope="col" width="17%" class="text-center">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let objetoDE of listaProcesar; let i = index">
+                                <th scope="row" class="text-center"><a href="javascript:;" (click)="suprimirEquivalencia(i)"><i class="fa fa-times" aria-hidden="true"></i></a></th>
+                                <td><div class="truncate-nombre" title="{{objetoDE.nombreOrigen}}">{{objetoDE.nombreOrigen}}</div></td>
+                                <td><div class="text-center truncate-valor" title="{{objetoDE.valorOrigen}}">{{objetoDE.valorOrigen}}</div></td>
+                                <td><input class="form-control form-control-sm" type="text" [(ngModel)]="objetoDE.nombreEquivalencia" [value]="objetoDE.nombreEquivalencia ? objetoDE.nombreEquivalencia : null" [name]="nombreEquivalencia + i"></td>
+                                <td><input class="form-control form-control-sm" type="text" [(ngModel)]="objetoDE.valorEquivalente" [value]="objetoDE.valorEquivalente ? objetoDE.valorEquivalente : null" [name]="valorEquivalente + i"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center"><a href="javascript:;" (click)="adManual()"><i class="fa fa-plus" aria-hidden="true"></i></a></th>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" name="nombreOrigen"
+                                    [(ngModel)]="detalleEquivalencia.nombreOrigen">
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-control form-control-sm" type="text" name="valorOrigen"
+                                    [(ngModel)]="detalleEquivalencia.valorOrigen">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" name="nombreEquivalenciaX"
+                                    [(ngModel)]="detalleEquivalencia.nombreEquivalencia">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" name="valorEquivalenteX"
+                                    [(ngModel)]="detalleEquivalencia.valorEquivalente">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
