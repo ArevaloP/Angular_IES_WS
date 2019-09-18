@@ -16,9 +16,11 @@ export class XlsParametroComponent implements OnInit {
 
   @ViewChild('parametroComponente', { static: false }) public parametroUpload: UploadParametroComponent;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  
+
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public servicioWeb: ServicioWeb;
+
+
 
   constructor(
     public restServicio: RestServicioWebService,
@@ -27,27 +29,39 @@ export class XlsParametroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.servicioWeb = this.restServicio.getServicioWeb();
-    this.servicioWeb.registradoPor = this.usuarioVO.oid;
-    this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
+
   }
 
 
-  public procesarArchivo() {
+  public inicializarVariables(servicio: ServicioWeb) {
+    this.servicioWeb = servicio;
+    this.servicioWeb = this.restServicio.getServicioWeb();
+    this.servicioWeb.registradoPor = this.usuarioVO.oid;
+    this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
 
+  }
+
+
+  public procesarArchivo(callback) {
+
+    //console.log("-----",this.servicioWeb);
     if (this.parametroUpload.cambioFichero) {
       this.servicioWeb.contexto = this.parametroUpload.uploadResponse.filePath;
+      console.log("this.servicioWeb", this.servicioWeb);
       this.restParametro.cargarArchivoParametroDatos(this.servicioWeb).subscribe(
         data => {
-            console.log(data);
-            this.router.navigate(['aplicacion/servicio/lis-parametro']);
+          this.restParametro.setRespuesta(true);
+          this.restParametro.setInfoData(data);
+          callback();
         },
         error => {
-          this.alerta.mostrarError(error);
+          this.restParametro.setRespuesta(false);
+          this.restParametro.setInfoData(error);
+          callback();
         }
       )
-
     }
+
   }
 
 

@@ -11,6 +11,9 @@ export class RestParametroWebService {
 
   parametroServicio: ParametroServicio;
   listaParametroServicio: ParametroServicio[];
+  respuesta:boolean;
+  infoData:any;
+
   baseUrl = environment.baseUrl + "ws_parametroservicio";
   constructor(private http: HttpClient) {
 
@@ -130,4 +133,25 @@ export class RestParametroWebService {
   public getListaParametroServicio() {
     return this.listaParametroServicio;
   }
+
+
+
+  public setRespuesta(respuesta: boolean) {
+    this.respuesta = respuesta;
+  }
+
+  public getRespuesta() {
+    return this.respuesta;
+  }
+
+
+  public setInfoData(infoData: any) {
+    this.infoData = infoData;
+  }
+
+  public getInfoData() {
+    return this.infoData;
+  }
+
+
 }

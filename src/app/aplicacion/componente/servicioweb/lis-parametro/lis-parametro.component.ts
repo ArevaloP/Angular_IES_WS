@@ -6,6 +6,8 @@ import { ParametroServicio } from '../../../modelo/parametro-servicio';
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { ServicioWeb } from '../../../modelo/servicio-web';
+import { XlsParametroComponent } from '../xls-parametro/xls-parametro.component';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-lis-parametro',
@@ -17,6 +19,8 @@ export class LisParametroComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+  @ViewChild('xlsparam', { static: false }) public xlsparam: XlsParametroComponent;
+
 
   public dataTable: any;
   public dtOptions: any = {}// DataTables.Settings = {};
@@ -103,7 +107,8 @@ export class LisParametroComponent implements OnInit {
           text: `${this.const.ICONO_AGREGARXLS}`,
           className: `${this.const.CLASE_AGREGARXLS}`,
           action: () => {
-            this.router.navigate(['aplicacion/parametro/xls-parametro']);
+            this.cargarArchivoXls();
+            //this.router.navigate(['aplicacion/parametro/xls-parametro']);
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
@@ -116,7 +121,7 @@ export class LisParametroComponent implements OnInit {
         $('td:eq(4)', row).unbind('click');
         if (dataRow.idEquivalencia) {
           $('td:eq(4)', row).html('<i class="fa fa-random" style="font-size:16px; color:orange" aria-hidden="true"></i>');
-        }  
+        }
 
         $('td:eq(5)', row).unbind('click');
         $('td:eq(5)', row).bind('click', () => {
@@ -167,4 +172,27 @@ export class LisParametroComponent implements OnInit {
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
   }
+
+
+
+  public cargarArchivoXls() {
+    //this.xlsparam.inicializarVariables();
+    this.alerta.agregarParametroVentana(
+      this.servicioWeb,
+      "",
+      () => this.recargarListado()
+    );
+  }
+
+
+  public async recargarListado() {
+    console.log("Respuesta:::",this.restParametro.getRespuesta());
+    if(this.restParametro.getRespuesta()){
+      this.router.navigate(['aplicacion/parametro/lis-parametro']);
+    }else{
+      this.alerta.mostrarError(this.restParametro.getInfoData());
+    } 
+  }
+
+
 }
