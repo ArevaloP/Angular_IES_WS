@@ -19,7 +19,7 @@ export class XlsParametroComponent implements OnInit {
 
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public servicioWeb: ServicioWeb;
-
+  public tipoCarga:String ="parametro";
 
 
   constructor(
@@ -44,7 +44,7 @@ export class XlsParametroComponent implements OnInit {
 
   public procesarArchivo(callback) {
 
-    //console.log("-----",this.servicioWeb);
+
     if (this.parametroUpload.cambioFichero) {
       this.servicioWeb.contexto = this.parametroUpload.uploadResponse.filePath;
       console.log("this.servicioWeb", this.servicioWeb);

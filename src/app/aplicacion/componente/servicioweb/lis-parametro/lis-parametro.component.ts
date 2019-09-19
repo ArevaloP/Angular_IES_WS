@@ -19,7 +19,7 @@ export class LisParametroComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  @ViewChild('xlsparam', { static: false }) public xlsparam: XlsParametroComponent;
+  
 
 
   public dataTable: any;
@@ -176,10 +176,8 @@ export class LisParametroComponent implements OnInit {
 
 
   public cargarArchivoXls() {
-    //this.xlsparam.inicializarVariables();
-    this.alerta.agregarParametroVentana(
+    this.alerta.agregarParametroXlsVentana(
       this.servicioWeb,
-      "",
       () => this.recargarListado()
     );
   }

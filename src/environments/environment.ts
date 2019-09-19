@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
+  
   production: false,
   grupo:'integrador-restws-desarrollo2',
   baseUrl: 'http://172.26.3.3:8080/integrador-rest/servicios/'  ,

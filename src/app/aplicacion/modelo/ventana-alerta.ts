@@ -13,6 +13,7 @@ export class VentanaAlerta {
     msgBotonCancelar:String;
     msgBotonRegistar:String;
 
+    usaParametro:boolean;
     
 
 

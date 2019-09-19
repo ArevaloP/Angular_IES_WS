@@ -10,6 +10,7 @@ import { RestDetalleEquivalenciaService } from '../../../servicio/rest-detalle-e
 import { DetalleEquivalencia } from '../../../modelo/detalle-equivalencia';
 import { EstructuraEntidad } from '../../../modelo/estructura-entidad';
 import { AddDetalleeqComponent } from '../../detalle-equivalencia/add-detalleeq/add-detalleeq.component';
+import { XlsEquivalenciaComponent } from '../xls-equivalencia/xls-equivalencia.component';
 
 @Component({
   selector: 'app-add-equivalencia',
@@ -31,6 +32,7 @@ export class AddEquivalenciaComponent implements OnInit
 
   // @ViewChild('detalleEq', { static: false }) public detalleComponent: AddDetalleeqComponent;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
+
 
   constructor(
     public fb: FormBuilder,
@@ -205,4 +207,15 @@ export class AddEquivalenciaComponent implements OnInit
     
     return respuesta;
   }
+
+
+
+  
+
+
+
+
+
+
+
 }

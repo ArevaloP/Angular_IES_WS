@@ -25,6 +25,7 @@ import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivale
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
 import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
+import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivalencia/xls-equivalencia.component';
 
 
 
@@ -100,7 +101,6 @@ const routes: Routes = [
     data: {
       title: 'Gestión de datos'
     }, children: [
-
       
       {
         path: 'lis-parametro',
@@ -233,7 +233,15 @@ const routes: Routes = [
         data: {
           title: 'Agregar equivalencia de entidad'
         }
-      }
+      },
+      
+      {
+        path: 'xls-equivalencia',
+        component: XlsEquivalenciaComponent,
+        data: {
+          title: 'Agregar equivalencia de entidad'
+        }
+      } 
     ]
   },
 

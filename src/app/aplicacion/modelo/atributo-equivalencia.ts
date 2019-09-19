@@ -16,4 +16,5 @@ export class AtributoEquivalencia
     public listaDetalles: DetalleEquivalencia[];
     public tagNombreOrigen: String;
     public tagValorOrigen: String;
+    public archivo: String;
 }

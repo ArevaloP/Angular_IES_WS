@@ -4,6 +4,7 @@ import { VentanaAlerta } from '../../../modelo/ventana-alerta';
 import { Router } from '@angular/router';
 import { RestErrorService } from '../../../servicio/rest-error.service';
 import { XlsParametroComponent } from '../../servicioweb/xls-parametro/xls-parametro.component';
+import { XlsEquivalenciaComponent } from '../../equivalencia/xls-equivalencia/xls-equivalencia.component';
 
 
 @Component({
@@ -20,13 +21,18 @@ export class VentanaModalComponent implements OnInit {
   @ViewChild('primaryModal', { static: false }) public primaryModal: ModalDirective;
   @ViewChild('prontmodal', { static: false }) public prontmodal: ModalDirective;
   @ViewChild('warningModal', { static: false }) public warningModal: ModalDirective;
-  
+
 
   @ViewChild('fileUpload', { static: false }) public agregarXls: ModalDirective;
+  @ViewChild('equivalencia', { static: false }) public equivalenciaXls: ModalDirective;
+
   @ViewChild('xlsparam', { static: false }) public xlsparam: XlsParametroComponent;
+  @ViewChild('xlsEquiva', { static: false }) public xlsEquiva: XlsEquivalenciaComponent;
 
-  promtValue:String="";
 
+
+  promtValue: String = "";
+  nombreEquivalencia:boolean;
 
 
   callback: any;
@@ -35,8 +41,8 @@ export class VentanaModalComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public restError:RestErrorService
-    ) {
+    public restError: RestErrorService
+  ) {
   }
 
 
@@ -64,9 +70,9 @@ export class VentanaModalComponent implements OnInit {
     this.ventana.mensaje = error.error.mensaje || error.message;
 
     if (error.status == 403) {
-        error.error="El acceso al recurso especificado ha sido prohibido.";
-        this.restError.setError(error);
-        this.router.navigate(['500']);
+      error.error = "El acceso al recurso especificado ha sido prohibido.";
+      this.restError.setError(error);
+      this.router.navigate(['500']);
     } else {
       this.dangerModal.show();
     }
@@ -120,7 +126,7 @@ export class VentanaModalComponent implements OnInit {
     this.callback(this.promtValue);
     this.prontmodal.hide();
   }
-  
+
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   public statusConexion(jdbc: any) {
     this.ventana.titulo = "Prueba de conexión";
@@ -130,23 +136,23 @@ export class VentanaModalComponent implements OnInit {
     this.ventana.mensaje = "" + jdbc.data.productName + " conexión ok <br>" + jdbc.data.productVersion + "<br>" + jdbc.data.driverName;
   }
 
-  public mostarMensaje(titulo:string,texto: any) {
-    this.ventana.titulo =titulo ;
+  public mostarMensaje(titulo: string, texto: any) {
+    this.ventana.titulo = titulo;
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonRegistar = false;
     this.successModal.show();
-    this.ventana.mensaje =texto;
+    this.ventana.mensaje = texto;
   }
 
-  public mostarAdvertencia(titulo:string,texto: any) {
-    this.ventana.titulo =titulo ;
+  public mostarAdvertencia(titulo: string, texto: any) {
+    this.ventana.titulo = titulo;
     this.ventana.msgBotonCancelar = "Cerrar";
     this.ventana.botonRegistar = false;
     this.warningModal.show();
-    this.ventana.mensaje =texto;
+    this.ventana.mensaje = texto;
   }
 
-  public irAgregarVentana(mensaje,callback) {
+  public irAgregarVentana(mensaje, callback) {
     this.ventana.titulo = "Agregar usuario";
     this.ventana.msgBotonCancelar = "Cancelar";
     this.ventana.msgBotonRegistar = "Registrar";
@@ -158,24 +164,51 @@ export class VentanaModalComponent implements OnInit {
 
 
 
-  public agregarParametroVentana(servicio, mensaje, callback) {
-    this.callbackParam=callback;
+  public agregarParametroXlsVentana(servicio, callback) {
+    this.callbackParam = callback;
     this.xlsparam.inicializarVariables(servicio);
-    this.ventana.titulo = "Cargar parametro xls";
+    this.ventana.titulo = "Cargar parametros por .xls";
     this.ventana.msgBotonCancelar = "Cancelar";
     this.ventana.msgBotonRegistar = "Registrar";
     this.ventana.botonRegistar = true;
-    this.ventana.mensaje = mensaje;
+    this.ventana.usaParametro = true;
     this.agregarXls.show();
-    this.callback =(callbackParam)=>this.accionRegistrarParametro(callbackParam);
+    this.callback = (callbackParam) => this.accionRegistrarParametro(callbackParam);
   }
 
 
-  public async accionRegistrarParametro(callback){
-      this.xlsparam.procesarArchivo(callback);
-      this.agregarXls.hide();
-     
-   }
+  public agregarEquivalenciaXlsVentana(entidad, callback) {
+    this.callbackParam = callback;
+    this.nombreEquivalencia=false;
+    this.xlsEquiva.inicializarVariables(entidad);
+    this.ventana.titulo = "Cargar equivalencia por .xls";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registrar";
+    this.ventana.usaParametro = false;
+    //this.ventana.mensaje = mensaje;
+    this.equivalenciaXls.show();
+    this.callback = (callbackParam) => this.accionRegistrarEquivalencia(callbackParam);
+  }
+
+
+
+  public async accionRegistrarParametro(callback) {
+    
+    this.xlsparam.procesarArchivo(callback);
+    this.agregarXls.hide();
+  }
+
+  public async accionRegistrarEquivalencia(callback) {
+    
+    if (this.xlsEquiva.nombreAtributo) {
+      this.nombreEquivalencia=false;
+      this.xlsEquiva.procesarArchivo(callback);
+      this.equivalenciaXls.hide();
+    } else {
+      this.nombreEquivalencia=true;
+    }
+
+  }
 
 
 
