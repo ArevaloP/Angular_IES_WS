@@ -92,7 +92,8 @@ export class LisSubParametroComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-              this.router.navigate(['aplicacion/parametro/add-sub-parametro']);
+            this.restParametro.setSubParametroServicio(null);
+              this.router.navigate(['aplicacion/sub-parametro/add-sub-parametro']);
           },
         },
         {
@@ -136,7 +137,7 @@ export class LisSubParametroComponent implements OnInit {
   public modificar(index) {
     //console.log("sub",this.listadoSubParametroServicio[index]);
     this.restParametro.setSubParametroServicio(this.listadoSubParametroServicio[index]);
-    this.router.navigate(['aplicacion/parametro/add-sub-parametro']);
+    this.router.navigate(['aplicacion/sub-parametro/add-sub-parametro']);
   }
 
   public irEliminar(subParametroServicio) {
@@ -154,7 +155,7 @@ export class LisSubParametroComponent implements OnInit {
     this.restParametro.eliminarParametroServicio(subParametroServicio).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
-          () => this.router.navigate(['aplicacion/servicio/lis-sub-parametro'])
+          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
         );
       },
       error => {
@@ -183,7 +184,7 @@ export class LisSubParametroComponent implements OnInit {
     console.log("Respuesta:::",this.restParametro.getRespuesta());
     if(this.restParametro.getRespuesta()){
       this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
-        () => this.router.navigate(['aplicacion/servicio/lis-sub-parametro'])
+        () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
       );
     }else{
       this.alerta.mostrarError(this.restParametro.getInfoData());

@@ -7,6 +7,7 @@ import { RestParametroWebService } from '../../../servicio/rest-parametro-web.se
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
 import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-add-parametro',
@@ -49,11 +50,11 @@ export class AddParametroComponent implements OnInit {
 
 
 
-   public async inicializarValidacion() {
+  public async inicializarValidacion() {
     this.parametroServicio.registradoPor = this.usuarioVO.oid;;
     this.parametroServicio.usuarioRealiza = this.usuarioVO.name;
 
-   
+
 
     this.fGeneral = this.fb.group({
       firstName: [],
@@ -65,9 +66,9 @@ export class AddParametroComponent implements OnInit {
       valorFijo: [this.parametroServicio.valorFijo],
       aliasColumna: [this.parametroServicio.aliasColumna, Validators.required],
       equivalencia: [this.parametroServicio.idEquivalencia],
-      listaArray:[this.parametroServicio.idListaPadre],
-      codigoLista:[Validators.required],
-      nombreLista:[Validators.required]
+      listaArray: [this.parametroServicio.idListaPadre],
+      codigoLista: [Validators.required],
+      nombreLista: [Validators.required]
     });
 
     await this.listarEquivalenciaDatos();
@@ -81,6 +82,13 @@ export class AddParametroComponent implements OnInit {
     this.parametroServicio.usuarioRealiza = this.usuarioVO.name;
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
 
+    if (this.parametroServicio.tipoDato == 'ARRAY') {
+      if (!this.parametroServicio.nombreColumna && !this.parametroServicio.codigoColumna) {
+        this.alerta.mostarAdvertencia("Advertencia", "Es necesario que ingrese información para los campos código de lista y nombre de lista, esto solo aplica para parámetros de tipo Array");
+        return;
+      }
+    }
+
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
         ("¿Está seguro de modificar el parámetro [" + this.parametroServicio.parametro + "]?"),
@@ -93,6 +101,7 @@ export class AddParametroComponent implements OnInit {
       );
 
     }
+
 
   }
 
@@ -120,9 +129,9 @@ export class AddParametroComponent implements OnInit {
 
 
 
-  
-  public  listarEquivalenciaDatos() {
-    
+
+  public listarEquivalenciaDatos() {
+
     //alert("listarEquivalenciaDatos");
     this.restEquivalencia.listarEntidades().subscribe(
       data => {
@@ -137,12 +146,12 @@ export class AddParametroComponent implements OnInit {
   }
 
 
-  public  listarListadoSubParametros() {
-    
+  public listarListadoSubParametros() {
+
     //alert("listarEquivalenciaDatos");
     this.restParametro.listarListadoSubParametros().subscribe(
       data => {
-        this.listadoListaParametro= data;
+        this.listadoListaParametro = data;
       },
       error => {
         this.alerta.mostrarError(error);
@@ -152,6 +161,24 @@ export class AddParametroComponent implements OnInit {
   }
 
 
+
+  onChange(deviceValue) {
+    console.log("deviceValue", deviceValue);
+    if (deviceValue > 0) {
+      let listadoLista = this.getListaByFind(deviceValue);
+      this.parametroServicio.codigoColumna = listadoLista.codigo;
+      this.parametroServicio.nombreColumna = listadoLista.nombre;
+    } else {
+      this.parametroServicio.codigoColumna = "";
+      this.parametroServicio.nombreColumna = "";
+    }
+
+  }
+
+
+  public getListaByFind(id): any {
+    return this.listadoListaParametro.find(x => x.id === id);
+  }
 
 
 

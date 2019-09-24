@@ -40,6 +40,7 @@ export class LisParametroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.router.navigate(['aplicacion/servicio/lis-parametro']);
     this.restParametro.setParametroServicio(null);
     this.restParametro.setListaParametroServicio(null);
     this.nombreServicioWeb = "-";

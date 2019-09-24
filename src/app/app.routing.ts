@@ -81,6 +81,16 @@ export const routes: Routes = [
   },
 
 
+  {
+    path: 'aplicacion/sub-parametro',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/parametro/lis-sub-parametro',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+  
 
   {
     path: 'aplicacion/privilegio',
@@ -182,6 +192,11 @@ export const routes: Routes = [
       },
       {
         path: 'aplicacion/parametro',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/sub-parametro',
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },

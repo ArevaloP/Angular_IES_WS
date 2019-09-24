@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Parámetros  #{{parametroServicio.idListaPadre}}</strong>
+                        <strong>Parámetros</strong>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -108,7 +108,10 @@
 
                                 <label for="listaArray">Listado Array</label>
                                 <select class="form-control" id="listaArray" name="listaArray"
-                                    formControlName="listaArray" [(ngModel)]="parametroServicio.idListaPadre" >
+                                    formControlName="listaArray" 
+                                    [(ngModel)]="parametroServicio.idListaPadre" 
+                                    (change)="onChange($event.target.value)"
+                                    >
                                     <option></option>
                                     <option value="-1">Agregar nueva lista de array</option>
                                     <option *ngFor="let lt of listadoListaParametro" value="{{lt.id}}">{{lt.nombre}}</option>

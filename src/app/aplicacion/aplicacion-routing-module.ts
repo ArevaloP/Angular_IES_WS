@@ -104,7 +104,7 @@ const routes: Routes = [
     data: {
       title: 'Gestión de datos'
     }, children: [
-      
+
       {
         path: 'lis-parametro',
         component: LisParametroComponent,
@@ -134,6 +134,18 @@ const routes: Routes = [
           title: 'Gestionar parametros'
         }
       },
+
+    ]
+
+  },
+
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Gestión de array de parametros'
+    }, children: [
+
       {
         path: 'lis-sub-parametro',
         component: LisSubParametroComponent,
@@ -147,14 +159,8 @@ const routes: Routes = [
         data: {
           title: 'Gestionar array de parametro'
         }
-      }
-
-
-    ]
-  
+      }]
   },
-
-
 
 
   {
@@ -251,14 +257,14 @@ const routes: Routes = [
           title: 'Agregar equivalencia de entidad'
         }
       },
-      
+
       {
         path: 'xls-equivalencia',
         component: XlsEquivalenciaComponent,
         data: {
           title: 'Agregar equivalencia de entidad'
         }
-      } 
+      }
     ]
   },
 

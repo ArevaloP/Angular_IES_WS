@@ -151,17 +151,18 @@ export class RestParametroWebService {
     });
   }
 
-  obtenerFichero( download_endpoint:String ) {
-    console.log(`${this.contexto}${download_endpoint}`)
-    let x ="http://172.26.3.3:8080/integrador-rest/recursos/json-java/261/ws-261.zip";
 
-    return this.http.get<Response>(x, {
-      headers: {
-        "Content-Type": "application/json",
+  obtenerFichero(download_endpoint: String) {
+    console.log(`${this.contexto}${download_endpoint}`)
+    let x = "http://172.26.3.3:8080/integrador-rest/recursos/json-java/261/ws-261.zip";
+    const options = {
+      headers: new HttpHeaders({
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
-      }
-    });
-    //return this.http.get<Response>(`${this.baseUrl}${download_endpoint}`, {});
+        "responseType": "blob"
+      })
+    }
+    return this.http.get<Response>(x, options);
+
   }
 
 
