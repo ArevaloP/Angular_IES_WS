@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
+
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { UtilConstante } from '../../../modelo/util-contante';
 import { Router } from '@angular/router';
@@ -6,16 +8,15 @@ import { ParametroServicio } from '../../../modelo/parametro-servicio';
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { ServicioWeb } from '../../../modelo/servicio-web';
-import { XlsParametroComponent } from '../xls-parametro/xls-parametro.component';
 import { Alert } from 'selenium-webdriver';
 
-@Component({
-  selector: 'app-lis-parametro',
-  templateUrl: './lis-parametro.component.html',
-  styleUrls: ['./lis-parametro.component.scss']
-})
-export class LisParametroComponent implements OnInit {
 
+@Component({
+  selector: 'app-lis-sub-parametro',
+  templateUrl: './lis-sub-parametro.component.html',
+  styleUrls: ['./lis-sub-parametro.component.scss']
+})
+export class LisSubParametroComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
@@ -26,13 +27,13 @@ export class LisParametroComponent implements OnInit {
   public dtOptions: any = {}// DataTables.Settings = {};
   public const: UtilConstante = new UtilConstante();
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
-  public listadoParametroServicio: ParametroServicio[];
+  public listadoSubParametroServicio: ParametroServicio[];
   public servicioWeb: ServicioWeb;
-  public parametroServicio: ParametroServicio = new ParametroServicio();
+  public subParametroServicio: ParametroServicio = new ParametroServicio();
   public nombreServicioWeb: String;
-  public componenteTabla: boolean = false;
+  public nombreParametro: String;
 
-
+  
   constructor(
     public restServicio: RestServicioWebService,
     public restParametro: RestParametroWebService,
@@ -40,24 +41,20 @@ export class LisParametroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.restParametro.setParametroServicio(null);
-    this.restParametro.setListaParametroServicio(null);
     this.nombreServicioWeb = "-";
-    this.listarParametroServicio();
+    this.listarSubParametroServicio();
   }
 
 
-  public listarParametroServicio() {
+  public listarSubParametroServicio() {
 
-    this.componenteTabla = this.restServicio.getServicioWeb().tipo == 'TABLA' && (this.restServicio.getServicioWeb().metodo == 'POST' || this.restServicio.getServicioWeb().metodo == 'PUT' || this.restServicio.getServicioWeb().metodo == 'DELETE');
-    //console.log("componenteTabla",this.componenteTabla);
-
-    this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
-    this.restParametro.listarParametroEquivalencia(this.parametroServicio).subscribe(
+    this.nombreParametro = this.restParametro.getParametroServicio().parametro+" - "+this.restParametro.getParametroServicio().aliasColumna;
+
+    this.subParametroServicio.idListaAsociado = this.restParametro.getParametroServicio().idListaPadre;
+    this.restParametro.listarSubParametro(this.subParametroServicio).subscribe(
       data => {
-        console.log(data);
-        this.listadoParametroServicio = data;
+        this.listadoSubParametroServicio = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
@@ -79,7 +76,6 @@ export class LisParametroComponent implements OnInit {
         { title: 'Alias', data: 'aliasColumna', width: "35%", className: "text-left" },
         { title: 'Defecto', data: 'valorFijo', defaultContent: "", width: "10%", className: "text-left" },
         { title: 'Equiv', data: 'idEquivalencia', defaultContent: "", width: "7%", className: "text-center" },
-        { title: 'Array', defaultContent: '', orderable: false, width: "7%", className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
@@ -96,11 +92,7 @@ export class LisParametroComponent implements OnInit {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
-            if (this.componenteTabla) {
-              this.router.navigate(['aplicacion/parametro/add-parametro-tabla']);
-            } else {
-              this.router.navigate(['aplicacion/parametro/add-parametro']);
-            }
+              this.router.navigate(['aplicacion/parametro/add-sub-parametro']);
           },
         },
         {
@@ -108,7 +100,6 @@ export class LisParametroComponent implements OnInit {
           className: `${this.const.CLASE_AGREGARXLS}`,
           action: () => {
             this.cargarArchivoXls();
-            //this.router.navigate(['aplicacion/parametro/xls-parametro']);
           },
         },
         { extend: 'copy', "text": 'Export', className: `${this.const.CLASE_COPIAR}` },
@@ -122,28 +113,16 @@ export class LisParametroComponent implements OnInit {
         if (dataRow.idEquivalencia) {
           $('td:eq(4)', row).html('<i class="fa fa-random" style="font-size:16px; color:orange" aria-hidden="true"></i>');
         }
-
+   
 
         $('td:eq(5)', row).unbind('click');
-        if (dataRow.tipoDato=='ARRAY') {
-          $('td:eq(5)', row).html('<i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true"></i>');
-          $('td:eq(5)', row).bind('click', () => {
-            if(dataRow.idListaPadre){
-              self.irSubParametro(index);
-            }else{
-              this.alerta.mostarAdvertencia("Advertencia","Este parámetro es de tipo ARRAY , pero aun no ha seleccionado ningún listado de sub-parametros, ingrese por la opción modificar y revise la configuración");
-            } 
-          });
-        }
-
-        $('td:eq(6)', row).unbind('click');
-        $('td:eq(6)', row).bind('click', () => {
+        $('td:eq(5)', row).bind('click', () => {
           self.modificar(index);
         });
 
-        $('td:eq(7)', row).unbind('click');
-        $('td:eq(7)', row).bind('click', () => {
-          self.irEliminar(this.listadoParametroServicio[index]);
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
+          self.irEliminar(this.listadoSubParametroServicio[index]);
         });
 
         return row;
@@ -155,30 +134,27 @@ export class LisParametroComponent implements OnInit {
   }
 
   public modificar(index) {
-    this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
-    this.router.navigate(['aplicacion/parametro/add-parametro']);
+    //console.log("sub",this.listadoSubParametroServicio[index]);
+    this.restParametro.setSubParametroServicio(this.listadoSubParametroServicio[index]);
+    this.router.navigate(['aplicacion/parametro/add-sub-parametro']);
   }
 
-  public irEliminar(parametroServicio) {
+  public irEliminar(subParametroServicio) {
     
     this.alerta.confirmarEliminar(
-      ("¿Está seguro de eliminar el parámetro [" + parametroServicio.parametro + "]?"),
-      () => this.eliminar(parametroServicio)
+      ("¿Está seguro de eliminar el parámetro [" + subParametroServicio.parametro + "]?"),
+      () => this.eliminar(subParametroServicio)
     );
   }
 
 
-  public irSubParametro(index) {
-    this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
-    this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);  
-  }
 
-  public eliminar(parametroServicio) {
-    parametroServicio.registradoPor = this.usuarioVO.oid;
-    this.restParametro.eliminarParametroServicio(parametroServicio).subscribe(
+  public eliminar(subParametroServicio) {
+    subParametroServicio.registradoPor = this.usuarioVO.oid;
+    this.restParametro.eliminarParametroServicio(subParametroServicio).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
-          () => this.router.navigate(['aplicacion/servicio/lis-parametro'])
+          () => this.router.navigate(['aplicacion/servicio/lis-sub-parametro'])
         );
       },
       error => {
@@ -196,7 +172,7 @@ export class LisParametroComponent implements OnInit {
 
 
   public cargarArchivoXls() {
-    this.alerta.agregarParametroXlsVentana(
+    this.alerta.agregarParametroArrayXlsVentana(
       this.servicioWeb,
       () => this.recargarListado()
     );
@@ -206,7 +182,9 @@ export class LisParametroComponent implements OnInit {
   public async recargarListado() {
     console.log("Respuesta:::",this.restParametro.getRespuesta());
     if(this.restParametro.getRespuesta()){
-      this.router.navigate(['aplicacion/parametro/lis-parametro']);
+      this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
+        () => this.router.navigate(['aplicacion/servicio/lis-sub-parametro'])
+      );
     }else{
       this.alerta.mostrarError(this.restParametro.getInfoData());
     } 

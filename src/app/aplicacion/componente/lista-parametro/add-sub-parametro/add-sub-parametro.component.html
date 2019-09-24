@@ -1,0 +1,137 @@
+<form method="POST" [formGroup]="fGeneral">
+    <div class="animated fadeIn">
+        <div class="row">
+            <!--/.col-->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Array de parámetros ( ) </strong>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="container-fluid">
+
+
+                            <div class="col-12">
+
+                                <div class="row">
+                                    <div class="form-group  col-12 col-md-2">
+                                        <label for="orden">Orden</label>
+                                        <input type="text" class="form-control" id="orden" name="orden"
+                                            formControlName="orden" [(ngModel)]="subParametroServicio.orden"
+                                            [ngClass]="{'is-invalid': fGeneral.get('orden').errors && fGeneral.get('orden').dirty ,'is-valid': !fGeneral.get('orden').errors}"
+                                            required inputmode="numeric" autofocus style="text-align:right">
+                                        <div class="invalid-feedback"
+                                            *ngIf="fGeneral.get('orden').hasError('required')">
+                                            <small>Campo requerido</small></div>
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-5">
+                                        <label for="parametro">Nombre</label>
+                                        <input type="text" class="form-control" id="parametro" name="parametro"
+                                            placeholder="Ingrese el nombre del parámetro" formControlName="parametro"
+                                            [(ngModel)]="subParametroServicio.parametro"
+                                            [ngClass]="{'is-invalid': fGeneral.get('parametro').errors && fGeneral.get('parametro').dirty ,'is-valid': !fGeneral.get('parametro').errors}"
+                                            required autofocus>
+                                        <div class="invalid-feedback"
+                                            *ngIf="fGeneral.get('parametro').hasError('required')">
+                                            <small>Campo requerido</small></div>
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-5">
+                                        <label for="aliasColumna">Alias</label>
+                                        <input type="text" class="form-control" id="aliasColumna" name="aliasColumna"
+                                            placeholder="Ingrese el alias para la columna"
+                                            formControlName="aliasColumna"
+                                            [(ngModel)]="subParametroServicio.aliasColumna"
+                                            [ngClass]="{'is-invalid': fGeneral.get('aliasColumna').errors && fGeneral.get('aliasColumna').dirty ,'is-valid': !fGeneral.get('aliasColumna').errors}"
+                                            required autofocus>
+                                        <div class="invalid-feedback"
+                                            *ngIf="fGeneral.get('aliasColumna').hasError('required')">
+                                            <small>Campo requerido</small></div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="tipoDato">Tipo de dato</label>
+                                        <select class="form-control" id="tipoDato" formControlName="tipoDato"
+                                            [(ngModel)]="subParametroServicio.tipoDato" required>
+                                            <option value="DATE">DATE</option>
+                                            <option value="INTEGER">INTEGER</option>
+                                            <option value="NUMERICO">NUMERIC</option>
+                                            <option value="OTRO">OTRO</option>
+                                            <option value="SMALLINT">SMALLINT</option>
+                                            <option value="STRING">STRING</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="longitudFormato">Longitud</label>
+                                        <input type="text" class="form-control" id="longitudFormato"
+                                            name="longitudFormato" placeholder="Ingrese la longitud del parámetro"
+                                            formControlName="longitudFormato"
+                                            [(ngModel)]="subParametroServicio.longitudFormato"
+                                            [ngClass]="{'is-invalid': fGeneral.get('longitudFormato').errors && fGeneral.get('longitudFormato').dirty ,'is-valid': !fGeneral.get('longitudFormato').errors}"
+                                            required inputmode="numeric" autofocus>
+                                        <div class="invalid-feedback"
+                                            *ngIf="fGeneral.get('longitudFormato').hasError('required')">
+                                            <small>Campo requerido</small></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label for="descripcion">Descripción</label>
+                                        <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
+                                            placeholder="Breve descripción del parámetro" formControlName="descripcion"
+                                            [(ngModel)]="subParametroServicio.descripcion"
+                                            [ngClass]="{'is-invalid': fGeneral.get('descripcion').errors && fGeneral.get('descripcion').dirty ,'is-valid': !fGeneral.get('descripcion').errors}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="valorFijo">Valor fijo</label>
+                                        <input type="text" class="form-control" id="valorFijo" name="valorFijo"
+                                            placeholder="Ingrese el valor predeterminado para la columna"
+                                            formControlName="valorFijo" [(ngModel)]="subParametroServicio.valorFijo"
+                                            [ngClass]="{'is-invalid': fGeneral.get('valorFijo').errors && fGeneral.get('valorFijo').dirty ,'is-valid': !fGeneral.get('valorFijo').errors}">
+                                    </div>
+
+
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="equivalencia">Equivalencia de datos</label>
+                                        <select class="form-control" id="equivalencia" name="equivalencia"
+                                            formControlName="equivalencia"
+                                            [(ngModel)]="subParametroServicio.idEquivalencia">
+                                            <option></option>
+                                            <option *ngFor="let attEquVO of listadoEquivalencia" [value]="attEquVO.id">
+                                                {{attEquVO.nombre}}</option>
+                                        </select>
+                                        <input type="hidden" id="listaArray" name="listaArray"
+                                            formControlName="listaArray" [(ngModel)]="subParametroServicio.idListaPadre">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary pull-right" [disabled]="fGeneral.invalid"
+                            (click)="irRegistrar()">
+                            Registrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.row-->
+
+
+    </div>
+</form>
+<app-ventana-modal #alerta></app-ventana-modal>

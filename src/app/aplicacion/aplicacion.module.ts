@@ -45,6 +45,8 @@ import { TablaParametroComponent } from './componente/servicioweb/tabla-parametr
 import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
 import { UploadParametroComponent } from './componente/utilidad/upload-parametro/upload-parametro.component';
 import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivalencia/xls-equivalencia.component';
+import { LisSubParametroComponent } from './componente/lista-parametro/lis-sub-parametro/lis-sub-parametro.component';
+import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-parametro/add-sub-parametro.component';
 
 
 
@@ -88,7 +90,9 @@ import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivale
     TablaParametroComponent,
     XlsParametroComponent,
     UploadParametroComponent,
-    XlsEquivalenciaComponent
+    XlsEquivalenciaComponent,
+    LisSubParametroComponent,
+    AddSubParametroComponent
 
   ],
   imports: [

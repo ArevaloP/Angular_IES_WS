@@ -15,4 +15,12 @@ export class ParametroServicio
     public aliasColumna:String;
     public idEquivalencia:String;
     public listaAtributoCompuesto:any;
+
+    public idListaPadre:String;
+    public idListaAsociado:String;
+    public codigoColumna:String;
+    public nombreColumna:String;
+    public textoJson:String;
+
+
 }

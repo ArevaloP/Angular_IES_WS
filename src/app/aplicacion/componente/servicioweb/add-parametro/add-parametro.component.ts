@@ -20,6 +20,7 @@ export class AddParametroComponent implements OnInit {
   public isModificar: boolean = false;
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public listadoEquivalencia: AtributoEquivalencia[];
+  public listadoListaParametro: any[];
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
@@ -63,11 +64,14 @@ export class AddParametroComponent implements OnInit {
       descripcion: [this.parametroServicio.descripcion],
       valorFijo: [this.parametroServicio.valorFijo],
       aliasColumna: [this.parametroServicio.aliasColumna, Validators.required],
-      equivalencia: [this.parametroServicio.idEquivalencia]
+      equivalencia: [this.parametroServicio.idEquivalencia],
+      listaArray:[this.parametroServicio.idListaPadre],
+      codigoLista:[Validators.required],
+      nombreLista:[Validators.required]
     });
 
     await this.listarEquivalenciaDatos();
-    
+    await this.listarListadoSubParametros();
 
 
   }
@@ -131,6 +135,24 @@ export class AddParametroComponent implements OnInit {
     )
 
   }
+
+
+  public  listarListadoSubParametros() {
+    
+    //alert("listarEquivalenciaDatos");
+    this.restParametro.listarListadoSubParametros().subscribe(
+      data => {
+        this.listadoListaParametro= data;
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    )
+
+  }
+
+
+
 
 
 }

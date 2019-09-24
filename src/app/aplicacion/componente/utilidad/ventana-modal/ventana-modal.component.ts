@@ -192,11 +192,29 @@ export class VentanaModalComponent implements OnInit {
 
 
 
+  public agregarParametroArrayXlsVentana(servicio, callback) {
+    this.callbackParam = callback;
+    this.xlsparam.inicializarVariablesArray(servicio);
+    this.ventana.titulo = "Cargar array  de parametros por .xls";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registrar";
+    this.ventana.botonRegistar = true;
+    this.ventana.usaParametro = true;
+    this.agregarXls.show();
+    this.callback = (callbackParam) => this.accionRegistrarParametro(callbackParam);
+  }
+
+
+
+
   public async accionRegistrarParametro(callback) {
-    
     this.xlsparam.procesarArchivo(callback);
     this.agregarXls.hide();
   }
+
+
+
+
 
   public async accionRegistrarEquivalencia(callback) {
     

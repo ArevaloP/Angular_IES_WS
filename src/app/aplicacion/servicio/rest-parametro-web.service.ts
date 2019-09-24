@@ -10,11 +10,14 @@ import { ServicioWeb } from '../modelo/servicio-web';
 export class RestParametroWebService {
 
   parametroServicio: ParametroServicio;
+  subParametroServicio: ParametroServicio;
   listaParametroServicio: ParametroServicio[];
   respuesta:boolean;
   infoData:any;
 
   baseUrl = environment.baseUrl + "ws_parametroservicio";
+  contexto = environment.baseUrl + "";
+
   constructor(private http: HttpClient) {
 
   }
@@ -117,6 +120,54 @@ export class RestParametroWebService {
 
 
 
+  listarListadoSubParametros( ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listadoSubParametro`, null, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+
+  listarSubParametro( parametroServicio: ParametroServicio ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listarSubParametro`, parametroServicio, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+
+  descargarParametro( codigoJson:ParametroServicio ) {
+    return this.http.post<any>(`${this.baseUrl}/generarCodigoParametro`, codigoJson, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+  obtenerFichero( download_endpoint:String ) {
+    console.log(`${this.contexto}${download_endpoint}`)
+    let x ="http://172.26.3.3:8080/integrador-rest/recursos/json-java/261/ws-261.zip";
+
+    return this.http.get<Response>(x, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+    //return this.http.get<Response>(`${this.baseUrl}${download_endpoint}`, {});
+  }
+
+
+
+
+
 
   public setParametroServicio(parametroServicio: ParametroServicio) {
     this.parametroServicio = parametroServicio;
@@ -125,6 +176,16 @@ export class RestParametroWebService {
   public getParametroServicio() {
     return this.parametroServicio;
   }
+
+  
+  public setSubParametroServicio(parametroServicio: ParametroServicio) {
+    this.subParametroServicio = parametroServicio;
+  }
+
+  public getSubParametroServicio() {
+    return this.subParametroServicio;
+  }
+
 
   public setListaParametroServicio(listaParametroServicio: ParametroServicio[]) {
     this.listaParametroServicio = listaParametroServicio;

@@ -26,6 +26,9 @@ import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivale
 import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
 import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
 import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivalencia/xls-equivalencia.component';
+import { LisSubParametroComponent } from './componente/lista-parametro/lis-sub-parametro/lis-sub-parametro.component';
+import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-parametro/add-sub-parametro.component';
+
 
 
 
@@ -131,6 +134,20 @@ const routes: Routes = [
           title: 'Gestionar parametros'
         }
       },
+      {
+        path: 'lis-sub-parametro',
+        component: LisSubParametroComponent,
+        data: {
+          title: 'Listar array de parametros'
+        }
+      },
+      {
+        path: 'add-sub-parametro',
+        component: AddSubParametroComponent,
+        data: {
+          title: 'Gestionar array de parametro'
+        }
+      }
 
 
     ]

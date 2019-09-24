@@ -5,7 +5,7 @@ export class UtilConstante {
 
     }
 
-    public ICONO_AGREGAR = "<i class='fa fa-user-plus fa-1_5x' title='Agregar'></i>";
+    public ICONO_AGREGAR = "<i class='fa fa-user-plus fa-1_5x' style='color:firebrick'  title='Agregar'></i>";
     public CLASE_AGREGAR = "btn btn-default btn-xs excel";
 
     public ICONO_COPIAR = "<i class='fa fa-clipboard fa-1_5x' title='Copiar'></i>";
