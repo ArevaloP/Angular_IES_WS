@@ -44,6 +44,7 @@ import { AddDetalleeqComponent } from './componente/detalle-equivalencia/add-det
 import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
 import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
 import { UploadParametroComponent } from './componente/utilidad/upload-parametro/upload-parametro.component';
+import { AddCompuestoComponent } from './componente/detalle-equivalencia/add-compuesto/add-compuesto.component';
 
 
 
@@ -86,7 +87,8 @@ import { UploadParametroComponent } from './componente/utilidad/upload-parametro
     AddDetalleeqComponent,
     TablaParametroComponent,
     XlsParametroComponent,
-    UploadParametroComponent
+    UploadParametroComponent,
+    AddCompuestoComponent
 
   ],
   imports: [

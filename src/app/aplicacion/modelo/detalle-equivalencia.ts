@@ -1,4 +1,5 @@
 import { JdbcConexion } from './jdbc-conexion';
+import { AtributoCompuesto } from './atributo-compuesto';
 
 export class DetalleEquivalencia
 {
@@ -16,4 +17,5 @@ export class DetalleEquivalencia
     public esAutomatico: String;
     public indice: String;
     public esCompuesto: String;
+    public listadoCompuesto: AtributoCompuesto[];
 }
