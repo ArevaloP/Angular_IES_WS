@@ -1,10 +1,13 @@
-<div class="card m-0">
+<div class="card m-0 scroll-eq-y">
     <div class="card-body">
         <div class="row">
+            <div class="col-6"><h6 class="text-center">Destino</h6></div>
+            <div class="col-6"><h6 class="text-center">Origen</h6></div>
+        </div>
+        <div class="row">
             <div class="col-6">
-                <h6 class="text-center">Destino</h6>
                 <div class="table-responsive">
-                    <table class="table table-sm m-0">
+                    <table class="table table-sm m-0 table-eq">
                         <thead>
                             <tr>
                                 <th scope="col" width="10%"></th>
@@ -22,8 +25,15 @@
                                         <label class="custom-control-label" for="nSelDestino{{i}}"></label>
                                     </div>
                                 </td>
-                                <td><input class="form-control form-control-sm" type="text" [(ngModel)]="objetoDE.nombreEquivalencia" [value]="objetoDE.nombreEquivalencia ? objetoDE.nombreEquivalencia : null" [name]="nombreEquivalencia + i"></td>
-                                <td><input class="form-control form-control-sm" type="text" [(ngModel)]="objetoDE.valorEquivalente" [value]="objetoDE.valorEquivalente ? objetoDE.valorEquivalente : null" [name]="valorEquivalente + i"></td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" [(ngModel)]="objetoDE.nombreEquivalencia" 
+                                    [value]="objetoDE.nombreEquivalencia ? objetoDE.nombreEquivalencia : null" [name]="nombreEquivalencia+i">
+                                </td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" [(ngModel)]="objetoDE.valorEquivalente" 
+                                    [value]="objetoDE.valorEquivalente ? objetoDE.valorEquivalente : null" [name]="valorEquivalente+i"
+                                    style="text-align: center">
+                                </td>
                                 <th scope="row" class="text-center"><a href="javascript:;" (click)="suprimirDestino(i)"><i class="fa fa-times" aria-hidden="true"></i></a></th>
                             </tr>
                             <tr>
@@ -34,7 +44,7 @@
                                 </td>
                                 <td>
                                     <input class="form-control form-control-sm" type="text" name="valorEquivalenteX"
-                                    [(ngModel)]="detalleEquivalencia.valorEquivalente">
+                                    [(ngModel)]="detalleEquivalencia.valorEquivalente" style="text-align: center">
                                 </td>
                                 <td></td>
                             </tr>
@@ -43,10 +53,9 @@
                 </div>
             </div>
 
-            <div class="col-6">
-                <h6 class="text-center">Origen</h6>
+            <div class="col-6" style="border-left: 1px dashed #CCC;">
                 <div class="table-responsive">
-                    <table class="table table-sm m-0">
+                    <table class="table table-sm m-0 table-eq">
                         <thead>
                             <tr>
                                 <th scope="col" width="10%"></th>
@@ -56,7 +65,11 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let objetoAC of listaCompuestos; let i = index">
-                                <td scope="row" class="text-center"><ng-template [ngIf]="inicialSelected"><a href="javascript:;" (click)="suprimirOrigen(i)"><i class="fa fa-times" aria-hidden="true"></i></a></ng-template></td>
+                                <th scope="row" class="text-center">
+                                    <ng-template [ngIf]="inicialSelected">
+                                        <a href="javascript:;" (click)="suprimirOrigen(i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    </ng-template>
+                                </th>
                                 <td>
                                     <ng-template [ngIf]="inicialSelected" [ngIfElse]="elseBlock">
                                         <input class="form-control form-control-sm" type="text" 
@@ -69,7 +82,11 @@
                                         <div class="truncate-nombre" title="{{objetoAC.nombreOrigen}}">{{objetoAC.nombreOrigen}}</div>
                                     </ng-template>
                                 </td>
-                                <td><input class="form-control form-control-sm" type="text" [(ngModel)]="objetoAC.valorOrigen" [value]="objetoAC.valorOrigen ? objetoAC.valorOrigen : null" [name]="valorOrigen+i"></td>
+                                <td>
+                                    <input class="form-control form-control-sm" type="text" [(ngModel)]="objetoAC.valorOrigen"
+                                    [value]="objetoAC.valorOrigen ? objetoAC.valorOrigen : null" [name]="valorOrigen+i"
+                                    style="text-align: center">
+                                </td>
                             </tr>
                             <ng-template [ngIf]="inicialSelected">
                                 <tr>
@@ -80,7 +97,7 @@
                                     </td>
                                     <td>
                                         <input class="form-control form-control-sm" type="text" name="valorOrigen"
-                                        [(ngModel)]="detalleEquivalencia.valorOrigen">
+                                        [(ngModel)]="detalleEquivalencia.valorOrigen" style="text-align: center">
                                     </td>
                                 </tr>
                             </ng-template>

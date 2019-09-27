@@ -1,3 +1,13 @@
 .max-ancho {
 	max-width: 25px;
 }
+
+.table-eq tbody tr th {
+	vertical-align: middle;
+	font-size: .9rem;
+}
+
+.scroll-eq-y {
+	max-height: 27.3rem;
+	overflow-y: auto;
+}

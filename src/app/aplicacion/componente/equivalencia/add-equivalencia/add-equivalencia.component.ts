@@ -77,7 +77,7 @@ export class AddEquivalenciaComponent implements OnInit
     {
       this.entidadEquivalencia.registradoPor = this.usuarioVO.oid;
       this.entidadEquivalencia.usuarioRealiza = this.usuarioVO.name;
-
+      console.log( this.entidadEquivalencia );
       if ( this.isModificar )
       {
         this.alerta.confirmarActualizar(
@@ -160,6 +160,19 @@ export class AddEquivalenciaComponent implements OnInit
     }, 50);
   }
 
+  public limpiarDetAutomaticos()
+  {
+    this.reRender = false;
+
+    setTimeout(()=>{
+      this.estructuraEntidad = new EstructuraEntidad();
+      this.reRender = true;
+      this.suprimirAutomaticas( this.entidadEquivalencia.listaDetalles, 0 );
+      this.entidadEquivalencia.tagNombreOrigen = null;
+      this.entidadEquivalencia.tagValorOrigen = null;
+    }, 50);
+  }
+
   public getObjeto( id )
   {
     let objeto = this.listaConexiones.find( objetoBus => {
@@ -189,19 +202,54 @@ export class AddEquivalenciaComponent implements OnInit
   {
     let respuesta = null;
 
-    if ( this.entidadEquivalencia.listaDetalles && this.entidadEquivalencia.listaDetalles.length > 0 )
-    {
-      this.entidadEquivalencia.listaDetalles.forEach( detalleEquivalencia => {
-        if ( !detalleEquivalencia.nombreOrigen || !detalleEquivalencia.valorOrigen 
-          || !detalleEquivalencia.nombreEquivalencia || !detalleEquivalencia.valorEquivalente )
-        {
-          respuesta = "Todos los valores correspondientes a la lista de detalles deben estar gestionados.";
-          return false;
-        }
-      });
+    if ( (!this.entidadEquivalencia.listaDetalles || 0 === this.entidadEquivalencia.listaDetalles.length) 
+        && (!this.entidadEquivalencia.listaDetallesCompuestos || 0 === this.entidadEquivalencia.listaDetallesCompuestos.length) )
+      respuesta = "Debe gestionar al menos una de las dos pestañas de atributos.";
+    else {
+      if ( this.entidadEquivalencia.listaDetalles && this.entidadEquivalencia.listaDetalles.length > 0 )
+      {
+        this.entidadEquivalencia.listaDetalles.forEach( detalleEquivalencia => {
+          if ( !detalleEquivalencia.nombreOrigen || "" == detalleEquivalencia.nombreOrigen.trim()
+            || !detalleEquivalencia.valorOrigen || "" == detalleEquivalencia.valorOrigen.trim()
+            || !detalleEquivalencia.nombreEquivalencia || "" == detalleEquivalencia.nombreEquivalencia.trim()
+            || !detalleEquivalencia.valorEquivalente || "" == detalleEquivalencia.valorEquivalente.trim() )
+          {
+            respuesta = "Todos los valores correspondientes a la lista de atributos simples deben estar gestionados.";
+            return false;
+          }
+        });
+      }
+
+      if ( !respuesta && this.entidadEquivalencia.listaDetallesCompuestos && this.entidadEquivalencia.listaDetallesCompuestos.length > 0 )
+      {
+        this.entidadEquivalencia.listaDetallesCompuestos.forEach( detalleEquivalencia => {
+          if ( !detalleEquivalencia.nombreEquivalencia || "" == detalleEquivalencia.nombreEquivalencia.trim() 
+            || !detalleEquivalencia.valorEquivalente || "" == detalleEquivalencia.valorEquivalente.trim()
+            || !detalleEquivalencia.listadoCompuesto || 0 === detalleEquivalencia.listadoCompuesto.length )
+          {
+            respuesta = "Todos los valores correspondientes a la lista de atributos compuestos deben estar gestionados.";
+            return false;
+          }
+
+          // Busca el objeto que tenga algún campo vacío.
+          let atributoCompuesto = detalleEquivalencia.listadoCompuesto.find( atributoCompuesto => {
+            let condicion = false;
+
+            if ( !atributoCompuesto.nombreOrigen || "" == atributoCompuesto.nombreOrigen.trim()
+              || !atributoCompuesto.valorOrigen || "" == atributoCompuesto.valorOrigen.trim() )
+              condicion = true;
+            
+            return condicion;
+          });
+
+          if ( atributoCompuesto )
+          {
+            respuesta = "Todos los valores correspondientes a la lista de atributos compuestos deben estar gestionados.";
+            return false;
+          }
+        });
+      }
     }
-    else
-      respuesta = "Debe contener al menos una equivalencia.";
     
     return respuesta;
   }

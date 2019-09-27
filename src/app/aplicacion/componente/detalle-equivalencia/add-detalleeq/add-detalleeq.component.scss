@@ -27,3 +27,8 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.scroll-eq-y {
+	max-height: 27.3rem;
+	overflow-y: auto;
+}

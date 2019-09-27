@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { DetalleEquivalencia } from '../../../modelo/detalle-equivalencia';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { AtributoCompuesto } from '../../../modelo/atributo-compuesto';
+import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
 
 @Component({
   selector: 'app-add-compuesto',
@@ -10,6 +11,8 @@ import { AtributoCompuesto } from '../../../modelo/atributo-compuesto';
 })
 export class AddCompuestoComponent implements OnInit
 {
+  @Input() entidadEquivalencia: AtributoEquivalencia;
+  
   public detalleEquivalencia: DetalleEquivalencia;
   public detalleEquivalenciaCargar: DetalleEquivalencia;
   public listaProcesar: DetalleEquivalencia[];
@@ -24,6 +27,7 @@ export class AddCompuestoComponent implements OnInit
   ngOnInit()
   {
     this.detalleEquivalencia = new DetalleEquivalencia();
+    this.listaProcesar = this.entidadEquivalencia.listaDetallesCompuestos;
   }
 
   public addDestino()
@@ -43,7 +47,7 @@ export class AddCompuestoComponent implements OnInit
     this.detalleEquivalencia.valorEquivalente = null;
 
     // Si ya se ha agregado el destino inicial y este contiene uno o más origenes,
-    // se copia los origenes del inicial a los demás.
+    // se copia los origenes del inicial al nuevo destino.
     if ( this.listaProcesar.length > 1 && this.listaProcesar[0].listadoCompuesto && this.listaProcesar[0].listadoCompuesto.length > 0 )
     {
       this.detalleEquivalenciaCargar.listadoCompuesto = this.copiarArray( this.listaProcesar[0].listadoCompuesto );
@@ -80,6 +84,7 @@ export class AddCompuestoComponent implements OnInit
 
   public selDestino( indice )
   {
+    this.entidadEquivalencia.listaDetallesCompuestos = this.listaProcesar;
     this.detalleEquivalenciaCargar = this.listaProcesar[ indice ];
     this.listaCompuestos = this.detalleEquivalenciaCargar.listadoCompuesto;
     this.inicialSelected = 0 === indice;
@@ -101,17 +106,18 @@ export class AddCompuestoComponent implements OnInit
     this.procesarOrigenComplementarios();
   }
 
+  // Función que agrega o modifica las equivalencias origenes de los destinos siguientes al inicial.
   public procesarOrigenComplementarios()
   {
     let atributoCompuestoAux;
-    let detalleEquivalenciaInicial: DetalleEquivalencia;
+    let detalleEquivalenciaInicial: DetalleEquivalencia; // por si se necesita en algún momento.
     
     if ( this.listaProcesar.length > 1 )
     {
       this.listaProcesar.forEach( (detalleEquivalencia, index) => {
         if ( 0 == index )
           detalleEquivalenciaInicial = detalleEquivalencia;
-        else {
+        else { // se procede a gestionar los registros siguientes al inicial.
           if ( detalleEquivalencia.listadoCompuesto && detalleEquivalencia.listadoCompuesto.length > 0 )
           {
             this.listaCompuestos.forEach( atributoCompuestoBase => {
@@ -119,16 +125,16 @@ export class AddCompuestoComponent implements OnInit
                 return atributoCompuestoBase.usuarioRealiza === atributoCompuesto.usuarioRealiza;
               });
 
-              if ( atributoCompuestoAux )
+              if ( atributoCompuestoAux ) // si ya existía, solo modifica el nombre.
                 atributoCompuestoAux.nombreOrigen = atributoCompuestoBase.nombreOrigen;
-              else {
+              else { // si no, solo se agrega el registro a la lista.
                 atributoCompuestoAux = JSON.parse( JSON.stringify( atributoCompuestoBase ) );
                 atributoCompuestoAux.valorOrigen = null;
                 detalleEquivalencia.listadoCompuesto.push( atributoCompuestoAux );
               }
             });
           }
-          else
+          else // si no tenía ningún registro, copia la lista completa.
             detalleEquivalencia.listadoCompuesto = this.copiarArray( this.listaCompuestos );
         }
       });
@@ -137,6 +143,9 @@ export class AddCompuestoComponent implements OnInit
 
   public suprimirOrigen( indice )
   {
-    this.listaCompuestos.splice( indice, 1 );
+    this.listaProcesar.forEach( detalleEquivalencia => {
+      if ( detalleEquivalencia.listadoCompuesto )
+        detalleEquivalencia.listadoCompuesto.splice( indice, 1 );
+    });
   }
 }

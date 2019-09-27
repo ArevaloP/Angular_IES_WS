@@ -10,7 +10,7 @@
                     <div class="card-body">
                         
                         <div class="row">
-                            <div class="form-group col-12 col-md-5">
+                            <div class="form-group col-12">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre"
                                     placeholder="Ingrese el nombre que represente a la entidad" formControlName="nombre"
@@ -21,13 +21,16 @@
                                     <small>Campo requerido</small></div>
                             </div>
 
-                            <div class="form-group col-12 col-md-7">
-                                <label for="entidad">Entidad</label>
-                                <input type="text" class="form-control" id="entidad" name="entidad"
-                                    placeholder="Ingrese el nombre de la entidad con su esquema"
+                            <div class="form-group col-11">
+                                <label for="entidad">Entidad/SQL</label>
+                                <textarea id="entidad" name="entidad" rows="3" class="form-control"
+                                    placeholder="Ingrese el nombre de la entidad con su esquema o la consulta sql"
                                     formControlName="entidad" [(ngModel)]="entidadEquivalencia.entidad"
-                                    (keyup.enter)="cargarAtributos()"
-                                    autofocus>
+                                    (change)="limpiarDetAutomaticos()"></textarea>
+                            </div>
+
+                            <div class="col-1 boton-enter">
+                                <a href="javascript:;" (click)="cargarAtributos()"><i class="fa fa-sign-in" aria-hidden="true"></i>                                </a>
                             </div>
                         </div>
 
@@ -35,7 +38,7 @@
                             <div class="col-12">
                                 <label for="descripcion">Descripción</label>
                                 <textarea id="descripcion" name="descripcion" rows="3" class="form-control"
-                                    placeholder="Breve descripción de aplicación" formControlName="descripcion"
+                                    placeholder="Breve descripción de la equivalencia" formControlName="descripcion"
                                     [(ngModel)]="entidadEquivalencia.descripcion"></textarea>
                             </div>
                         </div>
@@ -61,7 +64,7 @@
                         <app-add-detalleeq *ngIf="reRender" [estructuraEntidad]="estructuraEntidad" [entidadEquivalencia]="entidadEquivalencia"></app-add-detalleeq>
                     </tab>
                     <tab heading="Atributos compuestos">
-                        <app-add-compuesto ></app-add-compuesto>
+                        <app-add-compuesto [entidadEquivalencia]="entidadEquivalencia"></app-add-compuesto>
                     </tab>
                 </tabset>
             </div>
