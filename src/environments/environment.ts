@@ -25,7 +25,8 @@ export const environment = {
     correlationId: '1234',
     piiLoggingEnabled: true,
     //unprotectedResources: ["https://development.ciadti.co:8090/integrador-rest/servicios/"]
-    unprotectedResources: ["http://172.26.3.3:8080/integrador-rest/servicios/"]
+    unprotectedResources: ["http://localhost:9019/integrador-rest/servicios/"]
+    // unprotectedResources: ["http://172.26.3.3:8080/integrador-rest/servicios/"]
   },
   optiosMsal:[
   ]

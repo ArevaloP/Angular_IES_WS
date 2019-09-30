@@ -64,11 +64,11 @@ export class LisEquivalenciaComponent implements OnInit
       data: data,
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Nombre', data: 'nombre', width: "20%" },
+        { title: 'Nombre', data: 'nombre', width: "25%" },
         { title: 'Entidad', defaultContent: '', data: 'entidad', width: "25%" },
-        { title: 'Descripción', defaultContent: '', data: 'descripcion', width: "40%" },
+        { title: 'Descripción', defaultContent: '', data: 'descripcion', width: "44%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
       language: {
         url: "assets/spanish.json"
