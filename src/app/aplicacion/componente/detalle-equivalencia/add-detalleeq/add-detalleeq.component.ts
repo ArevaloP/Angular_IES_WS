@@ -124,22 +124,26 @@ export class AddDetalleeqComponent implements OnInit
 
   public adManual()
   {
-    if ( !this.listaProcesar )
-      this.listaProcesar = [];
-    
-    this.detalleEquivalenciaCargar = new DetalleEquivalencia();
-    this.detalleEquivalenciaCargar.nombreOrigen = this.detalleEquivalencia.nombreOrigen;
-    this.detalleEquivalenciaCargar.valorOrigen = this.detalleEquivalencia.valorOrigen;
-    this.detalleEquivalenciaCargar.nombreEquivalencia = this.detalleEquivalencia.nombreEquivalencia;
-    this.detalleEquivalenciaCargar.valorEquivalente = this.detalleEquivalencia.valorEquivalente;
-    this.detalleEquivalenciaCargar.esAutomatico = "0";
-    this.detalleEquivalenciaCargar.esCompuesto = "0";
-    this.listaProcesar.push(this.detalleEquivalenciaCargar);
-    this.detalleEquivalencia.nombreOrigen = null;
-    this.detalleEquivalencia.valorOrigen = null;
-    this.detalleEquivalencia.nombreEquivalencia = null;
-    this.detalleEquivalencia.valorEquivalente = null;
-    this.entidadEquivalencia.listaDetalles = this.listaProcesar;
+    if ( this.detalleEquivalencia.nombreOrigen && "" != this.detalleEquivalencia.nombreOrigen.trim()
+        && this.detalleEquivalencia.valorOrigen && "" != this.detalleEquivalencia.valorOrigen.trim() )
+    {
+      if ( !this.listaProcesar )
+        this.listaProcesar = [];
+      
+      this.detalleEquivalenciaCargar = new DetalleEquivalencia();
+      this.detalleEquivalenciaCargar.nombreOrigen = this.detalleEquivalencia.nombreOrigen;
+      this.detalleEquivalenciaCargar.valorOrigen = this.detalleEquivalencia.valorOrigen;
+      this.detalleEquivalenciaCargar.nombreEquivalencia = this.detalleEquivalencia.nombreEquivalencia;
+      this.detalleEquivalenciaCargar.valorEquivalente = this.detalleEquivalencia.valorEquivalente;
+      this.detalleEquivalenciaCargar.esAutomatico = "0";
+      this.detalleEquivalenciaCargar.esCompuesto = "0";
+      this.listaProcesar.push(this.detalleEquivalenciaCargar);
+      this.detalleEquivalencia.nombreOrigen = null;
+      this.detalleEquivalencia.valorOrigen = null;
+      this.detalleEquivalencia.nombreEquivalencia = null;
+      this.detalleEquivalencia.valorEquivalente = null;
+      this.entidadEquivalencia.listaDetalles = this.listaProcesar;
+    }
   }
 
   public suprimirEquivalencia( indice )

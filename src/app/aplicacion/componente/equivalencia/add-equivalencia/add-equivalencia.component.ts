@@ -77,7 +77,7 @@ export class AddEquivalenciaComponent implements OnInit
     {
       this.entidadEquivalencia.registradoPor = this.usuarioVO.oid;
       this.entidadEquivalencia.usuarioRealiza = this.usuarioVO.name;
-      console.log( this.entidadEquivalencia );
+      
       if ( this.isModificar )
       {
         this.alerta.confirmarActualizar(
