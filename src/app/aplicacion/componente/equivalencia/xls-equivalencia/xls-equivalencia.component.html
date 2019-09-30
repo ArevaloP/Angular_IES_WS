@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="form-group col-12">
+            <label for="nombre">Nombre equivalencia</label>
+            <input type="text" class="form-control" id="nombre" name="nombre"
+                placeholder="Ingrese el nombre que represente a la equivalencia de datos" 
+                [(ngModel)]="nombreAtributo"
+                required autofocus>
+                
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-12">
+            <app-upload-parametro #parametroComponente [tipo]="tipoCarga"></app-upload-parametro>
+        </div>
+    </div>
+</div>

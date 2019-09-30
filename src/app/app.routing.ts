@@ -47,18 +47,11 @@ export const routes: Routes = [
     component: LoaderComponent,
     //canActivate: [MsalGuard]
   },
-  /*{
-    path: 'id_token',
-    component: TokenSessionComponent,
-    canActivate:[MsalGuard]
-    //redirectTo: 'load',
-    //pathMatch: "full",
-    //canActivate: [MsalGuard]
-  },*/
+ 
 
   {
     path: 'aplicacion',
-    //canActivate: [MsalGuard],
+    canActivate: [MsalGuard],
     redirectTo: 'aplicacion/lis-appexterna',
     pathMatch: "full",
     data: {
@@ -69,7 +62,7 @@ export const routes: Routes = [
 
   {
     path: 'aplicacion/servicio',
-    //canActivate: [MsalGuard],
+    canActivate: [MsalGuard],
     redirectTo: 'aplicacion/servicio/servicioWeb',
     pathMatch: "full",
     data: {
@@ -79,7 +72,7 @@ export const routes: Routes = [
 
   {
     path: 'aplicacion/parametro',
-    //canActivate: [MsalGuard],
+    canActivate: [MsalGuard],
     redirectTo: 'aplicacion/parametro/lis-parametro',
     pathMatch: "full",
     data: {
@@ -88,6 +81,16 @@ export const routes: Routes = [
   },
 
 
+  {
+    path: 'aplicacion/sub-parametro',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/parametro/lis-sub-parametro',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+  
 
   {
     path: 'aplicacion/privilegio',
@@ -189,6 +192,11 @@ export const routes: Routes = [
       },
       {
         path: 'aplicacion/parametro',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/sub-parametro',
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },

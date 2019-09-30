@@ -6,6 +6,7 @@ import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
 import { UtilConstante } from '../../../modelo/util-contante';
 import { JdbcConexion } from '../../../modelo/jdbc-conexion';
 import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.service';
+import { RestDetalleEquivalenciaService } from '../../../servicio/rest-detalle-equivalencia.service';
 
 @Component({
   selector: 'app-lis-equivalencia',
@@ -26,7 +27,8 @@ export class LisEquivalenciaComponent implements OnInit
   constructor(
     public router: Router,
     public restEquivalencia: RestEquivalenciaService,
-    public restConexion: RestJdbcConexionService
+    public restConexion: RestJdbcConexionService,
+    public restDetalleEq: RestDetalleEquivalenciaService
   ) { }
 
   ngOnInit()
@@ -81,6 +83,13 @@ export class LisEquivalenciaComponent implements OnInit
           className: `${this.const.CLASE_AGREGAR}`,
           action: () => {
             this.router.navigate(['aplicacion/equivalencia/add-equivalencia']);
+          },
+        },
+        {
+          text: `${this.const.ICONO_AGREGARXLS}`,
+          className: `${this.const.CLASE_AGREGARXLS}`,
+          action: () => {
+            this.irEquivalencia();
           },
         },
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
@@ -160,4 +169,34 @@ export class LisEquivalenciaComponent implements OnInit
     $(":button.buttons-excel").html(`${this.const.ICONO_EXCEL}`);
     $(".dt-buttons").css("float", "left");
   }
+
+
+
+
+
+  
+
+  public irEquivalencia() {
+
+    let entidadEquivalencia:AtributoEquivalencia=new AtributoEquivalencia();
+    this.alerta.agregarEquivalenciaXlsVentana(
+      entidadEquivalencia,
+      () => this.recargarListado()
+    );
+  }
+
+
+  public async recargarListado() {
+    console.log("Respuesta:::",this.restDetalleEq.getRespuesta());
+    if(this.restDetalleEq.getRespuesta()){
+      this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+      this.router.navigate(['aplicacion/equivalencia/lis-equivalencia']));
+    }else{
+      this.alerta.mostrarError(this.restDetalleEq.getInfoData());
+    } 
+  }
+
+
+
+
 }

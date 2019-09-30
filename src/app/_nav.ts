@@ -94,7 +94,7 @@ export const navItems: NavData[] = [
   {
     name: 'Equivalencias',
     url: '/aplicacion/equivalencia/lis-equivalencia',
-    icon: 'fa fa-code'
+    icon: 'fa fa-random'
   },
 
   {

@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ɵConsole, ViewChild, ElementRef } from '@angular/core';
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 import { ParametroServicio } from '../../../modelo/parametro-servicio';
+import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
+import { ServicioWeb } from '../../../modelo/servicio-web';
 
 @Component({
   selector: 'app-json-parametros',
@@ -8,15 +10,81 @@ import { ParametroServicio } from '../../../modelo/parametro-servicio';
   styleUrls: ['./json-parametros.component.scss']
 })
 export class JsonParametrosComponent implements OnInit {
-  //public ejemplo: any = "Ejemplo";
+
   @Input() listaParametros: ParametroServicio[];
-  public p:any;
+  @Input() tipoLista: String;
+  @ViewChild('myDiv', { static: false }) myDiv: ElementRef;
+
+  public p: any;
+  public servicioWeb: ServicioWeb;
+  public parametro: ParametroServicio;
 
   constructor(
-    public restParametro: RestParametroWebService
+    public restParametro: RestParametroWebService,
+    public restServicio: RestServicioWebService,
   ) { }
 
   ngOnInit() {
-   
+    this.servicioWeb = this.restServicio.getServicioWeb();
+    this.parametro = this.restParametro.getParametroServicio();
   }
+
+
+
+
+  copiar() {
+    let val = this.myDiv.nativeElement.innerText;
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+
+  descargar() {
+
+    let parametro= new ParametroServicio();
+    parametro.idServicioWeb =this.servicioWeb.id;
+    parametro.textoJson=this.myDiv.nativeElement.innerText;
+    //console.log("parametro",parametro);
+    this.restParametro.descargarParametro(parametro).subscribe(
+      data => {
+        this.obtenerZip(data.data);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+
+
+  obtenerZip(url){
+    this.restParametro.obtenerFichero(url).subscribe(
+      data=>{
+        this.downloadFile(data);
+      }, error=>{
+
+      }
+    )
+  }
+
+  downloadFile(data: Response) {
+    //const blob = new Blob([data], { type: 'text/csv' });
+    //const url= window.URL.createObjectURL(blob);
+    //window.open(url);
+  }
+
+  
+
+
+
+
 }

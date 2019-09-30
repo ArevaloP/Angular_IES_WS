@@ -25,6 +25,10 @@ import { LisEquivalenciaComponent } from './componente/equivalencia/lis-equivale
 import { AddEquivalenciaComponent } from './componente/equivalencia/add-equivalencia/add-equivalencia.component';
 import { TablaParametroComponent } from './componente/servicioweb/tabla-parametro/tabla-parametro.component';
 import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xls-parametro.component';
+import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivalencia/xls-equivalencia.component';
+import { LisSubParametroComponent } from './componente/lista-parametro/lis-sub-parametro/lis-sub-parametro.component';
+import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-parametro/add-sub-parametro.component';
+
 
 
 
@@ -101,7 +105,6 @@ const routes: Routes = [
       title: 'Gestión de datos'
     }, children: [
 
-      
       {
         path: 'lis-parametro',
         component: LisParametroComponent,
@@ -132,12 +135,32 @@ const routes: Routes = [
         }
       },
 
-
     ]
-  
+
   },
 
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Gestión de array de parametros'
+    }, children: [
 
+      {
+        path: 'lis-sub-parametro',
+        component: LisSubParametroComponent,
+        data: {
+          title: 'Listar array de parametros'
+        }
+      },
+      {
+        path: 'add-sub-parametro',
+        component: AddSubParametroComponent,
+        data: {
+          title: 'Gestionar array de parametro'
+        }
+      }]
+  },
 
 
   {
@@ -230,6 +253,14 @@ const routes: Routes = [
       {
         path: 'add-equivalencia',
         component: AddEquivalenciaComponent,
+        data: {
+          title: 'Agregar equivalencia de entidad'
+        }
+      },
+
+      {
+        path: 'xls-equivalencia',
+        component: XlsEquivalenciaComponent,
         data: {
           title: 'Agregar equivalencia de entidad'
         }

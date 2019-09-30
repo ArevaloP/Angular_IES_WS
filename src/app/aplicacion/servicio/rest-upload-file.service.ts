@@ -69,8 +69,8 @@ export class RestUploadFileService {
 
 
 
-  cargarFicheroParametro(data, userId) {
-    return this.httpClient.post<any>(`${this.baseUrl}/parametro/${userId}`, data, {
+  cargarFicheroXls(data, tipo) {
+    return this.httpClient.post<any>(`${this.baseUrl}/ficheroxls/${tipo}`, data, {
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
       },

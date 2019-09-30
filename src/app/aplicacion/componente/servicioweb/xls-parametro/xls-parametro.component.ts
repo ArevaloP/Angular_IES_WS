@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ServicioWeb } from '../../../modelo/servicio-web';
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
+import { ParametroServicio } from '../../../modelo/parametro-servicio';
 
 @Component({
   selector: 'app-xls-parametro',
@@ -19,7 +20,8 @@ export class XlsParametroComponent implements OnInit {
 
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public servicioWeb: ServicioWeb;
-
+  public parametroArray: ParametroServicio;
+  public tipoCarga:String ="parametro";
 
 
   constructor(
@@ -42,9 +44,22 @@ export class XlsParametroComponent implements OnInit {
   }
 
 
+  public inicializarVariablesArray(servicio: ServicioWeb) {
+    this.servicioWeb = servicio;
+    this.servicioWeb = this.restServicio.getServicioWeb();
+    this.servicioWeb.registradoPor = this.usuarioVO.oid;
+    this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
+   
+    this.parametroArray= this.restParametro.getParametroServicio();
+    this.servicioWeb.idArray=this.parametroArray.idListaPadre;
+    this.servicioWeb.id=null;
+  }
+
+
+
   public procesarArchivo(callback) {
 
-    //console.log("-----",this.servicioWeb);
+
     if (this.parametroUpload.cambioFichero) {
       this.servicioWeb.contexto = this.parametroUpload.uploadResponse.filePath;
       console.log("this.servicioWeb", this.servicioWeb);
@@ -63,6 +78,12 @@ export class XlsParametroComponent implements OnInit {
     }
 
   }
+
+
+
+
+
+
 
 
 

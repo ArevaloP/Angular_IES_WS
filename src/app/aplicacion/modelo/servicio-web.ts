@@ -25,6 +25,7 @@ export class ServicioWeb {
     public protocolo:String;
     public idConexionJdbc:String;
     public conexionJdbc:JdbcConexion;
+    public idArray:String;
 
 
 

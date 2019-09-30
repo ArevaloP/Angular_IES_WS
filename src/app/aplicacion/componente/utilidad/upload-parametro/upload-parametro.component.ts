@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RestUploadFileService } from '../../../servicio/rest-upload-file.service';
 
@@ -19,7 +19,7 @@ export class UploadParametroComponent implements OnInit {
   public cambioFichero:boolean=false;
 
   public nombreFichero:String ="Seleccionar archivo ";
-
+  @Input() tipo: String;
 
   constructor(public formBuilder: FormBuilder, public restUpload: RestUploadFileService) {
 
@@ -49,15 +49,21 @@ export class UploadParametroComponent implements OnInit {
 
 
   public subirArchivoAlServidor() {
+    
+
+    //console.log("tipotipotipo",this.tipo)
+
     const formData = new FormData();
     formData.append('file', this.form.get('parametroFile').value);
-    this.restUpload.cargarFicheroParametro(formData, this.userId).subscribe(
+    this.restUpload.cargarFicheroXls(formData, this.tipo).subscribe(
       data => {
         console.log("data::",data.data);
         this.uploadResponse.filePath = data.data;
       },
       (err) => this.error = err
     );
+
+
 
   }
 
