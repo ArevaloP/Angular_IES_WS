@@ -165,7 +165,15 @@ export class RestParametroWebService {
 
   }
 
-
+  recargarParametro( parametroServicio: ParametroServicio )
+  {
+    return this.http.post<ParametroServicio>(`${this.baseUrl}/recargarParametro`, parametroServicio, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
 
 
 

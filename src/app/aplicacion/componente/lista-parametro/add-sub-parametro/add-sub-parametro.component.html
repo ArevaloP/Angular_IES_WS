@@ -57,6 +57,7 @@
                                         <label for="tipoDato">Tipo de dato</label>
                                         <select class="form-control" id="tipoDato" formControlName="tipoDato"
                                             [(ngModel)]="subParametroServicio.tipoDato" required>
+                                            <option value="ARRAY">ARRAY</option>
                                             <option value="DATE">DATE</option>
                                             <option value="INTEGER">INTEGER</option>
                                             <option value="NUMERICO">NUMERIC</option>
@@ -100,7 +101,7 @@
                                     </div>
 
 
-                                    <div class="form-group col-12 col-md-6">
+                                    <div class="form-group col-12 col-md-6" *ngIf="!(subParametroServicio.tipoDato == 'ARRAY')">
                                         <label for="equivalencia">Equivalencia de datos</label>
                                         <select class="form-control" id="equivalencia" name="equivalencia"
                                             formControlName="equivalencia"
@@ -112,9 +113,55 @@
                                         <input type="hidden" id="listaArray" name="listaArray"
                                             formControlName="listaArray" [(ngModel)]="subParametroServicio.idListaPadre">
                                     </div>
+                                    <div class="form-group col-12 col-md-6" *ngIf="subParametroServicio.tipoDato == 'ARRAY'">
+                                        <input type="hidden" id="equivalencia" name="equivalencia"
+                                            formControlName="equivalencia" [(ngModel)]="subParametroServicio.idEquivalencia">
+                                        <label for="listaArray">Listado Array</label>
+                                        <select class="form-control" id="listaArray" name="listaArray"
+                                            formControlName="listaArray" 
+                                            [(ngModel)]="subParametroServicio.idListaPadre" 
+                                            (change)="onChange($event.target.value)"
+                                            >
+                                            <option></option>
+                                            <option value="-1">Agregar nueva lista de array</option>
+                                            <option *ngFor="let lt of listadoListaParametro" value="{{lt.id}}">{{lt.nombre}}</option>
+                                        </select>
+                                    </div>
 
                                 </div>
 
+                                <div class="row" *ngIf="subParametroServicio.idListaPadre">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="alert alert-info" role="alert">
+                                                        El tipo <strong>ARRAY</strong> requiere un listado adicional de parámetros, puede elegir un listado existente o crear uno desde cero. 
+                                                        Si decide agregar uno nuevo deberá digitar el <strong>Código</strong> y el <strong>Nombre</strong> del listado. 
+                                                        Los ítems(sub-parámetros) de este listado los podrá gestionar mediante el botón&nbsp;&nbsp;
+                                                        <i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true"></i>&nbsp;&nbsp;(Listar parámetros del servicio)
+                                                        después de registrar en esta funcionalidad.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-12 col-md-4">
+                                                <label for="codigoLista"><strong>Código lista</strong></label>
+                                                <input type="text" class="form-control" id="codigoLista" name="codigoLista"
+                                                    placeholder="Ingrese el código para el listado de Array"
+                                                    formControlName="codigoLista" [(ngModel)]="subParametroServicio.codigoColumna"
+                                                    [ngClass]="{'is-invalid': fGeneral.get('codigoLista').errors && fGeneral.get('codigoLista').dirty ,'is-valid': !fGeneral.get('codigoLista').errors}">
+                                            </div>
+        
+                                            <div class="form-group col-12 col-md-8">
+                                                <label for="nombreLista"><strong>Nombre lista</strong></label>
+                                                <input type="text" class="form-control" id="nombreLista" name="nombreLista"
+                                                    placeholder="Ingrese el nombre para el listado de Array"
+                                                    formControlName="nombreLista" [(ngModel)]="subParametroServicio.nombreColumna"
+                                                    [ngClass]="{'is-invalid': fGeneral.get('nombreLista').errors && fGeneral.get('nombreLista').dirty ,'is-valid': !fGeneral.get('nombreLista').errors}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

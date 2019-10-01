@@ -57,7 +57,7 @@ export class LisParametroComponent implements OnInit {
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
     this.restParametro.listarParametroEquivalencia(this.parametroServicio).subscribe(
       data => {
-        console.log(data);
+        console.log( "listaPE", data);
         this.listadoParametroServicio = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -170,6 +170,7 @@ export class LisParametroComponent implements OnInit {
 
 
   public irSubParametro(index) {
+    console.log( "irSubParametro", this.listadoParametroServicio[index] );
     this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
     this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);  
   }

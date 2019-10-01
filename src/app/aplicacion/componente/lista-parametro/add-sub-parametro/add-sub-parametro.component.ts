@@ -23,6 +23,7 @@ export class AddSubParametroComponent implements OnInit {
   public isModificar: boolean = false;
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public listadoEquivalencia: AtributoEquivalencia[];
+  public listadoListaParametro: any[];
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
@@ -35,10 +36,8 @@ export class AddSubParametroComponent implements OnInit {
 
   ) { }
 
-  ngOnInit() {
-
-    console.log("padre", this.restParametro.getParametroServicio());
-
+  ngOnInit()
+  {
     if (this.restParametro.getSubParametroServicio() != null) {
       this.subParametroServicio = this.restParametro.getSubParametroServicio();
       this.isModificar = true;
@@ -46,8 +45,8 @@ export class AddSubParametroComponent implements OnInit {
       this.subParametroServicio.tipoDato = "STRING";
       this.isModificar = false;
     }
-    this.inicializarValidacion();
 
+    this.inicializarValidacion();
   }
 
 
@@ -71,13 +70,12 @@ export class AddSubParametroComponent implements OnInit {
       valorFijo: [this.subParametroServicio.valorFijo],
       aliasColumna: [this.subParametroServicio.aliasColumna, Validators.required],
       equivalencia: [this.subParametroServicio.idEquivalencia],
-      listaArray: []
+      listaArray: [this.subParametroServicio.idListaPadre],
+      codigoLista: [Validators.required],
+      nombreLista: [Validators.required]
     });
 
     await this.listarEquivalenciaDatos();
-
-
-
   }
 
   public irRegistrar() {
@@ -91,7 +89,8 @@ export class AddSubParametroComponent implements OnInit {
         ("¿Está seguro de modificar en el Array el parámetro [" + this.subParametroServicio.parametro + "]?"),
         () => this.actualizarParametro(this.subParametroServicio)
       );
-    } else {
+    }
+    else {
       this.alerta.confirmarInsertar(
         ("¿Está seguro de agregar al Array el parámetro [" + this.subParametroServicio.parametro + "]?"),
         () => this.insertarParametro(this.subParametroServicio)
@@ -101,10 +100,10 @@ export class AddSubParametroComponent implements OnInit {
 
   }
 
-  public insertarParametro(servicioWeb) {
-    this.restParametro.insertarParametroServicio(servicioWeb).subscribe(
+  public insertarParametro(parametroServicio) {
+    this.restParametro.insertarParametroServicio(parametroServicio).subscribe(
       data => {
-        this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);
+        this.recargarParametro();
       },
       error => {
         this.alerta.mostrarError(error);
@@ -112,19 +111,16 @@ export class AddSubParametroComponent implements OnInit {
     );
   }
 
-  public actualizarParametro(servicioWeb) {
-    this.restParametro.actualizarParametroServicio(servicioWeb).subscribe(
+  public actualizarParametro(parametroServicio) {
+    this.restParametro.actualizarParametroServicio(parametroServicio).subscribe(
       data => {
-        this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);
+        this.recargarParametro();
       },
       error => {
         this.alerta.mostrarError(error);
       }
     );
   }
-
-
-
 
   public listarEquivalenciaDatos() {
 
@@ -132,7 +128,6 @@ export class AddSubParametroComponent implements OnInit {
     this.restEquivalencia.listarEntidades().subscribe(
       data => {
         this.listadoEquivalencia = data;
-        console.log(this.listadoEquivalencia);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -141,4 +136,63 @@ export class AddSubParametroComponent implements OnInit {
 
   }
 
+  public listarListadoSubParametros()
+  {
+    this.restParametro.listarListadoSubParametros().subscribe(
+      data => {
+        this.listadoListaParametro = data;
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
+
+  onChange(deviceValue)
+  {
+    if (deviceValue > 0)
+    {
+      let listadoLista = this.getListaByFind(deviceValue);
+      this.subParametroServicio.codigoColumna = listadoLista.codigo;
+      this.subParametroServicio.nombreColumna = listadoLista.nombre;
+    }
+    else {
+      this.subParametroServicio.codigoColumna = "";
+      this.subParametroServicio.nombreColumna = "";
+    }
+  }
+
+  public getListaByFind(id): any {
+    return this.listadoListaParametro.find(x => x.id === id);
+  }
+
+  public recargarParametro()
+  {
+    let parametroServicio = true === this.isModificar ? this.restParametro.getSubParametroServicio() : this.restParametro.getParametroServicio();
+    
+    this.restParametro.recargarParametro( parametroServicio ).subscribe(
+      data => {
+        if ( true === this.isModificar )
+          this.restParametro.setSubParametroServicio( data );
+        else
+          this.restParametro.setParametroServicio( data );
+
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
+          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
+        );
+      },
+      error => {
+        let mensaje = "Su proceso se ha realizado correctamente, aunque hay inconvenientes al recargar su información. Por favor ingrese a la funcionalidad nuevamente.\n";
+        
+        if ( error.error.mensaje )
+          error.error.mensaje = mensaje + error.error.mensaje;
+        else if ( error.message )
+          error.message = mensaje + error.message;
+        else
+          error.message = mensaje;
+        
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
 }

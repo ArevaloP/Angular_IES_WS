@@ -21,6 +21,6 @@ export class ParametroServicio
     public codigoColumna:String;
     public nombreColumna:String;
     public textoJson:String;
-
+    public listaArray:ParametroServicio[];
 
 }
