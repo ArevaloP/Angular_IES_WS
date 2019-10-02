@@ -44,7 +44,7 @@
 
                         <div class="form-group" *ngIf="!isModificar">
                             <label for="password">Contraseña</label>
-                            <input type="text" class="form-control" id="password" name="password"
+                            <input type="password" class="form-control" id="password" name="password"
                                 placeholder="Ingrese la contraseña de usuario." formControlName="password"
                                 [(ngModel)]="userWebService.password"
                                 [ngClass]="{'is-invalid': fGeneral.get('password').errors && fGeneral.get('password').dirty ,'is-valid': !fGeneral.get('password').errors}"
