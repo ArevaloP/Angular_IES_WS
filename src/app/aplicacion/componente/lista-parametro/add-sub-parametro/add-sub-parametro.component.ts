@@ -76,6 +76,7 @@ export class AddSubParametroComponent implements OnInit {
     });
 
     await this.listarEquivalenciaDatos();
+    await this.listarListadoSubParametros();
   }
 
   public irRegistrar() {
@@ -83,6 +84,15 @@ export class AddSubParametroComponent implements OnInit {
     this.subParametroServicio.usuarioRealiza = this.usuarioVO.name;
     //this.subParametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
 
+    if (this.subParametroServicio.tipoDato == 'ARRAY')
+    {
+      if ( !this.subParametroServicio.nombreColumna || "" === this.subParametroServicio.nombreColumna.trim()
+          || !this.subParametroServicio.codigoColumna || "" === this.subParametroServicio.codigoColumna.trim() )
+      {
+        this.alerta.mostarAdvertencia("Advertencia", "Es necesario que ingrese información para los campos código de lista y nombre de lista, esto solo aplica para parámetros de tipo Array");
+        return;
+      }
+    }
 
     if (this.isModificar) {
       this.alerta.confirmarActualizar(
@@ -166,6 +176,7 @@ export class AddSubParametroComponent implements OnInit {
     return this.listadoListaParametro.find(x => x.id === id);
   }
 
+  // Función que refresca los datos del padre hacia abajo (si se agregó un hijo) o del hijo hacia abajo (si se modificó).
   public recargarParametro()
   {
     let parametroServicio = true === this.isModificar ? this.restParametro.getSubParametroServicio() : this.restParametro.getParametroServicio();

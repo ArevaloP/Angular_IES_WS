@@ -83,7 +83,8 @@ export class AddParametroComponent implements OnInit {
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
 
     if (this.parametroServicio.tipoDato == 'ARRAY') {
-      if (!this.parametroServicio.nombreColumna && !this.parametroServicio.codigoColumna) {
+      if ( !this.parametroServicio.nombreColumna || "" === this.parametroServicio.nombreColumna.trim()
+          || !this.parametroServicio.codigoColumna || "" === this.parametroServicio.codigoColumna.trim() ) {
         this.alerta.mostarAdvertencia("Advertencia", "Es necesario que ingrese información para los campos código de lista y nombre de lista, esto solo aplica para parámetros de tipo Array");
         return;
       }
@@ -163,7 +164,6 @@ export class AddParametroComponent implements OnInit {
 
 
   onChange(deviceValue) {
-    console.log("deviceValue", deviceValue);
     if (deviceValue > 0) {
       let listadoLista = this.getListaByFind(deviceValue);
       this.parametroServicio.codigoColumna = listadoLista.codigo;

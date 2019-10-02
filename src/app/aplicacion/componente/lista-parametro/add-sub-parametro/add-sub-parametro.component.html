@@ -58,12 +58,14 @@
                                         <select class="form-control" id="tipoDato" formControlName="tipoDato"
                                             [(ngModel)]="subParametroServicio.tipoDato" required>
                                             <option value="ARRAY">ARRAY</option>
-                                            <option value="DATE">DATE</option>
-                                            <option value="INTEGER">INTEGER</option>
-                                            <option value="NUMERICO">NUMERIC</option>
-                                            <option value="OTRO">OTRO</option>
-                                            <option value="SMALLINT">SMALLINT</option>
-                                            <option value="STRING">STRING</option>
+                                            <ng-template [ngIf]="!subParametroServicio.listaArray">
+                                                <option value="DATE">DATE</option>
+                                                <option value="INTEGER">INTEGER</option>
+                                                <option value="NUMERICO">NUMERIC</option>
+                                                <option value="OTRO">OTRO</option>
+                                                <option value="SMALLINT">SMALLINT</option>
+                                                <option value="STRING">STRING</option>
+                                            </ng-template>
                                         </select>
                                     </div>
 

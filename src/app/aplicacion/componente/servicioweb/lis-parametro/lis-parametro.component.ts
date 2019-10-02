@@ -82,7 +82,7 @@ export class LisParametroComponent implements OnInit {
         { title: 'Equiv', data: 'idEquivalencia', defaultContent: "", width: "7%", className: "text-center" },
         { title: 'Array', defaultContent: '', orderable: false, width: "7%", className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
+        { title: '', defaultContent: '', orderable: false, className: "td-center" }
       ],
       language: {
         url: "assets/spanish.json"
@@ -141,11 +141,15 @@ export class LisParametroComponent implements OnInit {
         $('td:eq(6)', row).bind('click', () => {
           self.modificar(index);
         });
-
+        
         $('td:eq(7)', row).unbind('click');
-        $('td:eq(7)', row).bind('click', () => {
-          self.irEliminar(this.listadoParametroServicio[index]);
-        });
+        if ( !dataRow.listaArray )
+        {
+          $('td:eq(7)', row).html(this.const.ICONO_ELIMINAR);
+          $('td:eq(7)', row).bind('click', () => {
+            self.irEliminar(this.listadoParametroServicio[index]);
+          });
+        }
 
         return row;
       },
@@ -170,7 +174,6 @@ export class LisParametroComponent implements OnInit {
 
 
   public irSubParametro(index) {
-    console.log( "irSubParametro", this.listadoParametroServicio[index] );
     this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
     this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);  
   }

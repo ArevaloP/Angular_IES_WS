@@ -70,7 +70,7 @@ export class LisSubParametroComponent implements OnInit {
         { title: 'Equiv', data: 'idEquivalencia', defaultContent: "", width: "7%", className: "text-center" },
         { title: 'Array', defaultContent: '', orderable: false, width: "7%", className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
+        { title: '', defaultContent: '', orderable: false, className: "td-center" }
       ],
       language: {
         url: "assets/spanish.json"
@@ -126,9 +126,13 @@ export class LisSubParametroComponent implements OnInit {
         });
 
         $('td:eq(7)', row).unbind('click');
-        $('td:eq(7)', row).bind('click', () => {
-          self.irEliminar(this.listadoSubParametroServicio[index]);
-        });
+        if ( !dataRow.listaArray )
+        {
+          $('td:eq(7)', row).html(this.const.ICONO_ELIMINAR);
+          $('td:eq(7)', row).bind('click', () => {
+            self.irEliminar(this.listadoSubParametroServicio[index]);
+          });
+        }
 
         return row;
       },
@@ -138,6 +142,7 @@ export class LisSubParametroComponent implements OnInit {
     };
   }
 
+  // Función que hace un llamado recursivo a este componente.
   public irSubParametro( index )
   {
     this.restParametro.setParametroServicio(this.listadoSubParametroServicio[index]);
@@ -147,7 +152,6 @@ export class LisSubParametroComponent implements OnInit {
   }
 
   public modificar(index) {
-    //console.log("sub",this.listadoSubParametroServicio[index]);
     this.restParametro.setSubParametroServicio(this.listadoSubParametroServicio[index]);
     this.router.navigate(['aplicacion/sub-parametro/add-sub-parametro']);
   }
@@ -201,6 +205,7 @@ export class LisSubParametroComponent implements OnInit {
     } 
   }
 
+  // Función que refresca los datos de la lista desde donde se le suprimió un objeto.
   public recargarParametro()
   {
     this.restParametro.recargarParametro( this.restParametro.getParametroServicio() ).subscribe(
@@ -212,7 +217,7 @@ export class LisSubParametroComponent implements OnInit {
         );
       },
       error => {
-        let mensaje = "Su proceso se ha realizado correctamente, aunque hay inconvenientes al recargar su información. Por favor ingrese a la funcionalidad nuevamente.\n";
+        let mensaje = "Su proceso se ha realizado correctamente, aunque hay inconvenientes al recargar su información. Por favor ingrese a la funcionalidad nuevamente.<br>";
         
         if ( error.error.mensaje )
           error.error.mensaje = mensaje + error.error.mensaje;
