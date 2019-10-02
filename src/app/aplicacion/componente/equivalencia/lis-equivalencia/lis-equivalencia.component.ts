@@ -64,9 +64,9 @@ export class LisEquivalenciaComponent implements OnInit
       data: data,
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
-        { title: 'Nombre', data: 'nombre', width: "25%" },
-        { title: 'Entidad', defaultContent: '', data: 'entidad', width: "25%" },
-        { title: 'Descripción', defaultContent: '', data: 'descripcion', width: "44%" },
+        { title: 'Nombre', data: 'nombre', width: "35%" },
+        { title: 'Entidad', defaultContent: '', data: 'entidad', width: "20%" },
+        { title: 'Descripción', defaultContent: '', data: 'descripcion', width: "39%" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
