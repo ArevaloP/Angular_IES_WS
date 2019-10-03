@@ -219,7 +219,6 @@ export class LisParametroComponent implements OnInit {
 
 
   public async recargarListado() {
-    console.log("Respuesta:::",this.restParametro.getRespuesta());
     if(this.restParametro.getRespuesta()){
       this.router.navigate(['aplicacion/parametro/lis-parametro']);
     }else{

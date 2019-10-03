@@ -205,7 +205,6 @@ export class LisSubParametroComponent implements OnInit {
   {
     let parametroServicio: ParametroServicio = new ParametroServicio();
     parametroServicio.idServicioWeb = this.restServicio.getIdServicio();
-    console.log( parametroServicio, this.restServicio );
     this.restParametro.listarParametroEquivalencia(parametroServicio).subscribe(
       data => {
         this.restParametro.setListaParametroGeneral(data);
@@ -221,7 +220,6 @@ export class LisSubParametroComponent implements OnInit {
 
   public recargarObjExcel( listaGeneral: ParametroServicio[] )
   {
-    console.log( listaGeneral, this.subParametroServicio );
     let parametroServicio = listaGeneral.find( parametroServicio => {
       return parametroServicio.id === this.subParametroServicio.id;
     });
@@ -244,7 +242,6 @@ export class LisSubParametroComponent implements OnInit {
   }
 
   public async recargarListado() {
-    console.log("Respuesta:::",this.restParametro.getRespuesta());
     if(this.restParametro.getRespuesta()){
       this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
         () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
