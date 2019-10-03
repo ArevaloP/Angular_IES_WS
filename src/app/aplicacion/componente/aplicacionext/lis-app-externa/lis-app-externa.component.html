@@ -6,7 +6,7 @@
                     <div class="btn-group float-right" dropdown>
 
                     </div>
-                    <div class="text-value"><span routerLink="/aplicacion/add-appexterna" style="cursor: pointer">AGREGAR</span></div>
+                    <div class="text-value"><span routerLink="/aplicacion/add-appexterna" style="cursor: pointer">Agregar</span></div>
                     <div>- - - - - -</div>
                     <div>- - - - - -</div>
                     <div>- - - - - -</div>
@@ -28,7 +28,7 @@
                             <a class="dropdown-item" (click)="irEliminar (i)">Eliminar</a>
                         </div>
                     </div>
-                    <div class="text-value">{{appVO.codigo}}</div>
+                    <div class="text-value text-truncate">{{appVO.codigo}}</div>
                     <div class="text-truncate">{{appVO.nombre | uppercase}}</div>
                     <div class="text-truncate">{{appVO.descripcion}}</div>
                     <div class="text-truncate">{{appVO.urlAplicacion}}</div>
