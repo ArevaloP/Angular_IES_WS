@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { UtilConstante } from '../../../modelo/util-contante';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParametroServicio } from '../../../modelo/parametro-servicio';
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
@@ -32,24 +32,25 @@ export class LisSubParametroComponent implements OnInit {
   public subParametroServicio: ParametroServicio;
   public nombreServicioWeb: String;
   public nombreParametro: String;
-
+  public listaGeneralTemp: ParametroServicio[];
   
   constructor(
     public restServicio: RestServicioWebService,
     public restParametro: RestParametroWebService,
-    public router: Router
+    public router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.subParametroServicio = this.restParametro.getParametroServicio();
     this.nombreServicioWeb = "-";
     this.listarSubParametroServicio();
+    console.log( "restServicio", this.restServicio );
   }
 
 
   public listarSubParametroServicio()
   {
-    console.log( "listarSubParametroServicio", this.subParametroServicio.listaArray );
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
     this.nombreParametro = this.restParametro.getParametroServicio().parametro+" - "+this.restParametro.getParametroServicio().aliasColumna;
     this.listadoSubParametroServicio = this.subParametroServicio.listaArray;
@@ -81,6 +82,13 @@ export class LisSubParametroComponent implements OnInit {
       dom: 'Bfrtip',
       order: [[0, 'asc']],
       buttons: [
+        {
+          text: '<i class="fa fa-arrow-left fa-1_5x" aria-hidden="true" title="Volver"></i>',
+          className: `${this.const.CLASE_AGREGAR}`,
+          action: () => {
+            this.volver();
+          },
+        },
         {
           text: `${this.const.ICONO_AGREGAR}`,
           className: `${this.const.CLASE_AGREGAR}`,
@@ -189,10 +197,51 @@ export class LisSubParametroComponent implements OnInit {
   public cargarArchivoXls() {
     this.alerta.agregarParametroArrayXlsVentana(
       this.servicioWeb,
-      () => this.recargarListado()
+      () => this.listarParametroServicio()
     );
   }
 
+  public listarParametroServicio()
+  {
+    let parametroServicio: ParametroServicio = new ParametroServicio();
+    parametroServicio.idServicioWeb = this.restServicio.getIdServicio();
+    console.log( parametroServicio, this.restServicio );
+    this.restParametro.listarParametroEquivalencia(parametroServicio).subscribe(
+      data => {
+        this.restParametro.setListaParametroGeneral(data);
+        this.restParametro.setSubParametroServicio( this.recargarObjExcel(data) );
+        this.recargarParametro();
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
+
+  }
+
+  public recargarObjExcel( listaGeneral: ParametroServicio[] )
+  {
+    console.log( listaGeneral, this.subParametroServicio );
+    let parametroServicio = listaGeneral.find( parametroServicio => {
+      return parametroServicio.id === this.subParametroServicio.id;
+    });
+
+    if ( !parametroServicio )
+    {
+      for ( let j = 0; j < listaGeneral.length; j++ )
+      {
+        if ( listaGeneral[j].listaArray )
+        {
+          parametroServicio = this.recargarObjExcel( listaGeneral[j].listaArray );
+
+          if ( parametroServicio )
+            break;
+        }
+      }
+    }
+
+    return parametroServicio;
+  }
 
   public async recargarListado() {
     console.log("Respuesta:::",this.restParametro.getRespuesta());
@@ -213,7 +262,7 @@ export class LisSubParametroComponent implements OnInit {
         this.restParametro.setParametroServicio( data );
 
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
-          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
+          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro/1'])
         );
       },
       error => {
@@ -229,5 +278,77 @@ export class LisSubParametroComponent implements OnInit {
         this.alerta.mostrarError(error);
       }
     );
+  }
+
+  public volver()
+  {
+    if ( this.subParametroServicio.idListaAsociado )
+    {
+      let modificado = this.activatedRoute.snapshot.paramMap.get('modificado');
+
+      this.restParametro.setParametroServicio( 
+        this.buscarPadre( this.restParametro.getListaParametroGeneral(), this.subParametroServicio.idListaAsociado, modificado )
+      );
+      
+      this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
+        () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
+      );
+    }
+    else
+      this.router.navigate(['aplicacion/servicio/lis-parametro']);
+  }
+
+  public buscarPadre( listaParametros: ParametroServicio[], idHijo, mod )
+  {
+    // let listaGeneral: ParametroServicio[] = this.restParametro.getListaParametroGeneral();
+    let objetoBuscar = listaParametros.find( parametroServicio => {
+      return idHijo === parametroServicio.idListaPadre;
+    });
+
+    if ( objetoBuscar )
+    {
+      if ( "1" == mod )
+        this.actualizarEnListaGeneral( listaParametros );
+    }
+    else {
+      for ( let j = 0; j < listaParametros.length; j++ )
+      {
+        let parametroServicio = listaParametros[j];
+        
+        if ( parametroServicio.listaArray )
+        {
+          objetoBuscar = this.buscarPadre( parametroServicio.listaArray, idHijo, mod );
+          
+          if ( objetoBuscar )
+            break;
+        }
+      }
+    }
+    
+    return objetoBuscar;
+  }
+
+  public actualizarEnListaGeneral( listaParametros: ParametroServicio[] )
+  {
+    let indice;
+    let parametroServicio = null;
+    
+    for ( let j = 0; j < listaParametros.length; j++ )
+    {
+      
+      if ( listaParametros[j].listaArray )
+      {
+        parametroServicio = listaParametros[j].listaArray.find( (objHijo, index) => {
+          indice = index;
+          return objHijo.id === this.restParametro.getParametroServicio().id;
+        });
+      }
+      
+      if ( parametroServicio )
+      {
+        listaParametros[j].listaArray[indice] = this.restParametro.getParametroServicio();
+        break;
+      }
+    }
   }
 }

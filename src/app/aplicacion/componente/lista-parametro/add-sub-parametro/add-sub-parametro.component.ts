@@ -113,7 +113,7 @@ export class AddSubParametroComponent implements OnInit {
   public insertarParametro(parametroServicio) {
     this.restParametro.insertarParametroServicio(parametroServicio).subscribe(
       data => {
-        this.recargarParametro();
+        this.recargarParametroP();
       },
       error => {
         this.alerta.mostrarError(error);
@@ -124,7 +124,7 @@ export class AddSubParametroComponent implements OnInit {
   public actualizarParametro(parametroServicio) {
     this.restParametro.actualizarParametroServicio(parametroServicio).subscribe(
       data => {
-        this.recargarParametro();
+        this.recargarParametroP();
       },
       error => {
         this.alerta.mostrarError(error);
@@ -189,7 +189,7 @@ export class AddSubParametroComponent implements OnInit {
           this.restParametro.setParametroServicio( data );
 
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
-          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
+          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro/1'])
         );
       },
       error => {
@@ -204,6 +204,39 @@ export class AddSubParametroComponent implements OnInit {
         
         this.alerta.mostrarError(error);
       }
+    );
+  }
+
+  // Función que refresca los datos del padre hacia abajo.
+  public recargarParametroP()
+  {
+    this.restParametro.recargarParametro( this.restParametro.getParametroServicio() ).subscribe(
+      data => {
+        this.restParametro.setParametroServicio( data );
+
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
+          () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro/1'])
+        );
+      },
+      error => {
+        let mensaje = "Su proceso se ha realizado correctamente, aunque hay inconvenientes al recargar su información. Por favor ingrese a la funcionalidad nuevamente.\n";
+        
+        if ( error.error.mensaje )
+          error.error.mensaje = mensaje + error.error.mensaje;
+        else if ( error.message )
+          error.message = mensaje + error.message;
+        else
+          error.message = mensaje;
+        
+        this.alerta.mostrarError(error);
+      }
+    );
+  }
+
+  public volver()
+  {
+    this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(
+      () => this.router.navigate(['aplicacion/parametro/lis-sub-parametro'])
     );
   }
 }

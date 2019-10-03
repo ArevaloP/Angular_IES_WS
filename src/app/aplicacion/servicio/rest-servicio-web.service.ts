@@ -10,6 +10,7 @@ export class RestServicioWebService {
 
   servicioWeb: ServicioWeb;
   listaServicio: ServicioWeb[];
+  idServicio: String;
 
   baseUrl = environment.baseUrl + "ws_webservice";
   constructor(private http: HttpClient) {
@@ -122,5 +123,11 @@ export class RestServicioWebService {
     return this.listaServicio;
   }
 
+  public setIdServicio(idServicio: String) {
+    this.idServicio = idServicio;
+  }
 
+  public getIdServicio() {
+    return this.idServicio;
+  }
 }

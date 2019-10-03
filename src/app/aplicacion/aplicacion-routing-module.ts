@@ -144,10 +144,17 @@ const routes: Routes = [
     canActivate: [MsalGuard],
     data: {
       title: 'Gestión de array de parametros'
-    }, children: [
-
+    },
+    children: [
       {
         path: 'lis-sub-parametro',
+        component: LisSubParametroComponent,
+        data: {
+          title: 'Listar array de parametros'
+        }
+      },
+      {
+        path: 'lis-sub-parametro/:modificado',
         component: LisSubParametroComponent,
         data: {
           title: 'Listar array de parametros'
@@ -159,7 +166,8 @@ const routes: Routes = [
         data: {
           title: 'Gestionar array de parametro'
         }
-      }]
+      }
+    ]
   },
 
 

@@ -12,6 +12,7 @@ export class RestParametroWebService {
   parametroServicio: ParametroServicio;
   subParametroServicio: ParametroServicio;
   listaParametroServicio: ParametroServicio[];
+  listaParametroGeneral: ParametroServicio[];
   respuesta:boolean;
   infoData:any;
 
@@ -204,7 +205,13 @@ export class RestParametroWebService {
     return this.listaParametroServicio;
   }
 
+  public setListaParametroGeneral(listaParametroServicio: ParametroServicio[]) {
+    this.listaParametroGeneral = listaParametroServicio;
+  }
 
+  public getListaParametroGeneral() {
+    return this.listaParametroGeneral;
+  }
 
   public setRespuesta(respuesta: boolean) {
     this.respuesta = respuesta;

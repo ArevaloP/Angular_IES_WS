@@ -43,6 +43,7 @@ export class LisParametroComponent implements OnInit {
     this.router.navigate(['aplicacion/servicio/lis-parametro']);
     this.restParametro.setParametroServicio(null);
     this.restParametro.setListaParametroServicio(null);
+    this.restParametro.setListaParametroGeneral(null);
     this.nombreServicioWeb = "-";
     this.listarParametroServicio();
   }
@@ -54,11 +55,16 @@ export class LisParametroComponent implements OnInit {
     //console.log("componenteTabla",this.componenteTabla);
 
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
+
+    if ( !this.parametroServicio.idServicioWeb )
+      this.parametroServicio.idServicioWeb = this.restServicio.getIdServicio();
+    
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
     this.restParametro.listarParametroEquivalencia(this.parametroServicio).subscribe(
       data => {
-        console.log( "listaPE", data);
+        // console.log( "listaPE", data);
         this.listadoParametroServicio = data;
+        this.restParametro.setListaParametroGeneral(data);
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
         this.dataTable.DataTable(this.dtOptions);
@@ -175,6 +181,10 @@ export class LisParametroComponent implements OnInit {
 
   public irSubParametro(index) {
     this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
+
+    if ( this.restServicio.getServicioWeb().id )
+      this.restServicio.setIdServicio( this.restServicio.getServicioWeb().id );
+    
     this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);  
   }
 
