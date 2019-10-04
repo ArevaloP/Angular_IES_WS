@@ -45,7 +45,6 @@ export class LisSubParametroComponent implements OnInit {
     this.subParametroServicio = this.restParametro.getParametroServicio();
     this.nombreServicioWeb = "-";
     this.listarSubParametroServicio();
-    console.log( "restServicio", this.restServicio );
   }
 
 
@@ -208,6 +207,7 @@ export class LisSubParametroComponent implements OnInit {
     this.restParametro.listarParametroEquivalencia(parametroServicio).subscribe(
       data => {
         this.restParametro.setListaParametroGeneral(data);
+        // Ya que el objeto no trae los idListaAsociado al momento de agregarlos por archivo adjunto.
         this.restParametro.setSubParametroServicio( this.recargarObjExcel(data) );
         this.recargarParametro();
       },
@@ -218,6 +218,9 @@ export class LisSubParametroComponent implements OnInit {
 
   }
 
+  // Función que busca en la lista (array que contiene la estructura global de los parámetros) el objeto
+  // en el que estamos ubicados actualmente, ya que este contiene los idListaAsociado
+  // que se necesitan para la acción "volver".
   public recargarObjExcel( listaGeneral: ParametroServicio[] )
   {
     let parametroServicio = listaGeneral.find( parametroServicio => {
@@ -230,6 +233,7 @@ export class LisSubParametroComponent implements OnInit {
       {
         if ( listaGeneral[j].listaArray )
         {
+          // Llamado recursivo para buscar en su lista de subparámetros.
           parametroServicio = this.recargarObjExcel( listaGeneral[j].listaArray );
 
           if ( parametroServicio )
@@ -251,7 +255,8 @@ export class LisSubParametroComponent implements OnInit {
     } 
   }
 
-  // Función que refresca los datos de la lista desde donde se le suprimió un objeto.
+  // Función que refresca los datos de la lista desde donde se le suprimió un objeto. También es útil para el
+  // proceso de agregar los parámetros por archivo excel.
   public recargarParametro()
   {
     this.restParametro.recargarParametro( this.restParametro.getParametroServicio() ).subscribe(
@@ -277,12 +282,14 @@ export class LisSubParametroComponent implements OnInit {
     );
   }
 
+  // Función que busca el parámetro padre para renderizar este mismo componente con los datos del parámetro anterior,
+  // generando el efecto de volver a través del navegador.
   public volver()
   {
     if ( this.subParametroServicio.idListaAsociado )
     {
       let modificado = this.activatedRoute.snapshot.paramMap.get('modificado');
-
+      // Si no se ha modificado ni agregado registros, no es necesario actualizar el array global de parámetros.
       this.restParametro.setParametroServicio( 
         this.buscarPadre( this.restParametro.getListaParametroGeneral(), this.subParametroServicio.idListaAsociado, modificado )
       );
@@ -297,14 +304,13 @@ export class LisSubParametroComponent implements OnInit {
 
   public buscarPadre( listaParametros: ParametroServicio[], idHijo, mod )
   {
-    // let listaGeneral: ParametroServicio[] = this.restParametro.getListaParametroGeneral();
     let objetoBuscar = listaParametros.find( parametroServicio => {
       return idHijo === parametroServicio.idListaPadre;
     });
 
     if ( objetoBuscar )
     {
-      if ( "1" == mod )
+      if ( "1" == mod ) // actualiza en el array global el objeto afectado o modificado.
         this.actualizarEnListaGeneral( listaParametros );
     }
     else {
@@ -314,6 +320,7 @@ export class LisSubParametroComponent implements OnInit {
         
         if ( parametroServicio.listaArray )
         {
+          // Llamado recursivo para buscar en su lista de subparámetros.
           objetoBuscar = this.buscarPadre( parametroServicio.listaArray, idHijo, mod );
           
           if ( objetoBuscar )
@@ -325,6 +332,7 @@ export class LisSubParametroComponent implements OnInit {
     return objetoBuscar;
   }
 
+  // Función que reemplaza en lista el objeto recargado por acciones hechas por el usuario.
   public actualizarEnListaGeneral( listaParametros: ParametroServicio[] )
   {
     let indice;
