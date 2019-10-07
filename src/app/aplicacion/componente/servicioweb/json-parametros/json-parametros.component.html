@@ -13,7 +13,7 @@
 <pre class="brush: json language-json m-0" #myDiv>
 <code class="language-json"><span class="token punctuation">{{'{'}}</span>
   <ng-container *ngTemplateOutlet="tipoLista=='array'?arrayp:inicio"></ng-container>
-    <span *ngFor="let param of listaParametros; last as isLast;"><ng-container [ngTemplateOutlet]="null == param.listaAtributoCompuesto? (param.tipoDato=='ARRAY'?arrayPrincial:simple):compuesto" [ngTemplateOutletContext]="{param:param, isLast:isLast}"></ng-container><span *ngIf="null != param.listaAtributoCompuesto || param.tipoDato=='ARRAY'">     </span></span>
+    <span *ngFor="let param of listaParametros; last as isLast;"><ng-container [ngTemplateOutlet]="null == param.listaAtributoCompuesto? (param.tipoDato=='ARRAY'?arrayPrincial:simple):compuesto" [ngTemplateOutletContext]="{param:param, isLast:isLast, espacios:'y'}"></ng-container><span *ngIf="null != param.listaAtributoCompuesto || param.tipoDato=='ARRAY'">     </span></span>
   <span class="token punctuation" >{{ tipoLista!='array'?'}':']' }}</span><span *ngIf="servicioWeb.protocolo=='SOAP' && tipoLista!='array' else vacio"><span class="token punctuation">,</span><ng-container *ngTemplateOutlet="tipoIngreso"></ng-container></span><span *ngIf="tipoLista!='array' else puntos"></span>
 <span class="token punctuation">{{'}'}}</span></code>
 </pre>
@@ -39,13 +39,13 @@
   <span class="token property">"{{parametro.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{'['}}</span></ng-template>
 
   
-<ng-template #arrayPrincial let-param="param" let-isLast="isLast"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{'[{'}}  </span>
-  <span  *ngFor="let arrayLst of param.listaArray;let k=index; last as isLast2;"><span *ngIf="k==0">    </span><ng-container [ngTemplateOutlet]="null == arrayLst.listaAtributoCompuesto?simpleInterno:compuestoInterno" [ngTemplateOutletContext]="{param:arrayLst, isLast:isLast2}"></ng-container><span *ngIf="null != arrayLst.listaAtributoCompuesto;else espacio" >    </span></span>
-  <span class="token punctuation">    {{'}]'}}</span><span *ngIf="!isLast"><span class="token punctuation">,</span></span> 
+<ng-template #arrayPrincial let-param="param" let-isLast="isLast" let-espacios="espacios"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{'[{'}}  </span>
+  <span  *ngFor="let arrayLst of param.listaArray;let k=index; last as isLast2;">    <span *ngIf="k==0 && arrayLst.tipoDato!='ARRAY'">          </span>    <ng-container [ngTemplateOutlet]="null == arrayLst.listaAtributoCompuesto?(arrayLst.tipoDato =='ARRAY'?arrayPrincial:simpleInterno):compuestoInterno" [ngTemplateOutletContext]="{param:arrayLst, isLast:isLast2, espacios:(''+espacios)}"></ng-container>    <span *ngIf="null != arrayLst.listaAtributoCompuesto;else espacio" >    </span>  </span>  
+  <span class="token punctuation">          {{'}]'}}</span><span *ngIf="!isLast"><span class="token punctuation">,</span></span>
 </ng-template>
 
 
-<ng-template #simple let-param="param" let-isLast="isLast"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock><span *ngIf="'DATE' == param.tipoDato; else elseDate">"dd-MM-yyyy 00:00:00"</span><ng-template #elseDate>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span> </ng-template>
+<ng-template #simple let-param="param" let-isLast="isLast" let-espacios="espacios"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock><span *ngIf="'DATE' == param.tipoDato; else elseDate">"dd-MM-yyyy 00:00:00"</span><ng-template #elseDate>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span> </ng-template>
 
 
 <ng-template #compuesto let-param="param"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span><span class="token punctuation">{{'{'}}</span>
@@ -54,7 +54,7 @@
 </ng-template>
 
 
-<ng-template #simpleInterno let-param="param" let-isLast="isLast">     <span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock><span *ngIf="'DATE' == param.tipoDato; else elseDate">"dd-MM-yyyy 00:00:00"</span><ng-template #elseDate>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span> </ng-template>
+<ng-template #simpleInterno let-param="param" let-isLast="isLast"><span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token string"><span *ngIf="null != param.valorFijo; else elseBlock">"{{param.valorFijo}}"</span><ng-template #elseBlock><span *ngIf="'DATE' == param.tipoDato; else elseDate">"dd-MM-yyyy 00:00:00"</span><ng-template #elseDate>"{{param.tipoDato}}({{param.longitudFormato}})"</ng-template></ng-template></span><span *ngIf="!isLast"><span class="token punctuation">,</span><br>    </span> </ng-template>
 
 <ng-template #compuestoInterno let-param="param">     <span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span><span class="token punctuation">{{'{'}}</span>
   <span  *ngFor="let attcompuesto of param.listaAtributoCompuesto | keyvalue;let k=index; last as isLast2;"><span class="token property"><span *ngIf="k==0">             </span><span *ngIf="k!=0">               </span>{{attcompuesto.key}}</span><span class="token operator">:</span><span class="token string">{{attcompuesto.value}}</span><span *ngIf="!isLast2"><span class="token punctuation">,</span><br></span></span>

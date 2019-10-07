@@ -7,8 +7,8 @@ export const environment = {
   
   production: false,
   grupo:'integrador-restws-desarrollo2',
-  // baseUrl: 'http://172.26.3.3:8080/integrador-rest/servicios/',
-  baseUrl: 'http://localhost:9019/integrador-rest/servicios/',
+   baseUrl: 'http://172.26.3.3:8080/integrador-rest/servicios/',
+  //baseUrl: 'http://localhost:9019/integrador-rest/servicios/',
   //baseUrl: 'https://development.ciadti.co:8090/integrador-rest/servicios/'  ,
   configuracionMsal :{
     clientID: '43dd2409-486c-4565-a840-407a7d0dfba7',
@@ -25,8 +25,8 @@ export const environment = {
     correlationId: '1234',
     piiLoggingEnabled: true,
     //unprotectedResources: ["https://development.ciadti.co:8090/integrador-rest/servicios/"]
-    unprotectedResources: ["http://localhost:9019/integrador-rest/servicios/"]
-    // unprotectedResources: ["http://172.26.3.3:8080/integrador-rest/servicios/"]
+    //unprotectedResources: ["http://localhost:9019/integrador-rest/servicios/"]
+    unprotectedResources: ["http://172.26.3.3:8080/integrador-rest/servicios/"]
   },
   optiosMsal:[
   ]

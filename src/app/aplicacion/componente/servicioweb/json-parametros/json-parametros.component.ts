@@ -19,6 +19,7 @@ export class JsonParametrosComponent implements OnInit {
   public servicioWeb: ServicioWeb;
   public parametro: ParametroServicio;
 
+
   constructor(
     public restParametro: RestParametroWebService,
     public restServicio: RestServicioWebService,
@@ -27,12 +28,14 @@ export class JsonParametrosComponent implements OnInit {
   ngOnInit() {
     this.servicioWeb = this.restServicio.getServicioWeb();
     this.parametro = this.restParametro.getParametroServicio();
+    
   }
 
 
 
 
   copiar() {
+    console.log(this.listaParametros);
     let val = this.myDiv.nativeElement.innerText;
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
