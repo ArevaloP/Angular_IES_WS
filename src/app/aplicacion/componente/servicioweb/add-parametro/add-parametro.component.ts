@@ -8,6 +8,7 @@ import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-moda
 import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
 import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ListaParametro } from '../../../modelo/lista-parametro';
 
 @Component({
   selector: 'app-add-parametro',
@@ -22,6 +23,7 @@ export class AddParametroComponent implements OnInit {
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public listadoEquivalencia: AtributoEquivalencia[];
   public listadoListaParametro: any[];
+  public listaParametro: ListaParametro;
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
@@ -137,7 +139,6 @@ export class AddParametroComponent implements OnInit {
     this.restEquivalencia.listarEntidades().subscribe(
       data => {
         this.listadoEquivalencia = data;
-        console.log(this.listadoEquivalencia);
       },
       error => {
         this.alerta.mostrarError(error);
@@ -147,10 +148,12 @@ export class AddParametroComponent implements OnInit {
   }
 
 
-  public listarListadoSubParametros() {
-
+  public listarListadoSubParametros()
+  {
+    this.listaParametro = new ListaParametro();
+    this.listaParametro.id = this.parametroServicio.idListaPadre;
     //alert("listarEquivalenciaDatos");
-    this.restParametro.listarListadoSubParametros().subscribe(
+    this.restParametro.listarListadoSubParametros( this.listaParametro ).subscribe(
       data => {
         this.listadoListaParametro = data;
       },

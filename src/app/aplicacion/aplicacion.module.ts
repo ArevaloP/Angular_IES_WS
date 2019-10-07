@@ -48,6 +48,8 @@ import { AddCompuestoComponent } from './componente/detalle-equivalencia/add-com
 import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivalencia/xls-equivalencia.component';
 import { LisSubParametroComponent } from './componente/lista-parametro/lis-sub-parametro/lis-sub-parametro.component';
 import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-parametro/add-sub-parametro.component';
+import { LisParametroArrayComponent } from './componente/parametros-array/lis-parametro-array/lis-parametro-array.component';
+import { AddParametroArrayComponent } from './componente/parametros-array/add-parametro-array/add-parametro-array.component';
 
 
 
@@ -94,7 +96,9 @@ import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-p
     AddCompuestoComponent,
     XlsEquivalenciaComponent,
     LisSubParametroComponent,
-    AddSubParametroComponent
+    AddSubParametroComponent,
+    LisParametroArrayComponent,
+    AddParametroArrayComponent
 
   ],
   imports: [

@@ -7,6 +7,7 @@ import { RestServicioWebService } from '../../../servicio/rest-servicio-web.serv
 import { RestParametroWebService } from '../../../servicio/rest-parametro-web.service';
 import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
 import { Router } from '@angular/router';
+import { ListaParametro } from '../../../modelo/lista-parametro';
 
 
 
@@ -24,6 +25,7 @@ export class AddSubParametroComponent implements OnInit {
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   public listadoEquivalencia: AtributoEquivalencia[];
   public listadoListaParametro: any[];
+  public listaParametro: ListaParametro;
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
@@ -148,7 +150,9 @@ export class AddSubParametroComponent implements OnInit {
 
   public listarListadoSubParametros()
   {
-    this.restParametro.listarListadoSubParametros().subscribe(
+    this.listaParametro = new ListaParametro();
+    this.listaParametro.id = this.subParametroServicio.idListaPadre;
+    this.restParametro.listarListadoSubParametros( this.listaParametro ).subscribe(
       data => {
         this.listadoListaParametro = data;
       },

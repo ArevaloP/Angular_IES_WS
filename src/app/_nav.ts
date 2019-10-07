@@ -98,6 +98,12 @@ export const navItems: NavData[] = [
   },
 
   {
+    name: 'Parámetros[]',
+    url: '/aplicacion/parametros-array/lis-parametro-array',
+    icon: 'fa fa-random'
+  },
+
+  {
     title: true,
     name: 'Integración',
     icon: 'fa fa-users'

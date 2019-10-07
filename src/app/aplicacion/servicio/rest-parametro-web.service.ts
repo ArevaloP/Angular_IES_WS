@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ParametroServicio } from '../modelo/parametro-servicio';
 import { ServicioWeb } from '../modelo/servicio-web';
+import { ListaParametro } from '../modelo/lista-parametro';
 
 @Injectable({
   providedIn: 'root'
@@ -121,8 +122,8 @@ export class RestParametroWebService {
 
 
 
-  listarListadoSubParametros( ) {
-    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listadoSubParametro`, null, {
+  listarListadoSubParametros( listaParametro: ListaParametro ) {
+    return this.http.post<ParametroServicio[]>(`${this.baseUrl}/listadoSubParametro`, listaParametro, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
