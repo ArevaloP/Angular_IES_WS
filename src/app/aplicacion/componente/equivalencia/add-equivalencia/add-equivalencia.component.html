@@ -22,9 +22,9 @@
                             </div>
 
                             <div class="form-group col-11">
-                                <label for="entidad">Entidad/SQL</label>
+                                <label for="entidad">Entidad</label>
                                 <textarea id="entidad" name="entidad" rows="3" class="form-control"
-                                    placeholder="Ingrese el nombre de la entidad con su esquema o la consulta sql"
+                                    placeholder="Ingrese el nombre de la entidad con su esquema, ej: ESQUEMA.TABLA"
                                     formControlName="entidad" [(ngModel)]="entidadEquivalencia.entidad"
                                     (change)="limpiarDetAutomaticos()"></textarea>
                             </div>
