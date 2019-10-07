@@ -98,9 +98,9 @@ export const navItems: NavData[] = [
   },
 
   {
-    name: 'Parámetros[]',
+    name: 'Parámetros[ ]',
     url: '/aplicacion/parametros-array/lis-parametro-array',
-    icon: 'fa fa-random'
+    icon: 'fa fa-bars'
   },
 
   {
