@@ -14,8 +14,8 @@
 <code class="language-json"><span class="token punctuation">{{'{'}}</span>
 <ng-container *ngTemplateOutlet="tipoLista=='array'?arrayp:inicio"></ng-container>
 <span *ngFor="let param of listaParametros; last as isLast; let i=index;"><ng-container [ngTemplateOutlet]="null == param.listaAtributoCompuesto? (param.tipoDato=='ARRAY'?arrayPrincial:simple):compuesto" [ngTemplateOutletContext]="{param:param, isLast:isLast, espacios:'    '}"></ng-container><span *ngIf="null != param.listaAtributoCompuesto || param.tipoDato=='ARRAY'"></span></span>
-<span class="token punctuation" >{{ tipoLista!='array'?'}':']' }}</span><span *ngIf="servicioWeb.protocolo=='SOAP' && tipoLista!='array' else vacio"><span class="token punctuation">,</span><ng-container *ngTemplateOutlet="tipoIngreso"></ng-container></span><span *ngIf="tipoLista!='array' else puntos"></span>
-<span class="token punctuation">{{'}'}}</span>
+<span class="token punctuation" >{{ tipoLista!='array'?'    }':']' }}</span><span *ngIf="servicioWeb.protocolo=='SOAP' && tipoLista!='array' else vacio"><span class="token punctuation">,</span><ng-container *ngTemplateOutlet="tipoIngreso"></ng-container></span><span *ngIf="tipoLista!='array' else puntos"></span>
+<span class="token punctuation"> {{'}'}}</span>
 </code>
 </pre>
 
@@ -33,7 +33,7 @@
 
 
 
-<ng-template #inicio><span class="token property">"tipoRetorno"</span><span class="token operator">:</span> <span class="token string">"DataObject"</span><span class="token punctuation">,</span>
+<ng-template #inicio>  <span class="token property">"tipoRetorno"</span><span class="token operator">:</span> <span class="token string">"DataObject"</span><span class="token punctuation">,</span>
   <span class="token property">"parametros"</span><span class="token operator">:</span> <span class="token punctuation">{{'{'}}</span></ng-template>
 
 <ng-template #arrayp><span class="token operator">...</span>
