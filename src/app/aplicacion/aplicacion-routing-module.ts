@@ -28,6 +28,8 @@ import { XlsParametroComponent } from './componente/servicioweb/xls-parametro/xl
 import { XlsEquivalenciaComponent } from './componente/equivalencia/xls-equivalencia/xls-equivalencia.component';
 import { LisSubParametroComponent } from './componente/lista-parametro/lis-sub-parametro/lis-sub-parametro.component';
 import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-parametro/add-sub-parametro.component';
+import { LisParametroArrayComponent } from './componente/parametros-array/lis-parametro-array/lis-parametro-array.component';
+import { AddParametroArrayComponent } from './componente/parametros-array/add-parametro-array/add-parametro-array.component';
 
 
 
@@ -276,6 +278,30 @@ const routes: Routes = [
     ]
   },
 
+  {
+    path: '',
+    canActivate: [MsalGuard],
+    data: {
+      title: 'Parámetros tipo array'
+    }, children: [
+
+      {
+        path: 'lis-parametro-array',
+        component: LisParametroArrayComponent,
+        data: {
+          title: 'Listar parámetros tipo array'
+        }
+      },
+
+      {
+        path: 'add-parametro-array',
+        component: AddParametroArrayComponent,
+        data: {
+          title: 'Agregar parámetro tipo array'
+        }
+      }
+    ]
+  },
 
   {
     path: '',

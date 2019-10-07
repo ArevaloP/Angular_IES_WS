@@ -135,6 +135,16 @@ export const routes: Routes = [
   },
 
   {
+    path: 'aplicacion/parametros-array',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/parametros-array/lis-parametro-array',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+  {
     path: 'aplicacion/grupollamado',
     canActivate: [MsalGuard],
     redirectTo: 'aplicacion/grupollamado/lis-grupollamado',
@@ -221,7 +231,11 @@ export const routes: Routes = [
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },
-
+      {
+        path: 'aplicacion/parametros-array',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
       {
         path: 'aplicacion/grupollamado',
         canActivate: [MsalGuard],
