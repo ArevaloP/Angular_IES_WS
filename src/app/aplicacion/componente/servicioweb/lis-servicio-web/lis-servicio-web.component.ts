@@ -46,7 +46,7 @@ export class LisServicioWebComponent implements OnInit {
   public listadoServiciosWeb() {
     this.restServicio.listarServicioWeb().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.listadoServicioWeb = data;
         this.establecerOpcionesDataTable(data);
         this.dataTable = $(this.table.nativeElement);
@@ -68,7 +68,7 @@ export class LisServicioWebComponent implements OnInit {
     this.dtOptions = {
       data: data,
       columns: [
-        { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
+        { title: '', defaultContent: '<i class="fa fa-files-o" aria-hidden="true"></i>', orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
         { title: 'Nombre', data: 'nombre', width: "45%", className: "text-left" },
         { title: 'Tipo', data: 'tipo', width: "15%", className: "text-left", visible: false },
@@ -76,9 +76,7 @@ export class LisServicioWebComponent implements OnInit {
         { title: 'Estado', data: 'estado', width: "10%" ,className: "text-center"},
         { title: '', defaultContent: this.const.ICONO_PARAM, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
-        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" },
-        
-
+        { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-center" }
       ],
       language: {
         url: "assets/spanish.json"
@@ -118,7 +116,7 @@ export class LisServicioWebComponent implements OnInit {
 
         $('td:eq(0)', row).unbind('click');
         $('td:eq(0)', row).bind('click', () => {
-          self.modificar(index);
+          self.irDuplicar(this.listadoServicioWeb[index]);
         });
 
         $('td:eq(5)', row).unbind('click');
@@ -170,7 +168,7 @@ export class LisServicioWebComponent implements OnInit {
   public filtar() {
     let table = $('#example').DataTable();
     table.column(5).search("(^" + this.estadoFiltro + "$)", true, false).draw();
-    console.log(this.estadoFiltro);
+    // console.log(this.estadoFiltro);
     if (this.estadoFiltro == 'ACTIVO') {
       this.estadoFiltro = 'INACTIVO';
     } else {
@@ -178,6 +176,28 @@ export class LisServicioWebComponent implements OnInit {
       $(":btn btn-default btn-xs filtrox").html(`${this.const.CLASE_ACTIVO}`);
     }
 
+  }
+
+  public irDuplicar(servicioWeb)
+  {
+    this.alerta.confirmarInsertar(
+      ("¿Está seguro de duplicar el servicio [" + servicioWeb.nombre + "]?"),
+      () => this.duplicar(servicioWeb)
+    );
+  }
+
+  public duplicar(servicioWeb)
+  {
+    servicioWeb.registradoPor = this.usuarioVO.oid;;
+    this.restServicio.duplicarServicioWeb(servicioWeb).subscribe(
+      data => {
+        this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['aplicacion/servicio/servicioWeb']));
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
   }
 
   public modificar(index) {
@@ -195,7 +215,7 @@ export class LisServicioWebComponent implements OnInit {
 
   public irEliminar(servicioWeb) {
     this.alerta.confirmarEliminar(
-      ("¿ Esta seguro de eliminar el servicio [" + servicioWeb.nombre + "]  ?"),
+      ("¿Está seguro de eliminar el servicio [" + servicioWeb.nombre + "]?"),
       () => this.eliminar(servicioWeb)
     );
   }

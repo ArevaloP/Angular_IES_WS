@@ -92,7 +92,6 @@ export class RestServicioWebService {
     return this.http.delete(`${this.baseUrl}/eliminar/${servicioWeb.id}`, options)
   }
 
-
   eliminarServicioWebXaplicacion(servicioWeb: ServicioWeb) {
     const options = {
       headers: new HttpHeaders({
@@ -104,7 +103,15 @@ export class RestServicioWebService {
     return this.http.delete(`${this.baseUrl}/eliminarXaplicacion`, options)
   }
 
-
+  duplicarServicioWeb(servicioWeb: ServicioWeb)
+  {
+    return this.http.put(`${this.baseUrl}/duplicar`, servicioWeb, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
 
   public setServicioWeb(servicioWeb: ServicioWeb) {
     this.servicioWeb = servicioWeb;
