@@ -65,11 +65,11 @@ export class LisClaseComponent implements OnInit {
       columns: [
         { title: '', defaultContent: this.const.ICONO_VER, orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "10%" },
-        { title: 'Nombre', data: 'nombre', width: "20%" },
-        { title: 'Tipo', data: 'tipoServicio', width: "10%" },
-        { title: 'Clase', data: 'clase', width: "35%" },
+        { title: 'Nombre', data: 'nombre', width: "25%" },
+        { title: 'Tipo', data: 'tipoServicio', width: "10%", visible:false },
+        { title: 'Clase', data: 'clase', width: "45%" },
         { title: 'Estado', data: 'estado', width: "7%" },
-        { title: 'Lib', defaultContent: '', width: "8%",  className: "td-center"},
+        { title: 'Lib', defaultContent: '', width: "7%",  className: "td-center"},
         { title: '', defaultContent: this.const.ICONO_MODIFICAR, orderable: false, className: "td-center" },
         { title: '', defaultContent: this.const.ICONO_ELIMINAR, orderable: false, className: "td-centerm" }
 
@@ -81,7 +81,7 @@ export class LisClaseComponent implements OnInit {
       ordering: true,
       info: true,
       dom: 'Bfrtip',
-      order: [[2, 'asc']],
+      order: [[3, 'asc'],[2, 'asc']],
       buttons: [
         {
           text: `${this.const.ICONO_AGREGAR}`,
@@ -103,20 +103,20 @@ export class LisClaseComponent implements OnInit {
           self.modificar(index);
         });
 
-        $('td:eq(6)', row).unbind('click');
+        $('td:eq(5)', row).unbind('click');
         if(dataRow.libreriaDinamica){
-          $('td:eq(6)', row).html('<a href="'+dataRow.rutaLibreria+'" download><i class="fa fa-file-archive-o" style="font-size: 17px" aria-hidden="true"></i></a>');
+          $('td:eq(5)', row).html('<a href="'+dataRow.rutaLibreria+'" download><i class="fa fa-file-archive-o" style="font-size: 17px" aria-hidden="true"></i></a>');
         }
 
-        $('td:eq(7)', row).unbind('click');
-        $('td:eq(7)', row).bind('click', () => {
+        $('td:eq(6)', row).unbind('click');
+        $('td:eq(6)', row).bind('click', () => {
           self.modificar(index);
         });
 
         
 
-        $('td:eq(8)', row).unbind('click');
-        $('td:eq(8)', row).bind('click', () => {
+        $('td:eq(7)', row).unbind('click');
+        $('td:eq(7)', row).bind('click', () => {
           self.irEliminar(this.listadoClaseImp[index]);
         });
         //this.cambiarEstiloBotones();
@@ -124,6 +124,21 @@ export class LisClaseComponent implements OnInit {
       },
       initComplete: (settings, json) => {
         this.cambiarEstiloBotones();
+      },
+      drawCallback: function (settings) {
+        var api = this.api();
+        var rows = api.rows({ page: 'current' }).nodes();
+        var last = null;
+
+        api.column(3, { page: 'current' }).data().each(function (group, i) {
+          if (last !== group) {
+            $(rows).eq(i).before(
+              '<tr class="group" style="background-color:#f0f3f5 !important;"><td colspan="8"><strong>' + group + '</strong></td></tr>'
+            );
+
+            last = group;
+          }
+        });
       }
 
 

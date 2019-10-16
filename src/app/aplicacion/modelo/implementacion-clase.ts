@@ -14,6 +14,7 @@ export class ImplementacionClase {
     public cambioImagen:boolean;
     public libreriaDinamica:boolean; 
     public rutaLibreria:String; 
+    public idGrupoLlamado:String; 
 
 
 
