@@ -68,7 +68,7 @@ export class LisServicioWebComponent implements OnInit {
     this.dtOptions = {
       data: data,
       columns: [
-        { title: '', defaultContent: '<i class="fa fa-files-o" aria-hidden="true"></i>', orderable: false, className: "td-center" },
+        { title: '', defaultContent: '<i class="fa fa-files-o" aria-hidden="true" title="Duplicar servicio"></i>', orderable: false, className: "td-center" },
         { title: 'Código', data: 'codigo', width: "20%", className: "text-left" },
         { title: 'Nombre', data: 'nombre', width: "45%", className: "text-left" },
         { title: 'Tipo', data: 'tipo', width: "15%", className: "text-left", visible: false },
