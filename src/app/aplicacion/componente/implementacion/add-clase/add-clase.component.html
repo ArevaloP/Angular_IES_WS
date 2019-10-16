@@ -36,16 +36,27 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label for="tipoServicio">Protocolo</label>
+                                <div class="form-group col-sm-{{numeroColumna}}">
+                                    <label for="tipoServicio">Tipo</label>
                                     <select class="form-control" id="tipoServicio" formControlName="tipoServicio"
-                                        [(ngModel)]="implementacion.tipoServicio" required>
+                                        [(ngModel)]="implementacion.tipoServicio" required 
+                                        (change)="cambiarTipo()"
+                                        >
                                         <option value="REST">REST</option>
                                         <option value="SOAP">SOAP</option>
+                                        <option value="GRUPO">GRUPO</option>
                                     </select>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-{{numeroColumna}}" *ngIf="implementacion.tipoServicio =='GRUPO'; else ">
+                                    <label for="estado">Grupo</label>
+                                    <select class="form-control" id="idGrupoLlamado" formControlName="idGrupoLlamado" [(ngModel)]="implementacion.idGrupoLlamado">
+                                        <option *ngFor="let grupo of listaGrupoLlamado;" [value]="grupo.id">{{grupo.nombre}}</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group col-sm-{{numeroColumna}}">
                                     <label for="estado">Estado</label>
                                     <select class="form-control" id="estado" formControlName="estado"
                                         [(ngModel)]="implementacion.estado" required>
@@ -53,6 +64,8 @@
                                         <option value="INACTIVO">INACTIVO</option>
                                     </select>
                                 </div>
+                               
+
 
                             </div>
 
@@ -102,5 +115,8 @@
         </div>
         <!--/.row-->
     </div>
+
+    <ng-template #elseBlock><input type="hidden" id="idGrupoLlamado" formControlName="idGrupoLlamado" [(ngModel)]="implementacion.idGrupoLlamado"></ng-template>
+
 </form>
 <app-ventana-modal #alerta></app-ventana-modal>

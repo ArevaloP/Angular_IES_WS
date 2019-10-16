@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RestImplementacionClaseService } from '../../../servicio/rest-implementacion-clase.service';
 import { UploadLibreriaComponent } from '../../utilidad/upload-libreria/upload-libreria.component';
+import { RestGrupoLlamadoService } from '../../../servicio/grupo-llamado.service';
+import { GrupoLlamado } from '../../../modelo/grupo-llamado';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-add-clase',
@@ -20,6 +23,9 @@ export class AddClaseComponent implements OnInit {
   public listaConexionesExistente: ImplementacionClase[];
   public indexConexion: number;
   public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+  public listaGrupoLlamado: GrupoLlamado[];
+  public numeroColumna = 6;
+
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('libreriaZip', { static: false }) public libreriaZip: UploadLibreriaComponent;
@@ -27,6 +33,7 @@ export class AddClaseComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public restImplementacionClase: RestImplementacionClaseService,
+    public restGrupoLlamado: RestGrupoLlamadoService,
     public router: Router
   ) {
 
@@ -42,7 +49,8 @@ export class AddClaseComponent implements OnInit {
     } else {
       this.isModificar = false;
     }
-
+    this.cambiarTipo();
+    this.listarGrupoLlamado();
     this.inicializarValidacion();
   }
 
@@ -58,7 +66,7 @@ export class AddClaseComponent implements OnInit {
       tipoServicio: [this.implementacion.tipoServicio, Validators.required],
       estado: [this.implementacion.estado, Validators.required],
       clase: [this.implementacion.clase, Validators.required],
-
+      idGrupoLlamado: []
 
     }
     );
@@ -74,9 +82,13 @@ export class AddClaseComponent implements OnInit {
     this.implementacion.estado = "ACTIVO";
     this.implementacion.registradoPor = this.usuarioVO.oid;
     this.implementacion.usuarioRealiza = this.usuarioVO.name;
-    this.implementacion.cambioImagen=this.libreriaZip.cambioFichero;
-    if(this.libreriaZip.cambioFichero){
-      this.implementacion.nombreFile=this.libreriaZip.uploadResponse.filePath;
+    this.implementacion.cambioImagen = this.libreriaZip.cambioFichero;
+    if (this.libreriaZip.cambioFichero) {
+      this.implementacion.nombreFile = this.libreriaZip.uploadResponse.filePath;
+    }
+
+    if (this.implementacion.tipoServicio != 'GRUPO'){
+      this.implementacion.idGrupoLlamado=null;
     }
 
     if (this.isModificar) {
@@ -121,6 +133,37 @@ export class AddClaseComponent implements OnInit {
       }
     );
 
+
+  }
+
+
+  public cambiarTipo() {
+
+    if (this.implementacion.tipoServicio == 'GRUPO') {
+      this.numeroColumna = 4;
+      this.implementacion.clase="up.ws.server.integrador.servicio.resultado.clase.CargarServicioGrupo";
+    } else {
+      this.numeroColumna = 6;
+      if(this.implementacion.clase=="up.ws.server.integrador.servicio.resultado.clase.CargarServicioGrupo"){
+        this.implementacion.clase="";
+      }
+    }
+
+  }
+
+
+  public listarGrupoLlamado() {
+
+    this.restGrupoLlamado.listarGrupoLlamado().subscribe(
+      data => {
+        this.listaGrupoLlamado = data;
+        console.log(data);
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+
+    )
 
   }
 
