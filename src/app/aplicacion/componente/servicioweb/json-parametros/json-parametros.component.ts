@@ -56,6 +56,7 @@ export class JsonParametrosComponent implements OnInit {
     let parametro= new ParametroServicio();
     parametro.idServicioWeb =this.servicioWeb.id;
     parametro.textoJson=this.myDiv.nativeElement.innerText;
+    parametro.valorFijo=this.servicioWeb.codigo;
     //console.log("parametro",parametro);
     this.restParametro.descargarParametro(parametro).subscribe(
       data => {

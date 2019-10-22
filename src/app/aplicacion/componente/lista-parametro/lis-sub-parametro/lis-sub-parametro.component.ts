@@ -110,14 +110,29 @@ export class LisSubParametroComponent implements OnInit {
         const self = this;
         index = row._DT_RowIndex;
 
+        if (dataRow.obligatorio) {
+          $('td:eq(1)', row).html('<i class="fa fa-asterisk" style="font-size:7px; color:red" aria-hidden="true"  title="Obligatorio"></i>&nbsp&nbsp'+dataRow.parametro); 
+        }else{
+          $('td:eq(1)', row).html('<i class="fa fa-asterisk" style="font-size:7px; color:transparent" aria-hidden="true"  title="Obligatorio"></i>&nbsp&nbsp'+dataRow.parametro); 
+        }
+
+
         $('td:eq(4)', row).unbind('click');
         if (dataRow.idEquivalencia) {
-          $('td:eq(4)', row).html('<i class="fa fa-random" style="font-size:16px; color:orange" aria-hidden="true"></i>');
+          $('td:eq(4)', row).html('<i class="fa fa-random" id="equivalente"  style="font-size:16px; color:orange" aria-hidden="true" data-toggle="tooltip"  title="'+dataRow.nombreEquivalencia+'"></i>');
         }
         
         $('td:eq(5)', row).unbind('click');
-        if (dataRow.tipoDato=='ARRAY') {
-          $('td:eq(5)', row).html('<i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true"></i>');
+        if (dataRow.tipoDato == 'ARRAY'  || dataRow.tipoDato == 'OBJETO') {
+          
+   
+          if(dataRow.tipoDato == 'OBJETO'){
+            $('td:eq(5)', row).html('<i class="fa fa-object-group" style="font-size:16px; color:firebrick"  aria-hidden="true" ></i>');
+          }else{
+            $('td:eq(5)', row).html('<i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true" ></i>');
+          }
+
+
           $('td:eq(5)', row).bind('click', () => {
             if(dataRow.idListaPadre){
               self.irSubParametro(index);

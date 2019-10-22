@@ -56,8 +56,6 @@ export class AddParametroComponent implements OnInit {
     this.parametroServicio.registradoPor = this.usuarioVO.oid;;
     this.parametroServicio.usuarioRealiza = this.usuarioVO.name;
 
-
-
     this.fGeneral = this.fb.group({
       firstName: [],
       orden: [this.parametroServicio.orden, [Validators.required, Validators.maxLength(2), Validators.pattern('[0-9]*')]],
@@ -70,7 +68,8 @@ export class AddParametroComponent implements OnInit {
       equivalencia: [this.parametroServicio.idEquivalencia],
       listaArray: [this.parametroServicio.idListaPadre],
       codigoLista: [Validators.required],
-      nombreLista: [Validators.required]
+      nombreLista: [Validators.required],
+      obligatorio: [this.parametroServicio.obligatorio]
     });
 
     await this.listarEquivalenciaDatos();
@@ -83,6 +82,8 @@ export class AddParametroComponent implements OnInit {
     this.parametroServicio.registradoPor = this.usuarioVO.oid;
     this.parametroServicio.usuarioRealiza = this.usuarioVO.name;
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
+
+    console.log(this.parametroServicio);
 
     if (this.parametroServicio.tipoDato == 'ARRAY') {
       if ( !this.parametroServicio.nombreColumna || "" === this.parametroServicio.nombreColumna.trim()

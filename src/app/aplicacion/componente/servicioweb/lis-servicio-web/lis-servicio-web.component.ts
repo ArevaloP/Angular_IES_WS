@@ -180,7 +180,7 @@ export class LisServicioWebComponent implements OnInit {
 
   public irDuplicar(servicioWeb)
   {
-    this.alerta.confirmarInsertar(
+    this.alerta.confirmarCopiar(
       ("¿Está seguro de duplicar el servicio [" + servicioWeb.nombre + "]?"),
       () => this.duplicar(servicioWeb)
     );

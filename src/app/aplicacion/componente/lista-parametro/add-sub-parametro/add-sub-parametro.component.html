@@ -26,7 +26,7 @@
                                             <small>Campo requerido</small></div>
                                     </div>
 
-                                    <div class="form-group col-12 col-md-5">
+                                    <div class="form-group col-12 col-md-4">
                                         <label for="parametro">Nombre</label>
                                         <input type="text" class="form-control" id="parametro" name="parametro"
                                             placeholder="Ingrese el nombre del parámetro" formControlName="parametro"
@@ -51,6 +51,17 @@
                                             <small>Campo requerido</small></div>
                                     </div>
 
+
+                                    <div class="form-group col-12 col-md-1">
+                                        <label for="obligatorio">Obligatorio</label>
+                                        <input type="checkbox" class="form-control" id="obligatorio" name="obligatorio"
+                                            formControlName="obligatorio"
+                                            [(ngModel)]="subParametroServicio.obligatorio"
+                                            [ngClass]="{'is-invalid': fGeneral.get('obligatorio').errors && fGeneral.get('obligatorio').dirty ,'is-valid': !fGeneral.get('obligatorio').errors}"
+                                            autofocus>
+                                    </div>
+
+
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-12 col-md-6">
@@ -58,6 +69,7 @@
                                         <select class="form-control" id="tipoDato" formControlName="tipoDato"
                                             [(ngModel)]="subParametroServicio.tipoDato" required>
                                             <option value="ARRAY">ARRAY</option>
+                                            <option value="OBJETO">OBJETO</option>
                                             <ng-template [ngIf]="!subParametroServicio.listaArray">
                                                 <option value="DATE">DATE</option>
                                                 <option value="INTEGER">INTEGER</option>
@@ -103,7 +115,7 @@
                                     </div>
 
 
-                                    <div class="form-group col-12 col-md-6" *ngIf="!(subParametroServicio.tipoDato == 'ARRAY')">
+                                    <div class="form-group col-12 col-md-6" *ngIf="!(subParametroServicio.tipoDato == 'ARRAY' ||subParametroServicio.tipoDato == 'OBJETO')">
                                         <label for="equivalencia">Equivalencia de datos</label>
                                         <select class="form-control" id="equivalencia" name="equivalencia"
                                             formControlName="equivalencia"
@@ -115,7 +127,7 @@
                                         <input type="hidden" id="listaArray" name="listaArray"
                                             formControlName="listaArray" [(ngModel)]="subParametroServicio.idListaPadre">
                                     </div>
-                                    <div class="form-group col-12 col-md-6" *ngIf="subParametroServicio.tipoDato == 'ARRAY'">
+                                    <div class="form-group col-12 col-md-6" *ngIf="(subParametroServicio.tipoDato == 'ARRAY'||subParametroServicio.tipoDato == 'OBJETO' )">
                                         <input type="hidden" id="equivalencia" name="equivalencia"
                                             formControlName="equivalencia" [(ngModel)]="subParametroServicio.idEquivalencia">
                                         <label for="listaArray">Listado Array</label>

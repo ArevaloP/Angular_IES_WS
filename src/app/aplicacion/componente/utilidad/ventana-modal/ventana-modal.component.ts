@@ -32,7 +32,7 @@ export class VentanaModalComponent implements OnInit {
 
 
   promtValue: String = "";
-  nombreEquivalencia:boolean;
+  nombreEquivalencia: boolean;
 
 
   callback: any;
@@ -63,20 +63,21 @@ export class VentanaModalComponent implements OnInit {
 
 
   public mostrarError(error) {
+      this.ventana.titulo = "Ocurrio un error";
+      this.ventana.msgBotonCancelar = "Cerrar";
+      this.ventana.botonDelete = false;
+      this.ventana.mensaje = error.error.mensaje || error.message;
+      
+      if (error.status == 403) {
+        error.error = "El acceso al recurso especificado ha sido prohibido.";
+        this.restError.setError(error);
+        this.router.navigate(['500']);
+      } if (error.status == 401) {
+        this.router.navigate(['load']);
+      } else {
+        this.dangerModal.show();
+      }
 
-    this.ventana.titulo = "Ocurrio un error";
-    this.ventana.msgBotonCancelar = "Cerrar";
-    this.ventana.botonDelete = false;
-    this.ventana.mensaje = error.error.mensaje || error.message;
-
-    if (error.status == 403) {
-      error.error = "El acceso al recurso especificado ha sido prohibido.";
-      this.restError.setError(error);
-      this.router.navigate(['500']);
-    } else {
-      this.dangerModal.show();
-    }
-    //this.callback = callback;
   }
 
 
@@ -104,6 +105,19 @@ export class VentanaModalComponent implements OnInit {
     this.primaryModal.show();
     this.callback = callback;
   }
+
+
+  public confirmarCopiar(mensaje, callback) {
+    this.ventana.titulo = "Copiar Registro";
+    this.ventana.msgBotonCancelar = "Cancelar";
+    this.ventana.msgBotonRegistar = "Registrar";
+    this.ventana.botonRegistar = true;
+    this.ventana.mensaje = mensaje;
+    this.successModal.show();
+    this.callback = callback;
+  }
+
+
 
   public accionSuccess() {
     this.callback();
@@ -179,7 +193,7 @@ export class VentanaModalComponent implements OnInit {
 
   public agregarEquivalenciaXlsVentana(entidad, callback) {
     this.callbackParam = callback;
-    this.nombreEquivalencia=false;
+    this.nombreEquivalencia = false;
     this.xlsEquiva.inicializarVariables(entidad);
     this.ventana.titulo = "Cargar equivalencia por .xls";
     this.ventana.msgBotonCancelar = "Cancelar";
@@ -217,13 +231,13 @@ export class VentanaModalComponent implements OnInit {
 
 
   public async accionRegistrarEquivalencia(callback) {
-    
+
     if (this.xlsEquiva.nombreAtributo) {
-      this.nombreEquivalencia=false;
+      this.nombreEquivalencia = false;
       this.xlsEquiva.procesarArchivo(callback);
       this.equivalenciaXls.hide();
     } else {
-      this.nombreEquivalencia=true;
+      this.nombreEquivalencia = true;
     }
 
   }

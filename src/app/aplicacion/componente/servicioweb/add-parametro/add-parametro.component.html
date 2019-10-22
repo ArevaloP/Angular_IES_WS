@@ -20,7 +20,7 @@
                                     <small>Campo requerido</small></div>
                             </div>
 
-                            <div class="form-group col-12 col-md-5">
+                            <div class="form-group col-12 col-md-4">
                                 <label for="parametro">Nombre</label>
                                 <input type="text" class="form-control" id="parametro" name="parametro"
                                     placeholder="Ingrese el nombre del parámetro" formControlName="parametro"
@@ -42,6 +42,16 @@
                                     <small>Campo requerido</small></div>
                             </div>
 
+                            <div class="form-group col-12 col-md-1">
+                                <label for="obligatorio">Obligatorio</label>
+                                <input type="checkbox" class="form-control" id="obligatorio" name="obligatorio"
+                                    formControlName="obligatorio"
+                                    [(ngModel)]="parametroServicio.obligatorio"
+                                    [ngClass]="{'is-invalid': fGeneral.get('obligatorio').errors && fGeneral.get('obligatorio').dirty ,'is-valid': !fGeneral.get('obligatorio').errors}"
+                                    autofocus>
+                            </div>
+
+
                         </div>
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
@@ -49,6 +59,7 @@
                                 <select class="form-control" id="tipoDato" formControlName="tipoDato"
                                     [(ngModel)]="parametroServicio.tipoDato" required>
                                     <option value="ARRAY">ARRAY</option>
+                                    <option value="OBJETO">OBJETO</option>
                                     <ng-template [ngIf]="!parametroServicio.listaArray">
                                         <option value="DATE">DATE</option>
                                         <option value="INTEGER">INTEGER</option>
@@ -93,7 +104,7 @@
                             </div>
 
 
-                            <div class="form-group col-12 col-md-6" *ngIf="!(parametroServicio.tipoDato == 'ARRAY')">
+                            <div class="form-group col-12 col-md-6" *ngIf="!(parametroServicio.tipoDato == 'ARRAY'||parametroServicio.tipoDato == 'OBJETO')">
                                 <label for="equivalencia">Equivalencia de datos</label>
                                 <select class="form-control" id="equivalencia" name="equivalencia"
                                     formControlName="equivalencia" [(ngModel)]="parametroServicio.idEquivalencia">
@@ -104,7 +115,7 @@
                                 <input type="hidden" id="listaArray" name="listaArray"
                                 formControlName="listaArray" [(ngModel)]="parametroServicio.idListaPadre">
                             </div>
-                            <div class="form-group col-12 col-md-6" *ngIf="parametroServicio.tipoDato == 'ARRAY'">
+                            <div class="form-group col-12 col-md-6" *ngIf="(parametroServicio.tipoDato == 'ARRAY'||parametroServicio.tipoDato == 'OBJETO') ">
                                 <input type="hidden" id="equivalencia" name="equivalencia"
                                     formControlName="equivalencia" [(ngModel)]="parametroServicio.idEquivalencia">
 
@@ -128,7 +139,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="alert alert-info" role="alert">
-                                                El tipo <strong>ARRAY</strong> requiere un listado adicional de parámetros, puede elegir un listado existente o crear uno desde cero. 
+                                                El tipo <strong>ARRAY </strong> requiere un listado adicional de parámetros, puede elegir un listado existente o crear uno desde cero. 
                                                 Si decide agregar uno nuevo deberá digitar el <strong>Código</strong> y el <strong>Nombre</strong> del listado. 
                                                 Los ítems(sub-parámetros) de este listado los podrá gestionar mediante el botón&nbsp;&nbsp;
                                                 <i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true"></i>&nbsp;&nbsp;(Listar parámetros del servicio)

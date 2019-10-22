@@ -9,6 +9,7 @@ import { ServicioWeb } from '../../../modelo/servicio-web';
 import { XlsParametroComponent } from '../xls-parametro/xls-parametro.component';
 import { Alert } from 'selenium-webdriver';
 
+
 @Component({
   selector: 'app-lis-parametro',
   templateUrl: './lis-parametro.component.html',
@@ -19,7 +20,7 @@ export class LisParametroComponent implements OnInit {
 
   @ViewChild("dataTable", null) table;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
-  
+
 
 
   public dataTable: any;
@@ -56,9 +57,9 @@ export class LisParametroComponent implements OnInit {
 
     this.parametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
 
-    if ( !this.parametroServicio.idServicioWeb )
+    if (!this.parametroServicio.idServicioWeb)
       this.parametroServicio.idServicioWeb = this.restServicio.getIdServicio();
-    
+
     this.nombreServicioWeb = this.restServicio.getServicioWeb().nombre;
     this.restParametro.listarParametroEquivalencia(this.parametroServicio).subscribe(
       data => {
@@ -81,8 +82,9 @@ export class LisParametroComponent implements OnInit {
     this.dtOptions = {
       data: data,
       columns: [
+        
         { title: 'Orden', data: 'orden', width: "5%", className: "text-center" },
-        { title: 'Nombre', data: 'parametro', width: "10%", className: "text-left" },
+        { title: 'Nombre', data: 'parametro', width: "20%", className: "text-left" },
         { title: 'Alias', data: 'aliasColumna', width: "35%", className: "text-left" },
         { title: 'Defecto', data: 'valorFijo', defaultContent: "", width: "10%", className: "text-left" },
         { title: 'Equiv', data: 'idEquivalencia', defaultContent: "", width: "7%", className: "text-center" },
@@ -125,21 +127,34 @@ export class LisParametroComponent implements OnInit {
         const self = this;
         index = row._DT_RowIndex;
 
+
+        if (dataRow.obligatorio) {
+          $('td:eq(1)', row).html('<i class="fa fa-asterisk" style="font-size:7px; color:red" aria-hidden="true"  title="Obligatorio"></i>&nbsp&nbsp'+dataRow.parametro); 
+        }else{
+          $('td:eq(1)', row).html('<i class="fa fa-asterisk" style="font-size:7px; color:transparent" aria-hidden="true"  title="Obligatorio"></i>&nbsp&nbsp'+dataRow.parametro); 
+        }
+
+        
         $('td:eq(4)', row).unbind('click');
         if (dataRow.idEquivalencia) {
-          $('td:eq(4)', row).html('<i class="fa fa-random" style="font-size:16px; color:orange" aria-hidden="true"></i>');
+          $('td:eq(4)', row).html('<i class="fa fa-random" id="equivalente"  style="font-size:16px; color:orange" aria-hidden="true" data-toggle="tooltip"  title="'+dataRow.nombreEquivalencia+'"></i>');
         }
 
 
         $('td:eq(5)', row).unbind('click');
-        if (dataRow.tipoDato=='ARRAY') {
-          $('td:eq(5)', row).html('<i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true"></i>');
+        if (dataRow.tipoDato == 'ARRAY'  || dataRow.tipoDato == 'OBJETO') {
+          
+          if(dataRow.tipoDato == 'OBJETO'){
+            $('td:eq(5)', row).html('<i class="fa fa-object-group" style="font-size:16px; color:firebrick"  aria-hidden="true" ></i>');
+          }else{
+            $('td:eq(5)', row).html('<i class="fa fa-list-ol" style="font-size:16px; color:firebrick"  aria-hidden="true" ></i>');
+          }
           $('td:eq(5)', row).bind('click', () => {
-            if(dataRow.idListaPadre){
+            if (dataRow.idListaPadre) {
               self.irSubParametro(index);
-            }else{
-              this.alerta.mostarAdvertencia("Advertencia","Este parámetro es de tipo ARRAY , pero aun no ha seleccionado ningún listado de sub-parametros, ingrese por la opción modificar y revise la configuración");
-            } 
+            } else {
+              this.alerta.mostarAdvertencia("Advertencia", "Este parámetro es de tipo ARRAY , pero aun no ha seleccionado ningún listado de sub-parametros, ingrese por la opción modificar y revise la configuración");
+            }
           });
         }
 
@@ -147,10 +162,9 @@ export class LisParametroComponent implements OnInit {
         $('td:eq(6)', row).bind('click', () => {
           self.modificar(index);
         });
-        
+
         $('td:eq(7)', row).unbind('click');
-        if ( !dataRow.listaArray )
-        {
+        if (!dataRow.listaArray) {
           $('td:eq(7)', row).html(this.const.ICONO_ELIMINAR);
           $('td:eq(7)', row).bind('click', () => {
             self.irEliminar(this.listadoParametroServicio[index]);
@@ -161,6 +175,7 @@ export class LisParametroComponent implements OnInit {
       },
       initComplete: (settings, json) => {
         this.cambiarEstiloBotones();
+        //$('[data-toggle="tooltip"]').tooltip();
       }
     };
   }
@@ -171,7 +186,7 @@ export class LisParametroComponent implements OnInit {
   }
 
   public irEliminar(parametroServicio) {
-    
+
     this.alerta.confirmarEliminar(
       ("¿Está seguro de eliminar el parámetro [" + parametroServicio.parametro + "]?"),
       () => this.eliminar(parametroServicio)
@@ -182,10 +197,10 @@ export class LisParametroComponent implements OnInit {
   public irSubParametro(index) {
     this.restParametro.setParametroServicio(this.listadoParametroServicio[index]);
 
-    if ( this.restServicio.getServicioWeb().id )
-      this.restServicio.setIdServicio( this.restServicio.getServicioWeb().id );
-    
-    this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);  
+    if (this.restServicio.getServicioWeb().id)
+      this.restServicio.setIdServicio(this.restServicio.getServicioWeb().id);
+
+    this.router.navigate(['aplicacion/parametro/lis-sub-parametro']);
   }
 
   public eliminar(parametroServicio) {
@@ -219,11 +234,11 @@ export class LisParametroComponent implements OnInit {
 
 
   public async recargarListado() {
-    if(this.restParametro.getRespuesta()){
+    if (this.restParametro.getRespuesta()) {
       this.router.navigate(['aplicacion/parametro/lis-parametro']);
-    }else{
+    } else {
       this.alerta.mostrarError(this.restParametro.getInfoData());
-    } 
+    }
   }
 
 

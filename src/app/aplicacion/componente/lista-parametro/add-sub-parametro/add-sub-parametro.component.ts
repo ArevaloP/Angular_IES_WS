@@ -74,7 +74,8 @@ export class AddSubParametroComponent implements OnInit {
       equivalencia: [this.subParametroServicio.idEquivalencia],
       listaArray: [this.subParametroServicio.idListaPadre],
       codigoLista: [Validators.required],
-      nombreLista: [Validators.required]
+      nombreLista: [Validators.required],
+      obligatorio: [this.subParametroServicio.obligatorio]
     });
 
     await this.listarEquivalenciaDatos();
