@@ -10,8 +10,19 @@
 
     <form [formGroup]="form">
         <div class="custom-file">
-            <input #file type="file" id="parametroFile" name="parametroFile" (change)="onFileChange(file.files,$event)" class="custom-file-input" lang="es">
-            <label class="custom-file-label" for="parametroFile" data-browse="Examinar">{{nombreFichero}}</label>
+            <div class="row">
+                <div class="form-group col-2">
+                    <input type="text" class="form-control" placeholder="Hoja xsl" id="hoja" name="hoja" formControlName="hoja" [(ngModel)]="uploadResponse.page " >
+                </div>  
+
+                <div class="form-group col-10">
+                    <input #file type="file" id="parametroFile" name="parametroFile" (change)="onFileChange(file.files,$event)" class="custom-file-input" lang="es">
+                    <label class="custom-file-label" for="parametroFile" data-browse="Examinar">{{nombreFichero}}</label>
+                </div>   
+
+               
+            </div>
+
         </div>
     </form>
 </div>

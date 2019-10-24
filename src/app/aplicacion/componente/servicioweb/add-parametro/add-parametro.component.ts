@@ -85,7 +85,7 @@ export class AddParametroComponent implements OnInit {
 
     console.log(this.parametroServicio);
 
-    if (this.parametroServicio.tipoDato == 'ARRAY') {
+    if (this.parametroServicio.tipoDato == 'ARRAY'||this.parametroServicio.tipoDato == 'OBJETO') {
       if ( !this.parametroServicio.nombreColumna || "" === this.parametroServicio.nombreColumna.trim()
           || !this.parametroServicio.codigoColumna || "" === this.parametroServicio.codigoColumna.trim() ) {
         this.alerta.mostarAdvertencia("Advertencia", "Es necesario que ingrese información para los campos código de lista y nombre de lista, esto solo aplica para parámetros de tipo Array");

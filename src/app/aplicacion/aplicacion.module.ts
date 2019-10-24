@@ -112,7 +112,8 @@ import { AddParametroArrayComponent } from './componente/parametros-array/add-pa
     DataTablesModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
-    NgxJsonViewerModule
+    NgxJsonViewerModule,
+    FormsModule
   ], providers: [
     BsModalRef
 

@@ -12,7 +12,7 @@ export class UploadParametroComponent implements OnInit {
   public form: FormGroup;
   public error: string;
   public userId: number = 1;
-  public uploadResponse = { status: '', message: '', filePath: '' };
+  public uploadResponse = { status: '', message: '', filePath: '', page:1 };
   public imagePath;
   public imgURL: any;
   public message: string;
@@ -20,15 +20,21 @@ export class UploadParametroComponent implements OnInit {
 
   public nombreFichero:String ="Seleccionar archivo ";
   @Input() tipo: String;
+  public hoja:String;
 
   constructor(public formBuilder: FormBuilder, public restUpload: RestUploadFileService) {
 
   }
 
   ngOnInit() {
+
+    this.uploadResponse.page=1;
     this.form = this.formBuilder.group({
-      parametroFile: ['']
+      parametroFile: [''],
+      hoja: [''],
     });
+
+
   }
 
 
@@ -42,6 +48,7 @@ export class UploadParametroComponent implements OnInit {
         this.subirArchivoAlServidor();
         this.cambioFichero=true;
         this.nombreFichero=file.name;
+        //alert(this.hoja);
         //alert(this.cambioFichero);
       }
 

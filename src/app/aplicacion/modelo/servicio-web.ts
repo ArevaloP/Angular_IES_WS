@@ -26,6 +26,7 @@ export class ServicioWeb {
     public idConexionJdbc:String;
     public conexionJdbc:JdbcConexion;
     public idArray:String;
+    public hoja:any;
 
 
 

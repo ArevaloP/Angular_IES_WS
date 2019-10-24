@@ -37,7 +37,7 @@
 
   
 <ng-template #arrayPrincial let-param="param" let-isLast="isLast" let-espacios="espacios">{{espacios}}<span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{param.tipoDato=='OBJETO'?'{':'[{' }}</span>
-<span *ngFor="let arrayLst of param.listaArray;let k=index; last as isLast2;"><span *ngIf="k==0 && arrayLst.tipoDato!='ARRAY'"></span><ng-container [ngTemplateOutlet]="null == arrayLst.listaAtributoCompuesto?(arrayLst.tipoDato =='ARRAY'?arrayPrincial:simpleInterno):compuestoInterno" [ngTemplateOutletContext]="{param:arrayLst, isLast:isLast2, espacios:('    '+espacios)}"></ng-container><span *ngIf="null != arrayLst.listaAtributoCompuesto;else espacio"></span></span>
+<span *ngFor="let arrayLst of param.listaArray;let k=index; last as isLast2;"><span *ngIf="k==0 && (arrayLst.tipoDato!='ARRAY'||arrayLst.tipoDato!='OBJETO'  )"></span><ng-container [ngTemplateOutlet]="null == arrayLst.listaAtributoCompuesto?((arrayLst.tipoDato =='ARRAY'||arrayLst.tipoDato =='OBJETO' )?arrayPrincial:simpleInterno):compuestoInterno" [ngTemplateOutletContext]="{param:arrayLst, isLast:isLast2, espacios:('    '+espacios)}"></ng-container><span *ngIf="null != arrayLst.listaAtributoCompuesto;else espacio"></span></span>
 <span class="token punctuation">{{espacios}}{{param.tipoDato=='OBJETO'?'}':'}]' }}</span><span *ngIf="!isLast"><span class="token punctuation">,</span></span>
 </ng-template>
 

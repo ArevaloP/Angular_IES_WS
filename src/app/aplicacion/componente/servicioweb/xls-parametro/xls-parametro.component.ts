@@ -41,6 +41,7 @@ export class XlsParametroComponent implements OnInit {
     this.servicioWeb.registradoPor = this.usuarioVO.oid;
     this.servicioWeb.usuarioRealiza = this.usuarioVO.name;
 
+
   }
 
 
@@ -62,6 +63,8 @@ export class XlsParametroComponent implements OnInit {
 
     if (this.parametroUpload.cambioFichero) {
       this.servicioWeb.contexto = this.parametroUpload.uploadResponse.filePath;
+      this.servicioWeb.hoja=(this.parametroUpload.uploadResponse.page-1)||0;
+
       console.log("this.servicioWeb", this.servicioWeb);
       this.restParametro.cargarArchivoParametroDatos(this.servicioWeb).subscribe(
         data => {

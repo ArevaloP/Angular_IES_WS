@@ -87,7 +87,7 @@ export class AddSubParametroComponent implements OnInit {
     this.subParametroServicio.usuarioRealiza = this.usuarioVO.name;
     //this.subParametroServicio.idServicioWeb = this.restServicio.getServicioWeb().id;
 
-    if (this.subParametroServicio.tipoDato == 'ARRAY')
+    if (this.subParametroServicio.tipoDato == 'ARRAY' ||this.subParametroServicio.tipoDato == 'OBJETO')
     {
       if ( !this.subParametroServicio.nombreColumna || "" === this.subParametroServicio.nombreColumna.trim()
           || !this.subParametroServicio.codigoColumna || "" === this.subParametroServicio.codigoColumna.trim() )
