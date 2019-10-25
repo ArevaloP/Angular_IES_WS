@@ -16,6 +16,8 @@ export class UtilConstante {
 
 
     public ICONO_ELIMINAR = "<a class='eliminar' title='Eliminar'><i class='fa fa-trash-o fa-lg' style='font-size:17px' aria-hidden='true'></i></a>";
+    public ICONO_ELIMINAR_ROJO = "<a class='eliminar' title='Eliminar'><i class='fa fa-trash-o fa-lg' style='color:firebrick;font-size:17px' aria-hidden='true'></i></a>";
+
     public ICONO_VER = "<a class='ver' title='Ver'><i class='fa fa-circle-o ' aria-hidden='true'></i></a>";
     public ICONO_MODIFICAR = "<a class='update' title='Modificar'><i class='fa fa-pencil-square-o fa-lg' style='color:darkblue;font-size:17px' aria-hidden='true'></i></a>";
 

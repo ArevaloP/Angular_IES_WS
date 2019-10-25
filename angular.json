@@ -61,7 +61,25 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.pruebas.ts"
+                }
+              ]
+            },
+            "t8090": {
+              "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.t8090.ts"
+              }
+              ]
             }
+
+
           }
         },
         "serve": {

@@ -4,20 +4,26 @@ import { ParametroServicio } from '../../../modelo/parametro-servicio';
 import { RestServicioWebService } from '../../../servicio/rest-servicio-web.service';
 import { ServicioWeb } from '../../../modelo/servicio-web';
 
+declare var $;
+
 @Component({
   selector: 'app-json-parametros',
   templateUrl: './json-parametros.component.html',
   styleUrls: ['./json-parametros.component.scss']
 })
+
 export class JsonParametrosComponent implements OnInit {
+
 
   @Input() listaParametros: ParametroServicio[];
   @Input() tipoLista: String;
   @ViewChild('myDiv', { static: false }) myDiv: ElementRef;
+  @ViewChild('descargarh5', { static: false }) descargarh5: ElementRef;
 
   public p: any;
   public servicioWeb: ServicioWeb;
   public parametro: ParametroServicio;
+  public urlzip: String;
 
 
   constructor(
@@ -28,7 +34,7 @@ export class JsonParametrosComponent implements OnInit {
   ngOnInit() {
     this.servicioWeb = this.restServicio.getServicioWeb();
     this.parametro = this.restParametro.getParametroServicio();
-    
+    if(!this.servicioWeb ) this.servicioWeb =new ServicioWeb();
   }
 
 
@@ -53,10 +59,11 @@ export class JsonParametrosComponent implements OnInit {
 
   descargar() {
 
-    let parametro= new ParametroServicio();
-    parametro.idServicioWeb =this.servicioWeb.id;
-    parametro.textoJson=this.myDiv.nativeElement.innerText;
-    parametro.valorFijo=this.servicioWeb.codigo;
+   
+    let parametro = new ParametroServicio();
+    parametro.idServicioWeb = this.servicioWeb.id;
+    parametro.textoJson = this.myDiv.nativeElement.innerText;
+    parametro.valorFijo = this.servicioWeb.codigo;
     //console.log("parametro",parametro);
     this.restParametro.descargarParametro(parametro).subscribe(
       data => {
@@ -70,23 +77,24 @@ export class JsonParametrosComponent implements OnInit {
 
 
 
-  obtenerZip(url){
-    this.restParametro.obtenerFichero(url).subscribe(
-      data=>{
-        this.downloadFile(data);
-      }, error=>{
-
-      }
-    )
+  obtenerZip(url) {
+    this.restParametro.obtenerFichero(url);
+    this.downloadFile();
   }
 
-  downloadFile(data: Response) {
-    //const blob = new Blob([data], { type: 'text/csv' });
-    //const url= window.URL.createObjectURL(blob);
-    //window.open(url);
+  downloadFile() {
+
+    this.urlzip = this.restParametro.getUrlZip();
+    setTimeout(()=>{
+         this.descargarh5.nativeElement.click();
+    }, 500);
+
+
+   
+
   }
 
-  
+
 
 
 

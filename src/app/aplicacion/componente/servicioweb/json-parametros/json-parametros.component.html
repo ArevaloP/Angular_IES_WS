@@ -5,6 +5,8 @@
         <span style="float: right">
           <i class="fa fa-clipboard" aria-hidden="true" style="font-size: 15px; cursor:pointer" (click)="copiar()"></i>&nbsp;&nbsp;
           <i class="fa fa-download" *ngIf="tipoLista!='array'" aria-hidden="true" style="font-size: 15px; cursor:pointer"  (click)="descargar()"></i>&nbsp;&nbsp;&nbsp;
+          <input type="hidden"  [(ngModel)] ="urlzip">
+          <a #descargarh5 href="{{urlzip}}" download="{{servicioWeb.codigo}}"></a>
         </span>
       </span>
     </div>

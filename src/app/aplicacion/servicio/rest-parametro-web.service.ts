@@ -19,6 +19,7 @@ export class RestParametroWebService {
 
   baseUrl = environment.baseUrl + "ws_parametroservicio";
   contexto = environment.baseUrl + "";
+  urlZip="";
 
   constructor(private http: HttpClient) {
 
@@ -155,15 +156,16 @@ export class RestParametroWebService {
 
 
   obtenerFichero(download_endpoint: String) {
-    console.log(`${this.contexto}${download_endpoint}`)
-    let x = "http://172.26.3.3:8080/integrador-rest/recursos/json-java/261/ws-261.zip";
-    const options = {
+    //console.log(`${this.contexto}${download_endpoint}`)
+    let x = `${this.contexto}${download_endpoint}`;
+    /*const options = {
       headers: new HttpHeaders({
         "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
         "responseType": "blob"
       })
-    }
-    return this.http.get<Response>(x, options);
+    }*/
+    this.urlZip=x;
+    //return this.http.get<Response>(x, options);
 
   }
 
@@ -229,6 +231,10 @@ export class RestParametroWebService {
 
   public getInfoData() {
     return this.infoData;
+  }
+
+  public getUrlZip() {
+    return this.urlZip;
   }
 
 

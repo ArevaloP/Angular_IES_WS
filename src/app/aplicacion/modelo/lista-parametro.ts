@@ -7,4 +7,5 @@ export class ListaParametro
     public usuarioRealiza: String;
     public ip: String;
     public registradoPor: String;
+    public asociado: String;
 }

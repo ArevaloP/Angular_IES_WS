@@ -95,6 +95,11 @@ export class LisParametroArrayComponent implements OnInit
         });
 
         $('td:eq(5)', row).unbind('click');
+        
+        if(dataRow.asociado!="1"){
+          $('td:eq(5)', row).html(this.const.ICONO_ELIMINAR_ROJO);
+        }
+
         $('td:eq(5)', row).bind('click', () => {
           self.irEliminar(this.listaParametros[index]);
         });
