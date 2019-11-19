@@ -177,8 +177,9 @@ export class LisEquivalenciaComponent implements OnInit
   
 
   public irEquivalencia() {
-
+    //alert("irEquivalencia");
     let entidadEquivalencia:AtributoEquivalencia=new AtributoEquivalencia();
+
     this.alerta.agregarEquivalenciaXlsVentana(
       entidadEquivalencia,
       () => this.recargarListado()

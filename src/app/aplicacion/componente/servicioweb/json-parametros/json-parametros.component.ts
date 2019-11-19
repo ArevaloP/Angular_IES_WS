@@ -89,9 +89,6 @@ export class JsonParametrosComponent implements OnInit {
          this.descargarh5.nativeElement.click();
     }, 500);
 
-
-   
-
   }
 
 

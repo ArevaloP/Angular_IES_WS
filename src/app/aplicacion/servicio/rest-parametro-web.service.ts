@@ -156,17 +156,8 @@ export class RestParametroWebService {
 
 
   obtenerFichero(download_endpoint: String) {
-    //console.log(`${this.contexto}${download_endpoint}`)
     let x = `${this.contexto}${download_endpoint}`;
-    /*const options = {
-      headers: new HttpHeaders({
-        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
-        "responseType": "blob"
-      })
-    }*/
     this.urlZip=x;
-    //return this.http.get<Response>(x, options);
-
   }
 
   recargarParametro( parametroServicio: ParametroServicio )
