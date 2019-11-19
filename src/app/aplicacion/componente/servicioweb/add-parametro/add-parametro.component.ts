@@ -139,6 +139,8 @@ export class AddParametroComponent implements OnInit {
     //alert("listarEquivalenciaDatos");
     this.restEquivalencia.listarEntidades().subscribe(
       data => {
+        //alert("--");
+        console.log("-----", data);
         this.listadoEquivalencia = data;
       },
       error => {
