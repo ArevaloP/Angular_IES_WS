@@ -42,6 +42,7 @@ export class AddCompuestoComponent implements OnInit
     this.detalleEquivalenciaCargar.valorEquivalente = this.detalleEquivalencia.valorEquivalente;
     this.detalleEquivalenciaCargar.esAutomatico = "0";
     this.detalleEquivalenciaCargar.esCompuesto = "1";
+    this.detalleEquivalenciaCargar.accion = "A";
     this.listaProcesar.push(this.detalleEquivalenciaCargar);
     this.detalleEquivalencia.nombreEquivalencia = null;
     this.detalleEquivalencia.valorEquivalente = null;
@@ -86,6 +87,10 @@ export class AddCompuestoComponent implements OnInit
   {
     this.entidadEquivalencia.listaDetallesCompuestos = this.listaProcesar;
     this.detalleEquivalenciaCargar = this.listaProcesar[ indice ];
+
+    if ( !this.detalleEquivalenciaCargar.accion )
+      this.detalleEquivalenciaCargar.accion = "M";
+    
     this.listaCompuestos = this.detalleEquivalenciaCargar.listadoCompuesto;
     this.inicialSelected = 0 === indice;
   }

@@ -116,6 +116,7 @@ export class AddDetalleeqComponent implements OnInit
       this.detalleEquivalenciaCargar.esAutomatico = "1";
       this.detalleEquivalenciaCargar.indice = objeto.identificador;
       this.detalleEquivalenciaCargar.esCompuesto = "0";
+      this.detalleEquivalenciaCargar.accion = "A";
       this.listaProcesar.push(this.detalleEquivalenciaCargar);
     });
     
@@ -142,6 +143,7 @@ export class AddDetalleeqComponent implements OnInit
       this.detalleEquivalencia.valorOrigen = null;
       this.detalleEquivalencia.nombreEquivalencia = null;
       this.detalleEquivalencia.valorEquivalente = null;
+      this.detalleEquivalenciaCargar.accion = "A";
       this.entidadEquivalencia.listaDetalles = this.listaProcesar;
     }
   }

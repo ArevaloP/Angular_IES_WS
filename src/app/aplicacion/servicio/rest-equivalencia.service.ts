@@ -22,6 +22,16 @@ export class RestEquivalenciaService {
       }
     });
   }
+
+  consultarDetallesEntidad( entidadEquivalencia: AtributoEquivalencia )
+  {
+    return this.http.post<AtributoEquivalencia>(`${this.baseUrl}/consultarDetalles`, entidadEquivalencia, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
   
   consultarEntidad(id) {
     return this.http.get<AtributoEquivalencia>(`${this.baseUrl}/consultar/${id || -1}`, {

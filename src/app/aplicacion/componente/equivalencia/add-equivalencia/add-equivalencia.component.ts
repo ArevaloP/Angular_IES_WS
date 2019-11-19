@@ -29,6 +29,7 @@ export class AddEquivalenciaComponent implements OnInit
   public detalleEquivalencia: DetalleEquivalencia;
   public estructuraEntidad: EstructuraEntidad;
   public reRender: Boolean = true;
+  public mostrar: Boolean = false;
 
   // @ViewChild('detalleEq', { static: false }) public detalleComponent: AddDetalleeqComponent;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
@@ -49,10 +50,12 @@ export class AddEquivalenciaComponent implements OnInit
     if (this.restEquivalencia.getEntidadEquivalencia() != null)
     {
       this.entidadEquivalencia = this.restEquivalencia.getEntidadEquivalencia();
+      this.cargarDetalles( this.entidadEquivalencia );
       this.isModificar = true;
     } else {
       this.estructuraEntidad = new EstructuraEntidad();
       this.isModificar = false;
+      this.mostrar = true;
       // this.entidadEquivalencia.entidad = "GENERAL.TIPODOCUMENTOGENERAL";
     }
     
@@ -69,6 +72,22 @@ export class AddEquivalenciaComponent implements OnInit
       nOrigen: [this.entidadEquivalencia.nOrigen],
       vOrigen: [this.entidadEquivalencia.vOrigen]
     });
+  }
+
+  public cargarDetalles( entidadEquivalencia )
+  {
+    this.restEquivalencia.consultarDetallesEntidad( entidadEquivalencia ).subscribe(
+      data => {
+        this.entidadEquivalencia = data;
+        this.mostrar = true;
+      },
+      error => {
+        this.alerta.mostrarError(error);
+        setTimeout( () => { 
+          this.router.navigate(['aplicacion/equivalencia/lis-equivalencia']);
+        }, 3000 );
+      }
+    );
   }
 
   public irRegistar()

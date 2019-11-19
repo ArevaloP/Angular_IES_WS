@@ -18,4 +18,5 @@ export class DetalleEquivalencia
     public indice: String;
     public esCompuesto: String;
     public listadoCompuesto: AtributoCompuesto[];
+    public accion: String;
 }
