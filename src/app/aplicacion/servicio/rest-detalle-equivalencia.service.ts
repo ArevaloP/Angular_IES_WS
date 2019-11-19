@@ -14,8 +14,10 @@ export class RestDetalleEquivalenciaService
 
   detalleEquivalencia: DetalleEquivalencia;
   baseUrl = environment.baseUrl + "ws_detalleequivalencia";
+  contexto = environment.baseUrl + "";
   respuesta:boolean;
   infoData:any;
+  urlFichero="";
 
 
   constructor(private http: HttpClient) { }
@@ -40,6 +42,21 @@ export class RestDetalleEquivalenciaService
     });
   }
 
+
+  descargarPlatillaEquivalencia( atributoEquiv:AtributoEquivalencia ) {
+    return this.http.post<any>(`${this.baseUrl}/plantilla`, atributoEquiv, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    });
+  }
+
+
+  obtenerFichero(download_endpoint: String) {
+    let x = `${this.contexto}${download_endpoint}`;
+    return x;
+  }
 
 
 

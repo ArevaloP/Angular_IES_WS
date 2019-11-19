@@ -232,6 +232,7 @@ export class VentanaModalComponent implements OnInit {
 
   public async accionRegistrarEquivalencia(callback) {
 
+    //alert("registrar .....");
     if (this.xlsEquiva.nombreAtributo) {
       this.nombreEquivalencia = false;
       this.xlsEquiva.procesarArchivo(callback);

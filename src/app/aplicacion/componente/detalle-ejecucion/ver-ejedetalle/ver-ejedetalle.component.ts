@@ -34,12 +34,12 @@ export class VerEjedetalleComponent implements OnInit {
 
   consultarUsuario() {
 
+    //alert("consultarUsuario");
     this.restDetalleEjecucion.consultarUsuario(this.detalleVO.idUsuario).subscribe(
       data => {
         this.detalleVO.usuarioImagen = data.imagen;
         console.log("this.detalleVO.parametros",this.detalleVO.parametros);
-        this.parametroJson=JSON.parse(this.detalleVO.parametros); //JSON.parse(JSON.stringify(this.detalleVO.parametros));
-        this.consultarJsonEjecucion();
+        this.consultarDetalle();
       },
       error => {
         console.log("Ocurrio un error al consultar el usuario ", error);
@@ -48,6 +48,26 @@ export class VerEjedetalleComponent implements OnInit {
 
 
   }
+
+
+
+  consultarDetalle(){
+
+    this.restDetalleEjecucion.consultarDetalle(this.detalleVO.idEjecucion).subscribe(
+      data => {
+        this.parametroJson=JSON.parse(data[0].parametros); //JSON.parse(JSON.stringify(this.detalleVO.parametros));
+        data[0].usuarioImagen =this.detalleVO.usuarioImagen;
+        this.detalleVO=data[0];
+        this.consultarJsonEjecucion();
+      },
+      error => {
+        console.log("Ocurrio un error al consultar el usuario ", error);
+      }
+    )
+
+  }
+
+
 
 
   consultarJsonEjecucion() {

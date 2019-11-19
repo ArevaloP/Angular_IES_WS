@@ -147,6 +147,17 @@ export class RestUserWebService {
 
 
 
+  consultarDetalle(id): any {
+    return this.http.get(`${this.baseUrl}/consultarDetalle/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }
+    })
+  }
+
+
+
 
   public setUserWebService(userWs: UserWebService) {
     this.userWebService = userWs;

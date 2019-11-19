@@ -66,6 +66,40 @@
                     <tab heading="Atributos compuestos">
                         <app-add-compuesto [entidadEquivalencia]="entidadEquivalencia"></app-add-compuesto>
                     </tab>
+
+                    <tab heading="Plantilla de datos" *ngIf="isModificar">
+                            
+                        <input type="hidden" formControlName="descargar"  [(ngModel)] ="urlzip">
+                            <a #descargarh5 href="{{urlFichero}}" download="xyz"></a>
+                            
+                            <div class="alert alert-success" role="alert">
+                                <div class="row">
+                                    <div class="col-2  text-center">
+                                        <i class="fa fa-upload fa-3x" aria-hidden="true" style="cursor:pointer" (click)="irEquivalencia()"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        En este botón podrá cargar un archivo con la estructura de las equivalencias (simples o compuestas), el
+                                        proceso eliminara los registros anteriores y dejará como definitivos los que encuentre en la plantilla que
+                                        cargue al sistema.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info" role="alert">
+                                <div class="row">
+                                    <div class="col-2  text-center">
+                                        <i class="fa fa-download fa-3x" aria-hidden="true" style="cursor:pointer" (click)="descargar()"></i>
+                                    </div>
+                                    <div class="col-10">
+                                        En este botón podrá descargar los datos registrados en el sistema con el objetivo de editarlos de acuerdo a
+                                        las características particulares. De tal manera que pueda subir esta plantilla nuevamente con las
+                                        modificaciones requeridas.
+                                    </div>
+                                </div>
+                            </div>
+
+                    </tab>
+
                 </tabset>
                 <ng-template #elseBlock>
                     <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
