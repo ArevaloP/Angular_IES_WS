@@ -37,7 +37,8 @@ export class XlsEquivalenciaComponent implements OnInit {
     this.atributoEquivalencia = atributoEquivalencia;
     this.atributoEquivalencia.registradoPor = this.usuarioVO.oid;
     this.atributoEquivalencia.usuarioRealiza = this.usuarioVO.name;
-
+    //alert(this.atributoEquivalencia.nombre);
+    this.nombreAtributo= this.atributoEquivalencia.nombre;
   }
 
 

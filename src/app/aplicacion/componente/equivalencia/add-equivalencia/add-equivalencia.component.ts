@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
+import { Component, OnInit, ViewChild, ɵConsole, ElementRef } from '@angular/core';
 import { JdbcConexion } from '../../../modelo/jdbc-conexion';
 import { RestJdbcConexionService } from '../../../servicio/rest-jdbc-conexion.service';
 import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
@@ -30,8 +30,9 @@ export class AddEquivalenciaComponent implements OnInit
   public estructuraEntidad: EstructuraEntidad;
   public reRender: Boolean = true;
   public mostrar: Boolean = false;
+  public urlFichero:String="";
 
-  // @ViewChild('detalleEq', { static: false }) public detalleComponent: AddDetalleeqComponent;
+  @ViewChild('descargarh5', { static: false }) descargarh5: ElementRef;
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
 
@@ -70,7 +71,8 @@ export class AddEquivalenciaComponent implements OnInit
       descripcion: [this.entidadEquivalencia.descripcion],
       conexion: [this.entidadEquivalencia.idConexionJdbc],
       nOrigen: [this.entidadEquivalencia.nOrigen],
-      vOrigen: [this.entidadEquivalencia.vOrigen]
+      vOrigen: [this.entidadEquivalencia.vOrigen],
+      descargar: []
     });
   }
 
@@ -280,8 +282,60 @@ export class AddEquivalenciaComponent implements OnInit
   
 
 
+  public irEquivalencia() {
+    //alert("irEquivalencia");
+    let entidadEquivalencia:AtributoEquivalencia=new AtributoEquivalencia();
+    entidadEquivalencia.id=this.entidadEquivalencia.id;
+    entidadEquivalencia.nombre =this.entidadEquivalencia.nombre;
+    this.alerta.agregarEquivalenciaXlsVentana(
+      entidadEquivalencia,
+      () => this.recargarListado()
+    );
+  }
 
 
+  public async recargarListado() {
+    console.log("Respuesta:::",this.restDetalleEq.getRespuesta());
+    if(this.restDetalleEq.getRespuesta()){
+       alert("recargar..."); 
+      //this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+      //this.router.navigate(['aplicacion/equivalencia/lis-equivalencia']));
+    }else{
+      this.alerta.mostrarError(this.restDetalleEq.getInfoData());
+    } 
+  }
+
+
+
+  descargar() {
+
+    //alert("descargar");
+    let atributo = new AtributoEquivalencia();
+    atributo.id=this.entidadEquivalencia.id;
+    this.restDetalleEq.descargarPlatillaEquivalencia(atributo).subscribe(
+      data => {
+        alert(data.data);
+        this.urlFichero= this.restDetalleEq.obtenerFichero(data.data);
+        this.downloadFile();
+      },
+      error => {
+        alert("error");
+        console.log(error);
+      }
+    )
+  }
+
+
+
+   
+  
+
+
+  downloadFile() {
+    setTimeout(()=>{
+         this.descargarh5.nativeElement.click();
+    }, 500);
+  }
 
 
 

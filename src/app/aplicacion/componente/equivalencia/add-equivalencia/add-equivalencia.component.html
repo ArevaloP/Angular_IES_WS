@@ -66,6 +66,20 @@
                     <tab heading="Atributos compuestos">
                         <app-add-compuesto [entidadEquivalencia]="entidadEquivalencia"></app-add-compuesto>
                     </tab>
+
+                    <tab heading="Plantilla" *ngIf="isModificar">{{isModificar}}
+                            <input type="hidden" formControlName="descargar"  [(ngModel)] ="urlzip">
+                            <a #descargarh5 href="{{urlFichero}}" download="xyz"></a>
+                            
+                            
+                            <button (click)="irEquivalencia()">Subir</button><br>
+
+                            
+                            <button (click)="descargar()">Descargar</button>
+
+
+                    </tab>
+
                 </tabset>
                 <ng-template #elseBlock>
                     <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
