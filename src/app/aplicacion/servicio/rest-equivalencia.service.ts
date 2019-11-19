@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AtributoEquivalencia } from '../modelo/atributo-equivalencia';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DetalleEquivalencia } from '../modelo/detalle-equivalencia';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,19 @@ export class RestEquivalenciaService {
     }
 
     return this.http.delete(`${this.baseUrl}/eliminar`, options)
+  }
+
+  eliminarDetalleEquivalencia( detalleEquivalencia: DetalleEquivalencia )
+  {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + sessionStorage.getItem("auth.tk.local"),
+      }),
+      body: detalleEquivalencia
+    }
+
+    return this.http.delete(`${this.baseUrl}/eliminarDetalle`, options)
   }
 
   public setEntidadEquivalencia(entidadEquivalencia: AtributoEquivalencia)

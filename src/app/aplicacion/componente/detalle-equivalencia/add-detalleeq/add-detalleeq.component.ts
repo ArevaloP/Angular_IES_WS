@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DetalleEquivalencia } from '../../../modelo/detalle-equivalencia';
 import { EstructuraEntidad } from '../../../modelo/estructura-entidad';
 import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
+import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
+import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 
 @Component({
   selector: 'app-add-detalleeq',
@@ -13,6 +15,7 @@ export class AddDetalleeqComponent implements OnInit
 {
   @Input() estructuraEntidad: EstructuraEntidad;
   @Input() entidadEquivalencia: AtributoEquivalencia;
+  @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
 
   public fGeneral: FormGroup;
   public detalleEquivalencia: DetalleEquivalencia = new DetalleEquivalencia();
@@ -24,9 +27,11 @@ export class AddDetalleeqComponent implements OnInit
   public detalleEquivalenciaCargar: DetalleEquivalencia;
   public cntNombre: String;
   public cntValor: String;
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
   
   constructor(
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public restEquivalencia: RestEquivalenciaService
   ) { }
 
   ngOnInit()
@@ -150,7 +155,15 @@ export class AddDetalleeqComponent implements OnInit
 
   public suprimirEquivalencia( indice )
   {
-    this.listaProcesar.splice( indice, 1 );
+    // this.listaProcesar[indice].registradoPor = this.usuarioVO.oid;
+    this.restEquivalencia.eliminarDetalleEquivalencia( this.listaProcesar[indice] ).subscribe(
+      data => {
+        this.listaProcesar.splice( indice, 1 );
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
   }
 
   public getDatoDetalle( str )

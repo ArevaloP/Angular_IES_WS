@@ -3,6 +3,7 @@ import { DetalleEquivalencia } from '../../../modelo/detalle-equivalencia';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { AtributoCompuesto } from '../../../modelo/atributo-compuesto';
 import { AtributoEquivalencia } from '../../../modelo/atributo-equivalencia';
+import { RestEquivalenciaService } from '../../../servicio/rest-equivalencia.service';
 
 @Component({
   selector: 'app-add-compuesto',
@@ -22,12 +23,15 @@ export class AddCompuestoComponent implements OnInit
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   
-  constructor() { }
+  constructor(
+    public restEquivalencia: RestEquivalenciaService
+  ) { }
 
   ngOnInit()
   {
     this.detalleEquivalencia = new DetalleEquivalencia();
     this.listaProcesar = this.entidadEquivalencia.listaDetallesCompuestos;
+    // console.log( "listaProcesar", this.listaProcesar );
   }
 
   public addDestino()
@@ -80,7 +84,14 @@ export class AddCompuestoComponent implements OnInit
 
   public suprimirDestino( indice )
   {
-    this.listaProcesar.splice( indice, 1 );
+    this.restEquivalencia.eliminarDetalleEquivalencia( this.listaProcesar[indice] ).subscribe(
+      data => {
+        this.listaProcesar.splice( indice, 1 );
+      },
+      error => {
+        this.alerta.mostrarError(error);
+      }
+    );
   }
 
   public selDestino( indice )
