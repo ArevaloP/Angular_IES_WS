@@ -297,9 +297,8 @@ export class AddEquivalenciaComponent implements OnInit
   public async recargarListado() {
     console.log("Respuesta:::",this.restDetalleEq.getRespuesta());
     if(this.restDetalleEq.getRespuesta()){
-       alert("recargar..."); 
-      //this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
-      //this.router.navigate(['aplicacion/equivalencia/lis-equivalencia']));
+      this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
+      this.router.navigate(['aplicacion/equivalencia/add-equivalencia']));
     }else{
       this.alerta.mostrarError(this.restDetalleEq.getInfoData());
     } 
@@ -314,7 +313,6 @@ export class AddEquivalenciaComponent implements OnInit
     atributo.id=this.entidadEquivalencia.id;
     this.restDetalleEq.descargarPlatillaEquivalencia(atributo).subscribe(
       data => {
-        alert(data.data);
         this.urlFichero= this.restDetalleEq.obtenerFichero(data.data);
         this.downloadFile();
       },
