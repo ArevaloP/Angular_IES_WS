@@ -155,7 +155,7 @@ export class AddDetalleeqComponent implements OnInit
 
   public suprimirEquivalencia( indice )
   {
-    // this.listaProcesar[indice].registradoPor = this.usuarioVO.oid;
+    this.listaProcesar[indice].registradoPor = this.usuarioVO.oid;
     this.restEquivalencia.eliminarDetalleEquivalencia( this.listaProcesar[indice] ).subscribe(
       data => {
         this.listaProcesar.splice( indice, 1 );

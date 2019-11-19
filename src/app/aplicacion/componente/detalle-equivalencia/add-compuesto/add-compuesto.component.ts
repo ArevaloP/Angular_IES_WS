@@ -20,6 +20,8 @@ export class AddCompuestoComponent implements OnInit
   public atributoCompuesto: AtributoCompuesto;
   public listaCompuestos: AtributoCompuesto[];
   public inicialSelected: Boolean;
+  public usuarioVO: any = JSON.parse(sessionStorage.getItem("user.app.local"));
+  public idActual: any;
 
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   
@@ -84,9 +86,17 @@ export class AddCompuestoComponent implements OnInit
 
   public suprimirDestino( indice )
   {
+    let id = this.listaProcesar[indice].id;
+    this.listaProcesar[indice].registradoPor = this.usuarioVO.oid;
     this.restEquivalencia.eliminarDetalleEquivalencia( this.listaProcesar[indice] ).subscribe(
       data => {
         this.listaProcesar.splice( indice, 1 );
+        
+        if ( id == this.idActual )
+        {
+          this.inicialSelected = false;
+          this.listaCompuestos = null;
+        }
       },
       error => {
         this.alerta.mostrarError(error);
@@ -98,6 +108,7 @@ export class AddCompuestoComponent implements OnInit
   {
     this.entidadEquivalencia.listaDetallesCompuestos = this.listaProcesar;
     this.detalleEquivalenciaCargar = this.listaProcesar[ indice ];
+    this.idActual = this.detalleEquivalenciaCargar.id;
 
     if ( !this.detalleEquivalenciaCargar.accion )
       this.detalleEquivalenciaCargar.accion = "M";
