@@ -15,7 +15,7 @@
 <pre class="brush: json language-json m-0" #myDiv>
 <code class="language-json"><span class="token punctuation">{{'{'}}</span>
 <ng-container *ngTemplateOutlet="tipoLista=='array'?arrayp:inicio"></ng-container>
-<span *ngFor="let param of listaParametros; last as isLast; let i=index;"><ng-container [ngTemplateOutlet]="null == param.listaAtributoCompuesto? ( (param.tipoDato=='ARRAY'||param.tipoDato=='OBJETO')?arrayPrincial:simple):compuesto" [ngTemplateOutletContext]="{param:param, isLast:isLast, espacios:'    '}"></ng-container><span *ngIf="null != param.listaAtributoCompuesto || (param.tipoDato=='ARRAY'||param.tipoDato=='OBJETO')"></span></span><span class="token punctuation" >{{ tipoLista!='array'?'  }':']' }}</span><span *ngIf="servicioWeb.protocolo=='SOAP' && tipoLista!='array' else vacio"><span class="token punctuation">,</span><ng-container *ngTemplateOutlet="tipoIngreso"></ng-container></span><span *ngIf="tipoLista!='array' else puntos"></span>
+<span *ngFor="let param of listaParametros; last as isLast; let i=index;"><ng-container [ngTemplateOutlet]="null == param.listaAtributoCompuesto? ( (param.tipoDato=='ARRAY'||param.tipoDato=='OBJETO')?arrayPrincial:simple):compuesto" [ngTemplateOutletContext]="{param:param, isLast:isLast, espacios:'    '}"></ng-container><span *ngIf="null != param.listaAtributoCompuesto || (param.tipoDato=='ARRAY'||param.tipoDato=='OBJETO')"></span></span><span class="token punctuation" >{{ tipoLista!='array'?'\n  }':']' }}</span><span *ngIf="servicioWeb.protocolo=='SOAP' && tipoLista!='array' else vacio"><span class="token punctuation">,</span><br><ng-container *ngTemplateOutlet="tipoIngreso"></ng-container></span><span *ngIf="tipoLista!='array' else puntos"></span>
 <span class="token punctuation"> {{'}'}}</span>
 </code>
 </pre>
@@ -31,16 +31,15 @@
 </div>
 
 
-<ng-template #inicio>  <span class="token property">"tipoRetorno"</span><span class="token operator">:</span> <span class="token string">"DataObject"</span><span class="token punctuation">,</span>
-  <span class="token property">"parametros"</span><span class="token operator">:</span> <span class="token punctuation">{{'{'}}</span></ng-template>
+<ng-template #inicio>  <span class="token property">"tipoRetorno"</span><span class="token operator">:</span> <span class="token string">"DataObject"</span><span class="token punctuation">,<br></span>  <span class="token property">"parametros"</span><span class="token operator">:</span> <span class="token punctuation">{{'{'}}</span></ng-template>
 
 <ng-template #arrayp><span class="token operator">...</span>
   <span class="token property">"{{parametro.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{parametro.tipoDato ==='OBJETO'?'{':'[' }}</span></ng-template>
 
   
-<ng-template #arrayPrincial let-param="param" let-isLast="isLast" let-espacios="espacios">{{espacios}}<span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{param.tipoDato=='OBJETO'?'{':'[{' }}</span>
+<ng-template #arrayPrincial let-param="param" let-isLast="isLast" let-espacios="espacios">{{espacios}}<span class="token property">"{{param.aliasColumna}}"</span><span class="token operator">:</span> <span class="token punctuation">{{param.tipoDato=='OBJETO'?'{\n':'[{\n' }}</span>
 <span *ngFor="let arrayLst of param.listaArray;let k=index; last as isLast2;"><span *ngIf="k==0 && (arrayLst.tipoDato!='ARRAY'||arrayLst.tipoDato!='OBJETO'  )"></span><ng-container [ngTemplateOutlet]="null == arrayLst.listaAtributoCompuesto?((arrayLst.tipoDato =='ARRAY'||arrayLst.tipoDato =='OBJETO' )?arrayPrincial:simpleInterno):compuestoInterno" [ngTemplateOutletContext]="{param:arrayLst, isLast:isLast2, espacios:('    '+espacios)}"></ng-container><span *ngIf="null != arrayLst.listaAtributoCompuesto;else espacio"></span></span>
-<span class="token punctuation">{{espacios}}{{param.tipoDato=='OBJETO'?'}':'}]' }}</span><span *ngIf="!isLast"><span class="token punctuation">,</span></span>
+<span class="token punctuation"><br>{{espacios}}{{param.tipoDato=='OBJETO'?'}':'}]' }}</span><span *ngIf="!isLast"><span class="token punctuation">,<br></span></span>
 </ng-template>
 
 
@@ -63,13 +62,13 @@
 
 
 <ng-template #tipoIngreso>
-  <span class="token property">"tipoIngreso"</span><span class="token operator">:{{'{'}}</span> 
-  <span class="token property">    "grupo"</span><span class="token operator">:</span><span class="token string">"false"</span><span class="token punctuation">,</span>
-  <span class="token property">    "origen"</span><span class="token operator">:</span><span class="token string">"APLICACION"</span><span class="token punctuation">,</span>
-  <span class="token property">    "forzar"</span><span class="token operator">:</span><span class="token string">"true"</span><span class="token punctuation">,</span>
-  <span class="token property">    "ingreso"</span><span class="token operator">:</span><span class="token string">"PROCESO"</span><span class="token punctuation">,</span>
-  <span class="token property">    "id"</span><span class="token operator">:</span><span class="token string">"100000"</span><span class="token punctuation">,</span>
-  <span class="token property">    "mostrarPeticion"</span><span class="token operator">:</span><span class="token string">"true"</span>
+  <span class="token property">"tipoIngreso"</span><span class="token operator">:{{' {\n'}}</span> 
+  <span class="token property">&nbsp;&nbsp;"grupo"</span><span class="token operator">:</span><span class="token string">"false"</span><span class="token punctuation">,<br></span>
+  <span class="token property">&nbsp;&nbsp;"origen"</span><span class="token operator">:</span><span class="token string">"APLICACION"</span><span class="token punctuation">,<br></span>
+  <span class="token property">&nbsp;&nbsp;"forzar"</span><span class="token operator">:</span><span class="token string">"true"</span><span class="token punctuation">,<br></span>
+  <span class="token property">&nbsp;&nbsp;"ingreso"</span><span class="token operator">:</span><span class="token string">"PROCESO"</span><span class="token punctuation">,<br></span>
+  <span class="token property">&nbsp;&nbsp;"id"</span><span class="token operator">:</span><span class="token string">"100000"</span><span class="token punctuation">,<br></span>
+  <span class="token property">&nbsp;&nbsp;"mostrarPeticion"</span><span class="token operator">:</span><span class="token string">"true"<br></span>
   <span class="token punctuation">{{'}'}}</span>
 </ng-template>
 
