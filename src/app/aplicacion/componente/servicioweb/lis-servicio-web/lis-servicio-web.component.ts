@@ -188,8 +188,13 @@ export class LisServicioWebComponent implements OnInit {
 
   public duplicar(servicioWeb)
   {
+    
     servicioWeb.registradoPor = this.usuarioVO.oid;
     servicioWeb.usuarioRealiza = this.usuarioVO.name;
+
+    //servicioWeb.registradoPor = 'MIGRA_FORMACION'
+    //servicioWeb.usuarioRealiza = 'MIGRA_FORMACION'
+
     this.restServicio.duplicarServicioWeb(servicioWeb).subscribe(
       data => {
         this.router.navigateByUrl('aplicacion', { skipLocationChange: true }).then(() =>
