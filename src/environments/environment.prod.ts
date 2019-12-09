@@ -28,7 +28,7 @@
 
 export const environment = {
   production: true,
-  grupo:'integrador-panamericana',
+  grupo:'integrador-panamericana-produccion',
   baseUrl: 'https://api-academusoft-web.unipanamericana.edu.co/integrador-rest/servicios/'  ,
   configuracionMsal :{
     clientID: '0b55d466-c1d0-45d7-8732-a3c2f18a3d58',
