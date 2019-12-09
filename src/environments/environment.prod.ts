@@ -3,7 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-export const environment = {
+/*export const environment = {
   production: true,
   grupo:'integrador-panamericana',
   baseUrl: 'https://siafpruebas.unipanamericana.edu.co:8190/integrador-rest/servicios/'  ,
@@ -21,6 +21,29 @@ export const environment = {
     correlationId: '1234',
     piiLoggingEnabled: true,
     unprotectedResources: ["https://siafpruebas.unipanamericana.edu.co:8190/integrador-rest/servicios/"]
+  },
+  optiosMsal:[
+  ]
+};*/
+
+export const environment = {
+  production: true,
+  grupo:'integrador-panamericana',
+  baseUrl: 'https://api-academusoft-web.unipanamericana.edu.co/integrador-rest/servicios/'  ,
+  configuracionMsal :{
+    clientID: '0b55d466-c1d0-45d7-8732-a3c2f18a3d58',
+    authority: "https://login.microsoftonline.com/4bf38ea2-832d-4552-b508-421570da43ff/",
+    validateAuthority: true,
+    redirectUri: "https://api-academusoft-web.unipanamericana.edu.co/integrador-web/load",
+    cacheLocation: "sessionStorage",
+    postLogoutRedirectUri: "https://api-academusoft-web.unipanamericana.edu.co/integrador-web",
+    navigateToLoginRequestUrl: false,
+    popUp: false,
+    consentScopes: [
+    ],
+    correlationId: '1234',
+    piiLoggingEnabled: true,
+    unprotectedResources: ["https://api-academusoft-web.unipanamericana.edu.co/integrador-rest/servicios/"]
   },
   optiosMsal:[
   ]
