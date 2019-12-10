@@ -39,6 +39,8 @@ export class VentanaModalComponent implements OnInit {
   callbackParam: any;
   ventana: VentanaAlerta = new VentanaAlerta();
 
+  public mostrarBotones: Boolean;
+
   constructor(
     public router: Router,
     public restError: RestErrorService
@@ -47,6 +49,7 @@ export class VentanaModalComponent implements OnInit {
 
 
   ngOnInit() {
+    this.mostrarBotones = true;
   }
 
 
@@ -234,9 +237,10 @@ export class VentanaModalComponent implements OnInit {
 
     //alert("registrar .....");
     if (this.xlsEquiva.nombreAtributo) {
+      this.mostrarBotones = false;
       this.nombreEquivalencia = false;
-      this.xlsEquiva.procesarArchivo(callback);
-      this.equivalenciaXls.hide();
+      this.xlsEquiva.procesarArchivo(callback, this.equivalenciaXls);
+      // this.equivalenciaXls.hide();
     } else {
       this.nombreEquivalencia = true;
     }

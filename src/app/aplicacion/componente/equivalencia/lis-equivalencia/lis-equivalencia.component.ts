@@ -85,13 +85,13 @@ export class LisEquivalenciaComponent implements OnInit
             this.router.navigate(['aplicacion/equivalencia/add-equivalencia']);
           },
         },
-        {
+        /*{
           text: `${this.const.ICONO_AGREGARXLS}`,
           className: `${this.const.CLASE_AGREGARXLS}`,
           action: () => {
             this.irEquivalencia();
           },
-        },
+        },*/
         { "extend": 'copy', "text": 'Export', "className": `${this.const.CLASE_COPIAR}` },
         { "extend": 'excel', "text": 'Export', "className": `${this.const.CLASE_EXCEL}` }
       ],

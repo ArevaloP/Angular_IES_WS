@@ -20,7 +20,7 @@ export class XlsEquivalenciaComponent implements OnInit {
   public atributoEquivalencia: AtributoEquivalencia;
   public tipoCarga:String ="equivalencia";
   public nombreAtributo:String;
-
+  public mostrar: Boolean;
 
   constructor(
     public restEquivalencia: RestEquivalenciaService,
@@ -29,7 +29,7 @@ export class XlsEquivalenciaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.mostrar = true;
   }
 
 
@@ -42,22 +42,31 @@ export class XlsEquivalenciaComponent implements OnInit {
   }
 
 
-  public procesarArchivo(callback) {
+  public procesarArchivo( callback, modalDirective ) {
 
     
     if (this.parametroUpload.cambioFichero) {
       this.atributoEquivalencia.nombre=this.nombreAtributo;
       this.atributoEquivalencia.archivo = this.parametroUpload.uploadResponse.filePath;
-      console.log("this.servicioWeb", this.atributoEquivalencia);
+      this.mostrar = false;
+      // console.log("this.servicioWeb", this.atributoEquivalencia);
       this.restDetalle.cargarArchivoDetalleEquivalencia(this.atributoEquivalencia).subscribe(
         data => {
           this.restDetalle.setRespuesta(true);
           this.restDetalle.setInfoData(data);
+          
+          if ( modalDirective )
+            modalDirective.hide();
+          
           callback();
         },
         error => {
           this.restDetalle.setRespuesta(false);
           this.restDetalle.setInfoData(error);
+
+          if ( modalDirective )
+            modalDirective.hide();
+          
           callback();
         }
       )

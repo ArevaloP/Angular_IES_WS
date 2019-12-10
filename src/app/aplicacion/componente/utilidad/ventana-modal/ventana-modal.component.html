@@ -141,12 +141,12 @@
 
 
     
-  <div bsModal #equivalencia="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div bsModal #equivalencia="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static', keyboard: false}">
       <div class="modal-dialog modal-primary" role="document" style="top: 30%;">
         <div class="modal-content">
           <div class="modal-header" style="padding: 0.5rem 0.5rem;">
           <h5 class="modal-title">{{ventana.titulo}}</h5>
-            <button type="button" class="close" (click)="equivalencia.hide()" aria-label="Close">
+            <button type="button" class="close" (click)="equivalencia.hide()" aria-label="Close" *ngIf="mostrarBotones">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -154,7 +154,7 @@
           <div class="modal-body">
               <app-xls-equivalencia #xlsEquiva ></app-xls-equivalencia>
           </div>
-          <div class="modal-footer" style="padding: 0.5rem">
+          <div class="modal-footer" style="padding: 0.5rem" *ngIf="mostrarBotones">
             <button type="button" class="btn btn-secondary" (click)="equivalencia.hide()">Cerrar</button>
             <button type="button" class="btn btn-primary"   (click)="accionRegistrarEquivalencia(callbackParam)" [disabled]="nombreEquivalencia" >{{ventana.msgBotonRegistar}}</button>
           </div>
