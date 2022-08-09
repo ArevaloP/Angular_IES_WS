@@ -50,6 +50,9 @@ import { LisSubParametroComponent } from './componente/lista-parametro/lis-sub-p
 import { AddSubParametroComponent } from './componente/lista-parametro/add-sub-parametro/add-sub-parametro.component';
 import { LisParametroArrayComponent } from './componente/parametros-array/lis-parametro-array/lis-parametro-array.component';
 import { AddParametroArrayComponent } from './componente/parametros-array/add-parametro-array/add-parametro-array.component';
+import { AddIpvalidaComponent } from './componente/ipvalida/add-ipvalida/add-ipvalida.component';
+import { LisIpvalidaComponent } from './componente/ipvalida/lis-ipvalida/lis-ipvalida.component';
+import { LisAplicacionIpComponent } from './componente/aplicacionext/lis-aplicacion-ip/lis-aplicacion-ip.component';
 
 
 
@@ -98,7 +101,10 @@ import { AddParametroArrayComponent } from './componente/parametros-array/add-pa
     LisSubParametroComponent,
     AddSubParametroComponent,
     LisParametroArrayComponent,
-    AddParametroArrayComponent
+    AddParametroArrayComponent,
+    AddIpvalidaComponent,
+    LisIpvalidaComponent,
+    LisAplicacionIpComponent
 
   ],
   imports: [

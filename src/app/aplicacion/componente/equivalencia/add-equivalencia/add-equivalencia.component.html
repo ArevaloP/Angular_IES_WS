@@ -70,7 +70,7 @@
                     <tab heading="Plantilla de datos" *ngIf="isModificar">
                             
                         <input type="hidden" formControlName="descargar"  [(ngModel)] ="urlzip">
-                            <a #descargarh5 href="{{urlFichero}}" download="xyz"></a>
+                            <a #descargarh5 href="{{urlFichero}}" download="{{entidadEquivalencia.nombre}}"></a>
                             
                             <div class="alert alert-success" role="alert">
                                 <div class="row">

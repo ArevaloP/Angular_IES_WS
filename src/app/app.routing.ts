@@ -52,7 +52,8 @@ export const routes: Routes = [
   {
     path: 'aplicacion',
     canActivate: [MsalGuard],
-    redirectTo: 'aplicacion/lis-appexterna',
+    redirectTo: 'aplicacion/lis-appexterna', //global
+    //redirectTo: 'aplicacion/equivalencia/lis-equivalencia', //1func
     pathMatch: "full",
     data: {
       title: 'Aplicaciones'
@@ -145,6 +146,16 @@ export const routes: Routes = [
   },
 
   {
+    path: 'aplicacion/ip-valida',
+    canActivate: [MsalGuard],
+    redirectTo: 'aplicacion/ip-valida/lis-ip-valida',
+    pathMatch: "full",
+    data: {
+      title: 'Aplicación'
+    }
+  },
+
+  {
     path: 'aplicacion/grupollamado',
     canActivate: [MsalGuard],
     redirectTo: 'aplicacion/grupollamado/lis-grupollamado',
@@ -184,6 +195,7 @@ export const routes: Routes = [
       title: ''
     },
     children: [
+
 
       {
         path: 'dashboard',
@@ -233,6 +245,11 @@ export const routes: Routes = [
       },
       {
         path: 'aplicacion/parametros-array',
+        canActivate: [MsalGuard],
+        loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
+      },
+      {
+        path: 'aplicacion/ip-valida',
         canActivate: [MsalGuard],
         loadChildren: () => import('./aplicacion/aplicacion.module').then(m => m.AplicacionModule)
       },

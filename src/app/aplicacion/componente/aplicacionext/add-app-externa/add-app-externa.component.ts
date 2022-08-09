@@ -8,6 +8,8 @@ import { RestUserWebService } from '../../../servicio/rest-user-web.service';
 import { VentanaModalComponent } from '../../utilidad/ventana-modal/ventana-modal.component';
 import { LisAplicacionServicioComponent } from '../lis-aplicacion-servicio/lis-aplicacion-servicio.component';
 import { LisAplicacionUsuarioComponent } from '../lis-aplicacion-usuario/lis-aplicacion-usuario.component';
+import { LisAplicacionIpComponent } from '../lis-aplicacion-ip/lis-aplicacion-ip.component';
+import { RestIpValidaService } from '../../../servicio/rest-ip-valida.service';
 
 @Component({
   selector: 'app-add-app-externa',
@@ -25,7 +27,7 @@ export class AddAppExternaComponent implements OnInit {
   @ViewChild('alerta', { static: false }) public alerta: VentanaModalComponent;
   @ViewChild('lstServicio', { static: false }) public lstServicio: LisAplicacionServicioComponent;
   @ViewChild('lstUsuario', { static: false }) public lstUsuario: LisAplicacionUsuarioComponent;
-
+  @ViewChild('lstIpValida', { static: false }) public lstIpValida: LisAplicacionIpComponent;
  
   
   constructor(
@@ -33,6 +35,7 @@ export class AddAppExternaComponent implements OnInit {
     public restAplicacion: RestAplicacionService,
     public restServicio: RestServicioWebService,
     public restUsuario: RestUserWebService,
+    public restIpValida: RestIpValidaService,
     public router: Router
   ) {
 
@@ -53,6 +56,7 @@ export class AddAppExternaComponent implements OnInit {
 
     this.cargarListaServiciosWeb();
     this.cargarListaUsuarioAplicacion();
+    this.cargarListaAplicacionIp();
 
   }
 
@@ -152,6 +156,19 @@ export class AddAppExternaComponent implements OnInit {
     );
   }
 
+
+
+  public cargarListaAplicacionIp() {
+    this.restIpValida.listarIpValidaAplicacion(this.aplicacionExterna.id).subscribe(
+      data => {
+        this.aplicacionExterna.listaIpAplicacion = data;
+        this.lstIpValida.load(data);
+      },
+      error => { 
+		this.alerta.mostrarError(error);
+	  }
+    );
+  }
 
 
 

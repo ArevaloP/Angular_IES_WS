@@ -26,6 +26,7 @@
   ]
 };*/
 
+/*
 export const environment = {
   production: true,
   grupo:'integrador-panamericana-produccion',
@@ -48,6 +49,63 @@ export const environment = {
   optiosMsal:[
   ]
 };
+*/
+/*
+export const environment = {
+  production: true,
+  grupo:'integrador-panamericana-produccion',
+  baseUrl: 'https://api-academusoft-web.ucompensar.edu.co:8093/integrador-rest/servicios/'  ,
+  configuracionMsal :{
+    clientID: '0b55d466-c1d0-45d7-8732-a3c2f18a3d58',
+    authority: "https://login.microsoftonline.com/4bf38ea2-832d-4552-b508-421570da43ff/",
+    validateAuthority: true,
+    redirectUri: "https://api-academusoft-web.ucompensar.edu.co:8093/integrador-web/load",
+    cacheLocation: "sessionStorage",
+    postLogoutRedirectUri: "https://api-academusoft-web.ucompensar.edu.co:8093/integrador-web",
+    navigateToLoginRequestUrl: false,
+    popUp: false,
+    consentScopes: [
+    ],
+    correlationId: '1234',
+    piiLoggingEnabled: true,
+    unprotectedResources: ["https://api-academusoft-web.ucompensar.edu.co:8093/integrador-rest/servicios/"]
+  },
+  optiosMsal:[
+  ]
+};*/
+
+
+
+
+export const environment = {
+  production: true,
+  grupo:'integrador-panamericana-produccion',
+  baseUrl: 'https://api-academusoft-web.ucompensar.edu.co:8095/integrador-web/'  ,
+  configuracionMsal :{
+    clientID: '0b55d466-c1d0-45d7-8732-a3c2f18a3d58',
+    authority: "https://login.microsoftonline.com/4bf38ea2-832d-4552-b508-421570da43ff/",
+    validateAuthority: true,
+    redirectUri: "https://api-academusoft-web.ucompensar.edu.co:8095/integrador-web/load",
+    cacheLocation: "sessionStorage",
+    postLogoutRedirectUri: "https://api-academusoft-web.ucompensar.edu.co:8095/integrador-web/",
+    navigateToLoginRequestUrl: false,
+    popUp: false,
+    consentScopes: [
+    ],
+    correlationId: '1234',
+    piiLoggingEnabled: true,
+    unprotectedResources: ["https://api-academusoft-web.ucompensar.edu.co:8093/integrador-rest/servicios/"]
+  },
+  optiosMsal:[
+  ]
+};
+
+
+
+
+
+
+
 /*
 export const environment = {
     production: false,

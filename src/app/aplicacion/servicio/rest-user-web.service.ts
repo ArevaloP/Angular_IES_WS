@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { UserWebService } from '../modelo/user-web-service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { DetalleEjecucion } from '../modelo/detalle-ejecucion';
+import { IpValidaXAplicacion } from '../modelo/aplicacion-ipvalida';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class RestUserWebService {
       }
     });
   }
+
+
+
+
 
 
   insertarUserWebService(userWs: UserWebService) {

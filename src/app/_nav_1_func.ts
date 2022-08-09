@@ -33,25 +33,8 @@ export interface NavData {
 
 
 export const navItems: NavData[] = [
-  /*{
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    title: true,
-    name: 'Status'
-  },
-  {
-    name: 'Status',
-    url: '/aplicacion/status',
-    icon: 'fa fa-crosshairs'
-  },*/
 
+/*
   {
     title: true,
     name: 'Configuración'
@@ -72,13 +55,13 @@ export const navItems: NavData[] = [
     icon: 'fa fa-user-plus'
   },
 
-
+*/
 
   {
     title: true,
     name: 'Recursos'
   },
-
+/*
   {
     name: 'Conexiones',
     url: '/aplicacion/conexion/jdbc-conexion',
@@ -89,14 +72,14 @@ export const navItems: NavData[] = [
     name: 'Clases Java',
     url: '/aplicacion/interfaz/lis-clase',
     icon: 'fa fa-code'
-  },
+  },*/
 
   {
     name: 'Equivalencias',
     url: '/aplicacion/equivalencia/lis-equivalencia',
     icon: 'fa fa-random'
   },
-
+/*
   {
     name: 'Parámetros[ ]',
     url: '/aplicacion/parametros-array/lis-parametro-array',
@@ -114,6 +97,7 @@ export const navItems: NavData[] = [
     name: 'Integración',
     icon: 'fa fa-users'
   },
+  */
 
  /*{
     name: 'Grupo Servicio',
@@ -121,11 +105,12 @@ export const navItems: NavData[] = [
     icon: 'fa fa-users'
   },*/
 
+  /*
   {
     name: 'Ejecuciones',
     url: '/aplicacion/detalle/lis-ejecucionws',
     icon: 'fa fa-list-ol'
   },
-
+*/
 
 ];

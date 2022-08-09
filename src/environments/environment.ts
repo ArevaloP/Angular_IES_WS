@@ -7,7 +7,8 @@ export const environment = {
 
   production: false,
   grupo: 'integrador-restws-desarrollo',
-   baseUrl: 'http://172.26.3.3:8080/integrador-rest/servicios/',
+   //baseUrl: 'http://172.26.3.3:8080/integrador-rest/servicios/',
+   baseUrl: 'http://localhost:8080/integrador-rest/servicios/',
   //baseUrl: 'http://localhost:9019/integrador-rest/servicios/',
   //baseUrl: 'https://development.ciadti.co:8090/integrador-rest/servicios/'  ,
   configuracionMsal: {

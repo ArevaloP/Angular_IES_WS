@@ -1,3 +1,4 @@
+import { IpValidaXAplicacion } from './aplicacion-ipvalida';
 import { ServicioWeb } from './servicio-web';
 import { UserWebService } from './user-web-service';
 
@@ -16,6 +17,6 @@ export class AplicacionExterna {
     public checkeado:boolean;
     public listaServicioWeb:ServicioWeb[];
     public listaUsuarioAplicacion:UserWebService[];
-    
+    public listaIpAplicacion:IpValidaXAplicacion[];
 
 }
